@@ -39,10 +39,10 @@ export const schemaRegister =  Yup.object().shape({
             .length(Condition.PHONE_NUMBER.LENGTH, ErrorMessage.PHONE_NUMBER.UNDER_LENGTH_VALUE)
         
             if(Condition.PHONE_NUMBER.ALLOWED_CHARACTERS === true){
-                baseSchema = baseSchema.matches(/^[0-9.,;'"-]+$/, ErrorMessage.PHONE_NUMBER.HAVE_BANNED_CHARACTERS);
+                baseSchema = baseSchema.matches(Condition.PHONE_NUMBER.REGEX_HAVE_CHARACTER, ErrorMessage.PHONE_NUMBER.HAVE_BANNED_CHARACTERS);
             }
             else{
-                baseSchema = baseSchema.matches(/^[0-9]+$/, ErrorMessage.PHONE_NUMBER.DONT_ALLOWED_CHARACTERS);
+                baseSchema = baseSchema.matches(Condition.PHONE_NUMBER.REGEX_NO_CHARACTER, ErrorMessage.PHONE_NUMBER.DONT_ALLOWED_CHARACTERS);
             }
         
             if (Condition.PHONE_NUMBER.REQUIRED) {

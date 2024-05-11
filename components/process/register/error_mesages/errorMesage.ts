@@ -16,7 +16,9 @@ export const Condition : ICondition = {
     PHONE_NUMBER: {
         LENGTH: 10,
         ALLOWED_CHARACTERS: true,
-        REQUIRED: true,
+        REGEX_HAVE_CHARACTER: /^[0-9.,;'"-]+$/,
+        REGEX_NO_CHARACTER: /^\d+$/,
+        REQUIRED: true, 
     },
 
     EMAIL: {

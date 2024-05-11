@@ -1,5 +1,4 @@
 import { ILogin } from "@/components/models/ILogin";
-import { redirect } from 'next/navigation'
 
 export const defaultLoginValue: ILogin = {
     info: "",

@@ -14,6 +14,8 @@ export interface ICondition{
     PHONE_NUMBER: {
         LENGTH: number,
         ALLOWED_CHARACTERS: boolean,
+        REGEX_HAVE_CHARACTER: RegExp,
+        REGEX_NO_CHARACTER: RegExp,
         REQUIRED: boolean,
     },
 
