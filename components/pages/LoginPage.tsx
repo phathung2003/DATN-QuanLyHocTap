@@ -15,32 +15,34 @@ export default function Login() {
     >
       {(formik) => (
         <Form>
-          <div>
-            <label id="info_LoginLable"> Tên đăng nhập
-              <input id="info_LoginLable"
-                type="text"
-                {...formik.getFieldProps("info")}
-              />
-              {formik.touched.info && formik.errors.info && (
-                <div id="info_LoginError">{formik.errors.info}</div>
-              )}
-            </label>
+          <div id="info_Login">
+            <label id="info_LoginLable"> Tên đăng nhập</label>
+            <input
+              id="info_LoginLable"
+              type="text"
+              {...formik.getFieldProps("info")}
+            />
+            {formik.touched.info && formik.errors.info && (
+              <div id="info_LoginError">{formik.errors.info}</div>
+            )}
           </div>
 
-          <div>
-            <label id="password_LoginLable">Mật khẩu
-              <input id="password_LoginInput"
-                type="password"
-                {...formik.getFieldProps("password")}
-              />
-              {formik.touched.password && formik.errors.password && (
-                <div id="password_LoginError">{formik.errors.password}</div>
-              )}
-            </label>
+          <div id="password_Login">
+            <label id="password_LoginLable">Mật khẩu</label>
+            <input
+              id="password_LoginInput"
+              type="password"
+              {...formik.getFieldProps("password")}
+            />
+            {formik.touched.password && formik.errors.password && (
+              <div id="password_LoginError">{formik.errors.password}</div>
+            )}
           </div>
 
           {errorMessage != null && <div id="LoginError">{errorMessage}</div>}
-          <button type="submit">Submit</button>
+          <button id="submit_Login" type="submit">
+            Submit
+          </button>
         </Form>
       )}
     </Formik>
