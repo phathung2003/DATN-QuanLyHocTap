@@ -17,8 +17,7 @@ export default function registerPage() {
       {(formik) => (
         <Form>
           <div>
-            <label id="name_RegisterLable">
-              Họ và tên
+            <label id="name_RegisterLable">Họ và tên
               <input
                 id="name_RegisterInput"
                 type="text"
@@ -31,8 +30,7 @@ export default function registerPage() {
           </div>
 
           <div>
-            <label id="username_RegisterLable">
-              Tên đăng nhập
+            <label id="username_RegisterLable">Tên đăng nhập
               <input
                 id="username_RegisterInput"
                 type="text"
@@ -45,8 +43,7 @@ export default function registerPage() {
           </div>
 
           <div>
-            <label id="phoneNumber_RegisterLable">
-              Số điện thoại
+            <label id="phoneNumber_RegisterLable">Số điện thoại
               <input
                 id="phoneNumber_RegisterInput"
                 type="text"
@@ -61,8 +58,7 @@ export default function registerPage() {
           </div>
 
           <div>
-            <label id="email_RegisterLable">
-              Email
+            <label id="email_RegisterLable">Email
               <input
                 id="email_RegisterInput"
                 type="email"
@@ -75,8 +71,7 @@ export default function registerPage() {
           </div>
 
           <div>
-            <label id="password_RegisterLable">
-              Mật khẩu
+            <label id="password_RegisterLable">Mật khẩu
               <input
                 id="password_RegisterInput"
                 type="password"
@@ -89,8 +84,7 @@ export default function registerPage() {
           </div>
 
           <div>
-            <label id="rePassword_RegisterLable">
-              Nhập lại mật khẩu
+            <label id="rePassword_RegisterLable">Nhập lại mật khẩu
               <input
                 id="rePassword_RegisterInput"
                 type="password"
