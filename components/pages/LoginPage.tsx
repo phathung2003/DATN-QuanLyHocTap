@@ -17,8 +17,7 @@ export default function Login() {
         <Form>
           <div>
             <label id="info_LoginLable"> Tên đăng nhập
-              <input 
-                id="info_LoginLable"
+              <input id="info_LoginLable"
                 type="text"
                 {...formik.getFieldProps("info")}
               />
@@ -30,8 +29,7 @@ export default function Login() {
 
           <div>
             <label id="password_LoginLable">Mật khẩu
-              <input
-                id="password_LoginInput"
+              <input id="password_LoginInput"
                 type="password"
                 {...formik.getFieldProps("password")}
               />

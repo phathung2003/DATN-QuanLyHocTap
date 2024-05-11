@@ -42,16 +42,7 @@ jobs:
   Analysis:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
-        with:
-          java-version: '17'
-          distribution: 'adopt'
-          server-id: github
-          server-username: ${{ secrets.GITHUB_ACTOR }}
-          server-password: ${{ secrets.GITHUB_TOKEN }}
-          
+    steps:          
       - name: Analyze with SonarCloud
 
         # You can pin the exact commit or the version.
