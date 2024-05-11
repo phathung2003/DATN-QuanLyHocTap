@@ -1,26 +1,16 @@
 "use client";
 import React from "react";
 import { Formik, Form } from "formik";
-import {IRegister, schemaRegister} from '../models/IRegister';
+import { schemaRegister } from '../models/IRegister';
+import { defaultRegisterValue, handelSubmit } from '../process/register/register'; 
 
-const initialValues: IRegister = {
-  name: "",
-  username: "",
-  phoneNumber: "",
-  email: "",
-  password: "",
-  rePassword: "",
-};
-
-const handleSubmit = (data: IRegister) => { console.log(data.email);};
-
-export default function RegisterPage()
+export default function registerPage()
 {
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={defaultRegisterValue}
       validationSchema={schemaRegister}
-      onSubmit={(data) => handleSubmit(data)}
+      onSubmit={(data) => handelSubmit(data)}
     >
       {(formik) => (
         <Form>

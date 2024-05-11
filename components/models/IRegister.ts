@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { Condition, ErrorMessage } from '../Error_Mesages/ErrorMesage';
+import { Condition, ErrorMessage } from '../process/register/error_mesages/errorMesage';
 export interface IRegister {
     name: string;
     username: string;
