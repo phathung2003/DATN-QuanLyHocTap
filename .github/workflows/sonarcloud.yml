@@ -47,7 +47,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '12'
-          distribution: 'adopt' # Chọn distribution mong muốn
+          distribution: 'oracle' # Chọn distribution mong muốn
       
       - name: Set JAVA_HOME
         run: echo "JAVA_HOME=/opt/hostedtoolcache/Java_Adopt_jdk/12.0.2-10.1/x64" >> $GITHUB_ENV
