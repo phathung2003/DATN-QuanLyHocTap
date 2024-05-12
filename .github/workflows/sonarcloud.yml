@@ -50,7 +50,7 @@ jobs:
           distribution: 'adopt' # Chọn distribution mong muốn
       
       - name: Set JAVA_HOME
-        run: echo "JAVA_HOME=$(dirname $(dirname $(update-alternatives --list java)))" >> $GITHUB_ENV
+        run: echo "JAVA_HOME=/opt/hostedtoolcache/Java_Adopt_jdk/12.0.2-10.1/x64" >> $GITHUB_ENV
       
       - name: Analyze with SonarCloud
 
