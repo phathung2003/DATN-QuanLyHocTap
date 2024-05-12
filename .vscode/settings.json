@@ -1,0 +1,11 @@
+{
+  "editor.defaultFormatter": null,
+  "[rust]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
+}

@@ -1,13 +1,13 @@
-"use client";
-import React from "react";
-import { Formik, Form } from "formik";
-import { schemaRegister } from "../models/IRegister";
+'use client';
+import React from 'react';
+import { Formik, Form } from 'formik';
+import { schemaRegister } from '../models/IRegister';
 import {
   defaultRegisterValue,
   handelSubmit,
-} from "../process/register/register";
+} from '../process/register/register';
 
-export default function registerPage() {
+export default function RegisterPage() {
   return (
     <Formik
       initialValues={defaultRegisterValue}
@@ -21,7 +21,7 @@ export default function registerPage() {
             <input
               id="name_RegisterInput"
               type="text"
-              {...formik.getFieldProps("name")}
+              {...formik.getFieldProps('name')}
             />
             {formik.touched.name && formik.errors.name && (
               <div id="name_RegisterError"> {formik.errors.name}</div>
@@ -33,7 +33,7 @@ export default function registerPage() {
             <input
               id="username_RegisterInput"
               type="text"
-              {...formik.getFieldProps("username")}
+              {...formik.getFieldProps('username')}
             />
             {formik.touched.username && formik.errors.username && (
               <div id="username_RegisterError">{formik.errors.username}</div>
@@ -45,7 +45,7 @@ export default function registerPage() {
             <input
               id="phoneNumber_RegisterInput"
               type="text"
-              {...formik.getFieldProps("phoneNumber")}
+              {...formik.getFieldProps('phoneNumber')}
             />
             {formik.touched.phoneNumber && formik.errors.phoneNumber && (
               <div id="phoneNumber_RegisterError">
@@ -59,7 +59,7 @@ export default function registerPage() {
             <input
               id="email_RegisterInput"
               type="email"
-              {...formik.getFieldProps("email")}
+              {...formik.getFieldProps('email')}
             />
             {formik.touched.email && formik.errors.email && (
               <div id="email_RegisterError">{formik.errors.email}</div>
@@ -71,7 +71,7 @@ export default function registerPage() {
             <input
               id="password_RegisterInput"
               type="password"
-              {...formik.getFieldProps("password")}
+              {...formik.getFieldProps('password')}
             />
             {formik.touched.password && formik.errors.password && (
               <div id="password_RegisterError">{formik.errors.password}</div>
@@ -83,11 +83,11 @@ export default function registerPage() {
             <input
               id="rePassword_RegisterInput"
               type="password"
-              {...formik.getFieldProps("rePassword")}
+              {...formik.getFieldProps('rePassword')}
             />
             {formik.touched.rePassword && formik.errors.rePassword && (
               <div id="rePassword_RegisterError">
-                {formik.errors.rePassword}{" "}
+                {formik.errors.rePassword}{' '}
               </div>
             )}
           </div>
