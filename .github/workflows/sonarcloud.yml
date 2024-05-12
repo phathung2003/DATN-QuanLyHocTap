@@ -42,7 +42,16 @@ jobs:
   Analysis:
     runs-on: ubuntu-latest
 
-    steps:          
+    steps:      
+      - name: Set up JDK 12
+        uses: actions/setup-java@v2
+        with:
+          java-version: '12'
+          distribution: 'adopt' # Chọn distribution mong muốn
+      
+      - name: Set JAVA_HOME
+        run: echo "JAVA_HOME=$(dirname $(dirname $(update-alternatives --list java)))" >> $GITHUB_ENV
+      
       - name: Analyze with SonarCloud
 
         # You can pin the exact commit or the version.
