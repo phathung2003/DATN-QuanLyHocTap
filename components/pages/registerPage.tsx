@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { schemaRegister } from '../models/IRegister';
 import {
   defaultRegisterValue,
@@ -14,89 +14,63 @@ export default function RegisterPage() {
       validationSchema={schemaRegister}
       onSubmit={(data) => handelSubmit(data)}
     >
-      {(formik) => (
-        <Form>
-          <div id="name_Register">
-            <label id="name_RegisterLable">Họ và tên</label>
-            <input
-              id="name_RegisterInput"
-              type="text"
-              {...formik.getFieldProps('name')}
-            />
-            {formik.touched.name && formik.errors.name && (
-              <div id="name_RegisterError"> {formik.errors.name}</div>
-            )}
+      <Form>
+        <div id="name_Register">
+          <label id="name_RegisterLable">Họ và tên</label>
+          <Field id="name_RegisterInput" name="name" type="text" />
+          <div>
+            <ErrorMessage id="name_RegisterError" name="name" />
           </div>
+        </div>
 
-          <div id="username_Register">
-            <label id="username_RegisterLable">Tên đăng nhập</label>
-            <input
-              id="username_RegisterInput"
-              type="text"
-              {...formik.getFieldProps('username')}
-            />
-            {formik.touched.username && formik.errors.username && (
-              <div id="username_RegisterError">{formik.errors.username}</div>
-            )}
+        <div id="username_Register">
+          <label id="username_RegisterLable">Tên đăng nhập</label>
+          <Field id="username_RegisterInput" name="username" type="text" />
+          <div>
+            <ErrorMessage id="username_RegisterError" name="username" />
           </div>
+        </div>
 
-          <div id="phoneNumber_Register">
-            <label id="phoneNumber_RegisterLable">Số điện thoại</label>
-            <input
-              id="phoneNumber_RegisterInput"
-              type="text"
-              {...formik.getFieldProps('phoneNumber')}
-            />
-            {formik.touched.phoneNumber && formik.errors.phoneNumber && (
-              <div id="phoneNumber_RegisterError">
-                {formik.errors.phoneNumber}
-              </div>
-            )}
+        <div id="phoneNumber_Register">
+          <label id="phoneNumber_RegisterLable">Số điện thoại</label>
+          <Field
+            id="phoneNumber_RegisterInput"
+            name="phoneNumber"
+            type="text"
+          />
+          <div>
+            <ErrorMessage id="phoneNumber_RegisterError" name="phoneNumber" />
           </div>
+        </div>
 
-          <div id="email_Register">
-            <label id="email_RegisterLable">Email</label>
-            <input
-              id="email_RegisterInput"
-              type="email"
-              {...formik.getFieldProps('email')}
-            />
-            {formik.touched.email && formik.errors.email && (
-              <div id="email_RegisterError">{formik.errors.email}</div>
-            )}
+        <div id="email_Register">
+          <label id="email_RegisterLable">Email</label>
+          <Field id="email_RegisterInput" name="email" type="email" />
+          <div>
+            <ErrorMessage id="email_RegisterError" name="email" />
           </div>
+        </div>
 
-          <div id="password_Register">
-            <label id="password_RegisterLable">Mật khẩu</label>
-            <input
-              id="password_RegisterInput"
-              type="password"
-              {...formik.getFieldProps('password')}
-            />
-            {formik.touched.password && formik.errors.password && (
-              <div id="password_RegisterError">{formik.errors.password}</div>
-            )}
+        <div id="password_Register">
+          <label id="password_RegisterLable">Mật khẩu</label>
+          <Field id="password_RegisterInput" name="password" type="text" />
+          <div>
+            <ErrorMessage id="password_RegisterError" name="password" />
           </div>
+        </div>
 
-          <div id="rePassword_Register">
-            <label id="rePassword_RegisterLable">Nhập lại mật khẩu</label>
-            <input
-              id="rePassword_RegisterInput"
-              type="password"
-              {...formik.getFieldProps('rePassword')}
-            />
-            {formik.touched.rePassword && formik.errors.rePassword && (
-              <div id="rePassword_RegisterError">
-                {formik.errors.rePassword}{' '}
-              </div>
-            )}
+        <div id="rePassword_Register">
+          <label id="rePassword_RegisterLable">Nhập lại mật khẩu</label>
+          <Field id="rePassword_RegisterInput" name="rePassword" type="text" />
+          <div>
+            <ErrorMessage id="rePassword_RegisterError" name="rePassword" />
           </div>
+        </div>
 
-          <button id="sumbit_Register" type="submit">
-            Submit
-          </button>
-        </Form>
-      )}
+        <button id="sumbit_Register" type="submit">
+          Submit
+        </button>
+      </Form>
     </Formik>
   );
 }
