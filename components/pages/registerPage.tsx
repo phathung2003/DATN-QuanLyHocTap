@@ -53,7 +53,7 @@ export default function RegisterPage() {
 
         <div id="password_Register">
           <label id="password_RegisterLable">Mật khẩu</label>
-          <Field id="password_RegisterInput" name="password" type="text" />
+          <Field id="password_RegisterInput" name="password" type="password" />
           <div>
             <ErrorMessage id="password_RegisterError" name="password" />
           </div>
@@ -61,7 +61,11 @@ export default function RegisterPage() {
 
         <div id="rePassword_Register">
           <label id="rePassword_RegisterLable">Nhập lại mật khẩu</label>
-          <Field id="rePassword_RegisterInput" name="rePassword" type="text" />
+          <Field
+            id="rePassword_RegisterInput"
+            name="rePassword"
+            type="password"
+          />
           <div>
             <ErrorMessage id="rePassword_RegisterError" name="rePassword" />
           </div>
