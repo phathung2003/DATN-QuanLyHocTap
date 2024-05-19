@@ -1,7 +1,8 @@
+/* eslint-disable prettier/prettier */
 import {
   IRegisterCondition,
   IRegisterErrorMessage,
-} from '../../models/error_messages/IRegisterCondition';
+} from '../../../models/error_messages/IRegisterCondition';
 
 export const Condition: IRegisterCondition = {
   NAME: {
@@ -25,7 +26,7 @@ export const Condition: IRegisterCondition = {
   },
 
   EMAIL: {
-    REQUIRED: true,
+    REQUIRED: false,
   },
 
   PASSWORD: {
@@ -49,6 +50,8 @@ export const ErrorMessage: IRegisterErrorMessage = {
   USERNAME: {
     UNDER_MIN_VALUE: 'Tên đăng nhập không được dưới 10 ký tự',
     OVER_MAX_VALUE: 'Tên đăng nhập không được quá 100 ký tự',
+    USERNAME_EXIST:
+      'Tên đăng nhập đã tồn tại, vui lòng chọn tên đăng nhập khác',
     REQUIRED: 'Xin hãy nhập tên đăng nhập',
   },
 
@@ -56,11 +59,13 @@ export const ErrorMessage: IRegisterErrorMessage = {
     UNDER_LENGTH_VALUE: 'Xin hãy nhập đúng số điện thoại',
     DONT_ALLOWED_CHARACTERS: 'Số điện thoại không được chứa ký tự đặc biệt',
     HAVE_BANNED_CHARACTERS: 'Số điện thoại không hợp lệ',
+    PHONE_NUMBER_EXIST: 'Số điện thoại đã tồn tại, vui lòng chọn số khác',
     REQUIRED: 'Xin hãy nhập số điện thoại',
   },
 
   EMAIL: {
     WRONG_EMAIL_FORMAT: 'Email không hợp lệ',
+    EMAIL_EXIST: 'Email đã tồn tại, vui lòng chọn email khác',
     REQUIRED: 'Xin hãy nhập email',
   },
 

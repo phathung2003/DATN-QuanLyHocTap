@@ -1,4 +1,4 @@
-import { ILoginErrorMessage } from '../../models/error_messages/ILoginCondition';
+import { ILoginErrorMessage } from '../../../models/error_messages/ILoginCondition';
 
 export const ErrorMessage: ILoginErrorMessage = {
   NO_INFO: 'Xin hãy nhập thông tin tài khoản',

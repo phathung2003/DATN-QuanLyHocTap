@@ -2,7 +2,9 @@ import * as Yup from 'yup';
 import {
   Condition,
   ErrorMessage,
-} from '../process/register/registerErrorMesage';
+} from '../process/feature/register/registerErrorMesage';
+import { CheckInfoExist } from '../process/database/users';
+
 export interface IRegister {
   name: string;
   username: string;
@@ -28,7 +30,17 @@ export const schemaRegister = Yup.object().shape({
   username: Yup.string().when([], (isRequired, schema) => {
     let baseSchema = schema
       .min(Condition.USERNAME.MIN, ErrorMessage.USERNAME.UNDER_MIN_VALUE)
-      .max(Condition.USERNAME.MAX, ErrorMessage.USERNAME.OVER_MAX_VALUE);
+      .max(Condition.USERNAME.MAX, ErrorMessage.USERNAME.OVER_MAX_VALUE)
+      .test(
+        'username-exists',
+        ErrorMessage.USERNAME.USERNAME_EXIST, // Message to display on validation failure
+        async (value) => {
+          if (value) {
+            return await CheckInfoExist('username', value);
+          }
+          return true;
+        },
+      );
     if (Condition.USERNAME.REQUIRED) {
       baseSchema = baseSchema.required(ErrorMessage.USERNAME.REQUIRED);
     }
@@ -37,10 +49,21 @@ export const schemaRegister = Yup.object().shape({
 
   //Kiểm tra số điện thoại
   phoneNumber: Yup.string().when([], (isRequired, schema) => {
-    let baseSchema = schema.length(
-      Condition.PHONE_NUMBER.LENGTH,
-      ErrorMessage.PHONE_NUMBER.UNDER_LENGTH_VALUE,
-    );
+    let baseSchema = schema
+      .length(
+        Condition.PHONE_NUMBER.LENGTH,
+        ErrorMessage.PHONE_NUMBER.UNDER_LENGTH_VALUE,
+      )
+      .test(
+        'phoneNumber-exists',
+        ErrorMessage.PHONE_NUMBER.PHONE_NUMBER_EXIST, // Message to display on validation failure
+        async (value) => {
+          if (value) {
+            return await CheckInfoExist('phoneNumber', value);
+          }
+          return true;
+        },
+      );
 
     if (Condition.PHONE_NUMBER.ALLOWED_CHARACTERS === true) {
       baseSchema = baseSchema.matches(
@@ -62,11 +85,21 @@ export const schemaRegister = Yup.object().shape({
 
   //Kiểm tra email
   email: Yup.string().when([], (isRequired, schema) => {
-    let baseSchema = schema.email(ErrorMessage.EMAIL.WRONG_EMAIL_FORMAT);
+    let baseSchema = schema.email(ErrorMessage.EMAIL.WRONG_EMAIL_FORMAT).test(
+      'email-exists',
+      ErrorMessage.EMAIL.EMAIL_EXIST, // Message to display on validation failure
+      async (value) => {
+        if (value) {
+          return await CheckInfoExist('email', value);
+        }
+        return true;
+      },
+    );
 
     if (Condition.EMAIL.REQUIRED) {
       baseSchema = baseSchema.required('Email is required');
     }
+
     return baseSchema;
   }),
 

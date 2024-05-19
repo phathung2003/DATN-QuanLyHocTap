@@ -44,6 +44,7 @@ export interface IRegisterErrorMessage {
   USERNAME: {
     UNDER_MIN_VALUE: string;
     OVER_MAX_VALUE: string;
+    USERNAME_EXIST: string;
     REQUIRED: string;
   };
 
@@ -51,11 +52,13 @@ export interface IRegisterErrorMessage {
     UNDER_LENGTH_VALUE: string;
     DONT_ALLOWED_CHARACTERS: string;
     HAVE_BANNED_CHARACTERS: string;
+    PHONE_NUMBER_EXIST: string;
     REQUIRED: string;
   };
 
   EMAIL: {
     WRONG_EMAIL_FORMAT: string;
+    EMAIL_EXIST: string;
     REQUIRED: string;
   };
 

@@ -1,11 +1,10 @@
-'use client';
 import React from 'react';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { schemaRegister } from '../models/IRegister';
 import {
   defaultRegisterValue,
   handelSubmit,
-} from '../process/register/register';
+} from '../process/feature/register/register';
 
 export default function RegisterPage() {
   return (

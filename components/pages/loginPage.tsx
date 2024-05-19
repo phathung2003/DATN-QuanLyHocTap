@@ -2,7 +2,10 @@
 import React, { useState } from 'react';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { schemaLogin } from '../models/ILogin';
-import { defaultLoginValue, handelSubmit } from '../process/login/login';
+import {
+  defaultLoginValue,
+  handelSubmit,
+} from '../process/feature/login/login';
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState('');
@@ -14,10 +17,10 @@ export default function Login() {
     >
       <Form>
         <div id="info_Login">
-          <label id="info_LoginLable"> Tên đăng nhập</label>
+          <label id="info_LoginLable"> Tên đăng nhập/Email/Số điện thoại</label>
           <Field id="info_LoginLable" name="info" type="text" />
           <div>
-            <ErrorMessage id="info_LoginError" name="name" />
+            <ErrorMessage id="info_LoginError" name="info" />
           </div>
         </div>
 
@@ -31,7 +34,7 @@ export default function Login() {
 
         {errorMessage != null && <div id="LoginError">{errorMessage}</div>}
         <button id="submit_Login" type="submit">
-          Submit
+          Đăng nhập
         </button>
       </Form>
     </Formik>
