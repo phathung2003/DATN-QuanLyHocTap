@@ -2,7 +2,7 @@
 import {
   IRegisterCondition,
   IRegisterErrorMessage,
-} from '../../../models/error_messages/IRegisterCondition';
+} from '@/components/models/error_messages/IRegisterCondition';
 
 export const Condition: IRegisterCondition = {
   NAME: {
@@ -41,6 +41,7 @@ export const Condition: IRegisterCondition = {
 };
 
 export const ErrorMessage: IRegisterErrorMessage = {
+  SYSTEM_ERROR: 'Hệ thống hiện tại đang bị lỗi. Xin vui lòng thử lại sau',
   NAME: {
     UNDER_MIN_VALUE: 'Họ và tên không được dưới 10 ký tự',
     OVER_MAX_VALUE: 'Họ và tên không được quá 100 ký tự',

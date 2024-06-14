@@ -1,6 +1,7 @@
 import { ILogin } from '@/components/models/ILogin';
 import { signIn } from 'next-auth/react';
 import { HomePage } from '../../routers/routers';
+import { ErrorMessage } from '@/components/process/feature/login/loginErrorMessage';
 export const defaultLoginValue: ILogin = {
   info: '',
   password: '',
@@ -18,9 +19,10 @@ export async function handelSubmit(
     });
     if (result?.error) {
       console.log(result.error);
-      setErrorMessage('Lỗi đăng nhập');
+      setErrorMessage(ErrorMessage.WRONG_INFO);
+    } else {
+      HomePage();
     }
-    HomePage();
   } catch (error) {
     setErrorMessage('Hi');
   }

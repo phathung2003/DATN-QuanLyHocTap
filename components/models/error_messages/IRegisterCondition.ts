@@ -35,6 +35,8 @@ export interface IRegisterCondition {
 }
 
 export interface IRegisterErrorMessage {
+  SYSTEM_ERROR: string;
+
   NAME: {
     UNDER_MIN_VALUE: string;
     OVER_MAX_VALUE: string;
