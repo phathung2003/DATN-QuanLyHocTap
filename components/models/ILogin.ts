@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { ErrorMessage } from '../process/feature/login/loginErrorMessage';
+
 export interface ILogin {
   info: string;
   password: string;

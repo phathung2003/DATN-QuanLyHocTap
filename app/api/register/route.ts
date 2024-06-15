@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import { AddUser, CheckInfoExist } from '@/components/process/database/users';
-import { IError } from '@/components/models/IRegister';
+import { IRegisterDB, IError } from '@/components/models/IRegister';
 import { ErrorMessage } from '@/components/process/feature/register/registerErrorMessage';
 
 export async function POST(request: Request) {
@@ -14,11 +14,9 @@ export async function POST(request: Request) {
   };
 
   try {
-    const data = await request.json();
-    const { name, username, phoneNumber } = data;
-
+    const dataInput = await request.json();
     //Kiểm tra tài khoản đã tồn tại chưa
-    const result = await CheckInfoExist(data);
+    const result = await CheckInfoExist(dataInput);
     if (result.status == false) {
       return new NextResponse(
         JSON.stringify({
@@ -36,12 +34,20 @@ export async function POST(request: Request) {
     }
 
     //Tài khoản chưa tồn tại --> Đăng ký
-    let { email, password } = data;
-    password = await bcrypt.hash(password, 10);
-    if (email.trim().length === 0) {
-      email = null;
+    const encodePassword = await bcrypt.hash(dataInput.password, 10);
+    let emailInput = dataInput.email;
+    if (dataInput.email.trim().length === 0) {
+      emailInput = null;
     }
-    AddUser(name, username, phoneNumber, email, password);
+
+    const data: IRegisterDB = {
+      name: dataInput.name,
+      username: dataInput.username,
+      phoneNumber: dataInput.phoneNumber,
+      email: emailInput,
+      password: encodePassword,
+    };
+    AddUser(data);
 
     return NextResponse.json(
       { message: 'User registered successfulnnly' },

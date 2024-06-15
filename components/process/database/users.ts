@@ -1,22 +1,17 @@
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
-import { IRegister, IError } from '@/components/models/IRegister';
+import { IRegisterDB, IError } from '@/components/models/IRegister';
 import { db } from '@/components/process/database/firebase';
 import { ErrorMessage } from '@/components/process/feature/register/registerErrorMessage';
+import { ILogin } from '@/components/models/ILogin';
 
-export async function AddUser(
-  name: string,
-  username: string,
-  phoneNumber: string,
-  email: string,
-  password: string,
-) {
+export async function AddUser(data: IRegisterDB) {
   try {
     const docRef = await addDoc(collection(db, 'users'), {
-      name,
-      username,
-      phoneNumber,
-      email,
-      password,
+      name: data.name,
+      username: data.username,
+      phoneNumber: data.phoneNumber,
+      email: data.email,
+      password: data.password,
     });
     console.log('Document written with ID: ', docRef.id);
   } catch (e) {
@@ -24,7 +19,7 @@ export async function AddUser(
   }
 }
 
-export async function CheckInfoExist(data: IRegister) {
+export async function CheckInfoExist(data: IRegisterDB) {
   const defaultErrorValue: IError = {
     status: true,
     usernameError: null,
@@ -72,6 +67,23 @@ export async function Login(info: string) {
 
   for (const field of fields) {
     const userData = query(usersData, where(field, '==', info));
+    const result = await getDocs(userData);
+    if (!result.empty) {
+      return result;
+    }
+    return null;
+  }
+}
+
+export async function LoginData(data: ILogin) {
+  const usersData = collection(db, 'users');
+  const fields = ['username', 'email', 'phoneNumber'];
+  for (const field of fields) {
+    const userData = query(
+      usersData,
+      where(field, '==', data.info),
+      where(field, '==', data.password),
+    );
     const result = await getDocs(userData);
     if (!result.empty) {
       return result;

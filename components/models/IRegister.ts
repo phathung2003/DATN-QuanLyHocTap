@@ -13,6 +13,14 @@ export interface IRegister {
   rePassword: string;
 }
 
+export interface IRegisterDB {
+  name: string;
+  username: string;
+  phoneNumber: string;
+  email: string;
+  password: string;
+}
+
 export interface IError {
   status: boolean;
   usernameError: string | null;
