@@ -1,7 +1,7 @@
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { IRegister, IError } from '@/components/models/IRegister';
 import { db } from '@/components/process/database/firebase';
-import { ErrorMessage } from '@/components/process/feature/register/registerErrorMesage';
+import { ErrorMessage } from '@/components/process/feature/register/registerErrorMessage';
 
 export async function AddUser(
   name: string,

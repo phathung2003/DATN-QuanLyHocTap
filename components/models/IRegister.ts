@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import {
   Condition,
   ErrorMessage,
-} from '../process/feature/register/registerErrorMesage';
+} from '../process/feature/register/registerErrorMessage';
 
 export interface IRegister {
   name: string;
