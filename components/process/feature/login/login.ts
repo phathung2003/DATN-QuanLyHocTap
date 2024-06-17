@@ -21,6 +21,10 @@ export async function handelSubmit(
         password: data.password,
       }),
     });
+
+    const errorMessage = await response.json();
+    console.log(errorMessage);
+
     if (response.ok) {
       HomePage();
     } else {

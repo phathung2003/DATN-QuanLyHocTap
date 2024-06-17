@@ -7,7 +7,7 @@ import {
   handelSubmit,
 } from '../process/feature/login/login';
 
-export default function Login() {
+export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState('');
   return (
     <Formik

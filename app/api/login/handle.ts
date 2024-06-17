@@ -5,8 +5,6 @@ import { DateTime } from 'next-auth/providers/kakao';
 import { ISession } from '@/components/models/ISession';
 import { AddSession } from '@/components/process/database/session';
 
-const expiresInHour = 1;
-
 export async function LoginResult(email: string, password: string) {
   const userData = await Login(email);
   if (userData != null && !userData.empty) {
@@ -34,10 +32,14 @@ export interface LoginResponse {
 }
 
 //Tạo token
-export async function GenerateToken(userId: string, userName: string) {
+export async function GenerateToken(
+  userId: string,
+  userName: string,
+  expiresInSeconds: number,
+) {
   const currentTime = new Date();
-  const expireDate = currentTime.setHours(
-    currentTime.getHours() + expiresInHour,
+  const expireDate = currentTime.setSeconds(
+    currentTime.getSeconds() + expiresInSeconds,
   );
   const token = jwt.sign(
     {

@@ -1,23 +1,20 @@
-'use client';
-import React, { useEffect } from 'react';
 import LoginPage from '@/components/pages/loginPage';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import LoadingPage from '@/components/pages/components/loadingPage';
+import { cookies as cookieUtils } from 'next/headers';
+import { HomePage } from '@/components/process/routers/routers';
 
-export default function Login() {
-  const { status: sessionStatus } = useSession();
-  const router = useRouter();
-  useEffect(() => {
-    // Điều hướng chỉ thực hiện trên client-side
-    if (sessionStatus === 'authenticated') {
-      return router.back();
-    }
-  }, [sessionStatus, router]); // Thêm router vào dependency array để useEffect cập nhật khi router thay đổi
-  if (sessionStatus === 'loading') {
-    return <LoadingPage />;
+async function loader() {
+  // Access cookies from the context
+  const hadLogin = cookieUtils().get('token');
+  // Redirect if user is already logged in
+  if (hadLogin != undefined) {
+    return false;
+  } else return true;
+}
+
+export default async function Login() {
+  const result = await loader();
+  if (result == false) {
+    return HomePage();
   }
-  if (sessionStatus === 'unauthenticated') {
-    return <LoginPage />;
-  }
+  return <LoginPage />;
 }

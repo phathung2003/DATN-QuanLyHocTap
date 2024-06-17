@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { ErrorMessage } from '@/components/process/feature/login/loginErrorMessage';
 import { LoginResult, GenerateToken } from './handle';
 
+const expiresInSeconds = 30;
+
 export async function POST(request: Request) {
   const data = await request.json();
   const { info, password } = data;
@@ -16,7 +18,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const token = await GenerateToken(user.id, user.name);
+  const token = await GenerateToken(user.id, user.name, expiresInSeconds);
   if (token != null) {
     return new NextResponse(
       JSON.stringify({
@@ -26,7 +28,8 @@ export async function POST(request: Request) {
       {
         status: 200, // Thiết lập mã trạng thái HTTP phản hồi tại đây
         headers: {
-          'Content-Type': 'application/json', // Đảm bảo đặt Content-Type phù hợp
+          'Content-Type': 'application/json',
+          'Set-Cookie': `token=${token}; Path=/; HttpOnly; SameSite=Strict; Secure; ; Max-Age=${expiresInSeconds}`,
         },
       },
     );
