@@ -1,4 +1,12 @@
-import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  query,
+  where,
+  doc,
+  getDoc,
+  getDocs,
+} from 'firebase/firestore';
 import { IRegisterDB, IError } from '@/components/models/IRegister';
 import { db } from '@/components/process/database/firebase';
 import { ErrorMessage } from '@/components/process/feature/register/registerErrorMessage';
@@ -58,6 +66,26 @@ export async function CheckInfoExist(data: IRegisterDB) {
     defaultErrorValue.systemError = ErrorMessage.SYSTEM_ERROR;
   }
   return defaultErrorValue;
+}
+
+export async function GetInfo(accountID: string) {
+  try {
+    const userData = doc(db, 'users', accountID);
+    const result = await getDoc(userData);
+    if (!result.exists()) {
+      return false;
+    } else {
+      const data = result.data();
+      const info = {
+        phoneNumber: data.phoneNumber,
+        name: data.name,
+        email: data.email,
+      };
+      return info;
+    }
+  } catch {
+    return false;
+  }
 }
 
 export async function Login(info: string) {

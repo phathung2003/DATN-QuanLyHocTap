@@ -1,18 +1,8 @@
 import LoginPage from '@/components/pages/loginPage';
-import { cookies as cookieUtils } from 'next/headers';
+import { CookieCheck } from '@/components/process/feature/validate/validate';
 import { HomePage } from '@/components/process/routers/routers';
-
-async function loader() {
-  // Access cookies from the context
-  const hadLogin = cookieUtils().get('token');
-  // Redirect if user is already logged in
-  if (hadLogin != undefined) {
-    return false;
-  } else return true;
-}
-
 export default async function Login() {
-  const result = await loader();
+  const result = await CookieCheck();
   if (result == false) {
     return HomePage();
   }
