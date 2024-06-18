@@ -9,7 +9,7 @@ export async function CookieCheck() {
     return true;
   } else {
     const response = await fetch(
-      `${process.env.BASE_URL}/api/token/checkToken`,
+      `${process.env.BASE_URL}/api/authentication/token/checkToken`,
       {
         method: 'POST',
         headers: {
@@ -20,8 +20,6 @@ export async function CookieCheck() {
         }),
       },
     );
-    const errorMessage = await response.json();
-    console.log(errorMessage.message);
     if (response.ok) {
       return false;
     } else {

@@ -21,13 +21,13 @@ export async function POST(request: Request) {
       return new NextResponse(
         JSON.stringify({
           status: 409,
-          message: 'Tài khoản đã tồn tại',
+          message: ErrorMessage.ACCOUNT_EXIST,
           errorMessage: result,
         }),
         {
-          status: 409, // Thiết lập mã trạng thái HTTP phản hồi tại đây
+          status: 409,
           headers: {
-            'Content-Type': 'application/json', // Đảm bảo đặt Content-Type phù hợp
+            'Content-Type': 'application/json',
           },
         },
       );
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     AddUser(data);
 
     return NextResponse.json(
-      { message: 'User registered successfulnnly' },
+      { message: ErrorMessage.REGISTER_COMPLETE },
       { status: 201 },
     );
   } catch (error) {
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
 
     return new NextResponse(
       JSON.stringify({
-        message: 'Lỗi xảy ra trong quá trình đăng ký',
+        message: ErrorMessage.SYSTEM_ERROR,
         errorMessage: defaultErrorValue,
       }),
       {

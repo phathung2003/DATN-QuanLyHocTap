@@ -5,6 +5,7 @@ import { DateTime } from 'next-auth/providers/kakao';
 import { ISession } from '@/components/models/ISession';
 import { AddSession } from '@/components/process/database/session';
 
+//Kiểm tra thông tin đăng nhập
 export async function LoginResult(email: string, password: string) {
   const userData = await Login(email);
   if (userData != null && !userData.empty) {

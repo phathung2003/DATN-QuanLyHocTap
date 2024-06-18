@@ -42,6 +42,8 @@ export const Condition: IRegisterCondition = {
 
 export const ErrorMessage: IRegisterErrorMessage = {
   SYSTEM_ERROR: 'Hệ thống hiện tại đang bị lỗi. Xin vui lòng thử lại sau',
+  ACCOUNT_EXIST: 'Tài khoản đã tồn tại',
+  REGISTER_COMPLETE: 'Đăng ký tài khoản thành công',
   NAME: {
     UNDER_MIN_VALUE: 'Họ và tên không được dưới 10 ký tự',
     OVER_MAX_VALUE: 'Họ và tên không được quá 100 ký tự',

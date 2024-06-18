@@ -34,6 +34,7 @@ export async function AddSession(data: ISession) {
 
 //Xóa session
 export async function DeleteSession(token: string) {
+  console.log('Go here');
   const tokensData = collection(db, tableName);
   const tokenData = query(tokensData, where('tokenID', '==', token));
   const tokenResult = await getDocs(tokenData);
@@ -62,11 +63,8 @@ export async function CheckSession(token: string) {
     }
 
     //Kiểm tra session còn hạn không
-    const sessionInfo = tokenResult.docs[0].data();
-    console.log(sessionInfo.expiresAt.toDate());
-    console.log(new Date());
-    if (sessionInfo.expiresAt.toDate() < new Date()) {
-      console.log('Hết hạn');
+    const sessionInfo = await tokenResult.docs[0].data();
+    if (sessionInfo.expiresAt.toDate().getSeconds() < new Date().getSeconds()) {
       await DeleteSession(sessionInfo.tokenID);
       defaultError.status = false;
       defaultError.message = SessionErrorMessage.SESSION_TIME_OUT;

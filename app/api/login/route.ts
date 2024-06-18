@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { ErrorMessage } from '@/components/process/feature/login/loginErrorMessage';
-import { LoginResult, GenerateToken } from './handle';
+import { LoginResult, GenerateToken } from '@/app/api/login/loginProcess';
 
 const expiresInSeconds = 30;
 
