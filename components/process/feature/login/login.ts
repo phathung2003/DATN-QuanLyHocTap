@@ -22,8 +22,8 @@ export async function handelSubmit(
       }),
     });
 
-    const errorMessage = await response.json();
-    console.log(errorMessage);
+    //const errorMessage = await response.json();
+    console.log(response.ok);
 
     if (response.ok) {
       HomePage();
