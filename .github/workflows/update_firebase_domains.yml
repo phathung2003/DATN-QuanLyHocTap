@@ -1,0 +1,23 @@
+name: Update Firebase Authorized Domains
+
+on:
+  workflow_dispatch:
+    inputs:
+      domain:
+        description: 'Domain to add or remove'
+        required: true
+      action:
+        description: 'Action to perform (add or remove)'
+        required: true
+        default: 'add'
+
+jobs:
+  update_domain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Firebase Authorized Domains
+        uses: wavezync/firebase-authorized-domains@v1.0.0
+        with:
+          service_account_key_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+          domain: ${{ github.event.inputs.domain }}
+          action: ${{ github.event.inputs.action }}
