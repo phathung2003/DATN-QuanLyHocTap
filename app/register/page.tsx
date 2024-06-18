@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use client';
 import React, { useEffect } from 'react';
 import RegisterPage from '@/components/pages/registerPage';
@@ -5,6 +6,10 @@ import LoadingPage from '@/components/pages/components/loadingPage';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
+=======
+import React from 'react';
+import RegisterPage from '@/pages/registerPage';
+>>>>>>> e919764 (commit Front end nhe iu)
 const Register = () => {
   const { status: sessionStatus } = useSession();
   const router = useRouter();
