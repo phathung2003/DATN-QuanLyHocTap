@@ -1,0 +1,7 @@
+export default interface IUserMessage {
+  RESET_PASSWORD_INVALID_INFO: string;
+  RESET_PASSWORD_EMAIL_MISSING: string;
+  RESET_PASSWORD_SEND_SUCCESFULLY: string;
+  RESET_PASSWORD_SEND_FAILED: string;
+  SYSTEM_ERROR: string;
+}

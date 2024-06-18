@@ -11,12 +11,16 @@ import {
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
-import { IRegisterDB } from '@/components/models/data/IRegister';
 import { db, auth } from '@/components/process/database/firebase';
-import RegisterMessage from '../messages/registerMessage';
-import { DefaultRegisteErrorValue } from '../defaultData/register';
+import { IRegisterDB } from '@/components/models/data/IRegister';
 import IUserInfo from '@/components/models/data/IUserInfo';
+import RegisterMessage from '../messages/registerMessage';
+import UserMessage from '@/components/process/messages/userMessage';
+import { DefaultRegisteErrorValue } from '../defaultData/register';
+import { DefaultAPIResult } from '@/components/process/defaultData/global';
+
 const tableName = 'users';
 
 //Đăng ký tài khoản
@@ -140,4 +144,44 @@ async function EmailLogin(email: string, password: string) {
     return await GetInfo(userCredential.user.uid);
   }
   return null;
+}
+
+//Quên mật khẩu (Chỉ dành cho người dùng sử dụng email)
+export async function ResetPassword(info: string) {
+  const result = DefaultAPIResult;
+
+  const usersData = collection(db, 'users');
+  const fields = ['email', 'username', 'phoneNumber'];
+  for (const field of fields) {
+    const userData = query(usersData, where(field, '==', info));
+    const userInfo = await getDocs(userData);
+    if (!userInfo.empty) {
+      //Kiểm tra có email hay không
+      const email = userInfo.docs[0].data().email;
+      if (email != null) {
+        return await SendEmail(email);
+      } else {
+        result.status = false;
+        result.message = UserMessage.RESET_PASSWORD_EMAIL_MISSING;
+        return result;
+      }
+    }
+  }
+  //Không tìm thấy thông tin
+  result.status = false;
+  result.message = UserMessage.RESET_PASSWORD_INVALID_INFO;
+  return result;
+}
+
+//Gửi email đặt lại mật khẩu
+async function SendEmail(email: string) {
+  const result = DefaultAPIResult;
+  try {
+    await sendPasswordResetEmail(auth, email);
+    result.message = UserMessage.RESET_PASSWORD_SEND_SUCCESFULLY;
+  } catch {
+    result.status = false;
+    result.message = UserMessage.RESET_PASSWORD_SEND_FAILED;
+  }
+  return result;
 }

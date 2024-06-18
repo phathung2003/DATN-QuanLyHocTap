@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { DeleteSession } from '@/components/process/database/session';
 import SessionMessage from '@/components/process/messages/sessionMessage';
 
+//Xóa token
 export async function DeleteToken(
   token: string,
   messageInfo: string,

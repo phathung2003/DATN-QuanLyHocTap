@@ -4,10 +4,18 @@ import { AddUser, CheckInfoExist } from '@/components/process/database/users';
 import { IRegisterDB } from '@/components/models/data/IRegister';
 import RegisterMessage from '@/components/process/messages/registerMessage';
 import { DefaultRegisteErrorValue } from '@/components/process/defaultData/register';
+import MessageReturnOnly from '@/app/api/messageReturnOnly';
+import APIMessage from '@/components/process/messages/apiMessage';
 
 export async function POST(request: Request) {
   try {
     const dataInput = await request.json();
+
+    //Lỗi thiếu dữ liệu
+    if (!IsInputValid(dataInput)) {
+      return MessageReturnOnly(APIMessage.WRONG_INPUT, 400);
+    }
+
     //Kiểm tra tài khoản đã tồn tại chưa
     const result = await CheckInfoExist(dataInput);
     if (result.status == false) {
@@ -42,11 +50,8 @@ export async function POST(request: Request) {
       password: passwordSave,
     };
 
-    AddUser(data);
-    return NextResponse.json(
-      { message: RegisterMessage.REGISTER_COMPLETE },
-      { status: 201 },
-    );
+    await AddUser(data);
+    return MessageReturnOnly(RegisterMessage.REGISTER_COMPLETE, 201);
   } catch {
     //Lỗi xảy ra trong quá trình đăng ký
     const error = DefaultRegisteErrorValue;
@@ -65,5 +70,20 @@ export async function POST(request: Request) {
         },
       },
     );
+  }
+}
+
+// Type guard function
+function IsInputValid(data): data is IRegisterDB {
+  try {
+    return (
+      (typeof data.name === 'string' || data.name === null) &&
+      (typeof data.username === 'string' || data.username === null) &&
+      (typeof data.phoneNumber === 'string' || data.phoneNumber === null) &&
+      (typeof data.email === 'string' || data.email === null) &&
+      (typeof data.password === 'string' || data.password === null)
+    );
+  } catch {
+    return false;
   }
 }
