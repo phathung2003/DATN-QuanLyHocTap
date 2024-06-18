@@ -1,10 +1,5 @@
-import { ILogin } from '@/components/models/ILogin';
-import { HomePage } from '../../routers/routers';
-
-export const defaultLoginValue: ILogin = {
-  info: '',
-  password: '',
-};
+import { ILogin } from '@/components/models/data/ILogin';
+import { HomePage } from '@/components/process/routers/routers';
 
 export async function handelSubmit(
   data: ILogin,
@@ -23,8 +18,6 @@ export async function handelSubmit(
     });
 
     //const errorMessage = await response.json();
-    console.log(response.ok);
-
     if (response.ok) {
       HomePage();
     } else {

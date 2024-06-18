@@ -1,18 +1,11 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import { AddUser, CheckInfoExist } from '@/components/process/database/users';
-import { IRegisterDB, IError } from '@/components/models/IRegister';
-import { ErrorMessage } from '@/components/process/feature/register/registerErrorMessage';
+import { IRegisterDB } from '@/components/models/data/IRegister';
+import RegisterMessage from '@/components/process/messages/registerMessage';
+import { DefaultRegisteErrorValue } from '@/components/process/defaultData/register';
 
 export async function POST(request: Request) {
-  const defaultErrorValue: IError = {
-    status: true,
-    usernameError: null,
-    phoneNumberError: null,
-    emailError: null,
-    systemError: null,
-  };
-
   try {
     const dataInput = await request.json();
     //Kiểm tra tài khoản đã tồn tại chưa
@@ -21,7 +14,7 @@ export async function POST(request: Request) {
       return new NextResponse(
         JSON.stringify({
           status: 409,
-          message: ErrorMessage.ACCOUNT_EXIST,
+          message: RegisterMessage.ACCOUNT_EXIST,
           errorMessage: result,
         }),
         {
@@ -50,18 +43,19 @@ export async function POST(request: Request) {
     AddUser(data);
 
     return NextResponse.json(
-      { message: ErrorMessage.REGISTER_COMPLETE },
+      { message: RegisterMessage.REGISTER_COMPLETE },
       { status: 201 },
     );
-  } catch (error) {
+  } catch {
     //Lỗi xảy ra trong quá trình đăng ký
-    defaultErrorValue.status = false;
-    defaultErrorValue.systemError = ErrorMessage.SYSTEM_ERROR;
+    const error = DefaultRegisteErrorValue;
+    error.status = false;
+    error.systemError = RegisterMessage.SYSTEM_ERROR;
 
     return new NextResponse(
       JSON.stringify({
-        message: ErrorMessage.SYSTEM_ERROR,
-        errorMessage: defaultErrorValue,
+        message: RegisterMessage.SYSTEM_ERROR,
+        errorMessage: error,
       }),
       {
         status: 500, // Thiết lập mã trạng thái HTTP phản hồi tại đây

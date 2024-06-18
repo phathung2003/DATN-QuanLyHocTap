@@ -6,8 +6,9 @@ import {
   getDocs,
   deleteDoc,
 } from 'firebase/firestore';
-import { ISession, IError } from '@/components/models/ISession';
-import { SessionErrorMessage } from '../feature/validate/validateErrorMessage';
+import { ISession } from '@/components/models/data/ISession';
+import { ISessionError } from '@/components/models/messages/ISessionMessage';
+import SessionMessage from '../messages/sessionMessage';
 import { db } from '@/components/process/database/firebase';
 import { GetInfo } from './users';
 
@@ -46,7 +47,7 @@ export async function DeleteSession(token: string) {
 
 //Kiểm tra session hợp lệ
 export async function CheckSession(token: string) {
-  const defaultError: IError = {
+  const defaultError: ISessionError = {
     status: true,
     message: null,
   };
@@ -58,7 +59,7 @@ export async function CheckSession(token: string) {
 
     if (tokenResult.empty) {
       defaultError.status = false;
-      defaultError.message = SessionErrorMessage.INVALID_TOKEN;
+      defaultError.message = SessionMessage.INVALID_TOKEN;
       return defaultError;
     }
 
@@ -67,7 +68,7 @@ export async function CheckSession(token: string) {
     if (sessionInfo.expiresAt.toDate().getSeconds() < new Date().getSeconds()) {
       await DeleteSession(sessionInfo.tokenID);
       defaultError.status = false;
-      defaultError.message = SessionErrorMessage.SESSION_TIME_OUT;
+      defaultError.message = SessionMessage.SESSION_TIME_OUT;
       return defaultError;
     }
 
@@ -75,13 +76,13 @@ export async function CheckSession(token: string) {
     const getUserData = await GetInfo(tokenResult.docs[0].data().accountID);
     if (getUserData == false) {
       defaultError.status = false;
-      defaultError.message = SessionErrorMessage.INFO_NOT_FOUND;
+      defaultError.message = SessionMessage.INFO_NOT_FOUND;
       return defaultError;
     }
     return getUserData;
   } catch {
     defaultError.status = false;
-    defaultError.message = SessionErrorMessage.SYSTEM_ERROR;
+    defaultError.message = SessionMessage.SYSTEM_ERROR;
     return defaultError;
   }
 }

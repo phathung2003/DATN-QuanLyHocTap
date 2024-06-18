@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { DeleteSession } from '@/components/process/database/session';
-import { SessionErrorMessage } from '@/components/process/feature/validate/validateErrorMessage';
+import SessionMessage from '@/components/process/messages/sessionMessage';
 
 export async function DeleteToken(
   token: string,
@@ -12,7 +12,7 @@ export async function DeleteToken(
     await DeleteSession(token);
   } catch {
     status = 404;
-    message = SessionErrorMessage.SYSTEM_ERROR;
+    message = SessionMessage.SYSTEM_ERROR;
   }
   return new NextResponse(
     JSON.stringify({

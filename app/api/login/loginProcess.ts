@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { Login } from '@/components/process/database/users';
 import { DateTime } from 'next-auth/providers/kakao';
-import { ISession } from '@/components/models/ISession';
+import { ISession } from '@/components/models/data/ISession';
 import { AddSession } from '@/components/process/database/session';
 
 //Kiểm tra thông tin đăng nhập

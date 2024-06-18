@@ -1,18 +1,16 @@
 'use client';
 import React, { useState } from 'react';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import { schemaLogin } from '../models/ILogin';
-import {
-  defaultLoginValue,
-  handelSubmit,
-} from '../process/feature/login/login';
+import SchemaLogin from '@/components/process/validationSchema/loginSchema';
+import DefaultLoginValue from '@/components/process/defaultData/login';
+import { handelSubmit } from '@/components/process/feature/login';
 
 export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState('');
   return (
     <Formik
-      initialValues={defaultLoginValue}
-      validationSchema={schemaLogin}
+      initialValues={DefaultLoginValue}
+      validationSchema={SchemaLogin}
       onSubmit={(data) => handelSubmit(data, setErrorMessage)}
     >
       <Form>

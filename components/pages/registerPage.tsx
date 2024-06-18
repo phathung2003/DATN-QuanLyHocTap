@@ -1,20 +1,22 @@
 import React from 'react';
 import { useState } from 'react';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import { schemaRegister } from '../models/IRegister';
+import SchemaRegister from '@/components/process/validationSchema/register/registerSchema';
 import {
-  defaultRegisterValue,
-  defaultErrorValue,
+  DefaultRegisterValue,
+  DefaultRegisteErrorValue,
+} from '../process/defaultData/register';
+import {
   handelSubmit,
   ResetError,
-} from '../process/feature/register/register';
+} from '@/components/process/feature/register';
 
 export default function RegisterPage() {
-  const [error, setError] = useState(defaultErrorValue);
+  const [error, setError] = useState(DefaultRegisteErrorValue);
   return (
     <Formik
-      initialValues={defaultRegisterValue}
-      validationSchema={schemaRegister}
+      initialValues={DefaultRegisterValue}
+      validationSchema={SchemaRegister}
       onSubmit={(data) => handelSubmit(data, setError)}
     >
       {({ setFieldValue }) => (

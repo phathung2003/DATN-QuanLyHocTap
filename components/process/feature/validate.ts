@@ -1,9 +1,8 @@
 import { cookies } from 'next/headers';
 
 export async function CookieCheck() {
-  // Access cookies from the context
+  //Lấy cookie
   const cookie = cookies().get('token');
-  // Redirect if user is already logged in
   const token = cookie?.value;
   if (!cookie) {
     return true;

@@ -7,11 +7,11 @@ import {
   getDoc,
   getDocs,
 } from 'firebase/firestore';
-import { IRegisterDB, IError } from '@/components/models/IRegister';
+import { IRegisterDB } from '@/components/models/data/IRegister';
 import { db } from '@/components/process/database/firebase';
-import { ErrorMessage } from '@/components/process/feature/register/registerErrorMessage';
-import { ILogin } from '@/components/models/ILogin';
-
+import RegisterMessage from '../messages/registerMessage';
+import { ILogin } from '@/components/models/data/ILogin';
+import { DefaultRegisteErrorValue } from '../defaultData/register';
 export async function AddUser(data: IRegisterDB) {
   try {
     const docRef = await addDoc(collection(db, 'users'), {
@@ -28,13 +28,7 @@ export async function AddUser(data: IRegisterDB) {
 }
 
 export async function CheckInfoExist(data: IRegisterDB) {
-  const defaultErrorValue: IError = {
-    status: true,
-    usernameError: null,
-    phoneNumberError: null,
-    emailError: null,
-    systemError: null,
-  };
+  const error = DefaultRegisteErrorValue;
 
   try {
     const usersData = collection(db, 'users');
@@ -45,27 +39,26 @@ export async function CheckInfoExist(data: IRegisterDB) {
       const userData = query(usersData, where(field[i], '==', input[i]));
       const result = await getDocs(userData);
       if (!result.empty) {
-        defaultErrorValue.status = false;
+        error.status = false;
         switch (field[i]) {
           case field[0]:
-            defaultErrorValue.usernameError =
-              ErrorMessage.USERNAME.USERNAME_EXIST;
+            error.usernameError = RegisterMessage.USERNAME.USERNAME_EXIST;
             break;
           case field[1]:
-            defaultErrorValue.emailError = ErrorMessage.EMAIL.EMAIL_EXIST;
+            error.emailError = RegisterMessage.EMAIL.EMAIL_EXIST;
             break;
           case field[2]:
-            defaultErrorValue.phoneNumberError =
-              ErrorMessage.PHONE_NUMBER.PHONE_NUMBER_EXIST;
+            error.phoneNumberError =
+              RegisterMessage.PHONE_NUMBER.PHONE_NUMBER_EXIST;
             break;
         }
       }
     }
   } catch (error) {
-    defaultErrorValue.status = false;
-    defaultErrorValue.systemError = ErrorMessage.SYSTEM_ERROR;
+    error.status = false;
+    error.systemError = RegisterMessage.SYSTEM_ERROR;
   }
-  return defaultErrorValue;
+  return error;
 }
 
 export async function GetInfo(accountID: string) {

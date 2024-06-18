@@ -1,27 +1,12 @@
-import { IRegister, IError } from '@/components/models/IRegister';
 import { HomePage } from '@/components/process/routers/routers';
-import { ErrorMessage } from '@/components/process/feature/register/registerErrorMessage';
-
-export const defaultRegisterValue: IRegister = {
-  name: '',
-  username: '',
-  phoneNumber: '',
-  email: '',
-  password: '',
-  rePassword: '',
-};
-
-export const defaultErrorValue: IError = {
-  status: true,
-  usernameError: null,
-  phoneNumberError: null,
-  emailError: null,
-  systemError: null,
-};
+import { IRegister } from '@/components/models/data/IRegister';
+import { IRegisterError } from '@/components/models/messages/IRegisterMessage';
+import RegisterMessage from '@/components/process/messages/registerMessage';
+import { DefaultRegisteErrorValue } from '../defaultData/register';
 
 export async function handelSubmit(
   data: IRegister,
-  setError: React.Dispatch<React.SetStateAction<IError>>,
+  setError: React.Dispatch<React.SetStateAction<IRegisterError>>,
 ) {
   try {
     //Kết nối API
@@ -46,16 +31,17 @@ export async function handelSubmit(
       const errorData = await response.json();
       setError(errorData.errorMessage);
     }
-  } catch (error) {
-    defaultErrorValue.systemError = ErrorMessage.SYSTEM_ERROR;
-    setError(defaultErrorValue);
+  } catch {
+    const error = DefaultRegisteErrorValue;
+    error.systemError = RegisterMessage.SYSTEM_ERROR;
+    setError(error);
   }
 }
 
 export function ResetError(
   data: React.ChangeEvent<HTMLInputElement>,
   setFieldValue,
-  setError: React.Dispatch<React.SetStateAction<IError>>,
+  setError: React.Dispatch<React.SetStateAction<IRegisterError>>,
 ) {
   setFieldValue(data.target.name, data.target.value);
   setError((prev) => {
@@ -69,5 +55,3 @@ export function ResetError(
     return newErrorState;
   });
 }
-
-export async function CheckSession() {}

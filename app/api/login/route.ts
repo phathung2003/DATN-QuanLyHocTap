@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { ErrorMessage } from '@/components/process/feature/login/loginErrorMessage';
+import LoginMessage from '@/components/process/messages/loginMessage';
 import { LoginResult, GenerateToken } from '@/app/api/login/loginProcess';
 
 const expiresInSeconds = 30;
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
 
   if (!user) {
     return NextResponse.json(
-      { message: ErrorMessage.WRONG_INFO },
+      { message: LoginMessage.WRONG_INFO },
       { status: 404 },
     );
   }
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     );
   } else {
     return NextResponse.json(
-      { message: ErrorMessage.SYSTEM_ERROR },
+      { message: LoginMessage.SYSTEM_ERROR },
       { status: 500 },
     );
   }

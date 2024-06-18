@@ -1,46 +1,6 @@
-/* eslint-disable prettier/prettier */
-import {
-  IRegisterCondition,
-  IRegisterErrorMessage,
-} from '@/components/models/error_messages/IRegisterCondition';
+import { IRegisterMessage } from '@/components/models/messages/IRegisterMessage';
 
-export const Condition: IRegisterCondition = {
-  NAME: {
-    MIN: 10,
-    MAX: 100,
-    REQUIRED: true,
-  },
-
-  USERNAME: {
-    MIN: 10,
-    MAX: 100,
-    REQUIRED: true,
-  },
-
-  PHONE_NUMBER: {
-    LENGTH: 10,
-    ALLOWED_CHARACTERS: true,
-    REGEX_HAVE_CHARACTER: /^[0-9.,;'"-]+$/,
-    REGEX_NO_CHARACTER: /^\d+$/,
-    REQUIRED: true,
-  },
-
-  EMAIL: {
-    REQUIRED: false,
-  },
-
-  PASSWORD: {
-    MIN: 6,
-    MAX: 100,
-    REQUIRED: true,
-  },
-
-  RE_PASSWORD: {
-    REQUIRED: true,
-  },
-};
-
-export const ErrorMessage: IRegisterErrorMessage = {
+const RegisterMessage: IRegisterMessage = {
   SYSTEM_ERROR: 'Hệ thống hiện tại đang bị lỗi. Xin vui lòng thử lại sau',
   ACCOUNT_EXIST: 'Tài khoản đã tồn tại',
   REGISTER_COMPLETE: 'Đăng ký tài khoản thành công',
@@ -82,3 +42,5 @@ export const ErrorMessage: IRegisterErrorMessage = {
     REQUIRED: 'Xin hãy nhập lại mật khẩu',
   },
 };
+
+export default RegisterMessage;

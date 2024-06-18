@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { LogOut } from '@/components/process/feature/logout/logout';
+import { LogOut } from '@/components/process/feature/logout';
 import { useSession } from 'next-auth/react';
 
 export default function TopBarLogin() {
