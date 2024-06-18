@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const token = await GenerateToken(user.id, user.name, expiresInSeconds);
+  const token = await GenerateToken(user, expiresInSeconds);
   if (token != null) {
     return new NextResponse(
       JSON.stringify({

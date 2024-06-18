@@ -5,5 +5,5 @@ import { DeleteToken } from '@/app/api/checkToken/deleteToken';
 export async function POST(request: Request) {
   const data = await request.json();
   const { tokenID } = data;
-  return DeleteToken(tokenID, SessionMessage.LOG_OUT, 204);
+  return DeleteToken(tokenID, SessionMessage.LOG_OUT, 200);
 }

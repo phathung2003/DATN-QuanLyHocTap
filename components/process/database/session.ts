@@ -35,7 +35,6 @@ export async function AddSession(data: ISession) {
 
 //Xóa session
 export async function DeleteSession(token: string) {
-  console.log('Go here');
   const tokensData = collection(db, tableName);
   const tokenData = query(tokensData, where('tokenID', '==', token));
   const tokenResult = await getDocs(tokenData);

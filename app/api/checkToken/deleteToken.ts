@@ -4,22 +4,23 @@ import SessionMessage from '@/components/process/messages/sessionMessage';
 
 export async function DeleteToken(
   token: string,
-  message: string,
-  status: number,
+  messageInfo: string,
+  statusCode: number,
 ) {
   try {
     //Tiến hành xóa phiên đăng nhập
     await DeleteSession(token);
   } catch {
-    status = 404;
-    message = SessionMessage.SYSTEM_ERROR;
+    statusCode = 404;
+    messageInfo = SessionMessage.SYSTEM_ERROR;
   }
+
   return new NextResponse(
     JSON.stringify({
-      message,
+      message: messageInfo,
     }),
     {
-      status,
+      status: statusCode,
       //Hủy token hiện có
       headers: {
         'Content-Type': 'application/json',

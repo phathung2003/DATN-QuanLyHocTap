@@ -27,10 +27,11 @@ export async function POST(request: Request) {
     }
 
     //Tài khoản chưa tồn tại --> Đăng ký
-    const encodePassword = await bcrypt.hash(dataInput.password, 10);
+    let passwordSave = dataInput.password;
     let emailInput = dataInput.email;
-    if (dataInput.email.trim().length === 0) {
+    if (dataInput.email == null || dataInput.email.trim().length === 0) {
       emailInput = null;
+      passwordSave = await bcrypt.hash(dataInput.password, 10);
     }
 
     const data: IRegisterDB = {
@@ -38,10 +39,10 @@ export async function POST(request: Request) {
       username: dataInput.username,
       phoneNumber: dataInput.phoneNumber,
       email: emailInput,
-      password: encodePassword,
+      password: passwordSave,
     };
-    AddUser(data);
 
+    AddUser(data);
     return NextResponse.json(
       { message: RegisterMessage.REGISTER_COMPLETE },
       { status: 201 },

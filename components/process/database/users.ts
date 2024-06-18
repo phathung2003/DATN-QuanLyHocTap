@@ -6,51 +6,70 @@ import {
   doc,
   getDoc,
   getDocs,
+  setDoc,
 } from 'firebase/firestore';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import { IRegisterDB } from '@/components/models/data/IRegister';
-import { db } from '@/components/process/database/firebase';
+import { db, auth } from '@/components/process/database/firebase';
 import RegisterMessage from '../messages/registerMessage';
-import { ILogin } from '@/components/models/data/ILogin';
 import { DefaultRegisteErrorValue } from '../defaultData/register';
+import IUserInfo from '@/components/models/data/IUserInfo';
+const tableName = 'users';
+
+//Đăng ký tài khoản
 export async function AddUser(data: IRegisterDB) {
-  try {
-    const docRef = await addDoc(collection(db, 'users'), {
-      name: data.name,
-      username: data.username,
-      phoneNumber: data.phoneNumber,
-      email: data.email,
-      password: data.password,
-    });
-    console.log('Document written with ID: ', docRef.id);
-  } catch (e) {
-    console.error('Error adding document: ', e);
+  //Không có email
+  if (data.email == null) {
+    await addDoc(collection(db, tableName), data);
+    return;
   }
+
+  //Có email (Hỗ trợ lấy lại mật khẩu)
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    data.email,
+    data.password,
+  );
+  const userInfo = doc(db, tableName, userCredential.user.uid);
+  await setDoc(userInfo, {
+    name: data.name,
+    username: data.username,
+    phoneNumber: data.phoneNumber,
+    email: data.email,
+    password: null,
+  });
 }
 
+//Kiểm tra đã có tài khoản chưa
 export async function CheckInfoExist(data: IRegisterDB) {
   const error = DefaultRegisteErrorValue;
 
   try {
-    const usersData = collection(db, 'users');
+    const usersData = collection(db, tableName);
     const field = ['username', 'email', 'phoneNumber'];
     const input = [data.username, data.email, data.phoneNumber];
 
     for (let i = 0; i < field.length; i++) {
-      const userData = query(usersData, where(field[i], '==', input[i]));
-      const result = await getDocs(userData);
-      if (!result.empty) {
-        error.status = false;
-        switch (field[i]) {
-          case field[0]:
-            error.usernameError = RegisterMessage.USERNAME.USERNAME_EXIST;
-            break;
-          case field[1]:
-            error.emailError = RegisterMessage.EMAIL.EMAIL_EXIST;
-            break;
-          case field[2]:
-            error.phoneNumberError =
-              RegisterMessage.PHONE_NUMBER.PHONE_NUMBER_EXIST;
-            break;
+      if (input[i] != null) {
+        const userData = query(usersData, where(field[i], '==', input[i]));
+        const result = await getDocs(userData);
+        if (!result.empty) {
+          error.status = false;
+          switch (field[i]) {
+            case field[0]:
+              error.usernameError = RegisterMessage.USERNAME.USERNAME_EXIST;
+              break;
+            case field[1]:
+              error.emailError = RegisterMessage.EMAIL.EMAIL_EXIST;
+              break;
+            case field[2]:
+              error.phoneNumberError =
+                RegisterMessage.PHONE_NUMBER.PHONE_NUMBER_EXIST;
+              break;
+          }
         }
       }
     }
@@ -61,17 +80,20 @@ export async function CheckInfoExist(data: IRegisterDB) {
   return error;
 }
 
-export async function GetInfo(accountID: string) {
+//Lấy dữ liệu người dùng
+export async function GetInfo(userID: string) {
   try {
-    const userData = doc(db, 'users', accountID);
+    const userData = doc(db, 'users', userID);
     const result = await getDoc(userData);
     if (!result.exists()) {
       return false;
     } else {
       const data = result.data();
-      const info = {
-        phoneNumber: data.phoneNumber,
+      const info: IUserInfo = {
+        accountID: userID,
         name: data.name,
+        username: data.username,
+        phoneNumber: data.phoneNumber,
         email: data.email,
       };
       return info;
@@ -81,34 +103,41 @@ export async function GetInfo(accountID: string) {
   }
 }
 
-export async function Login(info: string) {
+//Đăng nhập
+export async function Login(info: string, password: string) {
+  //Đăng nhập bằng email
+  const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (pattern.test(info) == true) {
+    return await EmailLogin(info, password);
+  }
+
+  //Đăng nhập bằng số điện thoại/username
   const usersData = collection(db, 'users');
-
-  const fields = ['username', 'email', 'phoneNumber'];
-
+  const fields = ['username', 'phoneNumber'];
   for (const field of fields) {
     const userData = query(usersData, where(field, '==', info));
     const result = await getDocs(userData);
     if (!result.empty) {
+      //Kiểm tra có email hay không
+      const email = result.docs[0].data().email;
+      if (email != null) {
+        return await EmailLogin(email, password);
+      }
       return result;
     }
-    return null;
   }
+  return null;
 }
 
-export async function LoginData(data: ILogin) {
-  const usersData = collection(db, 'users');
-  const fields = ['username', 'email', 'phoneNumber'];
-  for (const field of fields) {
-    const userData = query(
-      usersData,
-      where(field, '==', data.info),
-      where(field, '==', data.password),
-    );
-    const result = await getDocs(userData);
-    if (!result.empty) {
-      return result;
-    }
-    return null;
+//Đăng nhập bằng email với Firebase Authentication
+async function EmailLogin(email: string, password: string) {
+  const userCredential = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password,
+  );
+  if (userCredential.user.uid != null) {
+    return await GetInfo(userCredential.user.uid);
   }
+  return null;
 }
