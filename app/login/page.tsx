@@ -1,11 +1,10 @@
-import React from 'react';
 import LoginPage from '@/components/pages/loginPage';
-
-const Login = () => {
-  return (
-    <main>
-      <LoginPage />
-    </main>
-  );
-};
-export default Login;
+import { CookieCheck } from '@/components/process/feature/validate';
+import { HomePage } from '@/components/process/routers/routers';
+export default async function Login() {
+  const result = await CookieCheck();
+  if (result == false) {
+    return HomePage();
+  }
+  return <LoginPage />;
+}

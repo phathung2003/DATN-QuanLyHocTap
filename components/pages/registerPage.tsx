@@ -1,97 +1,120 @@
-'use client';
 import React from 'react';
-import { Formik, Form } from 'formik';
-import { schemaRegister } from '../models/IRegister';
+import { useState } from 'react';
+import { Formik, Form, ErrorMessage, Field } from 'formik';
+import SchemaRegister from '@/components/process/validationSchema/register/registerSchema';
 import {
-  defaultRegisterValue,
+  DefaultRegisterValue,
+  DefaultRegisteErrorValue,
+} from '../process/defaultData/register';
+import {
   handelSubmit,
-} from '../process/register/register';
+  ResetError,
+} from '@/components/process/feature/register';
 
 export default function RegisterPage() {
+  const [error, setError] = useState(DefaultRegisteErrorValue);
   return (
     <Formik
-      initialValues={defaultRegisterValue}
-      validationSchema={schemaRegister}
-      onSubmit={(data) => handelSubmit(data)}
+      initialValues={DefaultRegisterValue}
+      validationSchema={SchemaRegister}
+      onSubmit={(data) => handelSubmit(data, setError)}
     >
-      {(formik) => (
+      {({ setFieldValue }) => (
         <Form>
           <div id="name_Register">
             <label id="name_RegisterLable">Họ và tên</label>
-            <input
+            <Field
               id="name_RegisterInput"
+              name="name"
               type="text"
-              {...formik.getFieldProps('name')}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                ResetError(e, setFieldValue, setError)
+              }
             />
-            {formik.touched.name && formik.errors.name && (
-              <div id="name_RegisterError"> {formik.errors.name}</div>
-            )}
+            <div>
+              <ErrorMessage id="name_RegisterError" name="name" />
+            </div>
           </div>
 
           <div id="username_Register">
             <label id="username_RegisterLable">Tên đăng nhập</label>
-            <input
+            <Field
               id="username_RegisterInput"
+              name="username"
               type="text"
-              {...formik.getFieldProps('username')}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                ResetError(e, setFieldValue, setError)
+              }
             />
-            {formik.touched.username && formik.errors.username && (
-              <div id="username_RegisterError">{formik.errors.username}</div>
-            )}
+            <div>
+              <p id="username_RegisterError">{error.usernameError}</p>
+              <ErrorMessage id="username_RegisterError" name="username" />
+            </div>
           </div>
 
           <div id="phoneNumber_Register">
             <label id="phoneNumber_RegisterLable">Số điện thoại</label>
-            <input
+            <Field
               id="phoneNumber_RegisterInput"
+              name="phoneNumber"
               type="text"
-              {...formik.getFieldProps('phoneNumber')}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                ResetError(e, setFieldValue, setError)
+              }
             />
-            {formik.touched.phoneNumber && formik.errors.phoneNumber && (
-              <div id="phoneNumber_RegisterError">
-                {formik.errors.phoneNumber}
-              </div>
-            )}
+            <div>
+              <p id="phoneNumber_RegisterError">{error.phoneNumberError}</p>
+              <ErrorMessage id="phoneNumber_RegisterError" name="phoneNumber" />
+            </div>
           </div>
 
           <div id="email_Register">
             <label id="email_RegisterLable">Email</label>
-            <input
+            <Field
               id="email_RegisterInput"
+              name="email"
               type="email"
-              {...formik.getFieldProps('email')}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                ResetError(e, setFieldValue, setError)
+              }
             />
-            {formik.touched.email && formik.errors.email && (
-              <div id="email_RegisterError">{formik.errors.email}</div>
-            )}
+            <div>
+              <p id="email_RegisterError">{error.emailError}</p>
+              <ErrorMessage id="email_RegisterError" name="email" />
+            </div>
           </div>
 
           <div id="password_Register">
             <label id="password_RegisterLable">Mật khẩu</label>
-            <input
+            <Field
               id="password_RegisterInput"
+              name="password"
               type="password"
-              {...formik.getFieldProps('password')}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                ResetError(e, setFieldValue, setError)
+              }
             />
-            {formik.touched.password && formik.errors.password && (
-              <div id="password_RegisterError">{formik.errors.password}</div>
-            )}
+            <div>
+              <ErrorMessage id="password_RegisterError" name="password" />
+            </div>
           </div>
 
           <div id="rePassword_Register">
             <label id="rePassword_RegisterLable">Nhập lại mật khẩu</label>
-            <input
+            <Field
               id="rePassword_RegisterInput"
+              name="rePassword"
               type="password"
-              {...formik.getFieldProps('rePassword')}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                ResetError(e, setFieldValue, setError)
+              }
             />
-            {formik.touched.rePassword && formik.errors.rePassword && (
-              <div id="rePassword_RegisterError">
-                {formik.errors.rePassword}{' '}
-              </div>
-            )}
+            <div>
+              <ErrorMessage id="rePassword_RegisterError" name="rePassword" />
+            </div>
           </div>
 
+          <p id="system_RegisterError">{error.systemError}</p>
           <button id="sumbit_Register" type="submit">
             Submit
           </button>
