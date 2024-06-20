@@ -1,6 +1,6 @@
-import SectionTitle from "../Common copy/SectionTitle";
-import SingleFeature from "./SingleFeature";
-import featuresData from "./featuresData";
+import SectionTitle from '../Common copy/SectionTitle';
+import SingleFeature from './SingleFeature';
+import featuresData from './featuresData';
 
 const Features = () => {
   return (

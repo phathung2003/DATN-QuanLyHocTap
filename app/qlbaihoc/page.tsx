@@ -1,13 +1,13 @@
-import React from 'react'
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import React from 'react';
+import DefaultLayout from '@/components/Layouts/DefaultLayout';
 import QlBaiHoc from '@/components/Dashboard/QlBaiHoc';
 
 const QlBaiHocPage = () => {
   return (
     <DefaultLayout>
-      <QlBaiHoc/>
+      <QlBaiHoc />
     </DefaultLayout>
-  )
-}
+  );
+};
 
-export default QlBaiHocPage
+export default QlBaiHocPage;

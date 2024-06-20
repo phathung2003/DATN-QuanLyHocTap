@@ -1,5 +1,5 @@
-import Image from "next/image";
-import SectionTitle from "../Common copy/SectionTitle";
+import Image from 'next/image';
+import SectionTitle from '../Common copy/SectionTitle';
 
 const checkIcon = (
   <svg width="16" height="13" viewBox="0 0 16 13" className="fill-current">
@@ -13,7 +13,7 @@ interface ListProps {
 
 const AboutSectionOne = () => {
   const List: React.FC<ListProps> = ({ text }) => (
-    <p className="mb-5 flex items-center text-lg font-medium text-body-color">
+    <p className="text-body-color mb-5 flex items-center text-lg font-medium">
       <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
         {checkIcon}
       </span>

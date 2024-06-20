@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Image from 'next/image';
-import AddModal from '@/components/Modal/AddModal'
-import FormAddCate from '@/components/FormCRUD/FormAddCate'
+import AddModal from '@/components/Modal/AddModal';
+import FormAddCate from '@/components/FormCRUD/FormAddCate';
 import EditModal from '@/components/Modal/EditModal';
 import FormEditCate from '@/components/FormCRUD/FormEditCate';
 
@@ -70,19 +70,19 @@ const QlDanhMuc = () => {
   );
   const handleOpenAddModal = (FormComponent: React.FC) => {
     setCurrentFormComponent(() => FormComponent);
-    setIsAddModalOpen(true);    
+    setIsAddModalOpen(true);
   };
 
   // State for Edit modal
-const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-const [editAccountData, setEditAccountData] = useState<React.FC>(
-  () => FormEditCate,
-);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editAccountData, setEditAccountData] = useState<React.FC>(
+    () => FormEditCate,
+  );
 
-const handleEditClick = (FormComponent: React.FC) => {
-  setEditAccountData(() => FormComponent);
-  setIsEditModalOpen(true);
-};
+  const handleEditClick = (FormComponent: React.FC) => {
+    setEditAccountData(() => FormComponent);
+    setIsEditModalOpen(true);
+  };
 
   // button pre & next
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -95,14 +95,13 @@ const handleEditClick = (FormComponent: React.FC) => {
     const newIndex = currentIndex === monHoc.length - 1 ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
   };
-  
 
   return (
-    <section className="bg-slate-50 dark:bg-black dark:pt-5 mx-auto w-full max-w-screen-xl pt-10 antialiased shadow-xl lg:px-4 py-2">
+    <section className="mx-auto w-full max-w-screen-xl bg-slate-50 py-2 pt-10 antialiased shadow-xl dark:bg-black dark:pt-5 lg:px-4">
       {/* // ------------------------------ SECTION DANH MỤC MÔN HỌC ------------------------------------------------------------ */}
       <div>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-2 sm:grid-cols-1 gap-4 sm:mb-5">
+          <div className="grid grid-cols-2 gap-4 sm:mb-5 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-2">
             <div className="">
               <h2 className="font-manrope mb-6 text-2xl font-bold text-black dark:text-white max-xl:text-center">
                 Danh Mục Môn Học
@@ -112,7 +111,7 @@ const handleEditClick = (FormComponent: React.FC) => {
               {/* button add product  */}
               <button
                 type="button"
-                className="bg-lime-600 hover:bg-lime-500 ml-auto inline-flex items-center gap-2.5 rounded-lg p-1.5 px-2 py-2 text-sm text-white dark:hover:text-white w-full items-center justify-center md:w-auto"
+                className="ml-auto inline-flex w-full items-center items-center justify-center gap-2.5 rounded-lg bg-lime-600 p-1.5 px-2 py-2 text-sm text-white hover:bg-lime-500 dark:hover:text-white md:w-auto"
                 onClick={() => handleOpenAddModal(FormAddCate)}
               >
                 <svg
@@ -122,9 +121,9 @@ const handleEditClick = (FormComponent: React.FC) => {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#ffffff"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
                   <line x1="12" y1="5" x2="12" y2="19"></line>
                   <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -146,13 +145,13 @@ const handleEditClick = (FormComponent: React.FC) => {
               <button
                 id="filterDropdownButton"
                 data-dropdown-toggle="filterDropdown"
-                className="focus:ring-slate-200 dark:focus:ring-slate-700 flex w-full items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 hover:bg-slate-100 hover:text-slate-700 focus:z-10 focus:outline-none focus:ring-4 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-600 md:w-auto"
+                className="flex w-full items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 hover:bg-slate-100 hover:text-slate-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-600 dark:focus:ring-slate-700 md:w-auto"
                 type="button"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   aria-hidden="true"
-                  className="text-slate-400 mr-2 h-4 w-4"
+                  className="mr-2 h-4 w-4 text-slate-400"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -179,11 +178,11 @@ const handleEditClick = (FormComponent: React.FC) => {
               </button>
             </div>
           </div>
-          
+
           <div className="relative">
             <button
               onClick={handlePrevClick}
-              className="bg-slate-200 hover:bg-slate-300 absolute left-0 top-1/2 z-10 -translate-y-1/2 transform rounded-full p-2 shadow-md focus:outline-none"
+              className="absolute left-0 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-slate-200 p-2 shadow-md hover:bg-slate-300 focus:outline-none"
             >
               &#8592;
             </button>
@@ -198,21 +197,34 @@ const handleEditClick = (FormComponent: React.FC) => {
                   href="javascript:;"
                   className="group relative mx-auto cursor-pointer overflow-hidden rounded-3xl bg-cover bg-center hover:shadow-lg sm:mx-0"
                 >
-                  <button 
-                  type="button"
-                  onClick={() => handleEditClick(FormEditCate)}
-                  className="absolute right-0 top-0 group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg>
+                  <button
+                    type="button"
+                    onClick={() => handleEditClick(FormEditCate)}
+                    className="group absolute right-0 top-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#ffffff"
+                      strokeWidth="2"
+                      strokeLinecap="square"
+                      strokeLinejoin="bevel"
+                    >
+                      <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+                    </svg>
                   </button>
 
-                  {/* showing modal */} 
-{isEditModalOpen && editAccountData && (
-                <EditModal
-                  isOpen={isEditModalOpen}
-                  onClose={() => setIsEditModalOpen(false)}
-                  FormComponent={editAccountData}
-                />
-              )}
+                  {/* showing modal */}
+                  {isEditModalOpen && editAccountData && (
+                    <EditModal
+                      isOpen={isEditModalOpen}
+                      onClose={() => setIsEditModalOpen(false)}
+                      FormComponent={editAccountData}
+                    />
+                  )}
 
                   <Image
                     width={500}
@@ -229,7 +241,7 @@ const handleEditClick = (FormComponent: React.FC) => {
                         {monHocItem.rate}
                       </h6>
                     </div>
-                    <p className="text-slate-500 text-xs leading-5">
+                    <p className="text-xs leading-5 text-slate-500">
                       {monHocItem.description}
                     </p>
                   </div>
@@ -239,7 +251,7 @@ const handleEditClick = (FormComponent: React.FC) => {
 
             <button
               onClick={handleNextClick}
-              className="bg-slate-200 hover:bg-slate-300 absolute right-0 top-1/2 z-10 -translate-y-1/2 transform rounded-full p-2 shadow-md focus:outline-none"
+              className="absolute right-0 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-slate-200 p-2 shadow-md hover:bg-slate-300 focus:outline-none"
             >
               &#8594;
             </button>
@@ -257,7 +269,7 @@ const handleEditClick = (FormComponent: React.FC) => {
           <div className="relative">
             <button
               onClick={handlePrevClick}
-              className="bg-slate-200 hover:bg-slate-300 absolute left-0 top-1/2 z-10 -translate-y-1/2 transform rounded-full p-2 shadow-md focus:outline-none"
+              className="absolute left-0 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-slate-200 p-2 shadow-md hover:bg-slate-300 focus:outline-none"
             >
               &#8592;
             </button>
@@ -270,10 +282,22 @@ const handleEditClick = (FormComponent: React.FC) => {
                 <a
                   key={index}
                   href="javascript:;"
-                  className="group relative mx-auto cursor-pointer overflow-hidden rounded-3xl bg-cover bg-center transition ease-in-out delay-150 hover:scale-95 hover:shadow-lg sm:mx-0"
+                  className="group relative mx-auto cursor-pointer overflow-hidden rounded-3xl bg-cover bg-center transition delay-150 ease-in-out hover:scale-95 hover:shadow-lg sm:mx-0"
                 >
-                  <div className="absolute right-0 top-0 group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg>
+                  <div className="group absolute right-0 top-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#ffffff"
+                      strokeWidth="2"
+                      strokeLinecap="square"
+                      strokeLinejoin="bevel"
+                    >
+                      <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+                    </svg>
                   </div>
                   <Image
                     width={500}
@@ -290,7 +314,7 @@ const handleEditClick = (FormComponent: React.FC) => {
                         {capDoItem.rate}
                       </h6>
                     </div>
-                    <p className="text-slate-500 text-xs leading-5">
+                    <p className="text-xs leading-5 text-slate-500">
                       {capDoItem.description}
                     </p>
                   </div>
@@ -300,7 +324,7 @@ const handleEditClick = (FormComponent: React.FC) => {
 
             <button
               onClick={handleNextClick}
-              className="bg-slate-200 hover:bg-slate-300 absolute right-0 top-1/2 z-10 -translate-y-1/2 transform rounded-full p-2 shadow-md focus:outline-none"
+              className="absolute right-0 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-slate-200 p-2 shadow-md hover:bg-slate-300 focus:outline-none"
             >
               &#8594;
             </button>

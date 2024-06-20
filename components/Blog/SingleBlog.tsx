@@ -1,13 +1,13 @@
-import { Blog } from "@/types/blog";
-import Image from "next/image";
-import Link from "next/link";
+import { Blog } from '@/types/blog';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const SingleBlog = ({ blog }: { blog: Blog }) => {
   const { title, image, paragraph, author, tags, publishDate } = blog;
   return (
     <>
       <div
-        className="wow fadeInUp shadow-md hover:shadow-xl dark:hover:shadow-xl group relative overflow-hidden rounded-sm bg-white shadow-one duration-300 dark:bg-slate-700"
+        className="wow fadeInUp shadow-one group relative overflow-hidden rounded-sm bg-white shadow-md duration-300 hover:shadow-xl dark:bg-slate-700 dark:hover:shadow-xl"
         data-wow-delay=".1s"
       >
         <Link
@@ -28,28 +28,28 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
               {title}
             </Link>
           </h3>
-          <p className="mb-6 border-b border-slate-200 pb-6 text-base font-medium text-body-color dark:border-white dark:border-opacity-10">
+          <p className="text-body-color mb-6 border-b border-slate-200 pb-6 text-base font-medium dark:border-white dark:border-opacity-10">
             {paragraph}
           </p>
           <div className="flex items-center">
-            <div className="mr-5 flex items-center border-r border-slate-200 pr-5 slate:border-white slate:border-opacity-10 xl:mr-3 xl:pr-3 2xl:mr-5 2xl:pr-5">
+            <div className="slate:border-white slate:border-opacity-10 mr-5 flex items-center border-r border-slate-200 pr-5 xl:mr-3 xl:pr-3 2xl:mr-5 2xl:pr-5">
               <div className="mr-4">
                 <div className="relative h-10 w-10 overflow-hidden rounded-full">
                   <Image src={author.image} alt="author" fill />
                 </div>
               </div>
               <div className="w-full">
-                <h4 className="mb-1 text-sm font-medium text-slate slate:text-white">
+                <h4 className="text-slate slate:text-white mb-1 text-sm font-medium">
                   Bởi {author.name}
                 </h4>
-                <p className="text-xs text-body-color">{author.designation}</p>
+                <p className="text-body-color text-xs">{author.designation}</p>
               </div>
             </div>
             <div className="inline-block">
-              <h4 className="mb-1 text-sm font-medium text-slate slate:text-white">
+              <h4 className="text-slate slate:text-white mb-1 text-sm font-medium">
                 Năm
               </h4>
-              <p className="text-xs text-body-color">{publishDate}</p>
+              <p className="text-body-color text-xs">{publishDate}</p>
             </div>
           </div>
         </div>

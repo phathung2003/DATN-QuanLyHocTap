@@ -1,12 +1,12 @@
-import { ApexOptions } from "apexcharts";
-import React, { useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import { ApexOptions } from 'apexcharts';
+import React, { useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
 
 const options: ApexOptions = {
-  colors: ["#3C50E0", "#80CAEE"],
+  colors: ['#3C50E0', '#80CAEE'],
   chart: {
-    fontFamily: "Satoshi, sans-serif",
-    type: "bar",
+    fontFamily: 'Satoshi, sans-serif',
+    type: 'bar',
     height: 335,
     stacked: true,
     toolbar: {
@@ -24,7 +24,7 @@ const options: ApexOptions = {
         plotOptions: {
           bar: {
             borderRadius: 0,
-            columnWidth: "25%",
+            columnWidth: '25%',
           },
         },
       },
@@ -34,9 +34,9 @@ const options: ApexOptions = {
     bar: {
       horizontal: false,
       borderRadius: 0,
-      columnWidth: "25%",
-      borderRadiusApplication: "end",
-      borderRadiusWhenStacked: "last",
+      columnWidth: '25%',
+      borderRadiusApplication: 'end',
+      borderRadiusWhenStacked: 'last',
     },
   },
   dataLabels: {
@@ -44,14 +44,14 @@ const options: ApexOptions = {
   },
 
   xaxis: {
-    categories: ["Tuần 1", "Tuần 2", "Tuần 3", "Tuần 4"],
+    categories: ['Tuần 1', 'Tuần 2', 'Tuần 3', 'Tuần 4'],
   },
   legend: {
-    position: "top",
-    horizontalAlign: "left",
-    fontFamily: "Satoshi",
+    position: 'top',
+    horizontalAlign: 'left',
+    fontFamily: 'Satoshi',
     fontWeight: 500,
-    fontSize: "14px",
+    fontSize: '14px',
 
     markers: {
       radius: 99,
@@ -73,11 +73,11 @@ const ChartTwo: React.FC = () => {
   const [state, setState] = useState<ChartTwoState>({
     series: [
       {
-        name: "Hoàn thành",
+        name: 'Hoàn thành',
         data: [44, 55, 41, 67],
       },
       {
-        name: "Chưa",
+        name: 'Chưa',
         data: [13, 23, 20, 8],
       },
     ],
@@ -143,7 +143,7 @@ const ChartTwo: React.FC = () => {
             series={state.series}
             type="bar"
             height={350}
-            width={"100%"}
+            width={'100%'}
           />
         </div>
       </div>

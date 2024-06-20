@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import LoginMessage from '@/components/process/messages/loginMessage';
+import LoginMessage from '@/backend/messages/loginMessage';
 import { LoginResult, GenerateToken } from '@/app/api/login/loginProcess';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
-import APIMessage from '@/components/process/messages/apiMessage';
+import APIMessage from '@/backend/messages/apiMessage';
 const expiresInSeconds = 30;
 
 export async function POST(request: Request) {

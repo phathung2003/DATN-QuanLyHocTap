@@ -1,12 +1,9 @@
-"use client";
-import React from "react";
-import ChartOne from "../Charts/ChartOne";
-import ChartThree from "../Charts/ChartThree";
-import ChartTwo from "../Charts/ChartTwo";
-import ChatCard from "../Chat/ChatCard";
-import TableOne from "../Tables/TableOne";
-import CardDataStats from "../CardDataStats"; 
-import MapOne from "../Maps/MapOne";
+'use client';
+import React from 'react';
+import ChartOne from '../Charts/ChartOne';
+import ChartThree from '../Charts/ChartThree';
+import ChartTwo from '../Charts/ChartTwo';
+import CardDataStats from '../CardDataStats';
 
 const TrangChuAd: React.FC = () => {
   return (
@@ -31,7 +28,12 @@ const TrangChuAd: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Tổng Số Bài Viết" total="1,2K" rate="1.35%" levelUp>
+        <CardDataStats
+          title="Tổng Số Bài Viết"
+          total="1,2K"
+          rate="1.35%"
+          levelUp
+        >
           <svg
             className="fill-primary dark:fill-white"
             width="20"
@@ -54,7 +56,12 @@ const TrangChuAd: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Tổng Số Tài Khoản" total="2450" rate="0.59%" levelUp>
+        <CardDataStats
+          title="Tổng Số Tài Khoản"
+          total="2450"
+          rate="0.59%"
+          levelUp
+        >
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -102,10 +109,8 @@ const TrangChuAd: React.FC = () => {
         <ChartOne />
         <ChartTwo />
         <ChartThree />
-        {/* <MapOne /> */}        
-        <div className="col-span-12 xl:col-span-8">
-          {/* <TableOne /> */}
-        </div>
+        {/* <MapOne /> */}
+        <div className="col-span-12 xl:col-span-8">{/* <TableOne /> */}</div>
         {/* <ChatCard /> */}
       </div>
     </>

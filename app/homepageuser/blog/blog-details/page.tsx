@@ -1,14 +1,14 @@
-import RelatedPost from "@/components/Blog/RelatedPost";
-import SharePost from "@/components/Blog/SharePost";
-import TagButton from "@/components/Blog/TagButton";
-import NewsLatterBox from "@/components/Contact/NewsLatterBox";
-import Image from "next/image";
+import RelatedPost from '@/components/Blog/RelatedPost';
+import SharePost from '@/components/Blog/SharePost';
+import TagButton from '@/components/Blog/TagButton';
+import NewsLatterBox from '@/components/Contact/NewsLatterBox';
+import Image from 'next/image';
 
-import { Metadata } from "next";
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Blog Details Page | Free Next.js Template for Startup and SaaS",
-  description: "This is Blog Details Page for Startup Nextjs Template",
+  title: 'Blog Details Page | Free Next.js Template for Startup and SaaS',
+  description: 'This is Blog Details Page for Startup Nextjs Template',
   // other metadata
 };
 
@@ -21,7 +21,7 @@ const BlogSidebarPage = () => {
             <div className="w-full px-4 lg:w-8/12">
               <div>
                 <h1 className="mb-8 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight">
-                Các bé nhạy bén hơn khi được rèn luyện mỗi ngày                  
+                  Các bé nhạy bén hơn khi được rèn luyện mỗi ngày
                 </h1>
                 <div className="mb-10 flex flex-wrap items-center justify-between border-b border-slate-400 border-opacity-10 pb-4 dark:border-white dark:border-opacity-10">
                   <div className="flex flex-wrap items-center">
@@ -105,7 +105,10 @@ const BlogSidebarPage = () => {
                 </div>
                 <div>
                   <p className="mb-10 text-base font-medium leading-relaxed text-slate-500 sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor quibusdam alias neque, minus ab dolorum libero porro veniam dolores dignissimos quis labore rem quae mollitia quia adipisci ea impedit! Dolorem.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Dolor quibusdam alias neque, minus ab dolorum libero porro
+                    veniam dolores dignissimos quis labore rem quae mollitia
+                    quia adipisci ea impedit! Dolorem.
                   </p>
                   <div className="mb-10 w-full overflow-hidden rounded">
                     <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
@@ -123,8 +126,8 @@ const BlogSidebarPage = () => {
                     aliqua. Quis enim lobortis scelerisque fermentum. Neque
                     sodales ut etiam sit amet. Ligula ullamcorper
                     <strong className="text-primary dark:text-white">
-                      {" "}
-                      malesuada{" "}
+                      {' '}
+                      malesuada{' '}
                     </strong>
                     proin libero nunc consequat interdum varius. Quam
                     pellentesque nec nam aliquam sem et tortor consequat.
@@ -133,15 +136,15 @@ const BlogSidebarPage = () => {
                   <p className="mb-10 text-base font-medium leading-relaxed text-slate-500 sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
                     Semper auctor neque vitae tempus quam pellentesque nec.
                     <span className="text-primary underline dark:text-white">
-                      {" "}
-                      Amet dictum sit amet justo{" "}
+                      {' '}
+                      Amet dictum sit amet justo{' '}
                     </span>
                     donec enim diam. Varius sit amet mattis vulputate enim nulla
                     aliquet porttitor. Odio pellentesque diam volutpat commodo
                     sed.
                   </p>
                   <h3 className="font-xl mb-10 font-bold leading-tight text-black dark:text-white sm:text-2xl sm:leading-tight lg:text-xl lg:leading-tight xl:text-2xl xl:leading-tight">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   </h3>
                   <p className="mb-10 text-base font-medium leading-relaxed text-slate-500 sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
                     consectetur adipiscing elit in voluptate velit esse cillum
@@ -238,7 +241,7 @@ const BlogSidebarPage = () => {
                         />
                         <mask
                           id="mask0_111:596"
-                          style={{ maskType: "alpha" }}
+                          style={{ maskType: 'alpha' }}
                           maskUnits="userSpaceOnUse"
                           x="0"
                           y="0"
@@ -339,12 +342,12 @@ const BlogSidebarPage = () => {
               </div>
             </div>
             <div className="w-full px-4 lg:w-4/12">
-              <div className="shadow-md dark:bg-slate-900 mb-10 mt-12 rounded-sm bg-white p-6 dark:shadow-none lg:mt-0">
+              <div className="mb-10 mt-12 rounded-sm bg-white p-6 shadow-md dark:bg-slate-900 dark:shadow-none lg:mt-0">
                 <div className="flex items-center justify-between">
                   <input
                     type="text"
                     placeholder="Tìm kiếm ở đây..."
-                    className="border-stroke dark:text-slate-500-dark dark:shadow-two mr-4 w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-slate-500 outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+                    className="dark:text-slate-500-dark dark:shadow-two mr-4 w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base text-slate-500 outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                   />
                   <button
                     aria-label="search button"
@@ -365,7 +368,7 @@ const BlogSidebarPage = () => {
                   </button>
                 </div>
               </div>
-              <div className="shadow-md dark:bg-slate-900 mb-10 rounded-sm bg-white dark:shadow-xl">
+              <div className="mb-10 rounded-sm bg-white shadow-md dark:bg-slate-900 dark:shadow-xl">
                 <h3 className="border-b border-slate-400 border-opacity-10 px-8 py-4 text-lg font-semibold text-black dark:border-white dark:border-opacity-10 dark:text-white">
                   Bài viết liên quan
                 </h3>
@@ -396,7 +399,7 @@ const BlogSidebarPage = () => {
                   </li>
                 </ul>
               </div>
-              <div className="shadow-md dark:bg-slate-900 mb-10 rounded-sm bg-white dark:shadow-none">
+              <div className="mb-10 rounded-sm bg-white shadow-md dark:bg-slate-900 dark:shadow-none">
                 <h3 className="border-b border-slate-400 border-opacity-10 px-8 py-4 text-lg font-semibold text-black dark:border-white dark:border-opacity-10 dark:text-white">
                   Danh mục phổ biến
                 </h3>

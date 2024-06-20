@@ -1,5 +1,5 @@
-import React from 'react'
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import React from 'react';
+import DefaultLayout from '@/components/Layouts/DefaultLayout';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -10,14 +10,14 @@ const XemChiTietTT = () => {
         <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="relative z-20 h-35 md:h-65">
             <Image
-              src={"/images/qlthongtin/cover-01.png"}
+              src={'/images/qlthongtin/cover-01.png'}
               alt="profile cover"
               className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center"
               width={970}
               height={260}
               style={{
-                width: "auto",
-                height: "auto",
+                width: 'auto',
+                height: 'auto',
               }}
             />
             <div className="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4">
@@ -62,12 +62,12 @@ const XemChiTietTT = () => {
             <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
               <div className="relative drop-shadow-2">
                 <Image
-                  src={"/images/qlthongtin/user01.png"}
+                  src={'/images/qlthongtin/user01.png'}
                   width={160}
                   height={160}
                   style={{
-                    width: "auto",
-                    height: "auto",
+                    width: 'auto',
+                    height: 'auto',
                   }}
                   alt="profile"
                 />
@@ -133,7 +133,7 @@ const XemChiTietTT = () => {
 
               <div className="mx-auto max-w-180">
                 <h4 className="font-semibold text-black dark:text-white">
-                  Giới thiệu                  
+                  Giới thiệu
                 </h4>
                 <p className="mt-4.5">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -298,20 +298,33 @@ const XemChiTietTT = () => {
               </div>
 
               <Link
-            href="/qlthongtin/suathongtin"
-            className="mt-5 inline-flex items-center justify-center gap-2.5 rounded-full bg-lime-500 px-2 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
-          >
-            <span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>
-            </span>
-            Sửa Thông Tin 
-          </Link>
+                href="/qlthongtin/suathongtin"
+                className="mt-5 inline-flex items-center justify-center gap-2.5 rounded-full bg-lime-500 px-2 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+              >
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#ffffff"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
+                    <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
+                  </svg>
+                </span>
+                Sửa Thông Tin
+              </Link>
             </div>
           </div>
         </div>
-      </div>     
+      </div>
     </DefaultLayout>
-  )
-}
+  );
+};
 
-export default XemChiTietTT
+export default XemChiTietTT;

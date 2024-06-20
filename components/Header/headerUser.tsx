@@ -1,10 +1,10 @@
-"use client";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import ThemeToggler from "./ThemeToggler";
-import menuData from "./menuData";
+'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import ThemeToggler from './ThemeToggler';
+import menuData from './menuData';
 
 const Header = () => {
   // Navbar toggle
@@ -23,7 +23,7 @@ const Header = () => {
     }
   };
   useEffect(() => {
-    window.addEventListener("scroll", handleStickyNavbar);
+    window.addEventListener('scroll', handleStickyNavbar);
   });
 
   // submenu handler
@@ -41,10 +41,10 @@ const Header = () => {
   return (
     <>
       <header
-        className={`header left-0 top-0 z-40 px-10 flex w-full items-center ${
+        className={`header left-0 top-0 z-40 flex w-full items-center px-10 ${
           sticky
-            ? "dark:bg-slate-950 dark:shadow-sticky-dark fixed z-[9999] bg-white !bg-opacity-80 shadow-sticky backdrop-blur-sm transition"
-            : "absolute bg-transparent"
+            ? 'dark:shadow-sticky-dark shadow-sticky fixed z-[9999] bg-white !bg-opacity-80 backdrop-blur-sm transition dark:bg-slate-950'
+            : 'absolute bg-transparent'
         }`}
       >
         <div className="container">
@@ -53,7 +53,7 @@ const Header = () => {
               <Link
                 href="/homepageuser"
                 className={`header-logo block w-full ${
-                  sticky ? "py-5 lg:py-2" : "py-8"
+                  sticky ? 'py-5 lg:py-2' : 'py-8'
                 } `}
               >
                 <Image
@@ -78,30 +78,30 @@ const Header = () => {
                   onClick={navbarToggleHandler}
                   id="navbarToggler"
                   aria-label="Mobile Menu"
-                  className="absolute right-4 top-1/2 block tran-y-[-50%] rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
+                  className="tran-y-[-50%] absolute right-4 top-1/2 block rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
                 >
                   <span
                     className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white ${
-                      navbarOpen ? " top-[7px] rotate-45" : " "
+                      navbarOpen ? ' top-[7px] rotate-45' : ' '
                     }`}
                   />
                   <span
                     className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white ${
-                      navbarOpen ? "opacity-0 " : " "
+                      navbarOpen ? 'opacity-0 ' : ' '
                     }`}
                   />
                   <span
                     className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white ${
-                      navbarOpen ? " top-[-8px] -rotate-45" : " "
+                      navbarOpen ? ' top-[-8px] -rotate-45' : ' '
                     }`}
                   />
                 </button>
                 <nav
                   id="navbarCollapse"
-                  className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50 bg-white px-6 py-4 duration-300 dark:border-body-color/20 dark:bg-dark lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
+                  className={`navbar border-body-color/50 dark:border-body-color/20 dark:bg-dark absolute right-0 z-30 w-[250px] rounded border-[.5px] bg-white px-6 py-4 duration-300 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
                     navbarOpen
-                      ? "visibility top-full opacity-100"
-                      : "invisible top-[120%] opacity-0"
+                      ? 'visibility top-full opacity-100'
+                      : 'invisible top-[120%] opacity-0'
                   }`}
                 >
                   <ul className="block lg:flex lg:space-x-12">
@@ -112,8 +112,8 @@ const Header = () => {
                             href={menuItem.path}
                             className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 ${
                               usePathName === menuItem.path
-                                ? "text-primary dark:text-white"
-                                : "text-dark hover:text-primary dark:text-white/70 dark:hover:text-white"
+                                ? 'text-primary dark:text-white'
+                                : 'text-dark hover:text-primary dark:text-white/70 dark:hover:text-white'
                             }`}
                           >
                             {menuItem.title}
@@ -122,7 +122,7 @@ const Header = () => {
                           <>
                             <p
                               onClick={() => handleSubmenu(index)}
-                              className="flex cursor-pointer items-center justify-between py-2 text-base text-dark group-hover:text-primary dark:text-white/70 dark:group-hover:text-white lg:mr-0 lg:inline-flex lg:px-0 lg:py-6"
+                              className="text-dark flex cursor-pointer items-center justify-between py-2 text-base group-hover:text-primary dark:text-white/70 dark:group-hover:text-white lg:mr-0 lg:inline-flex lg:px-0 lg:py-6"
                             >
                               {menuItem.title}
                               <span className="pl-3">
@@ -161,7 +161,7 @@ const Header = () => {
               <div className="flex items-center justify-end pr-16 lg:pr-0">
                 <Link
                   href="/signin"
-                  className="hidden px-7 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
+                  className="text-dark hidden px-7 py-3 text-base font-medium hover:opacity-70 dark:text-white md:block"
                 >
                   Đăng Nhập
                 </Link>

@@ -5,3 +5,10 @@ export type Package = {
   status: string;
   view: number;
 };
+
+export type Invoice = {
+  name: string;
+  price: number;
+  invoiceDate: string;
+  status: string;
+};

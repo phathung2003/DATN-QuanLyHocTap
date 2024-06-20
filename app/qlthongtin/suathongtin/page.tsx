@@ -1,6 +1,5 @@
 import React from 'react';
 import DefaultLayout from '@/components/Layouts/DefaultLayout';
-import Link from 'next/link';
 import Image from 'next/image';
 
 const SuaThongTin = () => {
@@ -232,10 +231,10 @@ const SuaThongTin = () => {
                         Chỉnh sửa ảnh
                       </span>
                       <span className="flex gap-2.5">
-                        <button className="text-sm hover:text-primary text-gray-800">
+                        <button className="text-gray-800 text-sm hover:text-primary">
                           Xóa
                         </button>
-                        <button className="text-sm hover:text-primary text-gray-800">
+                        <button className="text-gray-800 text-sm hover:text-primary">
                           Cập nhật
                         </button>
                       </span>
@@ -281,8 +280,8 @@ const SuaThongTin = () => {
                         </svg>
                       </span>
                       <p>
-                        <span className="text-primary">Nhấn để cập nhật</span> or
-                        kéo & thả
+                        <span className="text-primary">Nhấn để cập nhật</span>{' '}
+                        or kéo & thả
                       </p>
                       <p className="mt-1.5">SVG, PNG, JPG or GIF</p>
                       <p>(max, 800 X 800px)</p>

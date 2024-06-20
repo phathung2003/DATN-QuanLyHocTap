@@ -1,8 +1,8 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 
 const SelectGroupOne: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>('');
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
   const changeTextColor = () => {
@@ -12,8 +12,8 @@ const SelectGroupOne: React.FC = () => {
   return (
     <div className="mb-4.5">
       <label className="mb-2.5 block text-black dark:text-white">
-        {" "}
-        Cấp độ{" "}
+        {' '}
+        Cấp độ{' '}
       </label>
 
       <div className="relative z-20 bg-transparent dark:bg-form-input">
@@ -24,17 +24,17 @@ const SelectGroupOne: React.FC = () => {
             changeTextColor();
           }}
           className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
-            isOptionSelected ? "text-black dark:text-white" : ""
+            isOptionSelected ? 'text-black dark:text-white' : ''
           }`}
         >
           <option value="" disabled className="text-body dark:text-bodydark">
             Chọn cấp độ
           </option>
           <option value="USA" className="text-body dark:text-bodydark">
-            Dễ 
+            Dễ
           </option>
           <option value="UK" className="text-body dark:text-bodydark">
-          Trung bình
+            Trung bình
           </option>
           <option value="Canada" className="text-body dark:text-bodydark">
             Khó

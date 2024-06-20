@@ -1,6 +1,7 @@
-"use client";
-import { ReactNode, useState } from "react";
+'use client';
+import { ReactNode, useState } from 'react';
 
+/* eslint-disable */
 interface SidebarLinkGroupProps {
   children: (handleClick: () => void, open: boolean) => ReactNode;
   activeCondition: boolean;

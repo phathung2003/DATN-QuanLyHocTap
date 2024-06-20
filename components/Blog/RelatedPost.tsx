@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
 const RelatedPost = ({
   image,
@@ -28,7 +28,7 @@ const RelatedPost = ({
             {title}
           </Link>
         </h5>
-        <p className="text-xs font-medium text-body-color">{date}</p>
+        <p className="text-body-color text-xs font-medium">{date}</p>
       </div>
     </div>
   );

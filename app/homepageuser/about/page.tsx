@@ -1,12 +1,12 @@
-import AboutSectionOne from "@/components/About/AboutSectionOne";
-import AboutSectionTwo from "@/components/About/AboutSectionTwo";
-import Breadcrumb from "@/components/Common copy/Breadcrumb";
+import AboutSectionOne from '@/components/About/AboutSectionOne';
+import AboutSectionTwo from '@/components/About/AboutSectionTwo';
+import Breadcrumb from '@/components/Common copy/Breadcrumb';
 
-import { Metadata } from "next";
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Trang giới thiệu",
-  description: "Đây là trang giới thiệu",
+  title: 'Trang giới thiệu',
+  description: 'Đây là trang giới thiệu',
   // other metadata
 };
 

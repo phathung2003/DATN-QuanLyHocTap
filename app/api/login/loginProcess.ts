@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { Login } from '@/components/process/database/users';
+import { Login } from '@/backend/database/users';
 import { DateTime } from 'next-auth/providers/kakao';
-import { ISession } from '@/components/models/data/ISession';
-import { AddSession } from '@/components/process/database/session';
+import { ISession } from '@/backend/models/data/ISession';
+import { AddSession } from '@/backend/database/session';
 import { QuerySnapshot } from 'firebase/firestore';
-import IUserInfo from '@/components/models/data/IUserInfo';
+import IUserInfo from '@/backend/models/data/IUserInfo';
 
 //Kiểm tra thông tin đăng nhập
 export async function LoginResult(email: string, password: string) {

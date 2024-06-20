@@ -1,35 +1,36 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { Package } from "@/types/package";
-import AddModal from '@/components/Modal/AddModal'
-import FormAddBlog from '@/components/FormCRUD/FormAddBlog'
+import { Package } from '@/types/package';
+import AddModal from '@/components/Modal/AddModal';
+import FormAddBlog from '@/components/FormCRUD/FormAddBlog';
 import EditModal from '@/components/Modal/EditModal';
 import FormEditBlog from '@/components/FormCRUD/FormEditBlog';
-import DeleteModal from '@/components/Modal/DeleteModal'
-import Pagination from '@/components/Pagination/Pagination'
+import DeleteModal from '@/components/Modal/DeleteModal';
+import Pagination from '@/components/Pagination/Pagination';
 
 const packageData: Package[] = [
   {
-    id: "01",
-    title: "Các bé nhạy bén hơn khi được rèn luyện mỗi ngày" ,
-    category: "Sáng tạo",
-    status: "Public",
+    id: '01',
+    title: 'Các bé nhạy bén hơn khi được rèn luyện mỗi ngày',
+    category: 'Sáng tạo',
+    status: 'Public',
     view: 90,
   },
   {
-    id: "02",
-    title: "Được hỗ trợ nhiệt tình từ đội ngũ tâm huyết",
-    category: "Học sinh",
-    status: "Public",
+    id: '02',
+    title: 'Được hỗ trợ nhiệt tình từ đội ngũ tâm huyết',
+    category: 'Học sinh',
+    status: 'Public',
     view: 90,
   },
   {
-    id: "03",
-    title: "Môi trường học tập của các bé phần nào ảnh hưởng đến sự phát triển của trẻ",
-    category: "Học sinh",
-    status: "Public",
+    id: '03',
+    title:
+      'Môi trường học tập của các bé phần nào ảnh hưởng đến sự phát triển của trẻ',
+    category: 'Học sinh',
+    status: 'Public',
     view: 120,
   },
 ];
@@ -42,33 +43,29 @@ const QlBaiViet = () => {
   );
   const handleOpenAddModal = (FormComponent: React.FC) => {
     setCurrentFormComponent(() => FormComponent);
-    setIsAddModalOpen(true);    
+    setIsAddModalOpen(true);
   };
 
   // State for Edit modal
-const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-const [editAccountData, setEditAccountData] = useState<React.FC>(
-  () => FormEditBlog,
-);
-const handleEditClick = (FormComponent: React.FC) => {
-  setEditAccountData(() => FormComponent);
-  setIsEditModalOpen(true);
-};
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editAccountData, setEditAccountData] = useState<React.FC>(
+    () => FormEditBlog,
+  );
+  const handleEditClick = (FormComponent: React.FC) => {
+    setEditAccountData(() => FormComponent);
+    setIsEditModalOpen(true);
+  };
 
-//state for Delete modal
-const [isDelModalOpen, setIsDelModalOpen] = useState(false);
-const handleDelete = () => {
-  setIsDelModalOpen(true);
-}
+  //state for Delete modal
+  const [isDelModalOpen, setIsDelModalOpen] = useState(false);
+  const handleDelete = () => {
+    setIsDelModalOpen(true);
+  };
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-8 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
       <div className="max-w-full overflow-x-auto">
-<<<<<<< HEAD
         <div className="relative overflow-hidden bg-white dark:bg-slate-700 sm:rounded-lg">
-=======
-        <div className="relative bg-white dark:bg-slate-700 sm:rounded-lg">
->>>>>>> 6fc576352610b9f8c6125fedba7a75af0bb0df06
           <div className="flex flex-col items-center justify-between px-2 py-2 md:flex-row">
             <div className="w-full md:w-1/2">
               <form className="border-gray-100 flex items-center dark:bg-black">
@@ -102,13 +99,8 @@ const handleDelete = () => {
               </form>
             </div>
 
-<<<<<<< HEAD
             {/* button add  */}
             <div className="flex w-full translate-x-10  justify-end gap-2.5 px-2 py-2 transition md:w-auto">
-=======
-            {/* button add */}
-            <div className="flex w-full mx-auto md:w-1/2 xl:translate-x-15 lg:translate-x-15 justify-end items-center sm:justify-center md:justify-center gap-2.5 px-2 py-2 transition md:w-auto">
->>>>>>> 6fc576352610b9f8c6125fedba7a75af0bb0df06
               <button
                 type="button"
                 className="hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 ml-auto inline-flex w-full items-center items-center justify-center gap-2.5 rounded-lg bg-primary p-1.5 px-2 py-2 text-sm text-white dark:hover:text-white md:w-auto"
@@ -121,9 +113,9 @@ const handleDelete = () => {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#ffffff"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
                   <line x1="12" y1="5" x2="12" y2="19"></line>
                   <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -143,11 +135,7 @@ const handleDelete = () => {
             )}
 
             {/* button filter  */}
-<<<<<<< HEAD
             <div className="flex w-full translate-x-5 items-center space-x-3 transition md:w-auto">
-=======
-            <div className="flex mx-auto w-full md:w-1/2 items-center sm:justify-center md:justify-center space-x-3 transition md:w-auto">
->>>>>>> 6fc576352610b9f8c6125fedba7a75af0bb0df06
               <button
                 id="filterDropdownButton"
                 data-dropdown-toggle="filterDropdown"
@@ -185,19 +173,11 @@ const handleDelete = () => {
             </div>
 
             {/* button delete all  */}
-<<<<<<< HEAD
             <div className="flex w-full items-center space-x-3 md:w-auto">
               <button
                 id="filterDropdownButton"
                 data-dropdown-toggle="filterDropdown"
                 className="flex rounded-xl bg-rose-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-rose-800 focus:outline-none focus:ring-4 focus:ring-rose-300 dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-900"
-=======
-            <div className="flex w-full items-center space-x-3 transition xs:w-auto sm:w-auto">
-              <button
-                id="filterDropdownButton"
-                data-dropdown-toggle="filterDropdown"
-                className="flex rounded-lg bg-rose-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-rose-800 focus:outline-none focus:ring-4 focus:ring-rose-300 dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-900"
->>>>>>> 6fc576352610b9f8c6125fedba7a75af0bb0df06
                 type="button"
               >
                 <svg
@@ -309,9 +289,9 @@ const handleDelete = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="#ffffff"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       >
                         <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
                         <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
@@ -329,8 +309,8 @@ const handleDelete = () => {
                     )}
 
                     {/* button xem */}
-                    <Link 
-                      href="/homepageuser/blog/blog-details"                     
+                    <Link
+                      href="/homepageuser/blog/blog-details"
                       className="text-stale-900 flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-center text-sm font-medium hover:bg-slate-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white dark:focus:ring-slate-700"
                     >
                       <svg
@@ -341,9 +321,9 @@ const handleDelete = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="#4a4a4a"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       >
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                         <circle cx="12" cy="12" r="3"></circle>
@@ -356,7 +336,7 @@ const handleDelete = () => {
                       type="button"
                       data-modal-target="delete-modal"
                       data-modal-toggle="delete-modal"
-                      onClick={() => handleDelete()}                                        
+                      onClick={() => handleDelete()}
                       className="flex items-center gap-2 rounded-lg border border-rose-600 px-3 py-2 text-center text-sm font-medium text-rose-600 hover:bg-rose-800 hover:stroke-white hover:text-white focus:outline-none focus:ring-4 focus:ring-rose-300 dark:border-rose-500 dark:text-rose-500 dark:hover:bg-rose-600 dark:hover:text-white dark:focus:ring-rose-900"
                     >
                       <svg
@@ -367,9 +347,9 @@ const handleDelete = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="#d01d02"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       >
                         <polyline points="3 6 5 6 21 6"></polyline>
                         <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -378,11 +358,11 @@ const handleDelete = () => {
                       </svg>
                       Xóa
                     </button>
-                    
+
                     <DeleteModal
-                        isOpen={isDelModalOpen}
-                        onClose={() => setIsDelModalOpen(false)}                        
-                      />
+                      isOpen={isDelModalOpen}
+                      onClose={() => setIsDelModalOpen(false)}
+                    />
                   </div>
                 </td>
               </tr>
@@ -393,6 +373,6 @@ const handleDelete = () => {
       <Pagination />
     </div>
   );
-}
+};
 
-export default QlBaiViet
+export default QlBaiViet;

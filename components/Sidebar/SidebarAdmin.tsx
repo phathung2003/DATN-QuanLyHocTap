@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import SidebarLinkGroup from './SidebarLinkGroup';
 import classNames from 'classnames';
 import {
   BlogIcon,
@@ -17,7 +16,7 @@ import {
   StatisticIcon,
   HelpIcon,
 } from '../icons';
-
+/* eslint-disable */
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
@@ -74,7 +73,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
 
-  let storedSidebarExpanded = 'true';
+  const storedSidebarExpanded = 'true';
 
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true',
@@ -154,13 +153,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
               QUẢN LÝ
             </h3>
-            <div className="mb-5 flex flex-col items-start w-full">
+            <div className="mb-5 flex w-full flex-col items-start">
               {menuItems.map(({ icon: Icon, ...menu }) => {
                 return (
                   <div>
                     <Link
                       href={menu.link}
-                      className={`w-full group relative flex items-center gap-2.5 rounded-xl font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                      className={`group relative flex w-full items-center gap-2.5 rounded-xl font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                         pathname === menu.link &&
                         'w-full bg-graydark dark:bg-meta-4'
                       }`}
@@ -172,7 +171,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         {!toggleCollapse && (
                           <p
                             className={classNames(
-                              'text-md text-text-light font-medium w-full',
+                              'text-md text-text-light w-full font-medium',
                             )}
                           >
                             {menu.label}

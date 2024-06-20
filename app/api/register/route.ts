@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
-import { AddUser, CheckInfoExist } from '@/components/process/database/users';
-import { IRegisterDB } from '@/components/models/data/IRegister';
-import RegisterMessage from '@/components/process/messages/registerMessage';
-import { DefaultRegisteErrorValue } from '@/components/process/defaultData/register';
+import { AddUser, CheckInfoExist } from '@/backend/database/users';
+import { IRegisterDB } from '@/backend/models/data/IRegister';
+import RegisterMessage from '@/backend/messages/registerMessage';
+import { DefaultRegisteErrorValue } from '@/backend/defaultData/register';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
-import APIMessage from '@/components/process/messages/apiMessage';
+import APIMessage from '@/backend/messages/apiMessage';
 
 export async function POST(request: Request) {
   try {
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
 
     //Tài khoản chưa tồn tại --> Đăng ký
     let passwordSave = dataInput.password;
-    let emailInput = dataInput.email;
+    let emailInput: string | null = dataInput.email;
     if (dataInput.email == null || dataInput.email.trim().length === 0) {
       emailInput = null;
       passwordSave = await bcrypt.hash(dataInput.password, 10);

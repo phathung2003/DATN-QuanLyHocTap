@@ -1,6 +1,6 @@
-import UserMessage from '@/components/process/messages/userMessage';
-import { ResetPassword } from '@/components/process/database/users';
-import APIMessage from '@/components/process/messages/apiMessage';
+import UserMessage from '@/backend/messages/userMessage';
+import { ResetPassword } from '@/backend/database/users';
+import APIMessage from '@/backend/messages/apiMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 
 // Quên mật khẩu

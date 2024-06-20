@@ -1,6 +1,6 @@
-import SessionMessage from '@/components/process/messages/sessionMessage';
+import SessionMessage from '@/backend/messages/sessionMessage';
 import { DeleteToken } from '@/app/api/checkToken/deleteToken';
-import APIMessage from '@/components/process/messages/apiMessage';
+import APIMessage from '@/backend/messages/apiMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 
 //Đăng xuất

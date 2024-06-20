@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 const AboutSectionTwo = () => {
   return (
@@ -28,26 +28,32 @@ const AboutSectionTwo = () => {
             <div className="wow fadeInUp max-w-[470px]" data-wow-delay=".2s">
               <div className="mb-9">
                 <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                Theo dõi tiến độ học tập
+                  Theo dõi tiến độ học tập
                 </h3>
-                <p className="text-slate-500 font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                Phụ huynh có thể dễ dàng truy cập và xem báo cáo chi tiết hàng ngày về hoạt động học tập của trẻ. Gồm thông tin về các kỹ năng đã học, các mục tiêu đã đạt được,.. 
+                <p className="text-body-color font-medium leading-relaxed text-slate-500 sm:text-lg sm:leading-relaxed">
+                  Phụ huynh có thể dễ dàng truy cập và xem báo cáo chi tiết hàng
+                  ngày về hoạt động học tập của trẻ. Gồm thông tin về các kỹ
+                  năng đã học, các mục tiêu đã đạt được,..
                 </p>
               </div>
               <div className="mb-9">
                 <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
                   Kho tài liệu học tập phong phú
                 </h3>
-                <p className="text-slate-500 font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                Chúng tôi cung cấp một nguồn tài liệu học tập phong phú và đa dạng, bao gồm các bài giảng, video hướng dẫn, bài tập và trò chơi giáo dục. 
+                <p className="text-body-color font-medium leading-relaxed text-slate-500 sm:text-lg sm:leading-relaxed">
+                  Chúng tôi cung cấp một nguồn tài liệu học tập phong phú và đa
+                  dạng, bao gồm các bài giảng, video hướng dẫn, bài tập và trò
+                  chơi giáo dục.
                 </p>
               </div>
               <div className="mb-1">
                 <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
                   Trò chuyện & hỗ trợ trực tuyến
                 </h3>
-                <p className="text-slate-500 font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                Trang web còn tích hợp tính năng trò chuyện và hỗ trợ trực tuyến, cho phép phụ huynh liên hệ ngay lập tức với đội ngũ hỗ trợ khi gặp bất kỳ vấn đề nào hoặc cần sự tư vấn. 
+                <p className="text-body-color font-medium leading-relaxed text-slate-500 sm:text-lg sm:leading-relaxed">
+                  Trang web còn tích hợp tính năng trò chuyện và hỗ trợ trực
+                  tuyến, cho phép phụ huynh liên hệ ngay lập tức với đội ngũ hỗ
+                  trợ khi gặp bất kỳ vấn đề nào hoặc cần sự tư vấn.
                 </p>
               </div>
             </div>

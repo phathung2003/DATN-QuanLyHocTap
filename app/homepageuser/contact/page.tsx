@@ -1,11 +1,11 @@
-import Breadcrumb from "@/components/Common copy/Breadcrumb";
-import Contact from "@/components/Contact";
+import Breadcrumb from '@/components/Common copy/Breadcrumb';
+import Contact from '@/components/Contact';
 
-import { Metadata } from "next";
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Trang liên hệ",
-  description: "Đây là trang liên hệ",
+  title: 'Trang liên hệ',
+  description: 'Đây là trang liên hệ',
   // other metadata
 };
 

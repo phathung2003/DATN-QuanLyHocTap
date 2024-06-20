@@ -1,12 +1,12 @@
-import SectionTitle from "../Common copy/SectionTitle";
-import SingleBlog from "./SingleBlog";
-import blogData from "./blogData";
+import SectionTitle from '../Common copy/SectionTitle';
+import SingleBlog from './SingleBlog';
+import blogData from './blogData';
 
 const Blog = () => {
   return (
     <section
       id="blog"
-      className="bg-[#FFEFEF] dark:bg-slate-800 px-20 py-8 md:py-12 lg:py-16"
+      className="bg-[#FFEFEF] px-20 py-8 dark:bg-slate-800 md:py-12 lg:py-16"
     >
       <div className="container">
         <SectionTitle

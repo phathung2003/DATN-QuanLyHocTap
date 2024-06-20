@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const CheckboxOne = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
@@ -20,14 +20,14 @@ const CheckboxOne = () => {
           />
           <div
             className={`mr-4 flex h-5 w-5 items-center justify-center rounded border ${
-              isChecked && "border-blue-500 bg-slate dark:bg-transparent"
+              isChecked && 'bg-slate border-blue-500 dark:bg-transparent'
             }`}
           >
             <span
-              className={`h-2.5 w-2.5 rounded-sm ${isChecked && "bg-blue-500"}`}
+              className={`h-2.5 w-2.5 rounded-sm ${isChecked && 'bg-blue-500'}`}
             ></span>
           </div>
-        </div>        
+        </div>
       </label>
     </div>
   );

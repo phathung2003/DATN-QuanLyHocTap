@@ -51,7 +51,7 @@ const FormEditBlog = () => {
               <option selected value="">
                 Sáng tạo
               </option>
-              <option value="PC">Phụ Huynh</option>              
+              <option value="PC">Phụ Huynh</option>
               <option value="PH">Học sinh</option>
             </select>
           </div>
@@ -67,16 +67,16 @@ const FormEditBlog = () => {
           </div>
         </div>
         <div className="mb-3">
-            <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-              Mô tả: <span className="text-rose-600">*</span>
-            </label>
-            <textarea
-              rows={6}
-              placeholder="Nhập vào mô tả..."              
-              defaultValue="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas expedita non ratione asperiores quidem rem suscipit, quaerat adipisci recusandae praesentium, illum beatae magni animi id accusantium, perferendis sapiente libero odio?"
-              className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-sm text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-            ></textarea>
-          </div>
+          <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+            Mô tả: <span className="text-rose-600">*</span>
+          </label>
+          <textarea
+            rows={6}
+            placeholder="Nhập vào mô tả..."
+            defaultValue="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas expedita non ratione asperiores quidem rem suscipit, quaerat adipisci recusandae praesentium, illum beatae magni animi id accusantium, perferendis sapiente libero odio?"
+            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-sm text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+          ></textarea>
+        </div>
         <div className="flex items-center space-x-4">
           <button
             type="submit"
@@ -96,9 +96,9 @@ const FormEditBlog = () => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="#d01d02"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <polyline points="3 6 5 6 21 6"></polyline>
               <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
