@@ -64,7 +64,11 @@ const handleDelete = () => {
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-8 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
       <div className="max-w-full overflow-x-auto">
+<<<<<<< HEAD
         <div className="relative overflow-hidden bg-white dark:bg-slate-700 sm:rounded-lg">
+=======
+        <div className="relative bg-white dark:bg-slate-700 sm:rounded-lg">
+>>>>>>> 6fc576352610b9f8c6125fedba7a75af0bb0df06
           <div className="flex flex-col items-center justify-between px-2 py-2 md:flex-row">
             <div className="w-full md:w-1/2">
               <form className="border-gray-100 flex items-center dark:bg-black">
@@ -98,8 +102,13 @@ const handleDelete = () => {
               </form>
             </div>
 
+<<<<<<< HEAD
             {/* button add  */}
             <div className="flex w-full translate-x-10  justify-end gap-2.5 px-2 py-2 transition md:w-auto">
+=======
+            {/* button add */}
+            <div className="flex w-full mx-auto md:w-1/2 xl:translate-x-15 lg:translate-x-15 justify-end items-center sm:justify-center md:justify-center gap-2.5 px-2 py-2 transition md:w-auto">
+>>>>>>> 6fc576352610b9f8c6125fedba7a75af0bb0df06
               <button
                 type="button"
                 className="hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 ml-auto inline-flex w-full items-center items-center justify-center gap-2.5 rounded-lg bg-primary p-1.5 px-2 py-2 text-sm text-white dark:hover:text-white md:w-auto"
@@ -134,7 +143,11 @@ const handleDelete = () => {
             )}
 
             {/* button filter  */}
+<<<<<<< HEAD
             <div className="flex w-full translate-x-5 items-center space-x-3 transition md:w-auto">
+=======
+            <div className="flex mx-auto w-full md:w-1/2 items-center sm:justify-center md:justify-center space-x-3 transition md:w-auto">
+>>>>>>> 6fc576352610b9f8c6125fedba7a75af0bb0df06
               <button
                 id="filterDropdownButton"
                 data-dropdown-toggle="filterDropdown"
@@ -172,11 +185,19 @@ const handleDelete = () => {
             </div>
 
             {/* button delete all  */}
+<<<<<<< HEAD
             <div className="flex w-full items-center space-x-3 md:w-auto">
               <button
                 id="filterDropdownButton"
                 data-dropdown-toggle="filterDropdown"
                 className="flex rounded-xl bg-rose-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-rose-800 focus:outline-none focus:ring-4 focus:ring-rose-300 dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-900"
+=======
+            <div className="flex w-full items-center space-x-3 transition xs:w-auto sm:w-auto">
+              <button
+                id="filterDropdownButton"
+                data-dropdown-toggle="filterDropdown"
+                className="flex rounded-lg bg-rose-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-rose-800 focus:outline-none focus:ring-4 focus:ring-rose-300 dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-900"
+>>>>>>> 6fc576352610b9f8c6125fedba7a75af0bb0df06
                 type="button"
               >
                 <svg

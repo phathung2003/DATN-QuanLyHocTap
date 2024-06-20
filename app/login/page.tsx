@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import LoginPage from '@/components/pages/loginPage';
 import { CookieCheck } from '@/components/process/feature/validate';
 import { HomePage } from '@/components/process/routers/routers';
@@ -10,6 +11,8 @@ export default async function Login() {
   return <LoginPage />;
 }
 =======
+=======
+>>>>>>> 6fc576352610b9f8c6125fedba7a75af0bb0df06
 import React from 'react';
 import LoginPage from '../../pages/loginPage'
 
