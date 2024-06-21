@@ -51,7 +51,7 @@ export default function Header({ name }) {
           <div className="relative -mx-4 flex items-center justify-between">
             <div className="w-60 max-w-full px-4 xl:mr-12">
               <Link
-                href="/homepageuser"
+                href="/"
                 className={`header-logo block w-full ${
                   sticky ? 'py-5 lg:py-2' : 'py-8'
                 } `}
