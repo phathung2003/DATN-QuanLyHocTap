@@ -6,7 +6,6 @@ export async function handelSubmit(
   data: ILogin,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
 ) {
-  console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`);
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/login`,
