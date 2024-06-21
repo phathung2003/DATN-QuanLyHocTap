@@ -52,7 +52,7 @@ const Hero = () => {
                     </p>
                     <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                       <Link
-                        href="/signup"
+                        href="/register"
                         className="hover:bg-bg-[#FF5580] rounded-r-full bg-[#FF5580] px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out"
                       >
                         🔥 Đăng ký ngay
