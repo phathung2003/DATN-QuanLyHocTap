@@ -1,28 +1,26 @@
-// import React from 'react';
+import AboutSectionOne from '@/components/About/AboutSectionOne';
+import Blog from '@/components/Blog';
 
-// export default async function Home() {
-//   return (
-//     <main className="overflow-hidden">
-//       <p>This is HomePage Page</p>
-//     </main>
-//   );
-// }
-
-import TrangChuAd from '@/components/Dashboard/TrangChuAd';
+import Contact from '@/components/Contact';
+import Features from '@/components/Features';
+import Hero from '@/components/Hero';
+import Testimonials from '@/components/Testimonials';
 import { Metadata } from 'next';
-import DefaultLayout from '@/components/Layouts/DefaultLayout';
 
 export const metadata: Metadata = {
-  title: 'HungThanh',
-  description: 'Đây là project của HungThanh',
+  title: 'Trang Chủ',
+  description: 'Đây là trang chủ của web HungThanh',
 };
 
 export default function Home() {
   return (
     <>
-      <DefaultLayout>
-        <TrangChuAd />
-      </DefaultLayout>
+      <Hero />
+      <Features />
+      <Blog />
+      <AboutSectionOne />
+      <Testimonials />
+      <Contact />
     </>
   );
 }

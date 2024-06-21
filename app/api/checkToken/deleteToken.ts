@@ -15,7 +15,6 @@ export async function DeleteToken(
     statusCode = 404;
     messageInfo = SessionMessage.SYSTEM_ERROR;
   }
-
   return new NextResponse(
     JSON.stringify({
       message: messageInfo,
@@ -25,7 +24,8 @@ export async function DeleteToken(
       //Hủy token hiện có
       headers: {
         'Content-Type': 'application/json',
-        'Set-Cookie': `token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Strict; Secure; Max-Age=0`,
+        'Set-Cookie':
+          'token=; Path=/; HttpOnly; SameSite=Strict; Secure; ; Max-Age=0',
       },
     },
   );

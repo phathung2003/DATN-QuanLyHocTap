@@ -23,6 +23,7 @@ export async function AddSession(data: ISession) {
       expiresAt: data.expiresAt,
       createAt: data.createAt,
     });
+    console.log(docRef.id);
     if (docRef.id != null) {
       return true;
     } else {
@@ -64,7 +65,7 @@ export async function CheckSession(token: string) {
 
     //Kiểm tra session còn hạn không
     const sessionInfo = await tokenResult.docs[0].data();
-    if (sessionInfo.expiresAt.toDate().getSeconds() < new Date().getSeconds()) {
+    if (sessionInfo.expiresAt.toDate() < new Date()) {
       await DeleteSession(sessionInfo.tokenID);
       defaultError.status = false;
       defaultError.message = SessionMessage.SESSION_TIME_OUT;

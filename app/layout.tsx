@@ -1,18 +1,29 @@
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
-export const metadata: Metadata = {
-  title: 'Quản lý trẻ em học',
-  description: 'Phần mềm quản lý trẻ em học',
-};
-
-export default function RootLayout({
+//import ScrollUp from '@/components/Common copy/ScrollUp';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header/headerUser';
+//import ScrollToTop from '@/components/ScrollToTop';
+import '@/css/index.css';
+import { Providers } from '@/app/providers';
+import { CookieGetInfo } from '@/backend/feature/validate';
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const userInfo = await CookieGetInfo();
+  let userName: string | null = userInfo;
+  if (userName != null) {
+    userName = userInfo.name;
+  }
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`bg-[#FCFCFC] dark:bg-black ${inter.className}`}>
+        <Providers>
+          <Header name={userName} />
+          {children}
+          <Footer />
+        </Providers>
+      </body>
     </html>
   );
 }

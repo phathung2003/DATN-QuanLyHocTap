@@ -37,7 +37,7 @@
     "jquery.easing": "^1.4.1",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
-    "jsvectormap": "^1.5.3",
+    "jsvectormap": "^1.6.0",
     "lint-staged": "^15.2.2",
     "next": "^14.2.3",
     "next-auth": "^4.24.7",

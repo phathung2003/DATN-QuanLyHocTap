@@ -5,8 +5,8 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ThemeToggler from './ThemeToggler';
 import menuData from './menuData';
-
-const Header = () => {
+import LogOut from '@/backend/feature/logout';
+export default function Header({ name }) {
   // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);
   const navbarToggleHandler = () => {
@@ -159,18 +159,33 @@ const Header = () => {
                 </nav>
               </div>
               <div className="flex items-center justify-end pr-16 lg:pr-0">
-                <Link
-                  href="/signin"
-                  className="text-dark hidden px-7 py-3 text-base font-medium hover:opacity-70 dark:text-white md:block"
-                >
-                  Đăng Nhập
-                </Link>
-                <Link
-                  href="/signup"
-                  className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-sm bg-[#FF5580] px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
-                >
-                  Đăng Ký
-                </Link>
+                {name === null && (
+                  <>
+                    <Link
+                      href="/login"
+                      className="text-dark hidden px-7 py-3 text-base font-medium hover:opacity-70 dark:text-white md:block"
+                    >
+                      Đăng Nhập
+                    </Link>
+                    <Link
+                      href="/register"
+                      className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-sm bg-[#FF5580] px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
+                    >
+                      Đăng Ký
+                    </Link>
+                  </>
+                )}
+                {name != null && (
+                  <div>
+                    <p>Xin chào {getLastName(name)}</p>
+                    <button
+                      onClick={() => LogOut()}
+                      className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-sm bg-[#FF5580] px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
+                    >
+                      Đăng xuất
+                    </button>
+                  </div>
+                )}
                 <div>
                   <ThemeToggler />
                 </div>
@@ -181,6 +196,9 @@ const Header = () => {
       </header>
     </>
   );
-};
+}
 
-export default Header;
+function getLastName(text: string): string {
+  const words = text.trim().split(' ');
+  return words[words.length - 1];
+}

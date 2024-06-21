@@ -50,7 +50,7 @@ export async function AddUser(data: IRegisterDB) {
 //Kiểm tra đã có tài khoản chưa
 export async function CheckInfoExist(data: IRegisterDB) {
   const error = DefaultRegisteErrorValue;
-
+  console.log(data);
   try {
     const usersData = collection(db, tableName);
     const field = ['username', 'email', 'phoneNumber'];
@@ -60,7 +60,7 @@ export async function CheckInfoExist(data: IRegisterDB) {
       if (input[i] != null) {
         const userData = query(usersData, where(field[i], '==', input[i]));
         const result = await getDocs(userData);
-        if (!result.empty) {
+        if (result.empty == false) {
           error.status = false;
           switch (field[i]) {
             case field[0]:

@@ -4,25 +4,25 @@ const menuData: Menu[] = [
   {
     id: 1,
     title: 'Trang Chủ',
-    path: '/homepageuser',
+    path: '/',
     newTab: false,
   },
   {
     id: 2,
     title: 'Giới thiệu',
-    path: '/homepageuser/about',
+    path: '/about',
     newTab: false,
   },
   {
     id: 33,
     title: 'Bài viết',
-    path: '/homepageuser/blog',
+    path: '/blog',
     newTab: false,
   },
   {
     id: 3,
     title: 'Liên Hệ',
-    path: '/homepageuser/contact',
+    path: '/contact',
     newTab: false,
   },
   {
