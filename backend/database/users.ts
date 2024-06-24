@@ -52,13 +52,13 @@ export async function CheckInfoExist(data: IRegisterDB) {
   const error = DefaultRegisteErrorValue;
   console.log(data);
   try {
-    const usersData = collection(db, tableName);
+    const usersDatabase = collection(db, tableName);
     const field = ['username', 'email', 'phoneNumber'];
     const input = [data.username, data.email, data.phoneNumber];
 
     for (let i = 0; i < field.length; i++) {
       if (input[i] != null) {
-        const userData = query(usersData, where(field[i], '==', input[i]));
+        const userData = query(usersDatabase, where(field[i], '==', input[i]));
         const result = await getDocs(userData);
         if (result.empty == false) {
           error.status = false;
@@ -87,8 +87,8 @@ export async function CheckInfoExist(data: IRegisterDB) {
 //Lấy dữ liệu người dùng
 export async function GetInfo(userID: string) {
   try {
-    const userData = doc(db, 'users', userID);
-    const result = await getDoc(userData);
+    const usersDatabase = doc(db, 'users', userID);
+    const result = await getDoc(usersDatabase);
     if (!result.exists()) {
       return false;
     } else {
@@ -116,10 +116,10 @@ export async function Login(info: string, password: string) {
   }
 
   //Đăng nhập bằng số điện thoại/username
-  const usersData = collection(db, 'users');
+  const usersDatabase = collection(db, 'users');
   const fields = ['username', 'phoneNumber'];
   for (const field of fields) {
-    const userData = query(usersData, where(field, '==', info));
+    const userData = query(usersDatabase, where(field, '==', info));
     const result = await getDocs(userData);
     if (!result.empty) {
       //Kiểm tra có email hay không
@@ -150,10 +150,10 @@ async function EmailLogin(email: string, password: string) {
 export async function ResetPassword(info: string) {
   const result = DefaultAPIResult;
 
-  const usersData = collection(db, 'users');
+  const usersDatabase = collection(db, 'users');
   const fields = ['email', 'username', 'phoneNumber'];
   for (const field of fields) {
-    const userData = query(usersData, where(field, '==', info));
+    const userData = query(usersDatabase, where(field, '==', info));
     const userInfo = await getDocs(userData);
     if (!userInfo.empty) {
       //Kiểm tra có email hay không

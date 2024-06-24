@@ -9,10 +9,10 @@ import APIMessage from '@/backend/messages/apiMessage';
 
 export async function POST(request: Request) {
   try {
-    const dataInput = await request.json();
+    const dataInput = await IsInputValid(request);
 
     //Lỗi thiếu dữ liệu
-    if (!IsInputValid(dataInput)) {
+    if (dataInput === false) {
       return MessageReturnOnly(APIMessage.WRONG_INPUT, 400);
     }
 
@@ -21,7 +21,6 @@ export async function POST(request: Request) {
     if (result.status == false) {
       return new NextResponse(
         JSON.stringify({
-          status: 409,
           message: RegisterMessage.ACCOUNT_EXIST,
           errorMessage: result,
         }),
@@ -64,25 +63,26 @@ export async function POST(request: Request) {
         errorMessage: error,
       }),
       {
-        status: 500, // Thiết lập mã trạng thái HTTP phản hồi tại đây
+        status: 500,
         headers: {
-          'Content-Type': 'application/json', // Đảm bảo đặt Content-Type phù hợp
+          'Content-Type': 'application/json',
         },
       },
     );
   }
 }
 
-// Type guard function
-function IsInputValid(data): data is IRegisterDB {
+async function IsInputValid(request: Request) {
   try {
-    return (
+    const data = await request.json();
+    const checkResult =
       (typeof data.name === 'string' || data.name === null) &&
       (typeof data.username === 'string' || data.username === null) &&
       (typeof data.phoneNumber === 'string' || data.phoneNumber === null) &&
       (typeof data.email === 'string' || data.email === null) &&
-      (typeof data.password === 'string' || data.password === null)
-    );
+      (typeof data.password === 'string' || data.password === null);
+    if (checkResult == true) return data;
+    return false;
   } catch {
     return false;
   }

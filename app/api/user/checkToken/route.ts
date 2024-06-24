@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { CheckSession } from '@/backend/database/session';
+import { GetSessionInfo } from '@/backend/database/session';
 import SessionMessage from '@/backend/messages/sessionMessage';
-import { DeleteToken } from '@/app/api/checkToken/deleteToken';
+import { DeleteToken } from '@/app/api/user/checkToken/deleteToken';
 import APIMessage from '@/backend/messages/apiMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 
@@ -15,10 +15,10 @@ export async function POST(request: Request) {
     if (!data.tokenID) {
       return MessageReturnOnly(APIMessage.WRONG_INPUT, 400);
     }
-
     const { tokenID } = data;
+
     //Kiểm tra token có hợp lệ
-    const userData = await CheckSession(tokenID);
+    const userData = await GetSessionInfo(tokenID);
     if ('status' in userData && userData.status === false) {
       //Lỗi hệ thống 404 | Các lỗi khác 401
       const errorCode =

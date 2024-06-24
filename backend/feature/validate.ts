@@ -28,13 +28,16 @@ async function PostAPI() {
   if (!cookie) {
     return true;
   }
-  return await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/checkToken`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  return await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/checkToken`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        tokenID: token,
+      }),
     },
-    body: JSON.stringify({
-      tokenID: token,
-    }),
-  });
+  );
 }

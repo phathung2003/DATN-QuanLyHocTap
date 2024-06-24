@@ -1,5 +1,5 @@
 import SessionMessage from '@/backend/messages/sessionMessage';
-import { DeleteToken } from '@/app/api/checkToken/deleteToken';
+import { DeleteToken } from '@/app/api/user/checkToken/deleteToken';
 import APIMessage from '@/backend/messages/apiMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 
@@ -8,7 +8,6 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
 
-    //Lỗi thiếu dữ liệu
     if (!data.tokenID) {
       return MessageReturnOnly(APIMessage.WRONG_INPUT, 400);
     }

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import LoginMessage from '@/backend/messages/loginMessage';
-import { LoginResult, GenerateToken } from '@/app/api/login/loginProcess';
+import { LoginResult, GenerateToken } from '@/app/api/user/login/loginProcess';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
 
@@ -9,8 +9,6 @@ const expiresInSeconds = process.env.NEXT_PUBLIC_TOKEN_EXPIRED;
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    const { info, password } = data;
-
     //Xác đinh thời gian có phải là số hay không
     const tokenExpirationNumber = expiresInSeconds
       ? Number(expiresInSeconds)
@@ -24,6 +22,8 @@ export async function POST(request: Request) {
       return MessageReturnOnly(APIMessage.WRONG_INPUT, 400);
     }
 
+    const { info, password } = data;
+
     // Lấy thông tin người dùng dựa trên username
     const user = await LoginResult(info, password);
 
@@ -33,24 +33,30 @@ export async function POST(request: Request) {
 
     const token = await GenerateToken(user, tokenExpirationNumber);
     if (token != null) {
-      return new NextResponse(
+      const response = new NextResponse(
         JSON.stringify({
           message: 'Đăng nhập thành công',
-          loginToken: token,
+          tokenID: token,
         }),
         {
-          status: 200, // Thiết lập mã trạng thái HTTP phản hồi tại đây
+          status: 200,
           headers: {
             'Content-Type': 'application/json',
-            'Set-Cookie': `token=${token}; Path=/; HttpOnly; SameSite=Strict; Secure;`,
           },
         },
       );
+
+      response.cookies.set('token', token, {
+        path: '/',
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: true,
+      });
+      return response;
     } else {
       return MessageReturnOnly(LoginMessage.SYSTEM_ERROR, 500);
     }
-  } catch (e) {
-    console.log(e);
+  } catch {
     return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
   }
 }

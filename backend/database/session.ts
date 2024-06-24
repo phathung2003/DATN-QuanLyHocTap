@@ -23,7 +23,7 @@ export async function AddSession(data: ISession) {
       expiresAt: data.expiresAt,
       createAt: data.createAt,
     });
-    console.log(docRef.id);
+    // console.log(docRef.id);
     if (docRef.id != null) {
       return true;
     } else {
@@ -36,8 +36,8 @@ export async function AddSession(data: ISession) {
 
 //Xóa session
 export async function DeleteSession(token: string) {
-  const tokensData = collection(db, tableName);
-  const tokenData = query(tokensData, where('tokenID', '==', token));
+  const tokenDatabase = collection(db, tableName);
+  const tokenData = query(tokenDatabase, where('tokenID', '==', token));
   const tokenResult = await getDocs(tokenData);
 
   tokenResult.forEach(async (session) => {
@@ -45,16 +45,16 @@ export async function DeleteSession(token: string) {
   });
 }
 
-//Kiểm tra session hợp lệ
-export async function CheckSession(token: string) {
+//Lấy thông tin session
+export async function GetSessionInfo(token: string) {
   const defaultError: ISessionError = {
     status: true,
     message: null,
   };
   try {
     //Lấy thông tin session
-    const tokensData = collection(db, tableName);
-    const tokenData = query(tokensData, where('tokenID', '==', token));
+    const tokenDatabase = collection(db, tableName);
+    const tokenData = query(tokenDatabase, where('tokenID', '==', token));
     const tokenResult = await getDocs(tokenData);
 
     if (tokenResult.empty) {
@@ -80,6 +80,39 @@ export async function CheckSession(token: string) {
       return defaultError;
     }
     return getUserData;
+  } catch {
+    defaultError.status = false;
+    defaultError.message = SessionMessage.SYSTEM_ERROR;
+    return defaultError;
+  }
+}
+
+export async function CheckSession(token: string) {
+  const defaultError: ISessionError = {
+    status: true,
+    message: null,
+  };
+  try {
+    //Lấy thông tin session
+    const tokenDatabase = collection(db, tableName);
+    const tokenData = query(tokenDatabase, where('tokenID', '==', token));
+    const tokenResult = await getDocs(tokenData);
+
+    if (tokenResult.empty) {
+      defaultError.status = false;
+      defaultError.message = SessionMessage.INVALID_TOKEN;
+      return defaultError;
+    }
+
+    //Kiểm tra session còn hạn không
+    const sessionInfo = await tokenResult.docs[0].data();
+    if (sessionInfo.expiresAt.toDate() < new Date()) {
+      await DeleteSession(sessionInfo.tokenID);
+      defaultError.status = false;
+      defaultError.message = SessionMessage.SESSION_TIME_OUT;
+      return defaultError;
+    }
+    return defaultError;
   } catch {
     defaultError.status = false;
     defaultError.message = SessionMessage.SYSTEM_ERROR;

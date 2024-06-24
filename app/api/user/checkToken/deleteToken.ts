@@ -15,18 +15,18 @@ export async function DeleteToken(
     statusCode = 404;
     messageInfo = SessionMessage.SYSTEM_ERROR;
   }
-  return new NextResponse(
+
+  const response = new NextResponse(
     JSON.stringify({
       message: messageInfo,
     }),
     {
       status: statusCode,
-      //Hủy token hiện có
       headers: {
         'Content-Type': 'application/json',
-        'Set-Cookie':
-          'token=; Path=/; HttpOnly; SameSite=Strict; Secure; ; Max-Age=0',
       },
     },
   );
+  response.cookies.delete('token');
+  return response;
 }

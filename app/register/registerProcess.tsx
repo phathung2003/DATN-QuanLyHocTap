@@ -10,19 +10,22 @@ export async function handelSubmit(
 ) {
   try {
     //Kết nối API
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/register`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          username: data.username,
+          phoneNumber: data.phoneNumber,
+          email: data.email,
+          password: data.password,
+        }),
       },
-      body: JSON.stringify({
-        name: data.name,
-        username: data.username,
-        phoneNumber: data.phoneNumber,
-        email: data.email,
-        password: data.password,
-      }),
-    });
+    );
 
     //Kiểm tra dữ liệu API
     if (response.ok) {
