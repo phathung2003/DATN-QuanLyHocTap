@@ -52,6 +52,9 @@ export async function GetCategoryList() {
       id: doc.id,
       name: doc.data().categoryName,
     }));
+    if (categoryList.length === 0) {
+      return null;
+    }
     return categoryList;
   } catch {
     return CategoryMessage.SYSTEM_ERROR;
