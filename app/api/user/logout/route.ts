@@ -4,7 +4,7 @@ import APIMessage from '@/backend/messages/apiMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 
 //Đăng xuất
-export async function POST(request: Request) {
+export async function DELETE(request) {
   try {
     const data = await request.json();
 

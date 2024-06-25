@@ -9,7 +9,7 @@ export default async function LogOut() {
   const respone = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/logout`,
     {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },

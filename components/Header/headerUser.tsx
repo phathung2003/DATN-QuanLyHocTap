@@ -61,14 +61,14 @@ export default function Header({ name }) {
                   alt="logo"
                   width={140}
                   height={30}
-                  className="w-full dark:hidden"
+                  className="h-auto max-h-[30px] w-auto max-w-[140px] dark:hidden"
                 />
                 <Image
                   src="/images/logo/logo.svg"
                   alt="logo"
                   width={140}
                   height={30}
-                  className="hidden w-full dark:block"
+                  className="hidden h-auto max-h-[30px] w-auto max-w-[140px] dark:block"
                 />
               </Link>
             </div>

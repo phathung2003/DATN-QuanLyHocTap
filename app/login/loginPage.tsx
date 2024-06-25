@@ -33,14 +33,14 @@ export default function SigninPage() {
                     <Form>
                       <div id="info_Login" className="mb-8">
                         <label
-                          id="info_LoginLable"
+                          htmlFor="info_LoginInput"
                           className="text-dark mb-3 block text-sm dark:text-white"
                         >
                           {' '}
                           Tên đăng nhập/Email/Số điện thoại
                         </label>
                         <Field
-                          id="info_LoginLable"
+                          id="info_LoginInput"
                           name="info"
                           type="text"
                           placeholder="Tên đăng nhập/Email/Số điện thoại"
@@ -53,7 +53,7 @@ export default function SigninPage() {
 
                       <div id="password_Login" className="mb-8">
                         <label
-                          id="password_LoginLable"
+                          htmlFor="password_LoginInput"
                           className="text-dark mb-3 block text-sm dark:text-white"
                         >
                           Mật khẩu

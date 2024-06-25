@@ -16,7 +16,7 @@ export default async function RootLayout({
     userName = userInfo.name;
   }
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <body className={`bg-[#FCFCFC] dark:bg-black ${inter.className}`}>
         <Providers>
           <Header name={userName} />

@@ -39,7 +39,7 @@ export default function RegisterPage() {
                       <Form>
                         <div id="name_Register" className="mb-8">
                           <label
-                            id="name_RegisterLable"
+                            htmlFor="name_RegisterInput"
                             className="text-dark mb-3 block text-sm dark:text-white"
                           >
                             Họ và tên
@@ -52,6 +52,7 @@ export default function RegisterPage() {
                               e: React.ChangeEvent<HTMLInputElement>,
                             ) => ResetError(e, setFieldValue, setError)}
                             placeholder="Họ và tên"
+                            autoComplete="off"
                             className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                           />
                           <div>
@@ -61,7 +62,7 @@ export default function RegisterPage() {
 
                         <div id="username_Register" className="mb-8">
                           <label
-                            id="username_RegisterLable"
+                            htmlFor="username_RegisterInput"
                             className="text-dark mb-3 block text-sm dark:text-white"
                           >
                             Tên đăng nhập
@@ -74,6 +75,7 @@ export default function RegisterPage() {
                               e: React.ChangeEvent<HTMLInputElement>,
                             ) => ResetError(e, setFieldValue, setError)}
                             placeholder="Chọn tên đăng nhập của bạn"
+                            autoComplete="off"
                             className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                           />
                           <div>
@@ -89,7 +91,7 @@ export default function RegisterPage() {
 
                         <div id="phoneNumber_Register" className="mb-8">
                           <label
-                            id="phoneNumber_RegisterLable"
+                            htmlFor="phoneNumber_RegisterInput"
                             className="text-dark mb-3 block text-sm dark:text-white"
                           >
                             Số điện thoại
@@ -102,6 +104,7 @@ export default function RegisterPage() {
                               e: React.ChangeEvent<HTMLInputElement>,
                             ) => ResetError(e, setFieldValue, setError)}
                             placeholder="Số điện thoại của bạn"
+                            autoComplete="off"
                             className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                           />
                           <div>
@@ -117,7 +120,7 @@ export default function RegisterPage() {
 
                         <div id="email_Register" className="mb-8">
                           <label
-                            id="email_RegisterLable"
+                            htmlFor="email_RegisterInput"
                             className="text-dark mb-3 block text-sm dark:text-white"
                           >
                             Email
@@ -130,6 +133,7 @@ export default function RegisterPage() {
                               e: React.ChangeEvent<HTMLInputElement>,
                             ) => ResetError(e, setFieldValue, setError)}
                             placeholder="Địa chỉ email của bạn"
+                            autoComplete="off"
                             className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                           />
                           <div>
@@ -143,7 +147,7 @@ export default function RegisterPage() {
 
                         <div id="password_Register" className="mb-8">
                           <label
-                            id="password_RegisterLable"
+                            htmlFor="password_RegisterInput"
                             className="text-dark mb-3 block text-sm dark:text-white"
                           >
                             Mật khẩu
@@ -156,6 +160,7 @@ export default function RegisterPage() {
                               e: React.ChangeEvent<HTMLInputElement>,
                             ) => ResetError(e, setFieldValue, setError)}
                             placeholder="••••••"
+                            autoComplete="off"
                             className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                           />
                           <div>
@@ -168,7 +173,7 @@ export default function RegisterPage() {
 
                         <div id="rePassword_Register" className="mb-8">
                           <label
-                            id="rePassword_RegisterLable"
+                            htmlFor="rePassword_RegisterInput"
                             className="text-dark mb-3 block text-sm dark:text-white"
                           >
                             Nhập lại mật khẩu
@@ -181,6 +186,7 @@ export default function RegisterPage() {
                               e: React.ChangeEvent<HTMLInputElement>,
                             ) => ResetError(e, setFieldValue, setError)}
                             placeholder="••••••"
+                            autoComplete="off"
                             className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                           />
                           <div>

@@ -3,6 +3,7 @@ export interface ICategoryMessage {
   CATEGORY_ID_EXIST: string;
   CATEGORY_NAME_EXIST: string;
   CATEGORY_ADD_COMPLETE: string;
+  CATEGORY_DELETE_COMPLETE: string;
   SYSTEM_ERROR: string;
 }
 
