@@ -3,6 +3,7 @@ import { Providers } from '@/app/providers';
 import { CookieGetInfo } from '@/backend/feature/validate';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header/headerUser';
+import ProgressBarProvider from '@/components/ProgressBarProvider/ProgressBarProvider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -21,7 +22,7 @@ export default async function MainLayout({
     <div className="bg-[#FCFCFC] dark:bg-black">
       <Providers>
         <Header name={userName} />
-        {children}
+        <ProgressBarProvider>{children}</ProgressBarProvider>
         <Footer />
       </Providers>
     </div>

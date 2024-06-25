@@ -135,22 +135,7 @@ export default function Header({ name }) {
                                   />
                                 </svg>
                               </span>
-                            </p>
-                            {/* <div
-                              className={`submenu relative left-0 top-full rounded-sm bg-white transition-[top] duration-300 group-hover:opacity-100 dark:bg-dark lg:invisible lg:absolute lg:top-[110%] lg:block lg:w-[250px] lg:p-4 lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${
-                                openIndex === index ? "block" : "hidden"
-                              }`}
-                            >
-                              {menuItem.submenu.map((submenuItem, index) => (
-                                <Link
-                                  href={submenuItem.path}
-                                  key={index}
-                                  className="block rounded py-2.5 text-sm text-dark hover:text-primary dark:text-white/70 dark:hover:text-white lg:px-3"
-                                >
-                                  {submenuItem.title}
-                                </Link>
-                              ))}
-                            </div> */}
+                            </p>                           
                           </>
                         )}
                       </li>
@@ -176,8 +161,9 @@ export default function Header({ name }) {
                   </>
                 )}
                 {name != null && (
-                  <div>
-                    <p>Xin chào {getLastName(name)}</p>
+                  <div className='flex items-center'>
+                    <p className='mr-10 text-lg font-extrabold leading-none tracking-tight text-[#FF5580] md:text-xl lg:text-xl dark:text-white'>Xin chào {getLastName(name)}</p>
+                    
                     <button
                       onClick={() => LogOut()}
                       className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-sm bg-[#FF5580] px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"

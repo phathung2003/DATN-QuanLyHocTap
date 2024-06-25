@@ -5,8 +5,8 @@ import Pagination from '@/components/Pagination/Pagination';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Blog Page | Free Next.js Template for Startup and SaaS',
-  description: 'This is Blog Page for Startup Nextjs Template',
+  title: 'Trang bài viết',
+  description: 'Đây là trang bài viết',
   // other metadata
 };
 
@@ -14,8 +14,8 @@ const Blog = () => {
   return (
     <>
       <Breadcrumb
-        pageName="Bài viết"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+        pageName="Bài đăng"
+        description="Đây là những bài đăng của page"
       />
 
       <section className="px-20 pb-[120px] pt-[120px]">
