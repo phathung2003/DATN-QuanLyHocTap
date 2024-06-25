@@ -17,7 +17,7 @@ export default function SigninPage() {
           <div className="container">
             <div className="-mx-4 flex flex-wrap">
               <div className="w-full px-4">
-                <div className="dark:bg-dark mx-auto max-w-[500px] rounded bg-white px-6 py-10 shadow-md sm:p-[60px]">
+                <div className="dark:bg-slate-800 mx-auto max-w-[500px] rounded bg-white px-6 py-10 shadow-md sm:p-[60px]">
                   <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
                     Đăng nhập
                   </h3>
@@ -88,7 +88,7 @@ export default function SigninPage() {
                       <button
                         id="submit_Login"
                         type="submit"
-                        className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-[#FF5580] px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90"
+                        className="mb-3 shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-[#FF5580] px-9 py-4 text-base font-medium text-white duration-300 hover:bg-[#FF5580]/70"
                       >
                         Đăng nhập
                       </button>

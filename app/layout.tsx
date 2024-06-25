@@ -6,6 +6,7 @@ import Header from '@/components/Header/headerUser';
 //import ScrollToTop from '@/components/ScrollToTop';
 import '@/css/index.css';
 import { Providers } from '@/app/providers';
+import ProgressBarProvider from '@/components/ProgressBarProvider/ProgressBarProvider';
 import { CookieGetInfo } from '@/backend/feature/validate';
 export default async function RootLayout({
   children,
@@ -20,7 +21,7 @@ export default async function RootLayout({
       <body className={`bg-[#FCFCFC] dark:bg-black ${inter.className}`}>
         <Providers>
           <Header name={userName} />
-          {children}
+          <ProgressBarProvider>{children}</ProgressBarProvider>
           <Footer />
         </Providers>
       </body>
