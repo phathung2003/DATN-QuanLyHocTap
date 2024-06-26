@@ -1,10 +1,10 @@
-import { ICategoryError } from '@/backend/models/messages/ICategoryMessage';
+import { ISubjectError } from '@/backend/models/messages/ISubjectMessage';
 
-const DefaultCategoryErrorValue: ICategoryError = {
+const DefaultSubjectErrorValue: ISubjectError = {
   status: true,
-  categoryIDError: null,
-  categoryNameError: null,
+  subjectIDError: null,
+  subjectNameError: null,
   systemError: null,
 };
 
-export default DefaultCategoryErrorValue;
+export default DefaultSubjectErrorValue;

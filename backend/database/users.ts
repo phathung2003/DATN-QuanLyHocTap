@@ -58,9 +58,9 @@ export async function CheckInfoExist(data: IRegisterDB) {
 
     for (let i = 0; i < field.length; i++) {
       if (input[i] != null) {
-        const userData = query(usersDatabase, where(field[i], '==', input[i]));
-        const result = await getDocs(userData);
-        if (result.empty == false) {
+        const userQuery = query(usersDatabase, where(field[i], '==', input[i]));
+        const userData = await getDocs(userQuery);
+        if (userData.empty == false) {
           error.status = false;
           switch (field[i]) {
             case field[0]:
@@ -87,12 +87,12 @@ export async function CheckInfoExist(data: IRegisterDB) {
 //Lấy dữ liệu người dùng
 export async function GetInfo(userID: string) {
   try {
-    const usersDatabase = doc(db, 'users', userID);
-    const result = await getDoc(usersDatabase);
-    if (!result.exists()) {
+    const usersData = doc(db, 'users', userID);
+    const userInfo = await getDoc(usersData);
+    if (!userInfo.exists()) {
       return false;
     } else {
-      const data = result.data();
+      const data = userInfo.data();
       const info: IUserInfo = {
         accountID: userID,
         name: data.name,
@@ -119,15 +119,15 @@ export async function Login(info: string, password: string) {
   const usersDatabase = collection(db, 'users');
   const fields = ['username', 'phoneNumber'];
   for (const field of fields) {
-    const userData = query(usersDatabase, where(field, '==', info));
-    const result = await getDocs(userData);
-    if (!result.empty) {
+    const userQuery = query(usersDatabase, where(field, '==', info));
+    const userData = await getDocs(userQuery);
+    if (!userData.empty) {
       //Kiểm tra có email hay không
-      const email = result.docs[0].data().email;
+      const email = userData.docs[0].data().email;
       if (email != null) {
         return await EmailLogin(email, password);
       }
-      return result;
+      return userData;
     }
   }
   return null;
@@ -153,11 +153,11 @@ export async function ResetPassword(info: string) {
   const usersDatabase = collection(db, 'users');
   const fields = ['email', 'username', 'phoneNumber'];
   for (const field of fields) {
-    const userData = query(usersDatabase, where(field, '==', info));
-    const userInfo = await getDocs(userData);
-    if (!userInfo.empty) {
+    const userQuery = query(usersDatabase, where(field, '==', info));
+    const userData = await getDocs(userQuery);
+    if (!userData.empty) {
       //Kiểm tra có email hay không
-      const email = userInfo.docs[0].data().email;
+      const email = userData.docs[0].data().email;
       if (email != null) {
         return await SendEmail(email);
       } else {

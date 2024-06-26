@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import { GetCategoryList } from '@/backend/database/category';
+import { GetSubjectList } from '@/backend/database/subject';
 
 export async function GET() {
   try {
-    const categoryList = await GetCategoryList();
+    const subjectList = await GetSubjectList();
 
-    return new NextResponse(JSON.stringify(categoryList), {
+    return new NextResponse(JSON.stringify(subjectList), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',

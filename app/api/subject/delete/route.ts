@@ -3,8 +3,8 @@ import APIMessage from '@/backend/messages/apiMessage';
 import { CheckSession } from '@/backend/database/session';
 import SessionMessage from '@/backend/messages/sessionMessage';
 import { DeleteToken } from '@/app/api/user/checkToken/deleteToken';
-import { DeleteCategory } from '@/backend/database/category';
-import CategoryMessage from '@/backend/messages/categoryMessage';
+import { DeleteSubject } from '@/backend/database/subject';
+import SubjectMessage from '@/backend/messages/subjectMessage';
 
 export async function DELETE(request) {
   try {
@@ -22,8 +22,8 @@ export async function DELETE(request) {
     }
 
     //Xóa loại
-    await DeleteCategory(dataInput.categoryID);
-    return MessageReturnOnly(CategoryMessage.CATEGORY_DELETE_COMPLETE, 200);
+    await DeleteSubject(dataInput.subjectID);
+    return MessageReturnOnly(SubjectMessage.SUBJECT_DELETE_COMPLETE, 200);
   } catch {
     return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
   }
@@ -33,15 +33,15 @@ export async function DELETE(request) {
 function CheckData(request) {
   const tokenID = request.headers.get('Authorization');
   const searchParams = request.nextUrl.searchParams;
-  const categoryIDRequest = searchParams.get('categoryID');
+  const subjectIDRequest = searchParams.get('subjectID');
 
   try {
-    if (!tokenID || tokenID == null || categoryIDRequest == null) {
+    if (!tokenID || tokenID == null || subjectIDRequest == null) {
       return false;
     }
     return {
       token: tokenID,
-      categoryID: categoryIDRequest,
+      subjectID: subjectIDRequest,
     };
   } catch {
     return false;

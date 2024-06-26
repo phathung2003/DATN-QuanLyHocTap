@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import { CheckSession } from '@/backend/database/session';
-import CategoryMessage from '@/backend/messages/categoryMessage';
+import SubjectMessage from '@/backend/messages/subjectMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import { CheckCategoryExist, AddCategory } from '@/backend/database/category';
+import { CheckSubjectExist, AddSubject } from '@/backend/database/subject';
 import SessionMessage from '@/backend/messages/sessionMessage';
 import { DeleteToken } from '@/app/api/user/checkToken/deleteToken';
 
@@ -22,11 +22,11 @@ export async function POST(request: Request) {
     }
 
     //Kiểm tra xem dữ liệu đã có hay chưa
-    const result = await CheckCategoryExist(dataInput.data);
+    const result = await CheckSubjectExist(dataInput.data);
     if (result.status == false) {
       return new NextResponse(
         JSON.stringify({
-          message: CategoryMessage.CATEGORY_EXIST,
+          message: SubjectMessage.SUBJECT_EXIST,
           errorMessage: result,
         }),
         {
@@ -39,8 +39,8 @@ export async function POST(request: Request) {
     }
 
     //Thêm dữ liệu vào bảng
-    await AddCategory(dataInput.data);
-    return MessageReturnOnly(CategoryMessage.CATEGORY_ADD_COMPLETE, 201);
+    await AddSubject(dataInput.data);
+    return MessageReturnOnly(SubjectMessage.SUBJECT_ADD_COMPLETE, 201);
   } catch {
     return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
   }
@@ -54,8 +54,8 @@ async function CheckData(request: Request) {
     if (
       !tokenID ||
       tokenID == null ||
-      !dataInput.categoryID ||
-      !dataInput.categoryName
+      !dataInput.subjectID ||
+      !dataInput.subjectName
     ) {
       return false;
     }
