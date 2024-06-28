@@ -16,7 +16,6 @@ export async function POST(request: Request) {
       return MessageReturnOnly(APIMessage.WRONG_INPUT, 400);
     }
     const { tokenID } = data;
-    console.log(tokenID);
     //Kiểm tra token có hợp lệ
     const userData = await GetSessionInfo(tokenID);
     if ('status' in userData && userData.status === false) {
