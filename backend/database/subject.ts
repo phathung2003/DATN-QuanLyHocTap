@@ -10,7 +10,7 @@ import {
 } from 'firebase/firestore';
 import { ISubject } from '@/backend/models/data/ISubject';
 import SubjectMessage from '@/backend/messages/subjectMessage';
-import DefaultCategoryErrorValue from '@/backend//defaultData/category';
+import DefaultSubjectErrorValue from '@/backend//defaultData/subject';
 import { db } from '@/backend/database/firebase';
 
 const tableName = 'subject';
@@ -71,7 +71,7 @@ export async function GetSubjectList() {
 
 //Kiểm tra đã có loại chưa
 export async function CheckSubjectExist(data: ISubject) {
-  const error = DefaultCategoryErrorValue;
+  const error = DefaultSubjectErrorValue;
 
   try {
     const subjectDatabase = collection(db, tableName);
@@ -110,7 +110,7 @@ export async function CheckSubjectEditExist(
   originalID: string,
   data: ISubject,
 ) {
-  const error = DefaultCategoryErrorValue;
+  const error = DefaultSubjectErrorValue;
 
   try {
     const subjectDatabase = collection(db, tableName);
