@@ -74,7 +74,9 @@ async function CheckData(request) {
       tokenID == null ||
       gradeIDRequest == null ||
       !dataInput.gradeID ||
-      !dataInput.gradeName
+      !dataInput.gradeName ||
+      !dataInput.gradeDescription ||
+      !dataInput.gradeImage
     ) {
       return false;
     }

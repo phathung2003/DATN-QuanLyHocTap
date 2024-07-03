@@ -51,14 +51,27 @@ async function CheckData(request: Request) {
   const tokenID = request.headers.get('Authorization');
   try {
     const dataInput = await request.json();
-    if (
-      !tokenID ||
-      tokenID == null ||
-      !dataInput.subjectID ||
-      !dataInput.subjectName
-    ) {
+
+    //Các trường có thể null
+    const nullableCheckField = ['subjectImage', 'subjectDescription'];
+    nullableCheckField.forEach((field) => {
+      if (!(field in dataInput)) {
+        return false;
+      }
+    });
+
+    //Các trường không thể null
+    const checkField = [dataInput.subjectID, dataInput.subjectName];
+    checkField.forEach((field) => {
+      if (!field || field == null) {
+        return false;
+      }
+    });
+
+    if (!tokenID) {
       return false;
     }
+
     return {
       token: tokenID,
       data: dataInput,

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Sidebar from '@/components/Sidebar/SidebarAdmin';
 import Header from '@/components/Header/headerAdmin';
 
-export default function DefaultLayout({
+export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;

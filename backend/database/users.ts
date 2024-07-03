@@ -21,13 +21,13 @@ import UserMessage from '@/backend/messages/userMessage';
 import { DefaultRegisteErrorValue } from '@/backend/defaultData/register';
 import { DefaultAPIResult } from '@/backend/defaultData/global';
 
-const tableName = 'users';
+const TABLE_NAME = 'users';
 
 //Đăng ký tài khoản
 export async function AddUser(data: IRegisterDB) {
   //Không có email
   if (data.email == null) {
-    await addDoc(collection(db, tableName), data);
+    await addDoc(collection(db, TABLE_NAME), data);
     return;
   }
 
@@ -37,7 +37,7 @@ export async function AddUser(data: IRegisterDB) {
     data.email,
     data.password,
   );
-  const userInfo = doc(db, tableName, userCredential.user.uid);
+  const userInfo = doc(db, TABLE_NAME, userCredential.user.uid);
   await setDoc(userInfo, {
     name: data.name,
     username: data.username,
@@ -52,7 +52,7 @@ export async function CheckInfoExist(data: IRegisterDB) {
   const error = DefaultRegisteErrorValue;
   console.log(data);
   try {
-    const usersDatabase = collection(db, tableName);
+    const usersDatabase = collection(db, TABLE_NAME);
     const field = ['username', 'email', 'phoneNumber'];
     const input = [data.username, data.email, data.phoneNumber];
 

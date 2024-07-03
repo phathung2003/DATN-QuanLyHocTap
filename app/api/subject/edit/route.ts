@@ -74,7 +74,9 @@ async function CheckData(request) {
       tokenID == null ||
       subjectIDRequest == null ||
       !dataInput.subjectID ||
-      !dataInput.subjectName
+      !dataInput.subjectName ||
+      !dataInput.subjectDescription ||
+      !dataInput.subjectImage
     ) {
       return false;
     }

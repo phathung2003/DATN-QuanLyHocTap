@@ -13,14 +13,18 @@ import GradeMessage from '@/backend/messages/gradeMessage';
 import DefaultGradeErrorValue from '@/backend//defaultData/grade';
 import { db } from '@/backend/database/firebase';
 
-const tableName = 'grade';
-
-//Thêm loại
+const TABLE_NAME = 'grade';
+//Thêm lớp
 export async function AddGrade(data: IGrade) {
   try {
-    await addDoc(collection(db, tableName), {
+    await addDoc(collection(db, TABLE_NAME), {
       gradeID: data.gradeID.toUpperCase(),
       gradeName: ToTitleCase(data.gradeName),
+      gradeDescription: data.gradeDescription,
+      gradeImage:
+        data.gradeImage == null
+          ? process.env.NEXT_PUBLIC_GRADE_DEFAULT_IMAGE
+          : data.gradeImage,
     });
     return true;
   } catch {
@@ -28,9 +32,9 @@ export async function AddGrade(data: IGrade) {
   }
 }
 
-//Xóa loại
+//Xóa lớp
 export async function DeleteGrade(gradeID: string) {
-  const gradeDatabase = collection(db, tableName);
+  const gradeDatabase = collection(db, TABLE_NAME);
   const gradeQuery = query(
     gradeDatabase,
     where('gradeID', '==', gradeID.toUpperCase()),
@@ -42,19 +46,24 @@ export async function DeleteGrade(gradeID: string) {
   });
 }
 
-//Sửa loại
+//Sửa thông tin lớp
 export async function EditGrade(fileID: string, data: IGrade) {
-  const gradeFile = doc(db, tableName, fileID);
+  const gradeFile = doc(db, TABLE_NAME, fileID);
   await updateDoc(gradeFile, {
     gradeID: data.gradeID.toUpperCase(),
     gradeName: ToTitleCase(data.gradeName),
+    gradeDescription: data.gradeDescription,
+    gradeImage:
+      data.gradeImage == null
+        ? process.env.NEXT_PUBLIC_GRADE_DEFAULT_IMAGE
+        : data.gradeImage,
   });
 }
 
 //Lấy danh sách loại
 export async function GetGradeList() {
   try {
-    const gradeDatabase = collection(db, tableName);
+    const gradeDatabase = collection(db, TABLE_NAME);
     const gradeData = await getDocs(gradeDatabase);
     const categoryList = await gradeData.docs.map((doc) => ({
       gradeID: doc.data().gradeID,
@@ -69,12 +78,12 @@ export async function GetGradeList() {
   }
 }
 
-//Kiểm tra đã có loại chưa
+//Kiểm tra đã có lớp chưa
 export async function CheckGradeExist(data: IGrade) {
   const error = DefaultGradeErrorValue;
 
   try {
-    const gradeDatabase = collection(db, tableName);
+    const gradeDatabase = collection(db, TABLE_NAME);
     const field = ['gradeID', 'gradeName'];
     const input = [data.gradeID.toUpperCase(), ToTitleCase(data.gradeName)];
 
@@ -110,7 +119,7 @@ export async function CheckGradeEditExist(originalID: string, data: IGrade) {
   const error = DefaultGradeErrorValue;
 
   try {
-    const gradeDatabase = collection(db, tableName);
+    const gradeDatabase = collection(db, TABLE_NAME);
     const field = ['gradeID', 'gradeName'];
     const input = [data.gradeID.toUpperCase(), ToTitleCase(data.gradeName)];
 
@@ -150,7 +159,7 @@ export async function CheckGradeEditExist(originalID: string, data: IGrade) {
 //Lấy tên ID file
 export async function GetGradeIDFile(gradeID: string) {
   try {
-    const gradeDatabase = collection(db, tableName);
+    const gradeDatabase = collection(db, TABLE_NAME);
     const gradeQuery = query(
       gradeDatabase,
       where('gradeID', '==', gradeID.toUpperCase()),

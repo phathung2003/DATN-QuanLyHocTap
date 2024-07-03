@@ -13,14 +13,18 @@ import SubjectMessage from '@/backend/messages/subjectMessage';
 import DefaultSubjectErrorValue from '@/backend//defaultData/subject';
 import { db } from '@/backend/database/firebase';
 
-const tableName = 'subject';
-
-//Thêm loại
+const TABLE_NAME = 'subject';
+//Thêm lớp học
 export async function AddSubject(data: ISubject) {
   try {
-    await addDoc(collection(db, tableName), {
+    await addDoc(collection(db, TABLE_NAME), {
       subjectID: data.subjectID.toUpperCase(),
       subjectName: ToTitleCase(data.subjectName),
+      subjectDescription: data.subjectDescription,
+      subjectImage:
+        data.subjectImage == null
+          ? process.env.NEXT_PUBLIC_SUBJECT_DEFAULT_IMAGE
+          : data.subjectImage,
     });
     return true;
   } catch {
@@ -28,9 +32,9 @@ export async function AddSubject(data: ISubject) {
   }
 }
 
-//Xóa loại
+//Xóa lớp học
 export async function DeleteSubject(subjectID: string) {
-  const subjectDatabase = collection(db, tableName);
+  const subjectDatabase = collection(db, TABLE_NAME);
   const subjectQuery = query(
     subjectDatabase,
     where('subjectID', '==', subjectID.toUpperCase()),
@@ -42,23 +46,30 @@ export async function DeleteSubject(subjectID: string) {
   });
 }
 
-//Sửa loại
+//Sửa lớp học
 export async function EditSubject(fileID: string, data: ISubject) {
-  const subjectFile = doc(db, tableName, fileID);
+  const subjectFile = doc(db, TABLE_NAME, fileID);
   await updateDoc(subjectFile, {
     subjectID: data.subjectID.toUpperCase(),
     subjectName: ToTitleCase(data.subjectName),
+    subjectDescription: data.subjectDescription,
+    subjectImage:
+      data.subjectImage == null
+        ? process.env.NEXT_PUBLIC_SUBJECT_DEFAULT_IMAGE
+        : data.subjectImage,
   });
 }
 
 //Lấy danh sách loại
 export async function GetSubjectList() {
   try {
-    const subjectDatabase = collection(db, tableName);
+    const subjectDatabase = collection(db, TABLE_NAME);
     const subjectData = await getDocs(subjectDatabase);
     const categoryList = await subjectData.docs.map((doc) => ({
       subjectID: doc.data().subjectID,
       subjectName: doc.data().subjectName,
+      subjectDescription: doc.data().subjectDescription,
+      subjectImage: doc.data().subjectImage,
     }));
     if (categoryList.length === 0) {
       return null;
@@ -74,7 +85,7 @@ export async function CheckSubjectExist(data: ISubject) {
   const error = DefaultSubjectErrorValue;
 
   try {
-    const subjectDatabase = collection(db, tableName);
+    const subjectDatabase = collection(db, TABLE_NAME);
     const field = ['subjectID', 'subjectName'];
     const input = [data.subjectID.toUpperCase(), ToTitleCase(data.subjectName)];
 
@@ -85,6 +96,7 @@ export async function CheckSubjectExist(data: ISubject) {
           where(field[i], '==', input[i]),
         );
         const result = await getDocs(subjectQuery);
+        console.log(result.size);
         if (result.empty == false) {
           error.status = false;
           switch (field[i]) {
@@ -113,7 +125,7 @@ export async function CheckSubjectEditExist(
   const error = DefaultSubjectErrorValue;
 
   try {
-    const subjectDatabase = collection(db, tableName);
+    const subjectDatabase = collection(db, TABLE_NAME);
     const field = ['subjectID', 'subjectName'];
     const input = [data.subjectID.toUpperCase(), ToTitleCase(data.subjectName)];
 
@@ -153,7 +165,7 @@ export async function CheckSubjectEditExist(
 //Lấy tên ID file
 export async function GetSubjectIDFile(subjectID: string) {
   try {
-    const subjectDatabase = collection(db, tableName);
+    const subjectDatabase = collection(db, TABLE_NAME);
     const subjectQuery = query(
       subjectDatabase,
       where('subjectID', '==', subjectID.toUpperCase()),

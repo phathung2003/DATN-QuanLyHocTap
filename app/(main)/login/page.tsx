@@ -1,4 +1,4 @@
-import LoginPage from '@/app/login/loginPage';
+import LoginPage from '@/app/(main)/login/loginPage';
 import { CookieCheck } from '@/backend/feature/validate';
 import { HomePage } from '@/backend/routers';
 export default async function Login() {

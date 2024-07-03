@@ -1,4 +1,4 @@
-import RegisterPage from '@/app/register/registerPage';
+import RegisterPage from '@/app/(main)/register/registerPage';
 import { CookieCheck } from '@/backend/feature/validate';
 import { HomePage } from '@/backend/routers';
 

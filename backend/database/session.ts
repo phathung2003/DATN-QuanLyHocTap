@@ -12,12 +12,12 @@ import SessionMessage from '@/backend/messages/sessionMessage';
 import { db } from '@/backend/database/firebase';
 import { GetInfo } from './users';
 
-const tableName = 'sessions';
+const TABLE_NAME = 'sessions';
 
 //Thêm session
 export async function AddSession(data: ISession) {
   try {
-    const docRef = await addDoc(collection(db, tableName), {
+    const docRef = await addDoc(collection(db, TABLE_NAME), {
       tokenID: data.tokenID,
       accountID: data.accountID,
       expiresAt: data.expiresAt,
@@ -36,7 +36,7 @@ export async function AddSession(data: ISession) {
 
 //Xóa session
 export async function DeleteSession(token: string) {
-  const tokenDatabase = collection(db, tableName);
+  const tokenDatabase = collection(db, TABLE_NAME);
   const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
   const tokenData = await getDocs(tokenQuery);
 
@@ -53,7 +53,7 @@ export async function GetSessionInfo(token: string) {
   };
   try {
     //Lấy thông tin session
-    const tokenDatabase = collection(db, tableName);
+    const tokenDatabase = collection(db, TABLE_NAME);
     const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
     const tokenData = await getDocs(tokenQuery);
 
@@ -94,7 +94,7 @@ export async function CheckSession(token: string) {
   };
   try {
     //Lấy thông tin session
-    const tokenDatabase = collection(db, tableName);
+    const tokenDatabase = collection(db, TABLE_NAME);
     const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
     const tokenData = await getDocs(tokenQuery);
 
