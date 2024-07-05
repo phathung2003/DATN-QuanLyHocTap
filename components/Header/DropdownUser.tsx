@@ -45,9 +45,9 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thanh Hưng
+            Phụ Huynh
           </span>
-          <span className="block text-xs">Coder Hơi Lỏ</span>
+          <span className="block text-xs">Nguyễn An</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
