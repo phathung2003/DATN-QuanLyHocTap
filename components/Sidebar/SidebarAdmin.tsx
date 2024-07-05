@@ -13,8 +13,6 @@ import {
   AccountIcon,
   InfoIcon,
   SettingIcon,
-  StatisticIcon,
-  HelpIcon,
 } from '../icons';
 /* eslint-disable */
 interface SidebarProps {
@@ -31,10 +29,6 @@ const menuItems = [
   { id: 6, label: 'Quản lý cài đặt', icon: SettingIcon, link: '/qlcaidat' },
 ];
 
-const otherMenuItems = [
-  { id: 1, label: 'Thống Kê', icon: StatisticIcon, link: '/chart' },
-  { id: 2, label: 'Hỗ Trợ', icon: HelpIcon, link: '/help' },
-];
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   // sidebar collapse mới thêm vào collapse
@@ -176,43 +170,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           >
                             {menu.label}
                           </p>
-                        )}
-                      </div>
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* <!-- Others Group --> */}
-          <div>
-            <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
-              KHÁC
-            </h3>
-            <div className="mb-5 flex flex-col items-start">
-              {otherMenuItems.map(({ icon: Icon, ...menu }) => {
-                return (
-                  <div key={menu.link}>
-                    <Link
-                      href={menu.link}
-                      className={`group relative flex items-center gap-2.5 rounded-xl font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                        pathname === menu.link &&
-                        'w-full bg-graydark dark:bg-meta-4'
-                      }`}
-                    >
-                      <div className="flex h-full w-72 items-center px-3 py-4">
-                        <div style={{ width: '2.5rem' }}>
-                          <Icon />
-                        </div>
-                        {!toggleCollapse && (
-                          <div
-                            className={classNames(
-                              'text-md text-text-light font-medium',
-                            )}
-                          >
-                            {menu.label}
-                          </div>
                         )}
                       </div>
                     </Link>
