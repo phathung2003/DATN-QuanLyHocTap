@@ -36,8 +36,9 @@ const otherMenuItems = [
   { id: 2, label: 'Hỗ Trợ', icon: HelpIcon, link: '/help' },
 ];
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
+const Sidebar = () => {
   // sidebar collapse mới thêm vào collapse
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [toggleCollapse, setToggleCollapse] = useState(false);
   const [isCollapsible, setIsCollapsible] = useState(false);
 
@@ -156,7 +157,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <div className="mb-5 flex w-full flex-col items-start">
               {menuItems.map(({ icon: Icon, ...menu }) => {
                 return (
-                  <div>
+                  <div key={menu.id}>
                     <Link
                       href={menu.link}
                       className={`group relative flex w-full items-center gap-2.5 rounded-xl font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${

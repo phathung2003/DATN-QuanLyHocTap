@@ -11,10 +11,10 @@ import { ISubject } from '@/backend/models/data/ISubject';
 import { IGrade } from '@/backend/models/data/IGrade';
 
 //Icon
-import PlusIcon from '@/asset/vector/plus_white.svg';
-import FunnelIcon from '@/asset/vector/funnel_black.svg';
-import DropdownIcon from '@/asset/vector/dropdown_black.svg';
-import EditIcon from '@/asset/vector/pencil_white.svg';
+import PlusIcon from '@/asset/vector/plus-white.svg';
+import FunnelIcon from '@/asset/vector/funnel-black.svg';
+import DropdownIcon from '@/asset/vector/dropdown-black.svg';
+import EditIcon from '@/asset/vector/pencil-white.svg';
 
 const QlDanhMuc = () => {
   const [subject, setSubject] = useState<ISubject[]>([]);
@@ -78,7 +78,7 @@ const QlDanhMuc = () => {
               {/* button add product  */}
               <button
                 type="button"
-                className="ml-auto inline-flex w-full items-center items-center justify-center gap-2.5 rounded-lg bg-lime-600 p-1.5 px-2 py-2 text-sm text-white hover:bg-lime-500 dark:hover:text-white md:w-auto"
+                className="ml-auto inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-lime-600 p-1.5 px-2 py-2 text-sm text-white hover:bg-lime-500 dark:hover:text-white md:w-auto"
                 onClick={() => handleOpenAddModal(FormAddCate)}
               >
                 <PlusIcon />
@@ -121,13 +121,14 @@ const QlDanhMuc = () => {
 
             <div
               className="grid grid-cols-1 gap-8 overflow-x-auto sm:grid-cols-2 xl:grid-cols-4"
+              id="subjectList"
               ref={itemsContainerRef}
             >
-              {subject.map((monHocItem) => {
+              {subject.map((monHocItem, index) => {
                 console.log(monHocItem.subjectID);
                 return (
                   <a
-                    key={monHocItem.subjectID}
+                    key={index}
                     // href="javascript:;"
                     className="group relative mx-auto cursor-pointer overflow-hidden rounded-3xl bg-cover bg-center hover:shadow-lg sm:mx-0"
                   >
@@ -153,6 +154,7 @@ const QlDanhMuc = () => {
                       height={320}
                       src={monHocItem.subjectImage}
                       alt="hinhanh"
+                      priority={true}
                     />
                     <div className="absolute bottom-3 left-0 z-10 mx-3 w-[calc(100%-24px)] rounded-xl bg-white p-3 shadow-sm shadow-transparent group-hover:bg-indigo-50 group-hover:shadow-indigo-200">
                       <div className="mb-2 flex items-center justify-between">
@@ -200,9 +202,9 @@ const QlDanhMuc = () => {
               className="grid grid-cols-1 gap-8 overflow-x-auto sm:grid-cols-2 xl:grid-cols-4"
               ref={itemsContainerRef}
             >
-              {grade.map((capDoItem) => (
+              {grade.map((capDoItem, index) => (
                 <a
-                  key={capDoItem.gradeID}
+                  key={index}
                   // href="javascript:;"
                   className="group relative mx-auto cursor-pointer overflow-hidden rounded-3xl bg-cover bg-center transition delay-150 ease-in-out hover:scale-95 hover:shadow-lg sm:mx-0"
                 >
@@ -214,6 +216,7 @@ const QlDanhMuc = () => {
                     height={32}
                     src={capDoItem.gradeImage}
                     alt="hinhanh"
+                    priority={true}
                   />
                   <div className="absolute bottom-3 left-0 z-10 mx-3 w-[calc(100%-24px)] rounded-xl bg-white p-3 shadow-sm shadow-transparent group-hover:bg-indigo-50 group-hover:shadow-indigo-200">
                     <div className="mb-2 flex items-center justify-between">

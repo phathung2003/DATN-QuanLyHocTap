@@ -68,6 +68,8 @@ export async function GetGradeList() {
     const categoryList = await gradeData.docs.map((doc) => ({
       gradeID: doc.data().gradeID,
       gradeName: doc.data().gradeName,
+      gradeDescription: doc.data().gradeDescription,
+      gradeImage: doc.data().gradeImage,
     }));
     if (categoryList.length === 0) {
       return null;
