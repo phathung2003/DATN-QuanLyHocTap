@@ -23,12 +23,42 @@ interface SidebarProps {
 }
 
 const menuItems = [
-  { id: 1, label: 'Quản lý danh mục', icon: DashboardIcon, link: '/qldanhmuc' },
-  { id: 2, label: 'Quản lý bài viết', icon: BlogIcon, link: '/qlbaiviet' },
-  { id: 3, label: 'Quản lý bài học', icon: LessonIcon, link: '/qlbaihoc' },
-  { id: 4, label: 'Quản lý thông tin', icon: InfoIcon, link: '/qlthongtin' },
-  { id: 5, label: 'Quản lý tài khoản', icon: AccountIcon, link: '/qltaikhoan' },
-  { id: 6, label: 'Quản lý cài đặt', icon: SettingIcon, link: '/qlcaidat' },
+  {
+    id: 1,
+    label: 'Quản lý danh mục',
+    icon: DashboardIcon,
+    link: '/admin/qldanhmuc',
+  },
+  {
+    id: 2,
+    label: 'Quản lý bài viết',
+    icon: BlogIcon,
+    link: '/admin/qlbaiviet',
+  },
+  {
+    id: 3,
+    label: 'Quản lý bài học',
+    icon: LessonIcon,
+    link: '/admin/qlbaihoc',
+  },
+  {
+    id: 4,
+    label: 'Quản lý thông tin',
+    icon: InfoIcon,
+    link: '/admin/qlthongtin',
+  },
+  {
+    id: 5,
+    label: 'Quản lý tài khoản',
+    icon: AccountIcon,
+    link: '/admin/qltaikhoan',
+  },
+  {
+    id: 6,
+    label: 'Quản lý cài đặt',
+    icon: SettingIcon,
+    link: '/admin/qlcaidat',
+  },
 ];
 
 const otherMenuItems = [

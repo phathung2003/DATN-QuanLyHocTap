@@ -70,7 +70,10 @@ const QlDanhMuc = () => {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-4 sm:mb-5 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-2">
             <div className="">
-              <h2 className="font-manrope mb-6 text-2xl font-bold text-black dark:text-white max-xl:text-center">
+              <h2
+                id="subject_header"
+                className="font-manrope mb-6 text-2xl font-bold text-black dark:text-white max-xl:text-center"
+              >
                 Danh Mục Môn Học
               </h2>
             </div>
@@ -129,7 +132,7 @@ const QlDanhMuc = () => {
                 return (
                   <a
                     key={index}
-                    // href="javascript:;"
+                    // href='javascript:;'
                     className="group relative mx-auto cursor-pointer overflow-hidden rounded-3xl bg-cover bg-center hover:shadow-lg sm:mx-0"
                   >
                     <button
@@ -161,7 +164,7 @@ const QlDanhMuc = () => {
                         <h6 className="text-base font-semibold leading-7 text-black">
                           {monHocItem.subjectName}
                         </h6>
-                        {/* <h6 className="text-right text-base font-semibold leading-7 text-indigo-600">
+                        {/* <h6 className='text-right text-base font-semibold leading-7 text-indigo-600'>
                           {monHocItem.}
                         </h6> */}
                       </div>
@@ -205,7 +208,7 @@ const QlDanhMuc = () => {
               {grade.map((capDoItem, index) => (
                 <a
                   key={index}
-                  // href="javascript:;"
+                  // href='javascript:;'
                   className="group relative mx-auto cursor-pointer overflow-hidden rounded-3xl bg-cover bg-center transition delay-150 ease-in-out hover:scale-95 hover:shadow-lg sm:mx-0"
                 >
                   <div className="group absolute right-0 top-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br">
@@ -223,7 +226,7 @@ const QlDanhMuc = () => {
                       <h6 className="text-base font-semibold leading-7 text-black">
                         {capDoItem.gradeName}
                       </h6>
-                      {/* <h6 className="text-right text-base font-semibold leading-7 text-indigo-600">
+                      {/* <h6 className='text-right text-base font-semibold leading-7 text-indigo-600'>
                         {capDoItem.rate}
                       </h6> */}
                     </div>
