@@ -9,7 +9,7 @@ export async function handelSubmit(
   setError: React.Dispatch<React.SetStateAction<ICategoryError>>,
 ) {
   console.log(data);
-  if (data.categoryImage != null) {
+  if (data.categoryImage instanceof File) {
     const storageRef = ref(storage, `images/${data.categoryImage.name}`);
     console.log(data.categoryImage);
     await uploadBytes(storageRef, data.categoryImage);

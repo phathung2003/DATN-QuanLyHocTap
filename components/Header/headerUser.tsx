@@ -135,7 +135,7 @@ export default function Header({ name }) {
                                   />
                                 </svg>
                               </span>
-                            </p>                           
+                            </p>
                           </>
                         )}
                       </li>
@@ -161,9 +161,11 @@ export default function Header({ name }) {
                   </>
                 )}
                 {name != null && (
-                  <div className='flex items-center'>
-                    <p className='mr-10 text-lg font-extrabold leading-none tracking-tight text-[#FF5580] md:text-xl lg:text-xl dark:text-white'>Xin chào {getLastName(name)}</p>
-                    
+                  <div className="flex items-center">
+                    <p className="mr-10 text-lg font-extrabold leading-none tracking-tight text-[#FF5580] dark:text-white md:text-xl lg:text-xl">
+                      Xin chào {getLastName(name)}
+                    </p>
+
                     <button
                       onClick={() => LogOut()}
                       className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-sm bg-[#FF5580] px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
