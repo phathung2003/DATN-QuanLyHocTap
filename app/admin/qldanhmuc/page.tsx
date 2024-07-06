@@ -1,13 +1,7 @@
 import React from 'react';
-import DefaultLayout from '@/components/Layouts/DefaultLayout';
-import QlDanhMuc from '@/components/Dashboard/QlDanhMuc';
-
+import QlDanhMuc from '@/app/admin/qldanhmuc/QlDanhMuc';
 const QlDanhmucPage = () => {
-  return (
-    <DefaultLayout>
-      <QlDanhMuc />
-    </DefaultLayout>
-  );
+  return <QlDanhMuc />;
 };
 
 export default QlDanhmucPage;

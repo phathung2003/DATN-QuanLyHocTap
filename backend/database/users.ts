@@ -21,13 +21,13 @@ import UserMessage from '@/backend/messages/userMessage';
 import { DefaultRegisteErrorValue } from '@/backend/defaultData/register';
 import { DefaultAPIResult } from '@/backend/defaultData/global';
 
-const tableName = 'users';
+const TABLE_NAME = 'users';
 
 //Đăng ký tài khoản
 export async function AddUser(data: IRegisterDB) {
   //Không có email
   if (data.email == null) {
-    await addDoc(collection(db, tableName), data);
+    await addDoc(collection(db, TABLE_NAME), data);
     return;
   }
 
@@ -37,7 +37,7 @@ export async function AddUser(data: IRegisterDB) {
     data.email,
     data.password,
   );
-  const userInfo = doc(db, tableName, userCredential.user.uid);
+  const userInfo = doc(db, TABLE_NAME, userCredential.user.uid);
   await setDoc(userInfo, {
     name: data.name,
     username: data.username,
@@ -52,15 +52,15 @@ export async function CheckInfoExist(data: IRegisterDB) {
   const error = DefaultRegisteErrorValue;
   console.log(data);
   try {
-    const usersData = collection(db, tableName);
+    const usersDatabase = collection(db, TABLE_NAME);
     const field = ['username', 'email', 'phoneNumber'];
     const input = [data.username, data.email, data.phoneNumber];
 
     for (let i = 0; i < field.length; i++) {
       if (input[i] != null) {
-        const userData = query(usersData, where(field[i], '==', input[i]));
-        const result = await getDocs(userData);
-        if (result.empty == false) {
+        const userQuery = query(usersDatabase, where(field[i], '==', input[i]));
+        const userData = await getDocs(userQuery);
+        if (userData.empty == false) {
           error.status = false;
           switch (field[i]) {
             case field[0]:
@@ -87,12 +87,12 @@ export async function CheckInfoExist(data: IRegisterDB) {
 //Lấy dữ liệu người dùng
 export async function GetInfo(userID: string) {
   try {
-    const userData = doc(db, 'users', userID);
-    const result = await getDoc(userData);
-    if (!result.exists()) {
+    const usersData = doc(db, 'users', userID);
+    const userInfo = await getDoc(usersData);
+    if (!userInfo.exists()) {
       return false;
     } else {
-      const data = result.data();
+      const data = userInfo.data();
       const info: IUserInfo = {
         accountID: userID,
         name: data.name,
@@ -116,18 +116,18 @@ export async function Login(info: string, password: string) {
   }
 
   //Đăng nhập bằng số điện thoại/username
-  const usersData = collection(db, 'users');
+  const usersDatabase = collection(db, 'users');
   const fields = ['username', 'phoneNumber'];
   for (const field of fields) {
-    const userData = query(usersData, where(field, '==', info));
-    const result = await getDocs(userData);
-    if (!result.empty) {
+    const userQuery = query(usersDatabase, where(field, '==', info));
+    const userData = await getDocs(userQuery);
+    if (!userData.empty) {
       //Kiểm tra có email hay không
-      const email = result.docs[0].data().email;
+      const email = userData.docs[0].data().email;
       if (email != null) {
         return await EmailLogin(email, password);
       }
-      return result;
+      return userData;
     }
   }
   return null;
@@ -150,14 +150,14 @@ async function EmailLogin(email: string, password: string) {
 export async function ResetPassword(info: string) {
   const result = DefaultAPIResult;
 
-  const usersData = collection(db, 'users');
+  const usersDatabase = collection(db, 'users');
   const fields = ['email', 'username', 'phoneNumber'];
   for (const field of fields) {
-    const userData = query(usersData, where(field, '==', info));
-    const userInfo = await getDocs(userData);
-    if (!userInfo.empty) {
+    const userQuery = query(usersDatabase, where(field, '==', info));
+    const userData = await getDocs(userQuery);
+    if (!userData.empty) {
       //Kiểm tra có email hay không
-      const email = userInfo.docs[0].data().email;
+      const email = userData.docs[0].data().email;
       if (email != null) {
         return await SendEmail(email);
       } else {

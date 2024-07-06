@@ -1,115 +1,175 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
+import Image from 'next/image';
+import { Formik, Form, ErrorMessage, Field } from 'formik';
+import SchemaCategory from '@/backend/validationSchema/category/categorySchema';
+import {
+  DefaultCategoryValue,
+  DefaultCategoryErrorValue,
+} from '@/backend/defaultData/category';
+
+import UploadIcon from '@/asset/vector/upload.svg';
+import PlusIcon from '@/asset/vector/plus-black.svg';
+import { handelSubmit } from '@/backend/feature/category';
 
 const FormAddCate: React.FC = () => {
+  const [errorMessage, setErrorMessage] = useState(DefaultCategoryErrorValue);
+  const [preview, setPreview] = useState<string | null>(null);
+
+  const handleImageChange = (event, setFieldValue) => {
+    const file = event.currentTarget.files ? event.currentTarget.files[0] : '';
+    if (file) {
+      setFieldValue('categoryImage', file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === 'string') {
+          setPreview(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  console.log(errorMessage);
   return (
-    <div>
-      <form action="#">
-        <div className="mb-4 grid gap-4 sm:grid-cols-2">
-          <div>
-            <label
-              htmlFor="name"
-              className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
-            >
-              Tên danh mục: <span className="text-rose-600">*</span>
-            </label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              className="text-gray-900 dark:placeholder-gray-400 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
-              placeholder="Điền vào danh mục..."
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="category"
-              className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
-            >
-              Thuộc
-            </label>
-            <select
-              id="category"
-              className="text-gray-900 focus:ring-primary-500 focus:border-primary-500 dark:placeholder-gray-400 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm dark:border-slate-600 dark:bg-slate-700 dark:text-white"
-            >
-              <option value="">Chọn</option>
-              <option value="TV">Môn học</option>
-              <option value="PC">Cấp độ</option>
-            </select>
-          </div>
-          <div>
-            <label
-              htmlFor="brand"
-              className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
-            >
-              Mô tả
-            </label>
-            <input
-              type="text"
-              name="brand"
-              id="brand"
-              className="text-gray-900 focus:ring-primary-600 focus:border-primary-600 dark:placeholder-gray-400 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm dark:border-slate-600 dark:bg-slate-700 dark:text-white"
-              placeholder="Điền vào mô tả..."
-              required
-            />
-          </div>
-        </div>
-
-        <span className="text-gray-900 block text-sm font-medium dark:text-white">
-          Hình ảnh: <span className="text-rose-600">*</span>
-        </span>
-        <div className="mb-5 flex w-full items-center justify-center">
-          <label
-            htmlFor="dropzone-file"
-            className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600"
-          >
-            <div className="flex flex-col items-center justify-center pb-6 pt-5">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="26"
-                height="26"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#9b9b9b"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+    <Formik
+      initialValues={DefaultCategoryValue}
+      validationSchema={SchemaCategory}
+      onSubmit={(data) => handelSubmit(data, setErrorMessage)}
+    >
+      {({ setFieldValue }) => (
+        <Form>
+          <div className="mb-4 grid gap-4 sm:grid-cols-2">
+            <div id="categoyName_Add">
+              <label
+                htmlFor="categoyName_AddInput"
+                className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
               >
-                <path d="M21.2 15c.7-1.2 1-2.5.7-3.9-.6-2-2.4-3.5-4.4-3.5h-1.2c-.7-3-3.2-5.2-6.2-5.6-3-.3-5.9 1.3-7.3 4-1.2 2.5-1 6.5.5 8.8m8.7-1.6V21" />
-                <path d="M16 16l-4-4-4 4" />
-              </svg>
-              <p className="text-gray-500 dark:text-gray-400 mb-2 text-sm">
-                <span className="font-semibold">Click to upload</span>
-                or drag and drop
-              </p>
-              <p className="text-gray-500 dark:text-gray-400 text-xs">
-                SVG, PNG, JPG or GIF (MAX. 800x400px)
-              </p>
-            </div>
-            <input id="dropzone-file" type="file" className="hidden" />
-          </label>
-        </div>
+                Tên danh mục: <span className="text-rose-600">*</span>
+              </label>
 
-        <button
-          type="submit"
-          className="focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 inline-flex items-center rounded-lg bg-lime-500 px-5 py-2.5 text-center text-sm font-medium text-slate-800 hover:bg-lime-800 focus:outline-none focus:ring-4"
-        >
-          <svg
-            className="-ml-1 mr-1 h-6 w-6"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-              clipRule="evenodd"
+              <Field
+                id="categoyName_AddInput"
+                name="categoryName"
+                type="text"
+                placeholder="Điền vào danh mục..."
+                className="text-gray-900 dark:placeholder-gray-400 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
+              />
+              <div>
+                <ErrorMessage id="categoyName_AddError" name="categoryName" />
+              </div>
+            </div>
+
+            <div id="categoryType_Add">
+              <label
+                htmlFor="categoryType_AddInput"
+                className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
+              >
+                Thuộc: <span className="text-rose-600">*</span>
+              </label>
+
+              <Field
+                id="categoryType_AddInput"
+                name="categoryType"
+                as="select"
+                className="text-gray-900 dark:placeholder-gray-400 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
+              >
+                <option value="Default">Chọn mục</option>
+                <option value="Subject">Môn học</option>
+                <option value="Grade">Cấp độ</option>
+              </Field>
+              <div>
+                <ErrorMessage id="categoryType_AddError" name="categoryType" />
+              </div>
+            </div>
+          </div>
+
+          <div id="categoryDescription_Add">
+            <label
+              htmlFor="categoryDescription_AddInput"
+              className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
+            >
+              Mô tả: <span className="text-rose-600">*</span>
+            </label>
+
+            <Field
+              id="categoryDescription_AddInput"
+              name="categoryDescription"
+              type="text"
+              placeholder="Điền vào mô tả..."
+              className="text-gray-900 focus:ring-primary-600 focus:border-primary-600 dark:placeholder-gray-400 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm dark:border-slate-600 dark:bg-slate-700 dark:text-white"
             />
-          </svg>
-          Thêm danh mục mới
-        </button>
-      </form>
-    </div>
+            <div>
+              <ErrorMessage
+                id="categoryDescription_AddError"
+                name="categoryDescription"
+              />
+            </div>
+          </div>
+
+          <div id="categoryImage_Add">
+            <label
+              htmlFor="categoryImage_AddInput"
+              className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
+            >
+              Hình ảnh
+            </label>
+
+            <div className="mb-5 flex w-full items-center justify-center">
+              <label
+                htmlFor="categoryImage_AddInput"
+                className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600"
+              >
+                <div className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600">
+                  <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                    {preview ? (
+                      <Image
+                        src={preview}
+                        alt="Preview"
+                        width={500}
+                        height={240}
+                        className="max-h-60 w-auto"
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center">
+                        <UploadIcon />
+                        <p className="text-gray-500 dark:text-gray-400 mb-2 text-sm">
+                          <span className="font-semibold">Ấn để tải hình</span>
+                        </p>
+                        <p className="text-gray-500 dark:text-gray-400 text-xs">
+                          SVG, PNG, JPG or GIF (MAX. 800x400px)
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                  <Field
+                    id="categoryImage_AddInput"
+                    type="file"
+                    name="image"
+                    className="hidden"
+                    onChange={(event) =>
+                      handleImageChange(event, setFieldValue)
+                    }
+                  />
+                </div>
+              </label>
+            </div>
+            <div>
+              <ErrorMessage id="categoryImage_AddError" name="categoryImage" />
+            </div>
+          </div>
+
+          <button
+            id="sumbit_Add"
+            type="submit"
+            className="focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 inline-flex items-center rounded-lg bg-lime-500 px-5 py-2.5 text-center text-sm font-medium text-slate-800 hover:bg-lime-800 focus:outline-none focus:ring-4"
+          >
+            <PlusIcon className="-ml-1 mr-1 h-6 w-6" />
+            Thêm danh mục mới
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

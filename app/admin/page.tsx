@@ -1,14 +1,9 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'HungThanh',
-  description: 'Đây là project của HungThanh',
-};
+import TrangChuAd from '@/components/Dashboard/TrangChuAd';
 
 export default function AdminHome() {
   return (
-    <>
-      <p>Hi</p>
-    </>
+    <div>
+      <TrangChuAd />
+    </div>
   );
 }

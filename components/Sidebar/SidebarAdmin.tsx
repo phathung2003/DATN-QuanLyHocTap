@@ -21,17 +21,48 @@ interface SidebarProps {
 }
 
 const menuItems = [
-  { id: 1, label: 'Quản lý danh mục', icon: DashboardIcon, link: '/qldanhmuc' },
-  { id: 2, label: 'Quản lý bài viết', icon: BlogIcon, link: '/qlbaiviet' },
-  { id: 3, label: 'Quản lý bài học', icon: LessonIcon, link: '/qlbaihoc' },
-  { id: 4, label: 'Quản lý thông tin', icon: InfoIcon, link: '/qlthongtin' },
-  { id: 5, label: 'Quản lý tài khoản', icon: AccountIcon, link: '/qltaikhoan' },
-  { id: 6, label: 'Quản lý cài đặt', icon: SettingIcon, link: '/qlcaidat' },
+  {
+    id: 1,
+    label: 'Quản lý danh mục',
+    icon: DashboardIcon,
+    link: '/admin/qldanhmuc',
+  },
+  {
+    id: 2,
+    label: 'Quản lý bài viết',
+    icon: BlogIcon,
+    link: '/admin/qlbaiviet',
+  },
+  {
+    id: 3,
+    label: 'Quản lý bài học',
+    icon: LessonIcon,
+    link: '/admin/qlbaihoc',
+  },
+  {
+    id: 4,
+    label: 'Quản lý thông tin',
+    icon: InfoIcon,
+    link: '/admin/qlthongtin',
+  },
+  {
+    id: 5,
+    label: 'Quản lý tài khoản',
+    icon: AccountIcon,
+    link: '/admin/qltaikhoan',
+  },
+  {
+    id: 6,
+    label: 'Quản lý cài đặt',
+    icon: SettingIcon,
+    link: '/admin/qlcaidat',
+  },
 ];
 
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
+const Sidebar = () => {
   // sidebar collapse mới thêm vào collapse
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [toggleCollapse, setToggleCollapse] = useState(false);
   const [isCollapsible, setIsCollapsible] = useState(false);
 
@@ -150,7 +181,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <div className="mb-5 flex w-full flex-col items-start">
               {menuItems.map(({ icon: Icon, ...menu }) => {
                 return (
-                  <div>
+                  <div key={menu.id}>
                     <Link
                       href={menu.link}
                       className={`group relative flex w-full items-center gap-2.5 rounded-xl font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${

@@ -12,12 +12,12 @@ const menuItems = [
 
 const suvMenu = [
   { id: 1, label: 'Giao bài', icon: DashboardIcon, link: '/giaobai' },
-  { id: 2, label: 'Xem tiến độ học', icon: BlogIcon, link: '/tiendo' },  
+  { id: 2, label: 'Xem tiến độ học', icon: BlogIcon, link: '/tiendo' },
 ];
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   // Allow currentSidebarTab to be either a string or null
-  
+
   const [currentSidebarTab, setCurrentSidebarTab] = useState<string | null>(
     null,
   );
@@ -40,8 +40,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         <div
           className="fixed inset-0 z-10 lg:hidden xl:hidden 2xl:hidden h-auto"
           onClick={() => setIsSidebarOpen(false)}
-        >        
-        </div>
+        ></div>
       )}
 
       {/* Sidebar khi screen thu nhỏ lại dần dần */} 
@@ -55,7 +54,9 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         {/* Collapse button when screen is small */}
         <button
           onClick={() => {
-            setIsSidebarOpen(currentSidebarTab === 'linksTab' ? !isSidebarOpen : true);
+            setIsSidebarOpen(
+              currentSidebarTab === 'linksTab' ? !isSidebarOpen : true,
+            );
             setCurrentSidebarTab('linksTab');
           }}
           className={`rounded-lg p-2 shadow-md transition-colors hover:bg-[#E90074] hover:text-white focus:outline-none focus:ring focus:ring-[#E90074] focus:ring-offset-2 focus:ring-offset-white ${
@@ -71,7 +72,12 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h7"
+            />
           </svg>
         </button>
 
@@ -99,7 +105,9 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             <Link href={item.link}>
               <div
                 onClick={() => {
-                  setIsSidebarOpen(currentSidebarTab === 'linksTab' ? !isSidebarOpen : true);
+                  setIsSidebarOpen(
+                    currentSidebarTab === 'linksTab' ? !isSidebarOpen : true,
+                  );
                   setCurrentSidebarTab('linksTab');
                 }}
                 className={`rounded-lg p-3 shadow-md bg-[#E90074] hover:text-white focus:outline-none focus:ring focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-white dark:bg-[#E90074] dark:text-white ${

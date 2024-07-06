@@ -12,18 +12,18 @@ import SessionMessage from '@/backend/messages/sessionMessage';
 import { db } from '@/backend/database/firebase';
 import { GetInfo } from './users';
 
-const tableName = 'sessions';
+const TABLE_NAME = 'sessions';
 
 //Thêm session
 export async function AddSession(data: ISession) {
   try {
-    const docRef = await addDoc(collection(db, tableName), {
+    const docRef = await addDoc(collection(db, TABLE_NAME), {
       tokenID: data.tokenID,
       accountID: data.accountID,
       expiresAt: data.expiresAt,
       createAt: data.createAt,
     });
-    console.log(docRef.id);
+    // console.log(docRef.id);
     if (docRef.id != null) {
       return true;
     } else {
@@ -36,35 +36,35 @@ export async function AddSession(data: ISession) {
 
 //Xóa session
 export async function DeleteSession(token: string) {
-  const tokensData = collection(db, tableName);
-  const tokenData = query(tokensData, where('tokenID', '==', token));
-  const tokenResult = await getDocs(tokenData);
+  const tokenDatabase = collection(db, TABLE_NAME);
+  const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
+  const tokenData = await getDocs(tokenQuery);
 
-  tokenResult.forEach(async (session) => {
+  tokenData.forEach(async (session) => {
     await deleteDoc(session.ref);
   });
 }
 
-//Kiểm tra session hợp lệ
-export async function CheckSession(token: string) {
+//Lấy thông tin session
+export async function GetSessionInfo(token: string) {
   const defaultError: ISessionError = {
     status: true,
     message: null,
   };
   try {
     //Lấy thông tin session
-    const tokensData = collection(db, tableName);
-    const tokenData = query(tokensData, where('tokenID', '==', token));
-    const tokenResult = await getDocs(tokenData);
+    const tokenDatabase = collection(db, TABLE_NAME);
+    const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
+    const tokenData = await getDocs(tokenQuery);
 
-    if (tokenResult.empty) {
+    if (tokenData.empty) {
       defaultError.status = false;
       defaultError.message = SessionMessage.INVALID_TOKEN;
       return defaultError;
     }
 
     //Kiểm tra session còn hạn không
-    const sessionInfo = await tokenResult.docs[0].data();
+    const sessionInfo = await tokenData.docs[0].data();
     if (sessionInfo.expiresAt.toDate() < new Date()) {
       await DeleteSession(sessionInfo.tokenID);
       defaultError.status = false;
@@ -73,13 +73,46 @@ export async function CheckSession(token: string) {
     }
 
     //Lấy thông tin người dùng
-    const getUserData = await GetInfo(tokenResult.docs[0].data().accountID);
+    const getUserData = await GetInfo(tokenData.docs[0].data().accountID);
     if (getUserData == false) {
       defaultError.status = false;
       defaultError.message = SessionMessage.INFO_NOT_FOUND;
       return defaultError;
     }
     return getUserData;
+  } catch {
+    defaultError.status = false;
+    defaultError.message = SessionMessage.SYSTEM_ERROR;
+    return defaultError;
+  }
+}
+
+export async function CheckSession(token: string) {
+  const defaultError: ISessionError = {
+    status: true,
+    message: null,
+  };
+  try {
+    //Lấy thông tin session
+    const tokenDatabase = collection(db, TABLE_NAME);
+    const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
+    const tokenData = await getDocs(tokenQuery);
+
+    if (tokenData.empty) {
+      defaultError.status = false;
+      defaultError.message = SessionMessage.INVALID_TOKEN;
+      return defaultError;
+    }
+
+    //Kiểm tra session còn hạn không
+    const sessionInfo = await tokenData.docs[0].data();
+    if (sessionInfo.expiresAt.toDate() < new Date()) {
+      await DeleteSession(sessionInfo.tokenID);
+      defaultError.status = false;
+      defaultError.message = SessionMessage.SESSION_TIME_OUT;
+      return defaultError;
+    }
+    return defaultError;
   } catch {
     defaultError.status = false;
     defaultError.message = SessionMessage.SYSTEM_ERROR;
