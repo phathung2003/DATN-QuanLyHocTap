@@ -55,7 +55,7 @@ const Course = () => {
           <div className="mb-auto px-6 py-4">
             <a
               href="#"
-              className="mb-2 inline-block inline-block text-lg font-medium transition duration-500 ease-in-out hover:text-indigo-600"
+              className="mb-2 inline-block text-lg font-medium transition duration-500 ease-in-out hover:text-indigo-600"
             >
               {course.title}
             </a>
