@@ -24,10 +24,11 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="flex flex-shrink-0 items-center justify-center sm:block">
+        {/* icon khi screen bình thường */}
+        <div className="flex flex-shrink-0 items-center justify-center md:block hidden">
             <div className="flex items-center gap-4 pl-1">
               <LogoIcon />
-              <span className="text-dark text-2xl font-bold">HungThanh</span>
+              <span className="text-dark dark:text-white text-2xl font-bold">HungThanh</span>
             </div>
           </div>
 
