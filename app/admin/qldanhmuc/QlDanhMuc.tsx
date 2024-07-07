@@ -128,7 +128,6 @@ const QlDanhMuc = () => {
               ref={itemsContainerRef}
             >
               {subject.map((monHocItem, index) => {
-                console.log(monHocItem.subjectID);
                 return (
                   <a
                     key={index}

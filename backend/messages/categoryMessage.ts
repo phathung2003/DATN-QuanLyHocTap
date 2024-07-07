@@ -14,6 +14,7 @@ const CategoryMessage: ICategoryMessage = {
     REQUIRED: 'Xin hãy nhập mô tả',
   },
   CATEGORY_IMAGE: {
+    WRONG_FILE: 'Tệp phải là hình ảnh (jpeg, jpg, png, gif).',
     REQUIRED: 'Xin hãy chọn hình',
   },
   SYSTEM_ERROR: 'Hệ thống hiện tại đang bị lỗi. Xin vui lòng thử lại sau',

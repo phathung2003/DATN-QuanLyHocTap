@@ -8,10 +8,10 @@ const CategoryCondition: ICategoryCondition = {
   },
   CATEGORY_DESCRIPTION: {
     MAX: 0,
-    REQUIRED: true,
+    REQUIRED: false,
   },
   CATEGORY_IMAGE: {
-    REQUIRED: true,
+    REQUIRED: false,
   },
 };
 

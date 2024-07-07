@@ -48,13 +48,15 @@ const SchemaLogin = Yup.object().shape({
   categoryImage: Yup.mixed().when([], (isRequired, schema) => {
     let baseSchema = schema.test(
       'fileType',
-      'Tệp phải là hình ảnh (jpeg, jpg, png, gif).',
+      CategoryMessage.CATEGORY_IMAGE.WRONG_FILE,
       (value) => {
         if (value && value instanceof File) {
           const fileType = value.type;
           return ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].includes(
             fileType,
           );
+        } else {
+          return true;
         }
       },
     );
