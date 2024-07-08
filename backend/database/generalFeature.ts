@@ -18,7 +18,10 @@ export async function UploadImage(image: File, filePath: string) {
   }
 }
 
-export async function DeleteImage(imagePath: string) {
+export async function DeleteImage(imagePath: string | null) {
+  if (!imagePath) {
+    return true;
+  }
   const defaultImage = [
     process.env.NEXT_PUBLIC_SUBJECT_DEFAULT_IMAGE,
     process.env.NEXT_PUBLIC_GRADE_DEFAULT_IMAGE,

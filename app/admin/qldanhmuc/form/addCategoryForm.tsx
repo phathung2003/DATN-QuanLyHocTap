@@ -7,7 +7,10 @@ import { DefaultCategoryValue } from '@/backend/defaultData/category';
 
 import UploadIcon from '@/asset/vector/upload.svg';
 import PlusIcon from '@/asset/vector/plus-black.svg';
-import { handelSubmit, ResetError } from '@/backend/feature/category';
+import {
+  handelSubmit,
+  ResetError,
+} from '@/app/admin/qldanhmuc/process/category';
 import { ICategoryError } from '@/backend/models/messages/ICategoryMessage';
 
 const DefaultErrorMessage: ICategoryError = {
@@ -17,7 +20,7 @@ const DefaultErrorMessage: ICategoryError = {
   systemError: null,
 };
 
-const FormAddCate: React.FC = () => {
+const AddCategory: React.FC = () => {
   const [error, setError] = useState(DefaultErrorMessage);
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -170,4 +173,4 @@ const FormAddCate: React.FC = () => {
   );
 };
 
-export default FormAddCate;
+export default AddCategory;

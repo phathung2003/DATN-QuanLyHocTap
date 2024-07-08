@@ -11,7 +11,7 @@ const DeleteModal: React.FC<ProductModalProps> = ({ isOpen, onClose }) => {
     <div
       id="deleteModal"
       aria-hidden="true"
-      className="fixed inset-0 z-9999 flex h-[calc(100%-1rem)] h-full max-h-full w-full items-center justify-center bg-slate-800 bg-opacity-20 md:inset-0"
+      className="fixed inset-0 z-9999 flex h-full max-h-full w-full items-center justify-center bg-slate-800 bg-opacity-20 md:inset-0"
     >
       <div className="relative max-h-full w-full max-w-md p-4">
         {/* <!-- Modal content --> */}

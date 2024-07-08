@@ -56,7 +56,7 @@ const QlBaiHoc = () => {
 
   return (
     <section className="mx-auto w-full max-w-screen-xl flex-1 bg-slate-50 py-10 antialiased shadow-xl dark:bg-black lg:px-4">
-      <div className="flex grid justify-between gap-14 sm:grid-cols-1 sm:gap-4 md:grid-cols-2 lg:grid-cols-2">
+      <div className="flex justify-between gap-14 sm:grid-cols-1 sm:gap-4 md:grid-cols-2 lg:grid-cols-2">
         <div className="sx:text-center">
           <h2 className="font-manrope xs:text-center mb-2 text-2xl font-bold text-black dark:text-white max-xl:text-left sm:text-center md:text-center lg:text-left">
             Danh Sách Bài Học

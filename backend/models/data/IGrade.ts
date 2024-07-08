@@ -3,4 +3,5 @@ export interface IGrade {
   gradeName: string;
   gradeDescription: string | null;
   gradeImage: string;
+  gradeFile?: File | string;
 }

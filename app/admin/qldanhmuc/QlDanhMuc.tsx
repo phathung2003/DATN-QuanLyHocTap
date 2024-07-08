@@ -1,15 +1,15 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import AddModal from '@/components/Modal/AddModal';
-import FormAddCate from '@/components/FormCRUD/FormAddCate';
-import EditModal from '@/components/Modal/EditModal';
-import FormEditCate from '@/components/FormCRUD/FormEditCate';
-import FormEditSubject from '@/components/FormCRUD/FormEditSubject';
-import { GetSubject } from '@/app/admin/qldanhmuc/process/getSubject';
-import { GetGrade } from '@/app/admin/qldanhmuc/process/getGrade';
+import { GetSubject, GetGrade } from '@/app/admin/qldanhmuc/process/getData';
 import { ISubject } from '@/backend/models/data/ISubject';
 import { IGrade } from '@/backend/models/data/IGrade';
+
+import AddFormLayout from '@/app/admin/qldanhmuc/form/addFormLayout';
+import AddCategory from '@/app/admin/qldanhmuc/form/addCategoryForm';
+import EditFormLayout from '@/app/admin/qldanhmuc/form/editFormLayout';
+import EditGradeForm from '@/app/admin/qldanhmuc/form/editGradeForm';
+import EditSubjectForm from '@/app/admin/qldanhmuc/form/editSubjectForm';
 
 //Icon
 import PlusIcon from '@/asset/vector/plus-white.svg';
@@ -17,7 +17,7 @@ import FunnelIcon from '@/asset/vector/funnel-black.svg';
 import DropdownIcon from '@/asset/vector/dropdown-black.svg';
 import EditIcon from '@/asset/vector/pencil-white.svg';
 
-const QlDanhMuc = () => {
+export default function QlDanhMuc() {
   const [subject, setSubject] = useState<ISubject[]>([]);
   const [grade, setGrade] = useState<IGrade[]>([]);
 
@@ -34,7 +34,7 @@ const QlDanhMuc = () => {
   // modal Add category
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [currentFormComponent, setCurrentFormComponent] = useState<React.FC>(
-    () => FormAddCate,
+    () => AddCategory,
   );
   const handleOpenAddModal = (FormComponent: React.FC) => {
     setCurrentFormComponent(() => FormComponent);
@@ -44,10 +44,10 @@ const QlDanhMuc = () => {
   // State for Edit modal
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editAccountData, setEditAccountData] = useState<React.FC>(
-    () => FormEditCate,
+    () => EditGradeForm,
   );
 
-  const handleEditClick = (
+  const handleSubjectEditClick = (
     FormComponent: React.FC<{ data: ISubject }>,
     subject,
   ) => {
@@ -55,6 +55,13 @@ const QlDanhMuc = () => {
     setIsEditModalOpen(true);
   };
 
+  const handleGradeEditClick = (
+    FormComponent: React.FC<{ data: IGrade }>,
+    grade,
+  ) => {
+    setEditAccountData(() => <FormComponent data={grade} />);
+    setIsEditModalOpen(true);
+  };
   // button pre & next
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsContainerRef = useRef(null);
@@ -86,7 +93,7 @@ const QlDanhMuc = () => {
               <button
                 type="button"
                 className="ml-auto inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-lime-600 p-1.5 px-2 py-2 text-sm text-white hover:bg-lime-500 dark:hover:text-white md:w-auto"
-                onClick={() => handleOpenAddModal(FormAddCate)}
+                onClick={() => handleOpenAddModal(AddCategory)}
               >
                 <PlusIcon />
                 <span className="sr-only">Open modal</span>
@@ -109,7 +116,7 @@ const QlDanhMuc = () => {
 
           {/* showing Edit */}
           {isAddModalOpen && currentFormComponent && (
-            <AddModal
+            <AddFormLayout
               isOpen={isAddModalOpen}
               onClose={() => setIsAddModalOpen(false)}
               FormComponent={currentFormComponent}
@@ -140,7 +147,7 @@ const QlDanhMuc = () => {
                     <button
                       type="button"
                       onClick={() =>
-                        handleEditClick(FormEditSubject, monHocItem)
+                        handleSubjectEditClick(EditSubjectForm, monHocItem)
                       }
                       className="group absolute right-0 top-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br"
                     >
@@ -172,7 +179,7 @@ const QlDanhMuc = () => {
 
               {/* showing modal */}
               {isEditModalOpen && editAccountData && (
-                <EditModal
+                <EditFormLayout
                   isOpen={isEditModalOpen}
                   onClose={() => setIsEditModalOpen(false)}
                   FormComponent={editAccountData}
@@ -215,7 +222,9 @@ const QlDanhMuc = () => {
                 >
                   <button
                     type="button"
-                    onClick={() => handleEditClick(FormEditCate, capDoItem)}
+                    onClick={() =>
+                      handleGradeEditClick(EditGradeForm, capDoItem)
+                    }
                     className="group absolute right-0 top-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br"
                   >
                     <EditIcon />
@@ -256,6 +265,4 @@ const QlDanhMuc = () => {
       </div>
     </section>
   );
-};
-
-export default QlDanhMuc;
+}

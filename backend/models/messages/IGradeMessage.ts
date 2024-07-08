@@ -1,4 +1,19 @@
 export interface IGradeMessage {
+  GRADE_NAME: {
+    OVER_MAX_CHARACTER: string;
+    REQUIRED: string;
+  };
+  GRADE_TYPE: {
+    REQUIRED: string;
+  };
+  GRADE_DESCRIPTION: {
+    OVER_MAX_CHARACTER: string;
+    REQUIRED: string;
+  };
+  GRADE_IMAGE: {
+    WRONG_FILE: string;
+    REQUIRED: string;
+  };
   GRADE_EXIST: string;
   GRADE_ID_EXIST: string;
   GRADE_NAME_EXIST: string;

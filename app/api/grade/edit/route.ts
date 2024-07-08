@@ -69,17 +69,27 @@ async function CheckData(request) {
 
   try {
     const dataInput = await request.json();
-    if (
-      !tokenID ||
-      tokenID == null ||
-      gradeIDRequest == null ||
-      !dataInput.gradeID ||
-      !dataInput.gradeName ||
-      !dataInput.gradeDescription ||
-      !dataInput.gradeImage
-    ) {
+
+    //Các trường có thể null
+    const nullableCheckField = ['gradeImage', 'gradeDescription'];
+    nullableCheckField.forEach((field) => {
+      if (!(field in dataInput)) {
+        return false;
+      }
+    });
+
+    //Các trường không thể null
+    const checkField = [dataInput.gradeID, dataInput.gradeName];
+    checkField.forEach((field) => {
+      if (!field || field == null) {
+        return false;
+      }
+    });
+
+    if (!tokenID && !gradeIDRequest) {
       return false;
     }
+
     return {
       token: tokenID,
       gradeID: gradeIDRequest,
