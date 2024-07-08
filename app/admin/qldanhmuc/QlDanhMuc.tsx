@@ -5,6 +5,7 @@ import AddModal from '@/components/Modal/AddModal';
 import FormAddCate from '@/components/FormCRUD/FormAddCate';
 import EditModal from '@/components/Modal/EditModal';
 import FormEditCate from '@/components/FormCRUD/FormEditCate';
+import FormEditSubject from '@/components/FormCRUD/FormEditSubject';
 import { GetSubject } from '@/app/admin/qldanhmuc/process/getSubject';
 import { GetGrade } from '@/app/admin/qldanhmuc/process/getGrade';
 import { ISubject } from '@/backend/models/data/ISubject';
@@ -46,8 +47,11 @@ const QlDanhMuc = () => {
     () => FormEditCate,
   );
 
-  const handleEditClick = (FormComponent: React.FC) => {
-    setEditAccountData(() => FormComponent);
+  const handleEditClick = (
+    FormComponent: React.FC<{ data: ISubject }>,
+    subject,
+  ) => {
+    setEditAccountData(() => <FormComponent data={subject} />);
     setIsEditModalOpen(true);
   };
 
@@ -89,15 +93,6 @@ const QlDanhMuc = () => {
                 Thêm Danh Mục
               </button>
 
-              {/* showing modal */}
-              {isAddModalOpen && currentFormComponent && (
-                <AddModal
-                  isOpen={isAddModalOpen}
-                  onClose={() => setIsAddModalOpen(false)}
-                  FormComponent={currentFormComponent}
-                />
-              )}
-
               {/* button filter  */}
               <button
                 id="filterDropdownButton"
@@ -111,6 +106,15 @@ const QlDanhMuc = () => {
               </button>
             </div>
           </div>
+
+          {/* showing Edit */}
+          {isAddModalOpen && currentFormComponent && (
+            <AddModal
+              isOpen={isAddModalOpen}
+              onClose={() => setIsAddModalOpen(false)}
+              FormComponent={currentFormComponent}
+            />
+          )}
 
           {/* ------------------------------ SECTION DANH MỤC MÔN HỌC ------------------------------------------------------------ */}
 
@@ -131,26 +135,17 @@ const QlDanhMuc = () => {
                 return (
                   <a
                     key={index}
-                    // href='javascript:;'
                     className="group relative mx-auto cursor-pointer overflow-hidden rounded-3xl bg-cover bg-center hover:shadow-lg sm:mx-0"
                   >
                     <button
                       type="button"
-                      onClick={() => handleEditClick(FormEditCate)}
+                      onClick={() =>
+                        handleEditClick(FormEditSubject, monHocItem)
+                      }
                       className="group absolute right-0 top-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br"
                     >
                       <EditIcon />
                     </button>
-
-                    {/* showing modal */}
-                    {isEditModalOpen && editAccountData && (
-                      <EditModal
-                        isOpen={isEditModalOpen}
-                        onClose={() => setIsEditModalOpen(false)}
-                        FormComponent={editAccountData}
-                      />
-                    )}
-
                     <Image
                       width={500}
                       height={320}
@@ -174,6 +169,15 @@ const QlDanhMuc = () => {
                   </a>
                 );
               })}
+
+              {/* showing modal */}
+              {isEditModalOpen && editAccountData && (
+                <EditModal
+                  isOpen={isEditModalOpen}
+                  onClose={() => setIsEditModalOpen(false)}
+                  FormComponent={editAccountData}
+                />
+              )}
             </div>
 
             <button
@@ -207,15 +211,19 @@ const QlDanhMuc = () => {
               {grade.map((capDoItem, index) => (
                 <a
                   key={index}
-                  // href='javascript:;'
-                  className="group relative mx-auto cursor-pointer overflow-hidden rounded-3xl bg-cover bg-center transition delay-150 ease-in-out hover:scale-95 hover:shadow-lg sm:mx-0"
+                  className="group relative mx-auto cursor-pointer overflow-hidden rounded-3xl bg-cover bg-center hover:shadow-lg sm:mx-0"
                 >
-                  <div className="group absolute right-0 top-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br">
+                  <button
+                    type="button"
+                    onClick={() => handleEditClick(FormEditCate, capDoItem)}
+                    className="group absolute right-0 top-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br"
+                  >
                     <EditIcon />
-                  </div>
+                  </button>
+
                   <Image
                     width={500}
-                    height={32}
+                    height={320}
                     src={capDoItem.gradeImage}
                     alt="hinhanh"
                     priority={true}
@@ -226,7 +234,7 @@ const QlDanhMuc = () => {
                         {capDoItem.gradeName}
                       </h6>
                       {/* <h6 className='text-right text-base font-semibold leading-7 text-indigo-600'>
-                        {capDoItem.rate}
+                        {monHocItem.}
                       </h6> */}
                     </div>
                     <p className="text-xs leading-5 text-slate-500">

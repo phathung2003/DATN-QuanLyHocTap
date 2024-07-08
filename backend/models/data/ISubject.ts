@@ -3,4 +3,5 @@ export interface ISubject {
   subjectName: string;
   subjectDescription: string | null;
   subjectImage: string;
+  subjectFile?: File | string;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const courses = [
   {
@@ -43,7 +44,7 @@ const Course = () => {
         >
           <div className="relative">
             <a href="#">
-              <img className="w-full" src={course.image} alt={course.title} />
+              <Image className="w-full" src={course.image} alt={course.title} />
               <div className="bg-gray-900 absolute bottom-0 left-0 right-0 top-0 opacity-25 transition duration-300 hover:bg-transparent"></div>
             </a>
             <a href="#!">

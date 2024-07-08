@@ -3,40 +3,24 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import SchemaCategory from '@/backend/validationSchema/category/categorySchema';
-import {
-  DefaultCategoryValue,
-  DefaultCategoryErrorValue,
-} from '@/backend/defaultData/category';
+import { DefaultCategoryValue } from '@/backend/defaultData/category';
 
 import UploadIcon from '@/asset/vector/upload.svg';
 import PlusIcon from '@/asset/vector/plus-black.svg';
 import { handelSubmit, ResetError } from '@/backend/feature/category';
+import { ICategoryError } from '@/backend/models/messages/ICategoryMessage';
+
+const DefaultErrorMessage: ICategoryError = {
+  status: true,
+  categoryNameError: null,
+  categoryImageError: null,
+  systemError: null,
+};
 
 const FormAddCate: React.FC = () => {
-  const [error, setError] = useState(DefaultCategoryErrorValue);
+  const [error, setError] = useState(DefaultErrorMessage);
   const [preview, setPreview] = useState<string | null>(null);
 
-  const handleImageChange = (event, setFieldValue) => {
-    const file = event.currentTarget.files ? event.currentTarget.files[0] : '';
-    if (file) {
-      setFieldValue('categoryImage', file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (typeof reader.result === 'string') {
-          setPreview(reader.result);
-        }
-      };
-      reader.readAsDataURL(file);
-      setError((prev) => {
-        const newErrorState = {
-          ...prev,
-          systemError: null,
-        };
-        newErrorState['categoryImageError'] = null;
-        return newErrorState;
-      });
-    }
-  };
   return (
     <Formik
       initialValues={DefaultCategoryValue}
@@ -59,8 +43,8 @@ const FormAddCate: React.FC = () => {
                 name="categoryName"
                 type="text"
                 placeholder="Điền vào danh mục..."
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  ResetError(e, setFieldValue, setError)
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  ResetError(event, setFieldValue, setError, setPreview)
                 }
                 className="text-gray-900 dark:placeholder-gray-400 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
               />
@@ -147,7 +131,7 @@ const FormAddCate: React.FC = () => {
                           <span className="font-semibold">Ấn để tải hình</span>
                         </p>
                         <p className="text-gray-500 dark:text-gray-400 text-xs">
-                          SVG, PNG, JPG or GIF (MAX. 800x400px)
+                          Định dạng theo PNG, JPG, JPEG
                         </p>
                       </div>
                     )}
@@ -155,11 +139,12 @@ const FormAddCate: React.FC = () => {
                   <Field
                     id="categoryImage_AddInput"
                     type="file"
-                    name="image"
+                    name="categoryImage"
+                    value={undefined}
                     className="hidden"
-                    onChange={(event) =>
-                      handleImageChange(event, setFieldValue)
-                    }
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      ResetError(event, setFieldValue, setError, setPreview);
+                    }}
                   />
                 </div>
               </label>

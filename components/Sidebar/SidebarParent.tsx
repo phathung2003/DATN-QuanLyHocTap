@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import { DashboardIcon, LogoIcon, LessonIcon, BlogIcon } from '../icons';
 import Link from 'next/link';
@@ -31,7 +30,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [setIsSidebarOpen]);
 
   return (
     <aside className="mt-8 flex flex-shrink-0 transition-all dark:bg-slate-900">

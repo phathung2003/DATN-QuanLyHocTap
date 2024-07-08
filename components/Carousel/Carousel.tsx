@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-
+import Image from 'next/image';
 const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -31,7 +31,7 @@ const Carousel = () => {
               className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
               data-carousel-item={index === currentIndex ? 'active' : ''}
             >
-              <img
+              <Image
                 src={src}
                 className="block w-full"
                 alt={`Slide ${index + 1}`}
