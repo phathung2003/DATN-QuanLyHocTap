@@ -42,7 +42,7 @@ const EditSubjectForm: React.FC<{ data: ISubject }> = (subjectInfo) => {
               htmlFor="subjectName_EditInput"
               className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
             >
-              Tên môn học
+              Tên môn học <span className="text-rose-600" />
             </label>
 
             <Field

@@ -38,7 +38,7 @@ const AddCategory: React.FC = () => {
                 htmlFor="categoyName_AddInput"
                 className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
               >
-                Tên danh mục: <span className="text-rose-600">*</span>
+                Tên danh mục <span className="text-rose-600" />
               </label>
 
               <Field
@@ -62,7 +62,7 @@ const AddCategory: React.FC = () => {
                 htmlFor="categoryType_AddInput"
                 className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
               >
-                Thuộc: <span className="text-rose-600">*</span>
+                Thuộc <span className="text-rose-600" />
               </label>
 
               <Field
@@ -86,7 +86,7 @@ const AddCategory: React.FC = () => {
               htmlFor="categoryDescription_AddInput"
               className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
             >
-              Mô tả: <span className="text-rose-600">*</span>
+              Mô tả
             </label>
 
             <Field

@@ -40,7 +40,7 @@ const EditGradeForm: React.FC<{ data: IGrade }> = (gradeInfo) => {
               htmlFor="gradeName_EditInput"
               className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
             >
-              Tên cấp độ
+              Tên cấp độ <span className="text-rose-600" />
             </label>
 
             <Field
