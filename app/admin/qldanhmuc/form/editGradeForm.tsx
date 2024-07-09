@@ -13,8 +13,8 @@ import { GradeEditDefaultValue } from '@/backend/defaultData/grade';
 import { ICategoryError } from '@/backend/models/messages/ICategoryMessage';
 
 //Icon
-import DeleteIcon from '@/asset/vector/trashcan-red.svg';
-import UploadIcon from '@/asset/vector/upload.svg';
+import DeleteIcon from '@/public/vector/trashcan-red.svg';
+import UploadIcon from '@/public/vector/upload.svg';
 
 const DefaultErrorMessage: ICategoryError = {
   status: true,

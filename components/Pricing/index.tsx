@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import SectionTitle from '../Common copy/SectionTitle';
+import SectionTitle from '@/components/Main/sectionTitle';
 import OfferList from './OfferList';
 import PricingBox from './PricingBox';
 
@@ -17,7 +17,6 @@ const Pricing = () => {
           title="Simple and Affordable Pricing"
           paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
           center
-          width="665px"
         />
 
         <div className="w-full">

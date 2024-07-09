@@ -3,7 +3,7 @@ import React from 'react';
 import ScrollToTop from '@/components/ScrollToTop';
 import Link from 'next/link';
 import LoginForm from '@/app/(main)/login/loginForm';
-import LoginDecoration from '@/asset/decoration/login-decoration';
+import LoginDecoration from '@/public/decoration/login-decoration';
 
 export default function LoginnPage() {
   return (

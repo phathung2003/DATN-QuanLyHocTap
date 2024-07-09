@@ -1,10 +1,10 @@
 import React from 'react';
 import CardDataStats from '../CardDataStats';
 
-import WatchIcon from '@/asset/vector/eye.svg';
-import CartIcon from '@/asset/vector/cart.svg';
-import AccountIcon from '@/asset/vector/bag.svg';
-import UsersIcon from '@/asset/vector/users.svg';
+import WatchIcon from '@/public/vector/eye.svg';
+import CartIcon from '@/public/vector/cart.svg';
+import AccountIcon from '@/public/vector/bag.svg';
+import UsersIcon from '@/public/vector/users.svg';
 
 const TrangChuAd: React.FC = () => {
   return (

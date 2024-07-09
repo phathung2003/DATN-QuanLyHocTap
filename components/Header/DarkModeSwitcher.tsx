@@ -1,8 +1,8 @@
 import { useTheme } from 'next-themes';
 
 //Icon
-import LightIcon from '@/asset/vector/sun-2.svg';
-import DarkIcon from '@/asset/vector/moon-2.svg';
+import LightIcon from '@/public/vector/sun-2.svg';
+import DarkIcon from '@/public/vector/moon-2.svg';
 
 export default function DarkModeSwitcher() {
   const { theme, setTheme } = useTheme();

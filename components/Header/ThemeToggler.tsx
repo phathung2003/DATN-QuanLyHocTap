@@ -1,8 +1,8 @@
 import { useTheme } from 'next-themes';
 
 //Icon
-import DarkIcon from '@/asset/vector/moon-1.svg';
-import LightIcon from '@/asset/vector/sun-1.svg';
+import DarkIcon from '@/public/vector/moon-1.svg';
+import LightIcon from '@/public/vector/sun-1.svg';
 
 export default function ThemeToggler() {
   const { theme, setTheme } = useTheme();

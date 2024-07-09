@@ -1,5 +1,5 @@
 //Icon
-import ExitIcon from '@/asset/vector/exit.svg';
+import ExitIcon from '@/public/vector/exit.svg';
 
 interface ProductModalProps {
   isOpen: boolean;

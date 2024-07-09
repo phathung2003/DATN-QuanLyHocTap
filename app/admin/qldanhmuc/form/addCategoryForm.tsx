@@ -4,14 +4,15 @@ import Image from 'next/image';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import SchemaCategory from '@/backend/validationSchema/category/categorySchema';
 import { DefaultCategoryValue } from '@/backend/defaultData/category';
-
-import UploadIcon from '@/asset/vector/upload.svg';
-import PlusIcon from '@/asset/vector/plus-black.svg';
 import {
   handelSubmit,
   ResetError,
 } from '@/app/admin/qldanhmuc/process/category';
 import { ICategoryError } from '@/backend/models/messages/ICategoryMessage';
+
+//Icon
+import UploadIcon from '@/public/vector/upload.svg';
+import PlusIcon from '@/public/vector/plus-black.svg';
 
 const DefaultErrorMessage: ICategoryError = {
   status: true,

@@ -12,10 +12,10 @@ import EditGradeForm from '@/app/admin/qldanhmuc/form/editGradeForm';
 import EditSubjectForm from '@/app/admin/qldanhmuc/form/editSubjectForm';
 
 //Icon
-import PlusIcon from '@/asset/vector/plus-white.svg';
-import FunnelIcon from '@/asset/vector/funnel-black.svg';
-import DropdownIcon from '@/asset/vector/dropdown-black.svg';
-import EditIcon from '@/asset/vector/pencil-white.svg';
+import PlusIcon from '@/public/vector/plus-white.svg';
+import FunnelIcon from '@/public/vector/funnel-black.svg';
+import DropdownIcon from '@/public/vector/dropdown-black.svg';
+import EditIcon from '@/public/vector/pencil-white.svg';
 
 export default function QlDanhMuc() {
   const [subject, setSubject] = useState<ISubject[]>([]);

@@ -1,0 +1,46 @@
+<svg
+  width="53"
+  height="30"
+  viewBox="0 0 53 30"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <circle opacity=".8" cx="37.5" cy="37.5" r="37.5" fill="#4A6CF7" />
+  <mask id="a" maskUnits="userSpaceOnUse" x="0" y="0" width="75" height="75">
+    <circle opacity=".8" cx="37.5" cy="37.5" r="37.5" fill="#4A6CF7" />
+  </mask>
+  <g mask="url(#a)">
+    <circle opacity=".8" cx="37.5" cy="37.5" r="37.5" fill="url(#b)" />
+    <g opacity=".8" filter="url(#c)">
+      <circle cx="40.809" cy="19.853" r="15.441" fill="#fff" />
+    </g>
+  </g>
+  <defs>
+    <radialGradient
+      id="b"
+      cx="0"
+      cy="0"
+      r="1"
+      gradientUnits="userSpaceOnUse"
+      gradientTransform="rotate(90 0 37.5)scale(40.2574)"
+    >
+      <stop />
+      <stop offset="1" />
+    </radialGradient>
+    <filter
+      id="c"
+      x="4.368"
+      y="-16.588"
+      width="72.882"
+      height="72.882"
+      filterUnits="userSpaceOnUse"
+    >
+      <feFlood result="BackgroundImageFix" />
+      <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+      <feGaussianBlur
+        stdDeviation="10.5"
+        result="effect1_foregroundBlur_111:596"
+      />
+    </filter>
+  </defs>
+</svg>
