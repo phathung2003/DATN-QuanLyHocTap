@@ -11,11 +11,7 @@ const SelectGroupTwo: React.FC = () => {
 
   return (
     <div>
-      <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-        Select Country
-      </label>
-
-      <div className="relative z-20 bg-white dark:bg-form-input">
+      <div className="relative z-20 rounded-md bg-white ring-2 ring-rose-500 dark:bg-form-input sm:w-full md:w-full">
         <span className="absolute left-4 top-1/2 z-30 -translate-y-1/2">
           <svg
             width="20"
@@ -53,21 +49,21 @@ const SelectGroupTwo: React.FC = () => {
             setSelectedOption(e.target.value);
             changeTextColor();
           }}
-          className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input ${
+          className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-12 py-3 outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input ${
             isOptionSelected ? 'text-black dark:text-white' : ''
           }`}
         >
-          <option value="" disabled className="text-body dark:text-bodydark">
-            Select Country
+          <option value="" disabled className="text-body dark:text-white">
+            Chọn em bé
           </option>
-          <option value="USA" className="text-body dark:text-bodydark">
-            USA
+          <option value="USA" className="text-body dark:text-white">
+            Minh Khang
           </option>
-          <option value="UK" className="text-body dark:text-bodydark">
-            UK
+          <option value="UK" className="text-body dark:text-white">
+            Thanh Toàn
           </option>
-          <option value="Canada" className="text-body dark:text-bodydark">
-            Canada
+          <option value="Canada" className="text-body dark:text-white">
+            Hưng Thịnh
           </option>
         </select>
 
