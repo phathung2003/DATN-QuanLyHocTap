@@ -12,7 +12,7 @@ export default function ParentLayout({
   return (
     <>
       {/* <!-- ==========================  Wrapper Start =============================== --> */}
-      <div className="h-screen overflow-hidden">
+      <div>
         {/* <!-- ===== Header Start ===== --> */}
         <Header />
         {/* <!-- ===== Header End ===== --> */}

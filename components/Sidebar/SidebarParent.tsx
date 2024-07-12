@@ -9,7 +9,7 @@ const menuItems = [
   { id: 3, icon: LessonIcon, link: '/phuhuynh' },
 ];
 
-const menuChildrens = [
+const suvMenu = [
   { id: 1, label: 'Giao bài', icon: DashboardIcon, link: '/giaobai' },
   { id: 2, label: 'Xem tiến độ học', icon: BlogIcon, link: '/tiendo' },
 ];
@@ -33,24 +33,24 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   }, [setIsSidebarOpen]);
 
   return (
-    <aside className="mt-8 flex flex-shrink-0 transition-all dark:bg-slate-900">
+    <aside className="mt-8 flex flex-shrink-0 transition-all dark:bg-black">
       {/* Overlay */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 z-10 bg-black bg-opacity-100 lg:hidden xl:hidden 2xl:hidden"
+          className="fixed inset-0 z-10 h-auto lg:hidden xl:hidden 2xl:hidden"
           onClick={() => setIsSidebarOpen(false)}
         ></div>
       )}
 
       {/* Sidebar khi screen thu nhỏ lại dần dần */}
       <div
-        className={`${isSidebarOpen ? 'fixed' : 'hidden'} dark:boxdark z-10 w-16 rounded-br-3xl rounded-tr-3xl bg-[#40679E]`}
+        className={`${isSidebarOpen ? 'fixed' : 'hidden'} dark:boxdark z-10 w-16 rounded-3xl bg-[#40679E]`}
       ></div>
 
       {/* Navigation when the screen is bé nhỏ nhỏ như điện thoại  */}
       <nav
         aria-label="Options"
-        className="shadow-t shadow-l fixed inset-x-0 bottom-0 flex flex-row-reverse items-center justify-between rounded-l-3xl rounded-t-3xl border-t border-indigo-100 bg-white px-4 py-2 dark:border-slate-900 dark:bg-boxdark sm:hidden"
+        className="shadow-t shadow-l fixed inset-x-0 bottom-0 z-99 flex flex-row-reverse items-center justify-between rounded-l-3xl rounded-t-3xl border-t border-[#E90074] bg-white px-4 py-2 dark:border-slate-900 dark:bg-boxdark sm:hidden"
       >
         {/* Collapse button when screen is small */}
         <button
@@ -60,9 +60,9 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             );
             setCurrentSidebarTab('linksTab');
           }}
-          className={`rounded-lg p-2 shadow-md transition-colors hover:bg-indigo-800 hover:text-white focus:outline-none focus:ring focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-white ${
+          className={`rounded-lg p-2 shadow-md transition-colors hover:bg-[#E90074] hover:text-white focus:outline-none focus:ring focus:ring-[#E90074] focus:ring-offset-2 focus:ring-offset-white ${
             isSidebarOpen && currentSidebarTab === 'linksTab'
-              ? 'bg-indigo-600 text-white'
+              ? 'bg-[#E90074] text-white'
               : 'bg-white text-slate-500'
           }`}
         >
@@ -93,7 +93,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
       {/* Sidebar for larger screens khi chưa expand ra*/}
       <nav
         aria-label="Options"
-        className="z-20 hidden w-16 flex-shrink-0 flex-col items-center rounded-br-3xl rounded-tr-3xl border-indigo-100 bg-[#40679E] py-4 shadow-md dark:border-boxdark dark:bg-boxdark sm:flex"
+        className="z-20 hidden h-auto w-16 flex-shrink-0 flex-col items-center rounded-br-3xl rounded-tr-3xl border-[#E90074] bg-[#FFD0D0] py-4 shadow-md dark:rounded-br-3xl dark:border-boxdark dark:bg-rose-200 sm:flex"
       >
         <div className="flex-shrink-0 py-4">
           {/* Logo */}
@@ -104,7 +104,10 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
         {/* Navigation items */}
         {menuItems.map((item) => (
-          <div key={item.id} className="flex flex-col items-center p-4">
+          <div
+            key={item.id}
+            className="flex flex-col items-center rounded-br-3xl rounded-tr-3xl p-4"
+          >
             <Link href={item.link}>
               <div
                 onClick={() => {
@@ -113,10 +116,10 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                   );
                   setCurrentSidebarTab('linksTab');
                 }}
-                className={`rounded-lg p-2 shadow-md transition-colors hover:bg-indigo-800 hover:text-white focus:outline-none focus:ring focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-white  ${
+                className={`rounded-lg bg-[#E90074] p-3 shadow-md hover:text-white focus:outline-none focus:ring focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-white dark:bg-[#E90074] dark:text-white ${
                   isSidebarOpen && currentSidebarTab === 'linksTab'
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-white text-slate-500'
+                    ? 'bg-[#E90074] text-white'
+                    : 'bg-white text-black'
                 }`}
               >
                 <item.icon className="h-6 w-6" />
@@ -128,33 +131,40 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
       {/* Full sidebar (sidebar khi expand) */}
       <div
-        className={`fixed inset-y-0 left-0 z-10 w-64 flex-shrink-0 transform rounded-br-3xl rounded-tr-3xl border-r-2 border-indigo-100 bg-white shadow-lg transition-transform duration-300 sm:left-16 sm:w-72 lg:static lg:w-64 ${
+        className={`fixed inset-y-0 left-0 z-10 w-64 flex-shrink-0 transform rounded-br-3xl rounded-tr-3xl border-r-2 border-[#E90074] bg-white shadow-lg transition-transform duration-300 sm:left-16 sm:w-72 lg:static lg:w-64 ${
           isSidebarOpen
-            ? 'translate-x-0 dark:bg-boxdark'
-            : '-translate-x-full dark:bg-boxdark'
+            ? 'translate-x-0 rounded-br-3xl rounded-tr-3xl dark:bg-boxdark'
+            : '-translate-x-full rounded-br-3xl rounded-tr-3xl dark:bg-boxdark'
         }`}
       >
-        <nav className="flex h-full flex-col dark:bg-boxdark" aria-label="Main">
+        <nav
+          className="flex h-full flex-col rounded-br-3xl rounded-tr-3xl dark:bg-boxdark"
+          aria-label="Main"
+        >
           {/* Logo */}
           <div className="flex flex-shrink-0 items-center justify-center py-10">
             <div className="flex items-center gap-4 pl-1">
               <LogoIcon />
-              <span className="text-dark text-2xl font-bold">HungThanh</span>
+              <span className="text-dark text-2xl font-bold dark:text-white">
+                HungThanh
+              </span>
             </div>
           </div>
 
           {/* Sidebar items */}
-          <div className="flex-1 space-y-2 overflow-hidden px-4 hover:overflow-auto">
-            {menuChildrens.map((item) => (
+          <div className="flex-1 space-y-2 overflow-hidden rounded-br-3xl rounded-tr-3xl px-4 hover:overflow-auto">
+            {suvMenu.map((item) => (
               <Link key={item.id} href={item.link}>
-                <div className="flex w-full items-center space-x-2 rounded-lg bg-white text-slate-500 hover:bg-indigo-800 hover:text-white">
+                <div className="mb-5 flex w-full items-center space-x-2 rounded-lg bg-white px-2 text-slate-500 hover:bg-[#E90074] hover:text-white dark:rounded-lg dark:bg-rose-200">
                   <span
                     aria-hidden="true"
-                    className="rounded-lg bg-slate-200 p-2"
+                    className="rounded-lg bg-[#E90074] p-2 text-white dark:bg-[#E90074]"
                   >
-                    <item.icon className="h-6 w-6" />
+                    <item.icon className="text-dark h-6 w-6 bg-[#E90074] text-white" />
                   </span>
-                  <span className="py-2 text-lg font-medium">{item.label}</span>
+                  <span className="py-2 text-lg font-medium dark:text-black/80  ">
+                    {item.label}
+                  </span>
                 </div>
               </Link>
             ))}

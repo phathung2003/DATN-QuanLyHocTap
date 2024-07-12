@@ -5,9 +5,9 @@ const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
-    '/images/slider/slider01.jpg',
-    '/images/slider/slider02.jpg',
-    '/images/slider/slider01.jpg',
+    '/images/slider/slider01.png',
+    '/images/slider/slider02.png',
+    '/images/slider/slider03.png',
   ];
 
   const handlePrev = () => {
@@ -24,7 +24,7 @@ const Carousel = () => {
   return (
     <div className="mx-auto max-w-full">
       <div className="relative" data-carousel="static">
-        <div className="relative h-64 overflow-hidden rounded-xl sm:h-96 xl:h-64 2xl:h-64">
+        <div className="relative h-72 overflow-hidden rounded-xl sm:h-96 xl:h-72 2xl:h-72">
           {images.map((src, index) => (
             <div
               key={index}
