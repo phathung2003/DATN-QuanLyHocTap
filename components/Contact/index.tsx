@@ -1,6 +1,6 @@
-import NewsLatterBox from './NewsLatterBox';
+import NewsLetterBox from '@/components/Contact/newsLetterBox';
 
-const Contact = () => {
+export default function Contact() {
   return (
     <section
       id="contact"
@@ -11,8 +11,7 @@ const Contact = () => {
           <div className="w-full px-4 lg:w-7/12 xl:w-8/12">
             <div
               className="wow fadeInUp shadow-three mb-12 rounded-sm bg-white px-8 py-11 dark:bg-slate-900 sm:p-[55px] lg:mb-5 lg:px-8 xl:p-[55px]"
-              data-wow-delay=".15s
-              "
+              data-wow-delay=".15s"
             >
               <h2 className="mb-3 text-2xl font-bold text-black dark:text-white sm:text-3xl lg:text-2xl xl:text-3xl">
                 Có khó khăn ? Chúng tôi ở đây
@@ -31,8 +30,11 @@ const Contact = () => {
                         Tên của bạn
                       </label>
                       <input
+                        id="name"
+                        name="name"
                         type="text"
                         placeholder="Điền vào tên của bạn"
+                        autoComplete="name"
                         className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       />
                     </div>
@@ -46,7 +48,10 @@ const Contact = () => {
                         Email của bạn là gì
                       </label>
                       <input
+                        id="email"
+                        name="email"
                         type="email"
+                        autoComplete="name"
                         placeholder="Điền vào email"
                         className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       />
@@ -61,7 +66,9 @@ const Contact = () => {
                         Nội dung
                       </label>
                       <textarea
+                        id="message"
                         name="message"
+                        autoComplete="off"
                         rows={5}
                         placeholder="Điền vào nội dung"
                         className="dark:text-body-color-dark dark:shadow-two text-body-color w-full resize-none rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
@@ -78,12 +85,10 @@ const Contact = () => {
             </div>
           </div>
           <div className="w-full px-4 lg:w-5/12 xl:w-4/12">
-            <NewsLatterBox />
+            <NewsLetterBox />
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default Contact;
+}

@@ -62,12 +62,11 @@ const options = {
   inputIdProp: 'date',
   inputPlaceholderProp: 'Chọn ngày',
   inputDateFormatProp: {
-    day: 'numeric',
-    month: 'long',
     year: 'numeric',
-  },
+    month: 'long',
+    day: '2-digit',
+  } as const,
 };
-
 const DatePicker = () => {
   const [show, setShow] = useState(false);
   const handleChange = (selectedDate) => {

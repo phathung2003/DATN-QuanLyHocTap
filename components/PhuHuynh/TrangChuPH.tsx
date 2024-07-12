@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -7,7 +8,6 @@ import SingleBlog from '@/components/Blog/SingleBlog';
 import blogData from '@/components/Blog/blogData';
 import Datepicker from '@/components/DatePicker/DatePicker';
 import SelectGroupTwo from '@/components/SelectGroup/SelectGroupTwo';
-import ChartThree from '@/components/Charts/ChartThree';
 import AddModal from '@/components/Modal/AddModal';
 import FormLesson from '@/components/FormCRUD/FormLession';
 
@@ -55,14 +55,14 @@ const TrangChuPH = () => {
           {/* phần 1 */}
           <div className="col-span-2 w-full bg-slate-50 py-5 antialiased shadow-xl dark:bg-black lg:px-4">
             <div className="z-20 flex flex-col items-center gap-2.5 md:flex-row xl:flex-row ">
-              <span className="flex hidden  items-center text-xl font-extrabold dark:text-white sm:block">
+              <span className="flex items-center text-xl font-extrabold dark:text-white sm:block">
                 Hôm nay
               </span>
               <div>
                 <Datepicker />
               </div>
 
-              <h1 className="ml-5 flex hidden items-center text-xl font-extrabold dark:text-white sm:block">
+              <h1 className="ml-5 flex items-center text-xl font-extrabold dark:text-white sm:block">
                 Giao bài cho
               </h1>
               <div>
@@ -229,7 +229,6 @@ const TrangChuPH = () => {
                 </span>
                 Giao bài hôm nay cho bé
               </Link>
-              <ChartThree />
             </div>
           </div>
         </div>
@@ -245,7 +244,7 @@ const TrangChuPH = () => {
           HOT
         </span>
       </h1>
-      <div className="mx-auto grid grid w-5/6 grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
+      <div className="mx-auto grid w-5/6 grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
         {blogData.map((blog) => (
           <div key={blog.id} className="w-full">
             <SingleBlog blog={blog} />

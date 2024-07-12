@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import { DashboardIcon, LogoIcon, LessonIcon, BlogIcon } from '../icons';
 import Link from 'next/link';
@@ -31,25 +30,27 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [setIsSidebarOpen]);
 
-  return (    
-    <aside className="flex flex-shrink-0 transition-all mt-8 dark:bg-black">
+  return (
+    <aside className="mt-8 flex flex-shrink-0 transition-all dark:bg-black">
       {/* Overlay */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 z-10 lg:hidden xl:hidden 2xl:hidden h-auto"
+          className="fixed inset-0 z-10 h-auto lg:hidden xl:hidden 2xl:hidden"
           onClick={() => setIsSidebarOpen(false)}
         ></div>
       )}
 
-      {/* Sidebar khi screen thu nhỏ lại dần dần */} 
-      <div className={`${isSidebarOpen ? 'fixed' : 'hidden'} z-10 w-16 bg-[#40679E] dark:boxdark rounded-3xl`}></div>
+      {/* Sidebar khi screen thu nhỏ lại dần dần */}
+      <div
+        className={`${isSidebarOpen ? 'fixed' : 'hidden'} dark:boxdark z-10 w-16 rounded-3xl bg-[#40679E]`}
+      ></div>
 
       {/* Navigation when the screen is bé nhỏ nhỏ như điện thoại  */}
       <nav
         aria-label="Options"
-        className="z-99 shadow-t shadow-l fixed inset-x-0 bottom-0 flex flex-row-reverse items-center justify-between rounded-l-3xl rounded-t-3xl border-t dark:border-slate-900 border-[#E90074] bg-white px-4 py-2 sm:hidden dark:bg-boxdark"
+        className="shadow-t shadow-l fixed inset-x-0 bottom-0 z-99 flex flex-row-reverse items-center justify-between rounded-l-3xl rounded-t-3xl border-t border-[#E90074] bg-white px-4 py-2 dark:border-slate-900 dark:bg-boxdark sm:hidden"
       >
         {/* Collapse button when screen is small */}
         <button
@@ -60,7 +61,9 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             setCurrentSidebarTab('linksTab');
           }}
           className={`rounded-lg p-2 shadow-md transition-colors hover:bg-[#E90074] hover:text-white focus:outline-none focus:ring focus:ring-[#E90074] focus:ring-offset-2 focus:ring-offset-white ${
-            isSidebarOpen && currentSidebarTab === 'linksTab' ? 'bg-[#E90074] text-white' : 'bg-white text-slate-500'
+            isSidebarOpen && currentSidebarTab === 'linksTab'
+              ? 'bg-[#E90074] text-white'
+              : 'bg-white text-slate-500'
           }`}
         >
           <span className="sr-only">Toggle sidebar</span>
@@ -90,7 +93,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
       {/* Sidebar for larger screens khi chưa expand ra*/}
       <nav
         aria-label="Options"
-        className="z-20 hidden w-16 h-auto flex-shrink-0 flex-col items-center rounded-br-3xl rounded-tr-3xl dark:rounded-br-3xl border-[#E90074] dark:border-boxdark bg-[#FFD0D0] py-4 shadow-md sm:flex dark:bg-rose-200"
+        className="z-20 hidden h-auto w-16 flex-shrink-0 flex-col items-center rounded-br-3xl rounded-tr-3xl border-[#E90074] bg-[#FFD0D0] py-4 shadow-md dark:rounded-br-3xl dark:border-boxdark dark:bg-rose-200 sm:flex"
       >
         <div className="flex-shrink-0 py-4">
           {/* Logo */}
@@ -101,7 +104,10 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
         {/* Navigation items */}
         {menuItems.map((item) => (
-          <div key={item.id} className="flex flex-col items-center p-4 rounded-br-3xl rounded-tr-3xl">
+          <div
+            key={item.id}
+            className="flex flex-col items-center rounded-br-3xl rounded-tr-3xl p-4"
+          >
             <Link href={item.link}>
               <div
                 onClick={() => {
@@ -110,8 +116,10 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                   );
                   setCurrentSidebarTab('linksTab');
                 }}
-                className={`rounded-lg p-3 shadow-md bg-[#E90074] hover:text-white focus:outline-none focus:ring focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-white dark:bg-[#E90074] dark:text-white ${
-                  isSidebarOpen && currentSidebarTab === 'linksTab' ? 'bg-[#E90074] text-white' : 'bg-white text-black'
+                className={`rounded-lg bg-[#E90074] p-3 shadow-md hover:text-white focus:outline-none focus:ring focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-white dark:bg-[#E90074] dark:text-white ${
+                  isSidebarOpen && currentSidebarTab === 'linksTab'
+                    ? 'bg-[#E90074] text-white'
+                    : 'bg-white text-black'
                 }`}
               >
                 <item.icon className="h-6 w-6" />
@@ -124,27 +132,39 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
       {/* Full sidebar (sidebar khi expand) */}
       <div
         className={`fixed inset-y-0 left-0 z-10 w-64 flex-shrink-0 transform rounded-br-3xl rounded-tr-3xl border-r-2 border-[#E90074] bg-white shadow-lg transition-transform duration-300 sm:left-16 sm:w-72 lg:static lg:w-64 ${
-          isSidebarOpen ? 'translate-x-0 dark:bg-boxdark rounded-br-3xl rounded-tr-3xl' : '-translate-x-full dark:bg-boxdark rounded-br-3xl rounded-tr-3xl'
+          isSidebarOpen
+            ? 'translate-x-0 rounded-br-3xl rounded-tr-3xl dark:bg-boxdark'
+            : '-translate-x-full rounded-br-3xl rounded-tr-3xl dark:bg-boxdark'
         }`}
       >
-        <nav className="flex h-full flex-col dark:bg-boxdark rounded-br-3xl rounded-tr-3xl" aria-label="Main">
+        <nav
+          className="flex h-full flex-col rounded-br-3xl rounded-tr-3xl dark:bg-boxdark"
+          aria-label="Main"
+        >
           {/* Logo */}
           <div className="flex flex-shrink-0 items-center justify-center py-10">
             <div className="flex items-center gap-4 pl-1">
               <LogoIcon />
-              <span className="text-dark dark:text-white text-2xl font-bold">HungThanh</span>
+              <span className="text-dark text-2xl font-bold dark:text-white">
+                HungThanh
+              </span>
             </div>
           </div>
 
           {/* Sidebar items */}
-          <div className="flex-1 space-y-2 overflow-hidden px-4 hover:overflow-auto rounded-br-3xl rounded-tr-3xl">
+          <div className="flex-1 space-y-2 overflow-hidden rounded-br-3xl rounded-tr-3xl px-4 hover:overflow-auto">
             {suvMenu.map((item) => (
               <Link key={item.id} href={item.link}>
-                <div className="px-2 flex w-full items-center space-x-2 mb-5 rounded-lg dark:rounded-lg bg-white text-slate-500 hover:bg-[#E90074] hover:text-white dark:bg-rose-200">
-                  <span aria-hidden="true" className="rounded-lg bg-[#E90074] p-2 dark:bg-[#E90074] text-white">
-                    <item.icon className="h-6 w-6 text-dark bg-[#E90074] text-white" />
+                <div className="mb-5 flex w-full items-center space-x-2 rounded-lg bg-white px-2 text-slate-500 hover:bg-[#E90074] hover:text-white dark:rounded-lg dark:bg-rose-200">
+                  <span
+                    aria-hidden="true"
+                    className="rounded-lg bg-[#E90074] p-2 text-white dark:bg-[#E90074]"
+                  >
+                    <item.icon className="text-dark h-6 w-6 bg-[#E90074] text-white" />
                   </span>
-                  <span className="py-2 text-lg dark:text-black/80 font-medium  ">{item.label}</span>
+                  <span className="py-2 text-lg font-medium dark:text-black/80  ">
+                    {item.label}
+                  </span>
                 </div>
               </Link>
             ))}

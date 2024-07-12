@@ -1,4 +1,19 @@
 export interface ISubjectMessage {
+  SUBJECT_NAME: {
+    OVER_MAX_CHARACTER: string;
+    REQUIRED: string;
+  };
+  SUBJECT_TYPE: {
+    REQUIRED: string;
+  };
+  SUBJECT_DESCRIPTION: {
+    OVER_MAX_CHARACTER: string;
+    REQUIRED: string;
+  };
+  SUBJECT_IMAGE: {
+    WRONG_FILE: string;
+    REQUIRED: string;
+  };
   SUBJECT_EXIST: string;
   SUBJECT_ID_EXIST: string;
   SUBJECT_NAME_EXIST: string;

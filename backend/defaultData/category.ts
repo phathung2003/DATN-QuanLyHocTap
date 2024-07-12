@@ -5,6 +5,7 @@ export const DefaultCategoryValue: ICategory = {
   categoryType: 'Default',
   categoryName: '',
   categoryDescription: '',
+  categoryImage: undefined,
 };
 
 export const DefaultCategoryErrorValue: ICategoryError = {

@@ -24,12 +24,14 @@ const Header = () => {
         </div>
 
         {/* icon khi screen bình thường */}
-        <div className="flex flex-shrink-0 items-center justify-center md:block hidden">
-            <div className="flex items-center gap-4 pl-1">
-              <LogoIcon />
-              <span className="text-dark dark:text-white text-2xl font-bold">HungThanh</span>
-            </div>
+        <div className="flex flex-shrink-0 items-center justify-center md:block">
+          <div className="flex items-center gap-4 pl-1">
+            <LogoIcon />
+            <span className="text-dark text-2xl font-bold dark:text-white">
+              HungThanh
+            </span>
           </div>
+        </div>
 
         {/* ====== Form Tìm Kiếm =========== */}
         <div className="hidden sm:block">

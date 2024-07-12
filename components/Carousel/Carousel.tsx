@@ -1,13 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
-
+import Image from 'next/image';
 const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
     '/images/slider/slider01.png',
     '/images/slider/slider02.png',
-    '/images/slider/slider03.png'
+    '/images/slider/slider03.png',
   ];
 
   const handlePrev = () => {
@@ -24,14 +24,14 @@ const Carousel = () => {
   return (
     <div className="mx-auto max-w-full">
       <div className="relative" data-carousel="static">
-        <div className="overflow-hidden relative h-72 rounded-xl sm:h-96 xl:h-72 2xl:h-72">
+        <div className="relative h-72 overflow-hidden rounded-xl sm:h-96 xl:h-72 2xl:h-72">
           {images.map((src, index) => (
             <div
               key={index}
               className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
               data-carousel-item={index === currentIndex ? 'active' : ''}
             >
-              <img
+              <Image
                 src={src}
                 className="block w-full"
                 alt={`Slide ${index + 1}`}

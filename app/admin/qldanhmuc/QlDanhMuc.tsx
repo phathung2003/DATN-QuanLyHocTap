@@ -1,22 +1,23 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import AddModal from '@/components/Modal/AddModal';
-import FormAddCate from '@/components/FormCRUD/FormAddCate';
-import EditModal from '@/components/Modal/EditModal';
-import FormEditCate from '@/components/FormCRUD/FormEditCate';
-import { GetSubject } from '@/app/admin/qldanhmuc/process/getSubject';
-import { GetGrade } from '@/app/admin/qldanhmuc/process/getGrade';
+import { GetSubject, GetGrade } from '@/app/admin/qldanhmuc/process/getData';
 import { ISubject } from '@/backend/models/data/ISubject';
 import { IGrade } from '@/backend/models/data/IGrade';
 
-//Icon
-import PlusIcon from '@/asset/vector/plus-white.svg';
-import FunnelIcon from '@/asset/vector/funnel-black.svg';
-import DropdownIcon from '@/asset/vector/dropdown-black.svg';
-import EditIcon from '@/asset/vector/pencil-white.svg';
+import AddFormLayout from '@/app/admin/qldanhmuc/form/addFormLayout';
+import AddCategory from '@/app/admin/qldanhmuc/form/addCategoryForm';
+import EditFormLayout from '@/app/admin/qldanhmuc/form/editFormLayout';
+import EditGradeForm from '@/app/admin/qldanhmuc/form/editGradeForm';
+import EditSubjectForm from '@/app/admin/qldanhmuc/form/editSubjectForm';
 
-const QlDanhMuc = () => {
+//Icon
+import PlusIcon from '@/public/vector/plus-white.svg';
+import FunnelIcon from '@/public/vector/funnel-black.svg';
+import DropdownIcon from '@/public/vector/dropdown-black.svg';
+import EditIcon from '@/public/vector/pencil-white.svg';
+
+export default function QlDanhMuc() {
   const [subject, setSubject] = useState<ISubject[]>([]);
   const [grade, setGrade] = useState<IGrade[]>([]);
 
@@ -33,7 +34,7 @@ const QlDanhMuc = () => {
   // modal Add category
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [currentFormComponent, setCurrentFormComponent] = useState<React.FC>(
-    () => FormAddCate,
+    () => AddCategory,
   );
   const handleOpenAddModal = (FormComponent: React.FC) => {
     setCurrentFormComponent(() => FormComponent);
@@ -43,14 +44,24 @@ const QlDanhMuc = () => {
   // State for Edit modal
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editAccountData, setEditAccountData] = useState<React.FC>(
-    () => FormEditCate,
+    () => EditGradeForm,
   );
 
-  const handleEditClick = (FormComponent: React.FC) => {
-    setEditAccountData(() => FormComponent);
+  const handleSubjectEditClick = (
+    FormComponent: React.FC<{ data: ISubject }>,
+    subject,
+  ) => {
+    setEditAccountData(() => <FormComponent data={subject} />);
     setIsEditModalOpen(true);
   };
 
+  const handleGradeEditClick = (
+    FormComponent: React.FC<{ data: IGrade }>,
+    grade,
+  ) => {
+    setEditAccountData(() => <FormComponent data={grade} />);
+    setIsEditModalOpen(true);
+  };
   // button pre & next
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsContainerRef = useRef(null);
@@ -82,21 +93,12 @@ const QlDanhMuc = () => {
               <button
                 type="button"
                 className="ml-auto inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-lime-600 p-1.5 px-2 py-2 text-sm text-white hover:bg-lime-500 dark:hover:text-white md:w-auto"
-                onClick={() => handleOpenAddModal(FormAddCate)}
+                onClick={() => handleOpenAddModal(AddCategory)}
               >
                 <PlusIcon />
                 <span className="sr-only">Open modal</span>
                 Thêm Danh Mục
               </button>
-
-              {/* showing modal */}
-              {isAddModalOpen && currentFormComponent && (
-                <AddModal
-                  isOpen={isAddModalOpen}
-                  onClose={() => setIsAddModalOpen(false)}
-                  FormComponent={currentFormComponent}
-                />
-              )}
 
               {/* button filter  */}
               <button
@@ -111,6 +113,15 @@ const QlDanhMuc = () => {
               </button>
             </div>
           </div>
+
+          {/* showing Edit */}
+          {isAddModalOpen && currentFormComponent && (
+            <AddFormLayout
+              isOpen={isAddModalOpen}
+              onClose={() => setIsAddModalOpen(false)}
+              FormComponent={currentFormComponent}
+            />
+          )}
 
           {/* ------------------------------ SECTION DANH MỤC MÔN HỌC ------------------------------------------------------------ */}
 
@@ -128,30 +139,20 @@ const QlDanhMuc = () => {
               ref={itemsContainerRef}
             >
               {subject.map((monHocItem, index) => {
-                console.log(monHocItem.subjectID);
                 return (
                   <a
                     key={index}
-                    // href='javascript:;'
                     className="group relative mx-auto cursor-pointer overflow-hidden rounded-3xl bg-cover bg-center hover:shadow-lg sm:mx-0"
                   >
                     <button
                       type="button"
-                      onClick={() => handleEditClick(FormEditCate)}
+                      onClick={() =>
+                        handleSubjectEditClick(EditSubjectForm, monHocItem)
+                      }
                       className="group absolute right-0 top-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br"
                     >
                       <EditIcon />
                     </button>
-
-                    {/* showing modal */}
-                    {isEditModalOpen && editAccountData && (
-                      <EditModal
-                        isOpen={isEditModalOpen}
-                        onClose={() => setIsEditModalOpen(false)}
-                        FormComponent={editAccountData}
-                      />
-                    )}
-
                     <Image
                       width={500}
                       height={320}
@@ -175,6 +176,15 @@ const QlDanhMuc = () => {
                   </a>
                 );
               })}
+
+              {/* showing modal */}
+              {isEditModalOpen && editAccountData && (
+                <EditFormLayout
+                  isOpen={isEditModalOpen}
+                  onClose={() => setIsEditModalOpen(false)}
+                  FormComponent={editAccountData}
+                />
+              )}
             </div>
 
             <button
@@ -208,15 +218,21 @@ const QlDanhMuc = () => {
               {grade.map((capDoItem, index) => (
                 <a
                   key={index}
-                  // href='javascript:;'
-                  className="group relative mx-auto cursor-pointer overflow-hidden rounded-3xl bg-cover bg-center transition delay-150 ease-in-out hover:scale-95 hover:shadow-lg sm:mx-0"
+                  className="group relative mx-auto cursor-pointer overflow-hidden rounded-3xl bg-cover bg-center hover:shadow-lg sm:mx-0"
                 >
-                  <div className="group absolute right-0 top-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleGradeEditClick(EditGradeForm, capDoItem)
+                    }
+                    className="group absolute right-0 top-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br"
+                  >
                     <EditIcon />
-                  </div>
+                  </button>
+
                   <Image
                     width={500}
-                    height={32}
+                    height={320}
                     src={capDoItem.gradeImage}
                     alt="hinhanh"
                     priority={true}
@@ -227,7 +243,7 @@ const QlDanhMuc = () => {
                         {capDoItem.gradeName}
                       </h6>
                       {/* <h6 className='text-right text-base font-semibold leading-7 text-indigo-600'>
-                        {capDoItem.rate}
+                        {monHocItem.}
                       </h6> */}
                     </div>
                     <p className="text-xs leading-5 text-slate-500">
@@ -249,6 +265,4 @@ const QlDanhMuc = () => {
       </div>
     </section>
   );
-};
-
-export default QlDanhMuc;
+}

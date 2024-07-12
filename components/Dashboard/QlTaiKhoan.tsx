@@ -103,7 +103,7 @@ const QLTaiKhoan = () => {
           <div className="flex w-full justify-end gap-2.5 px-2 py-2 md:w-auto">
             <button
               type="button"
-              className="hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 ml-auto inline-flex w-full items-center items-center justify-center gap-2.5 rounded-lg bg-primary p-1.5 px-2 py-2 text-sm text-white dark:hover:text-white md:w-auto"
+              className="hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 ml-auto inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-primary p-1.5 px-2 py-2 text-sm text-white dark:hover:text-white md:w-auto"
               onClick={() => handleOpenAddModal(FormAddAccount)}
             >
               <svg

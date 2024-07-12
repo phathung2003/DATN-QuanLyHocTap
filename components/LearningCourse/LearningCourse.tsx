@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const courses = [
   {
@@ -62,7 +63,7 @@ const courses = [
 const Course = () => {
   return (
     <div>
-      <h1 className="mt-20 mb-10 flex items-center text-3xl font-extrabold dark:text-white">
+      <h1 className="mb-10 mt-20 flex items-center text-3xl font-extrabold dark:text-white">
         Top các khóa học nổi bật
         <span className="me-2 ms-2 rounded bg-blue-100 px-2.5 py-0.5 text-xl font-semibold text-blue-800 dark:bg-blue-200 dark:text-blue-800">
           NEW
@@ -73,12 +74,16 @@ const Course = () => {
         {courses.map((course, index) => (
           <div
             key={index}
-            className="flex flex-col overflow-hidden rounded-2xl shadow-lg dark:hover:shadow-xl hover:shadow-xl"
+            className="flex flex-col overflow-hidden rounded-2xl shadow-lg hover:shadow-xl dark:hover:shadow-xl"
           >
             <div className="relative">
               {/* img */}
               <a href="#">
-                <img className="w-full" src={course.image} alt={course.title} />
+                <Image
+                  className="w-full"
+                  src={course.image}
+                  alt={course.title}
+                />
                 <div className="absolute bottom-0 left-0 right-0 top-0 bg-slate-900 opacity-25 transition duration-300 hover:bg-transparent"></div>
               </a>
               {/* danh muc */}
@@ -92,7 +97,7 @@ const Course = () => {
             <div className="mb-auto bg-white px-6 py-4 dark:bg-boxdark">
               <a
                 href="#"
-                className="mb-2 inline-block inline-block text-lg font-medium transition duration-500 ease-in-out hover:text-indigo-600 dark:text-white"
+                className="mb-2 inline-block text-lg font-medium transition duration-500 ease-in-out hover:text-indigo-600 dark:text-white"
               >
                 {course.title}
               </a>

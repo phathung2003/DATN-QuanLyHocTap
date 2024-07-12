@@ -2,7 +2,7 @@
 import React from 'react';
 import ScrollToTop from '@/components/ScrollToTop';
 import Link from 'next/link';
-import RegisterDecoration from '@/asset/decoration/register-decoration';
+import RegisterDecoration from '@/public/decoration/register-decoration';
 import RegisterForm from '@/app/(main)/register/registerForm';
 export default function RegisterPage() {
   return (

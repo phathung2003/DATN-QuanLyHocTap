@@ -8,6 +8,10 @@ export async function HomePage() {
   redirect(`/`);
 }
 
+export async function CategoryManager() {
+  redirect(`/admin/qldanhmuc`);
+}
+
 export async function LoginPage() {
   redirect(`/login`);
 }

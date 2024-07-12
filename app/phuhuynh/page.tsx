@@ -1,6 +1,4 @@
-'use client';
-
-import ParentLayout from '@/components/Layouts/ParentLayout';
+import ParentLayout from '@/components/Layout/ParentLayout';
 import TrangChuPH from '@/components/PhuHuynh/TrangChuPH';
 
 export default function ParentHome() {

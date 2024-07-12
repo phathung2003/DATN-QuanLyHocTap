@@ -1,11 +1,11 @@
-import SectionTitle from '../Common copy/SectionTitle';
-import SingleFeature from './SingleFeature';
-import featuresData from './featuresData';
+import SectionTitle from '@/components/Main/sectionTitle';
+import SingleFeature from '@/components/Features/SingleFeature';
+import FeaturesData from '@/components/Features/featuresData';
 
 const Features = () => {
   return (
     <>
-      <section id="features" className="px-20 py-8 md:py-12 lg:py-16">
+      <section id="features" className="px-20 py-8 md:py-12 lg:py-4">
         <div className="container">
           <SectionTitle
             title="Tính năng nổi trội"
@@ -14,7 +14,7 @@ const Features = () => {
           />
 
           <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
-            {featuresData.map((feature) => (
+            {FeaturesData.map((feature) => (
               <SingleFeature key={feature.id} feature={feature} />
             ))}
           </div>

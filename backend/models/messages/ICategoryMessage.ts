@@ -11,6 +11,7 @@ export interface ICategoryMessage {
     REQUIRED: string;
   };
   CATEGORY_IMAGE: {
+    WRONG_FILE: string;
     REQUIRED: string;
   };
   SYSTEM_ERROR: string;
