@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import AlphabetCard from '@/components/AlphabetCard/AlphabetCard';
-import SectionTitle from '@/components/Common copy/SectionTitle';
+import SectionTitle from '@/components/Main/sectionTitle';
 
 const FormLession = () => {
   const alphabetData = [
