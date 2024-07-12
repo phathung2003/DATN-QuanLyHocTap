@@ -1,0 +1,42 @@
+<svg
+  width="132"
+  height="109"
+  viewBox="0 0 132 109"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    opacity=".5"
+    d="M33.035 90.11C19.985 102.723-3.759 101.834-14 99.813V-15h146c-.544 2.56-4.241 12.047-14.682 29.512-13.05 21.83-38.607 17.383-54.104 26.681S49.348 74.343 33.035 90.11"
+    fill="url(#a)"
+  />
+  <path
+    opacity=".5"
+    d="M33.365 85.077C24.148 98.787 1.2 106.079-9.123 108.01l-29.753-85.012 139.692-48.89c.143 2.078-.936 10.341-6.4 26.769-6.829 20.534-32.434 25.799-44.852 37.873s-4.676 29.19-16.199 46.326"
+    fill="url(#b)"
+  />
+  <defs>
+    <linearGradient
+      id="a"
+      x1="94.752"
+      y1="82.025"
+      x2="8.41"
+      y2="52.061"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop />
+      <stop offset="1" />
+    </linearGradient>
+    <linearGradient
+      id="b"
+      x1="90.321"
+      y1="58.424"
+      x2="1.161"
+      y2="50.837"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop />
+      <stop offset="1" />
+    </linearGradient>
+  </defs>
+</svg>
