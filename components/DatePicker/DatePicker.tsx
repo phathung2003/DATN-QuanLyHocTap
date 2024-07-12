@@ -10,13 +10,12 @@ const options = {
   maxDate: new Date('2030-01-01'),
   minDate: new Date('1950-01-01'),
   theme: {
-    background: 'bg-slate-200 dark:bg-slate-600',
+    background: 'bg-rose-200 dark:bg-slate-600',
     todayBtn: '',
     clearBtn: 'dark:bg-rose-800',
     icons: 'dark:bg-slate-800 dark:text-white',
     text: '',
-    disabledText:
-      'bg-slate-200 text-slate-300 dark:bg-slate-600 dark:text-slate-800',
+    disabledText: 'text-slate-400 dark:text-slate-900 dark:text-opacity-50',
     input: 'py-3 border-slate-200 ring-2 ring-rose-500 dark:bg-slate-800',
     inputIcon: '',
     selected: 'dark:bg-slate-800',
