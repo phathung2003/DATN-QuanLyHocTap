@@ -1,12 +1,12 @@
 import React from 'react';
 
-interface AddModalProps {
+interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   FormComponent: React.FC; // Nhận component form làm prop
 }
 
-const AddModal: React.FC<AddModalProps> = ({
+const LearningModal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   FormComponent,
@@ -16,12 +16,12 @@ const AddModal: React.FC<AddModalProps> = ({
     <div
       id="createProductModal"
       aria-hidden="true"
-      className="fixed inset-0 z-9999 flex h-full w-full items-center justify-center bg-slate-500 bg-opacity-40"
+      className="fixed inset-0 z-9999 flex h-full w-full items-center justify-center bg-slate-800 bg-opacity-70"
     >
-      <div className="relative max-h-full w-full max-w-2xl rounded-xl bg-white p-4 shadow-lg dark:bg-slate-800 sm:p-5">
+      <div className="relative max-h-full w-full max-w-2xl rounded-lg bg-white p-4 shadow dark:bg-slate-800 sm:p-5">
         <div className="mb-4 flex items-center justify-between rounded-t border-b border-slate-200 pb-4 dark:border-slate-600 sm:mb-5">
           <h3 className="text-gray-900 text-lg font-semibold dark:text-white">
-            Bài học cho các bé
+            Bài học cho bé
           </h3>
           <button
             onClick={onClose}
@@ -51,4 +51,4 @@ const AddModal: React.FC<AddModalProps> = ({
   );
 };
 
-export default AddModal;
+export default LearningModal;
