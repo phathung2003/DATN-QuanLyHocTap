@@ -8,8 +8,11 @@ import blogData from '@/components/Blog/blogData';
 import Datepicker from '@/components/DatePicker/DatePicker';
 import SelectGroupTwo from '@/components/SelectGroup/SelectGroupTwo';
 import ChartThree from '@/components/Charts/ChartThree';
+import AddModal from '@/components/Modal/AddModal';
+import FormLesson from '@/components/FormCRUD/FormLession';
 
 const TrangChuPH = () => {
+  // state cho Danh sách giao bài cho trẻ của PH
   const [giaobai] = useState([
     {
       src: '/images/qlbaihoc/baihoc1.jpg',
@@ -33,6 +36,16 @@ const TrangChuPH = () => {
       progress: 60,
     },
   ]);
+
+  // state for modal Learning của trẻ
+  const [isLearningModalOpen, setIsLearningModalOpen] = useState(false);
+  const [currentFormComponent, setCurrentFormComponent] = useState<React.FC>(
+    () => FormLesson,
+  );
+  const handleOpenLearningModal = (FormComponent: React.FC) => {
+    setCurrentFormComponent(() => FormComponent);
+    setIsLearningModalOpen(true);
+  };
 
   return (
     <div>
@@ -96,8 +109,11 @@ const TrangChuPH = () => {
                           {/* edit & del */}
                           <div className="flex items-center space-x-1">
                             {/* button xem */}
-                            <Link
-                              href="/homepageuser/blog/blog-details"
+                            <button
+                              type="button"
+                              onClick={() =>
+                                handleOpenLearningModal(FormLesson)
+                              }
                               className="flex items-center gap-2 rounded-xl border border-slate-200 bg-[#E90074] px-3 py-2 text-center text-sm font-medium text-white hover:bg-opacity-80 focus:z-10 focus:outline-none focus:ring-4 focus:ring-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white dark:focus:ring-slate-700"
                             >
                               <svg
@@ -116,7 +132,16 @@ const TrangChuPH = () => {
                                 <circle cx="12" cy="12" r="3"></circle>
                               </svg>
                               Xem trước
-                            </Link>
+                            </button>
+
+                            {/* showing modal */}
+                            {isLearningModalOpen && currentFormComponent && (
+                              <AddModal
+                                isOpen={isLearningModalOpen}
+                                onClose={() => setIsLearningModalOpen(false)}
+                                FormComponent={currentFormComponent}
+                              />
+                            )}
 
                             {/* button sửa */}
                             <button
