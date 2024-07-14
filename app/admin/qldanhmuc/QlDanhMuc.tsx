@@ -5,11 +5,10 @@ import { GetSubject, GetGrade } from '@/app/admin/qldanhmuc/process/getData';
 import { ISubject } from '@/backend/models/data/ISubject';
 import { IGrade } from '@/backend/models/data/IGrade';
 
-import AddFormLayout from '@/app/admin/qldanhmuc/form/addFormLayout';
 import AddCategory from '@/app/admin/qldanhmuc/form/addCategoryForm';
-import EditFormLayout from '@/app/admin/qldanhmuc/form/editFormLayout';
 import EditGradeForm from '@/app/admin/qldanhmuc/form/editGradeForm';
 import EditSubjectForm from '@/app/admin/qldanhmuc/form/editSubjectForm';
+import OverlapForm from '@/components/Form/overlapForm';
 
 //Icon
 import PlusIcon from '@/public/vector/plus-white.svg';
@@ -20,7 +19,10 @@ import EditIcon from '@/public/vector/pencil-white.svg';
 export default function QlDanhMuc() {
   const [subject, setSubject] = useState<ISubject[]>([]);
   const [grade, setGrade] = useState<IGrade[]>([]);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalHeader, setModalHeader] = useState('Thêm danh mục');
+  const [currentForm, setCurrentForm] = useState<React.FC>(() => AddCategory);
+  //Get Data
   useEffect(() => {
     const fetchData = async () => {
       const subjectData = await GetSubject();
@@ -31,37 +33,32 @@ export default function QlDanhMuc() {
     fetchData();
   }, []);
 
-  // modal Add category
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [currentFormComponent, setCurrentFormComponent] = useState<React.FC>(
-    () => AddCategory,
-  );
+  // Add Category Form
   const handleOpenAddModal = (FormComponent: React.FC) => {
-    setCurrentFormComponent(() => FormComponent);
-    setIsAddModalOpen(true);
+    setCurrentForm(() => FormComponent);
+    setIsModalOpen(true);
+    setModalHeader('Thêm danh mục');
   };
 
-  // State for Edit modal
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editAccountData, setEditAccountData] = useState<React.FC>(
-    () => EditGradeForm,
-  );
-
+  // Edit category Form
   const handleSubjectEditClick = (
     FormComponent: React.FC<{ data: ISubject }>,
     subject,
   ) => {
-    setEditAccountData(() => <FormComponent data={subject} />);
-    setIsEditModalOpen(true);
+    setCurrentForm(() => <FormComponent data={subject} />);
+    setIsModalOpen(true);
+    setModalHeader('Chỉnh sửa môn học');
   };
 
   const handleGradeEditClick = (
     FormComponent: React.FC<{ data: IGrade }>,
     grade,
   ) => {
-    setEditAccountData(() => <FormComponent data={grade} />);
-    setIsEditModalOpen(true);
+    setCurrentForm(() => <FormComponent data={grade} />);
+    setIsModalOpen(true);
+    setModalHeader('Chỉnh sửa lớp học');
   };
+
   // button pre & next
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsContainerRef = useRef(null);
@@ -96,7 +93,6 @@ export default function QlDanhMuc() {
                 onClick={() => handleOpenAddModal(AddCategory)}
               >
                 <PlusIcon />
-                <span className="sr-only">Open modal</span>
                 Thêm Danh Mục
               </button>
 
@@ -114,14 +110,7 @@ export default function QlDanhMuc() {
             </div>
           </div>
 
-          {/* showing Edit */}
-          {isAddModalOpen && currentFormComponent && (
-            <AddFormLayout
-              isOpen={isAddModalOpen}
-              onClose={() => setIsAddModalOpen(false)}
-              FormComponent={currentFormComponent}
-            />
-          )}
+          {OverlapForm(isModalOpen, setIsModalOpen, currentForm, modalHeader)}
 
           {/* ------------------------------ SECTION DANH MỤC MÔN HỌC ------------------------------------------------------------ */}
 
@@ -176,15 +165,6 @@ export default function QlDanhMuc() {
                   </a>
                 );
               })}
-
-              {/* showing modal */}
-              {isEditModalOpen && editAccountData && (
-                <EditFormLayout
-                  isOpen={isEditModalOpen}
-                  onClose={() => setIsEditModalOpen(false)}
-                  FormComponent={editAccountData}
-                />
-              )}
             </div>
 
             <button

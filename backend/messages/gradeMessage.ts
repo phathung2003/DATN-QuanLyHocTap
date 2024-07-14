@@ -7,7 +7,7 @@ const GRADEMessage: IGradeMessage = {
     REQUIRED: 'Xin hãy nhập tên môn học',
   },
   GRADE_TYPE: {
-    REQUIRED: 'Xin hãy chọn loại',
+    REQUIRED: 'Xin hãy chọn lớp',
   },
   GRADE_DESCRIPTION: {
     OVER_MAX_CHARACTER: `Mô tả dài quá ${CategoryCondition.CATEGORY_DESCRIPTION.MAX} ký tự`,
