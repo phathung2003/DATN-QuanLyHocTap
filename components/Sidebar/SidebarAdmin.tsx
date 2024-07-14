@@ -53,9 +53,9 @@ const menuItems = [
   },
   {
     id: 6,
-    label: 'Quản lý cài đặt',
+    label: 'Quản lý khóa học',
     icon: SettingIcon,
-    link: '/admin/qlcaidat',
+    link: '/admin/qlkhoahoc',
   },
 ];
 

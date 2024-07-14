@@ -19,9 +19,9 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
           </span>
           <Image
             src={image}
-            alt="image"
             fill
             priority
+            alt="image"
             sizes="(max-width: 600px) 100vw, 
                (max-width: 1200px) 50vw, 
                33vw"

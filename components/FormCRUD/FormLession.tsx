@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import AlphabetCard from '@/components/AlphabetCard/AlphabetCard';
-import SectionTitle from '@/components/Common copy/SectionTitle';
 
 const FormLession = () => {
   const alphabetData = [
@@ -27,7 +26,6 @@ const FormLession = () => {
   return (
     <div className="flex flex-col items-center justify-center overflow-auto bg-slate-100">
       {/* alphabet learning */}
-      <SectionTitle title="Câu 01" paragraph="Bé cùng học chữ cái nhé" />
       <div className="flex items-center">
         <button
           onClick={handlePrev}

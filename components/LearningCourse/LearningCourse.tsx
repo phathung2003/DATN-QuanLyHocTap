@@ -3,56 +3,27 @@ import Image from 'next/image';
 
 const courses = [
   {
-    image:
-      'https://gcs.tripi.vn/public-tripi/tripi-feed/img/477302ZIs/anh-mo-ta.png',
+    image: '/images/qldanhmuc/chucaiabc.jpg',
     category: 'Dễ',
-    title: 'Khóa học cấp độ 1',
+    title: 'Khóa học chữ cái',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     time: '6 mins ago',
     comments: '39',
   },
   {
-    image:
-      'https://cms.prepedu.com/uploads/cach_hoc_tieng_nhat_hieu_qua_24372b8b8f.png',
+    image: '/images/qldanhmuc/sodem.jpg',
     category: 'Khó',
-    title: 'Khóa học cấp độ 2',
+    title: 'Khóa học số đếm',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     time: '10 days ago',
     comments: '0',
   },
   {
-    image: 'https://cms.prepedu.com/uploads/cach_phat_am_o_f4784b49ab.jpg',
+    image: '/images/qldanhmuc/convat.jpg',
     category: 'Khó',
-    title: 'Khóa học cấp độ 3',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    time: '16 hours ago',
-    comments: '9',
-  },
-  {
-    image: 'https://cms.prepedu.com/uploads/cach_phat_am_o_f4784b49ab.jpg',
-    category: 'Khó',
-    title: 'Khóa học cấp độ 3',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    time: '16 hours ago',
-    comments: '9',
-  },
-  {
-    image: 'https://cms.prepedu.com/uploads/cach_phat_am_o_f4784b49ab.jpg',
-    category: 'Khó',
-    title: 'Khóa học cấp độ 3',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    time: '16 hours ago',
-    comments: '9',
-  },
-  {
-    image: 'https://cms.prepedu.com/uploads/cach_phat_am_o_f4784b49ab.jpg',
-    category: 'Khó',
-    title: 'Khóa học cấp độ 3',
+    title: 'Khóa học đồ vật',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     time: '16 hours ago',
@@ -64,7 +35,7 @@ const Course = () => {
   return (
     <div>
       <h1 className="mb-10 mt-20 flex items-center text-3xl font-extrabold dark:text-white">
-        Top các khóa học nổi bật
+        Top các khóa học hiện có
         <span className="me-2 ms-2 rounded bg-blue-100 px-2.5 py-0.5 text-xl font-semibold text-blue-800 dark:bg-blue-200 dark:text-blue-800">
           NEW
         </span>
@@ -82,6 +53,8 @@ const Course = () => {
                 <Image
                   className="w-full"
                   src={course.image}
+                  width={200}
+                  height={120}
                   alt={course.title}
                 />
                 <div className="absolute bottom-0 left-0 right-0 top-0 bg-slate-900 opacity-25 transition duration-300 hover:bg-transparent"></div>

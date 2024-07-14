@@ -90,9 +90,9 @@ export default function Hero() {
                   >
                     <Image
                       alt="Card"
-                      src={card.imageUrl}
-                      fill
                       priority
+                      fill
+                      src={card.imageUrl}
                       sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     <div className="to-gray-900 absolute bottom-0 left-0 right-0 top-0 mt-20 bg-gradient-to-b from-transparent" />

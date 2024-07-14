@@ -4,8 +4,6 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import LearningCourse from '@/components/LearningCourse/LearningCourse';
-import SingleBlog from '@/components/Blog/SingleBlog';
-import blogData from '@/components/Blog/blogData';
 import Datepicker from '@/components/DatePicker/DatePicker';
 import SelectGroupTwo from '@/components/SelectGroup/SelectGroupTwo';
 import AddModal from '@/components/Modal/AddModal';
@@ -17,21 +15,21 @@ const TrangChuPH = () => {
     {
       src: '/images/qlbaihoc/baihoc1.jpg',
       date: '09/01/2024',
-      name: 'Bài học số 1',
+      name: 'Bài học chữ cái 01',
       description: 'This specification defines the features and syntax lorem',
       progress: 60,
     },
     {
       src: '/images/qlbaihoc/baihoc1.jpg',
       date: '09/01/2024',
-      name: 'Bài học số 1',
+      name: 'Bài bài chữ cái 02',
       description: 'This specification defines the features and syntax',
       progress: 60,
     },
     {
       src: '/images/qlbaihoc/baihoc1.jpg',
       date: '09/01/2024',
-      name: 'Bài học số 1',
+      name: 'Bài học chữ cái 03',
       description: 'This specification defines the features and syntax',
       progress: 60,
     },
@@ -108,7 +106,7 @@ const TrangChuPH = () => {
                           </div>
                           {/* edit & del */}
                           <div className="flex items-center space-x-1">
-                            {/* button xem */}
+                            {/* button xem trước (preview)*/}
                             <button
                               type="button"
                               onClick={() =>
@@ -205,7 +203,7 @@ const TrangChuPH = () => {
             </div>
           </div>
 
-          {/* phần 2 */}
+          {/* phần 2 biểu đồ */}
           <div className="bg-slate-50 py-5 antialiased shadow-xl dark:bg-black lg:col-span-2 lg:px-4 xl:col-span-1">
             <div className="">
               <Link
@@ -236,21 +234,6 @@ const TrangChuPH = () => {
 
       {/* top các khóa học cho PH */}
       <LearningCourse />
-
-      {/* Các bài viết nổi bật */}
-      <h1 className="mb-10 mt-20 flex items-center text-3xl font-extrabold dark:text-white">
-        Top các bài viết nổi bật
-        <span className="me-2 ms-2 rounded bg-blue-100 px-2.5 py-0.5 text-xl font-semibold text-blue-800 dark:bg-blue-200 dark:text-blue-800">
-          HOT
-        </span>
-      </h1>
-      <div className="mx-auto grid w-5/6 grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
-        {blogData.map((blog) => (
-          <div key={blog.id} className="w-full">
-            <SingleBlog blog={blog} />
-          </div>
-        ))}
-      </div>
     </div>
   );
 };

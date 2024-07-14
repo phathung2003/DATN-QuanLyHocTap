@@ -64,7 +64,7 @@ const QlBaiHoc = () => {
         </div>
         <div className="xs:w-full sm:text-center md:text-center lg:text-right xl:text-right">
           <Link
-            href="/qlbaihoc/thembaihoc"
+            href="/admin/qlbaihoc/thembaihoc"
             className="xs:w-full inline-flex items-center justify-center gap-2.5 rounded-lg bg-lime-500 px-2 py-2 font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
           >
             <span>
@@ -97,6 +97,8 @@ const QlBaiHoc = () => {
               <Image
                 src={item.src}
                 alt={item.name}
+                width={288}
+                height={160}
                 className="ease h-40 w-72 rounded-t-xl object-cover  object-center transition-all duration-300 group-hover:scale-105"
               />
               <div className="w-72 px-4 py-3">
