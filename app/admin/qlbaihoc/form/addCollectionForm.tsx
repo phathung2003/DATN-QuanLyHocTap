@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import SchemaCollection from '@/backend/validationSchema/collection/collectionSchema';
 import { DefaultCollectionValue } from '@/backend/defaultData/collection';
@@ -36,12 +37,12 @@ const AddCollection: React.FC = () => {
     >
       {({ setFieldValue }) => (
         <Form>
-          <div id="collectionName_Add">
+          <div id="collectionName_Add" className="mb-5">
             <label
               htmlFor="collectionName_AddInput"
               className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
             >
-              Tên danh mục bài học
+              Tên bài học
             </label>
 
             <Field
@@ -69,7 +70,7 @@ const AddCollection: React.FC = () => {
                 htmlFor="collectionGrade_AddInput"
                 className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
               >
-                Môn học <span className="text-rose-600" />
+                Trình độ <span className="text-rose-600" />
               </label>
 
               <Field
@@ -79,8 +80,8 @@ const AddCollection: React.FC = () => {
                 className="text-gray-900 dark:placeholder-gray-400 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
               >
                 <option value="Default">Chọn mục</option>
-                <option value="Subject">Môn học</option>
-                <option value="Grade">Cấp độ</option>
+                <option value="Subject">Dễ</option>
+                <option value="Grade">Khó</option>
               </Field>
               <div>
                 <ErrorMessage
@@ -95,7 +96,7 @@ const AddCollection: React.FC = () => {
                 htmlFor="collectionGrade_AddInput"
                 className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
               >
-                Trình độ
+                Khóa học
               </label>
 
               <Field
@@ -104,9 +105,9 @@ const AddCollection: React.FC = () => {
                 as="select"
                 className="text-gray-900 dark:placeholder-gray-400 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
               >
-                <option value="Default">Chọn mục</option>
-                <option value="Subject">Môn học</option>
-                <option value="Grade">Cấp độ</option>
+                <option value="Default">Chọn khóa học</option>
+                <option value="Subject">Khóa học chữ số</option>
+                <option value="Grade">Khóa học chữ cái</option>
               </Field>
               <div>
                 <ErrorMessage
@@ -198,14 +199,16 @@ const AddCollection: React.FC = () => {
           </div>
           <p>{error.systemError}</p>
 
-          <button
-            id="sumbit_Add"
-            type="submit"
-            className="focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mt-2 inline-flex items-center rounded-lg bg-lime-500 px-5 py-2.5 text-center text-sm font-medium text-slate-800 hover:bg-lime-800 focus:outline-none focus:ring-4"
-          >
-            <PlusIcon className="-ml-1 mr-1 h-6 w-6" />
-            Thêm danh mục mới
-          </button>
+          <Link href="/admin/qlbaihoc/add" className="">
+            <button
+              id="sumbit_Add"
+              type="submit"
+              className="focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mt-2 inline-flex items-center rounded-lg bg-lime-500 px-5 py-2.5 text-center text-sm font-medium text-slate-800 hover:bg-lime-800 focus:outline-none focus:ring-4"
+            >
+              <PlusIcon className="-ml-1 mr-1 h-6 w-6" />
+              Tiếp tục thêm nội dung bài học mới
+            </button>
+          </Link>
         </Form>
       )}
     </Formik>

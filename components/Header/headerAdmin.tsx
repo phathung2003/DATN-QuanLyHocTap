@@ -106,14 +106,6 @@ const Header = () => {
         </div>
         {/* ====== Form Tìm Kiếm =========== */}
 
-        {/*     TẠM  */}
-        <Link
-          href="/"
-          className="inline-flex items-center justify-center gap-2.5 rounded-full bg-lime-500 px-2 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
-        >
-          Trang chủ user
-        </Link>
-
         <div className="flex items-center gap-3 2xsm:gap-7">
           <ul className="flex items-center gap-2 2xsm:gap-4">
             {/* <!-- Dark Mode Toggler --> */}
