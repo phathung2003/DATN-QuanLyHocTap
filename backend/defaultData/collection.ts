@@ -2,13 +2,14 @@ import ICollection from '@/backend/models/data/ICollection';
 import { ICollectionError } from '@/backend/models/messages/ICollectionMessage';
 
 export const DefaultCollectionValue: ICollection = {
-  collectionAuthor: '',
+  collectionAuthorID: '',
   collectionGrade: 'Default',
   collectionSubject: 'Default',
   collectionName: '',
   collectionDescription: '',
+  collectionImage: null,
   collectionUploadDate: null,
-  collectionLastDate: null,
+  collectionLastEditDate: null,
 };
 
 export const DefaultCollectionErrorValue: ICollectionError = {

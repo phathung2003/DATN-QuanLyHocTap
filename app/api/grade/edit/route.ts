@@ -1,16 +1,14 @@
+import { NextResponse } from 'next/server';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import { CheckSession } from '@/backend/database/session';
-import SessionMessage from '@/backend/messages/sessionMessage';
-import { DeleteToken } from '@/app/api/user/checkToken/deleteToken';
 import GradeMessage from '@/backend/messages/gradeMessage';
 import {
   CheckGradeEditExist,
   EditGrade,
   GetGradeIDFile,
 } from '@/backend/database/grade';
-
-import { NextResponse } from 'next/server';
+import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
+import GradeData from '@/app/api/grade/gradeData';
 
 export async function PUT(request) {
   try {
@@ -63,50 +61,27 @@ export async function PUT(request) {
 
 //Kiểm tra dữ liệu
 async function CheckData(request) {
-  const tokenID = request.headers.get('Authorization');
-  const searchParams = request.nextUrl.searchParams;
-  const gradeIDRequest = searchParams.get('gradeID');
-
   try {
-    const dataInput = await request.json();
-
     //Các trường có thể null
+    const gradeIDRequest = request.nextUrl.searchParams.get('gradeID');
     const nullableCheckField = ['gradeImage', 'gradeDescription'];
-    nullableCheckField.forEach((field) => {
-      if (!(field in dataInput)) {
-        return false;
-      }
-    });
-
-    //Các trường không thể null
-    const checkField = [dataInput.gradeID, dataInput.gradeName];
-    checkField.forEach((field) => {
-      if (!field || field == null) {
-        return false;
-      }
-    });
-
-    if (!tokenID && !gradeIDRequest) {
+    const checkField = ['gradeID', 'gradeName'];
+    const result = await CheckDataInputNeedLogin(
+      request,
+      checkField,
+      nullableCheckField,
+    );
+    if (!result || !gradeIDRequest) {
       return false;
     }
 
-    return {
-      token: tokenID,
-      gradeID: gradeIDRequest,
-      data: dataInput,
-    };
+    const gradeData = GradeData(result);
+    if (!gradeData) {
+      return false;
+    }
+
+    return { token: result.token, data: gradeData, gradeID: gradeIDRequest };
   } catch {
     return false;
   }
-}
-
-//Kiểm tra phiên đăng nhập
-async function CheckToken(tokenID: string) {
-  const result = await CheckSession(tokenID);
-  if (result.status === false) {
-    const errorCode =
-      result.message === SessionMessage.SYSTEM_ERROR ? 404 : 401;
-    return DeleteToken(tokenID, result.message, errorCode);
-  }
-  return true;
 }

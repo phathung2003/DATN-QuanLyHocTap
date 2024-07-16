@@ -107,6 +107,21 @@ export async function GetInfo(userID: string) {
   }
 }
 
+//Lấy tên người dùng
+export async function GetName(userID: string) {
+  try {
+    const usersData = doc(db, 'users', userID);
+    const userInfo = await getDoc(usersData);
+    if (!userInfo.exists()) {
+      return false;
+    }
+    const name = userInfo.data().name;
+    return name;
+  } catch {
+    return false;
+  }
+}
+
 //Đăng nhập
 export async function Login(info: string, password: string) {
   //Đăng nhập bằng email

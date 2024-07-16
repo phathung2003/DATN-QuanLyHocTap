@@ -1,22 +1,19 @@
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import { CheckSession } from '@/backend/database/session';
-import SessionMessage from '@/backend/messages/sessionMessage';
-import { DeleteToken } from '@/app/api/user/checkToken/deleteToken';
 import SubjectMessage from '@/backend/messages/subjectMessage';
 import {
   CheckSubjectEditExist,
   EditSubject,
   GetSubjectIDFile,
 } from '@/backend/database/subject';
-
+import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
+import SubjectData from '@/app/api/subject/subjectData';
 import { NextResponse } from 'next/server';
 
 export async function PUT(request) {
   try {
-    const dataInput = await CheckData(request);
-
     //Kiểm tra dữ liệu hợp lệ
+    const dataInput = await CheckData(request);
     if (dataInput == false) {
       return MessageReturnOnly(APIMessage.WRONG_INPUT, 400);
     }
@@ -63,50 +60,32 @@ export async function PUT(request) {
 
 //Kiểm tra dữ liệu
 async function CheckData(request) {
-  const tokenID = request.headers.get('Authorization');
-  const searchParams = request.nextUrl.searchParams;
-  const subjectIDRequest = searchParams.get('subjectID');
-
   try {
-    const dataInput = await request.json();
+    const subjectIDRequest = request.nextUrl.searchParams.get('subjectID');
 
     //Các trường có thể null
     const nullableCheckField = ['subjectImage', 'subjectDescription'];
-    nullableCheckField.forEach((field) => {
-      if (!(field in dataInput)) {
-        return false;
-      }
-    });
+    const checkField = ['subjectID', 'subjectName'];
+    const result = await CheckDataInputNeedLogin(
+      request,
+      checkField,
+      nullableCheckField,
+    );
+    if (!result || !subjectIDRequest) {
+      return false;
+    }
 
-    //Các trường không thể null
-    const checkField = [dataInput.subjectID, dataInput.subjectName];
-    checkField.forEach((field) => {
-      if (!field || field == null) {
-        return false;
-      }
-    });
-
-    if (!tokenID && !subjectIDRequest) {
+    const subjectData = SubjectData(result);
+    if (!subjectData) {
       return false;
     }
 
     return {
-      token: tokenID,
+      token: result.token,
+      data: subjectData,
       subjectID: subjectIDRequest,
-      data: dataInput,
     };
   } catch {
     return false;
   }
-}
-
-//Kiểm tra phiên đăng nhập
-async function CheckToken(tokenID: string) {
-  const result = await CheckSession(tokenID);
-  if (result.status === false) {
-    const errorCode =
-      result.message === SessionMessage.SYSTEM_ERROR ? 404 : 401;
-    return DeleteToken(tokenID, result.message, errorCode);
-  }
-  return true;
 }

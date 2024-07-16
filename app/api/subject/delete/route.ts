@@ -1,16 +1,12 @@
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import { CheckSession } from '@/backend/database/session';
-import SessionMessage from '@/backend/messages/sessionMessage';
-import { DeleteToken } from '@/app/api/user/checkToken/deleteToken';
 import { DeleteSubject } from '@/backend/database/subject';
 import SubjectMessage from '@/backend/messages/subjectMessage';
-
+import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
 export async function DELETE(request) {
   try {
-    const dataInput = await CheckData(request);
-
     //Kiểm tra dữ liệu hợp lệ
+    const dataInput = await CheckData(request);
     if (dataInput == false) {
       return MessageReturnOnly(APIMessage.WRONG_INPUT, 400);
     }
@@ -30,31 +26,24 @@ export async function DELETE(request) {
 }
 
 //Kiểm tra dữ liệu
-function CheckData(request) {
-  const tokenID = request.headers.get('Authorization');
-  const searchParams = request.nextUrl.searchParams;
-  const subjectIDRequest = searchParams.get('subjectID');
-
+async function CheckData(request) {
   try {
-    if (!tokenID || tokenID == null || subjectIDRequest == null) {
+    const subjectIDRequest = request.nextUrl.searchParams.get('subjectID');
+
+    const result = await CheckDataInputNeedLogin(
+      request,
+      [subjectIDRequest],
+      null,
+    );
+    if (!result) {
       return false;
     }
+
     return {
-      token: tokenID,
+      token: result.token,
       subjectID: subjectIDRequest,
     };
   } catch {
     return false;
   }
-}
-
-//Kiểm tra phiên đăng nhập
-async function CheckToken(tokenID: string) {
-  const result = await CheckSession(tokenID);
-  if (result.status === false) {
-    const errorCode =
-      result.message === SessionMessage.SYSTEM_ERROR ? 404 : 401;
-    return DeleteToken(tokenID, result.message, errorCode);
-  }
-  return true;
 }

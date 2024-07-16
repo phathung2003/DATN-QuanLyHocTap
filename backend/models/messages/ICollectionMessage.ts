@@ -5,10 +5,12 @@ export interface ICollectionMessage {
   };
 
   COLLECTION_GRADE: {
+    NOT_EXIST: string;
     REQUIRED: string;
   };
 
   COLLECTION_SUBJECT: {
+    NOT_EXIST: string;
     REQUIRED: string;
   };
 
@@ -23,6 +25,7 @@ export interface ICollectionMessage {
   };
 
   COLLECTION_ADD_COMPLETE: string;
+  COLLECTION_ADD_FAILED: string;
   COLLECTION_EDIT_NOT_FOUND: string;
   COLLECTION_EDIT_COMPLETE: string;
   COLLECTION_DELETE_COMPLETE: string;

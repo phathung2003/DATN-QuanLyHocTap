@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
-import { CheckSession } from '@/backend/database/session';
 import GradeMessage from '@/backend/messages/gradeMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
 import { CheckGradeExist, AddGrade } from '@/backend/database/grade';
-import SessionMessage from '@/backend/messages/sessionMessage';
-import { DeleteToken } from '@/app/api/user/checkToken/deleteToken';
+import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
+import GradeData from '@/app/api/grade/gradeData';
 
 export async function POST(request: Request) {
   try {
@@ -48,46 +47,26 @@ export async function POST(request: Request) {
 
 //Kiểm tra dữ liệu
 async function CheckData(request: Request) {
-  const tokenID = request.headers.get('Authorization');
   try {
-    const dataInput = await request.json();
-
     //Các trường có thể null
     const nullableCheckField = ['gradeImage', 'gradeDescription'];
-    nullableCheckField.forEach((field) => {
-      if (!(field in dataInput)) {
-        return false;
-      }
-    });
-
-    //Các trường không thể null
-    const checkField = [dataInput.gradeID, dataInput.gradeName];
-    checkField.forEach((field) => {
-      if (!field || field == null) {
-        return false;
-      }
-    });
-
-    if (!tokenID) {
+    const checkField = ['gradeID', 'gradeName'];
+    const result = await CheckDataInputNeedLogin(
+      request,
+      checkField,
+      nullableCheckField,
+    );
+    if (!result) {
       return false;
     }
 
-    return {
-      token: tokenID,
-      data: dataInput,
-    };
+    const gradeData = GradeData(result);
+    if (!gradeData) {
+      return false;
+    }
+
+    return { token: result.token, data: gradeData };
   } catch {
     return false;
   }
-}
-
-//Kiểm tra phiên đăng nhập
-async function CheckToken(tokenID: string) {
-  const result = await CheckSession(tokenID);
-  if (result.status === false) {
-    const errorCode =
-      result.message === SessionMessage.SYSTEM_ERROR ? 404 : 401;
-    return DeleteToken(tokenID, result.message, errorCode);
-  }
-  return true;
 }

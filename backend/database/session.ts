@@ -119,3 +119,47 @@ export async function CheckSession(token: string) {
     return defaultError;
   }
 }
+
+//Lấy thông tin session
+export async function GetUserIDFromSession(
+  token: string,
+): Promise<ISessionError | string> {
+  const defaultError: ISessionError = {
+    status: true,
+    message: null,
+  };
+  try {
+    //Lấy thông tin session
+    const tokenDatabase = collection(db, TABLE_NAME);
+    const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
+    const tokenData = await getDocs(tokenQuery);
+
+    if (tokenData.empty) {
+      defaultError.status = false;
+      defaultError.message = SessionMessage.INVALID_TOKEN;
+      return defaultError;
+    }
+
+    //Kiểm tra session còn hạn không
+    const sessionInfo = await tokenData.docs[0].data();
+    if (sessionInfo.expiresAt.toDate() < new Date()) {
+      await DeleteSession(sessionInfo.tokenID);
+      defaultError.status = false;
+      defaultError.message = SessionMessage.SESSION_TIME_OUT;
+      return defaultError;
+    }
+
+    //Lấy thông tin người dùng
+    const getUserData = await GetInfo(tokenData.docs[0].data().accountID);
+    if (getUserData == false) {
+      defaultError.status = false;
+      defaultError.message = SessionMessage.INFO_NOT_FOUND;
+      return defaultError;
+    }
+    return tokenData.docs[0].data().accountID;
+  } catch {
+    defaultError.status = false;
+    defaultError.message = SessionMessage.SYSTEM_ERROR;
+    return defaultError;
+  }
+}
