@@ -15,7 +15,6 @@ const packageData: Package[] = [
   {
     id: '01',
     title: 'Khóa học bảng chữ cái',
-    image: '/images/qldanhmuc/chucaiabc.jpg',
     lesson: 5,
   },
   {

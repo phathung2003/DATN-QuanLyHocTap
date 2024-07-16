@@ -53,17 +53,45 @@ function CheckVariable(
   dataInput,
   nullable: boolean,
 ) {
-  if (variable) {
-    for (const field of variable) {
-      if (!(field in dataInput)) {
-        return false;
-      }
+  if (!variable) {
+    return true;
+  }
 
-      //Kiểm tra các trường không được phép null
-      if (nullable === true && !dataInput[field]) {
-        return false;
-      }
+  for (const field of variable) {
+    if (!(field in dataInput)) {
+      return false;
+    }
+    //Kiểm tra các trường không được phép null
+    if (nullable === true && !dataInput[field]) {
+      return false;
     }
   }
+
   return true;
+}
+
+export function CheckDataInputTrueFalse(
+  dataInput,
+  notNullVariable: string[] | null,
+  canNullVariable: string[] | null,
+): boolean {
+  //Các trường có thể null
+
+  if (!CheckVariable(canNullVariable, dataInput, false)) {
+    return false;
+  }
+
+  //Các trường không được null
+  if (!CheckVariable(notNullVariable, dataInput, true)) {
+    return false;
+  }
+  return true;
+}
+
+export function LoginSession(request): string | false {
+  const tokenID = request.headers.get('Authorization');
+  if (!tokenID) {
+    return false;
+  }
+  return tokenID;
 }
