@@ -19,7 +19,6 @@ export async function POST(request: Request) {
     if (loginSession != true) {
       return loginSession;
     }
-
     //Kiểm tra xem dữ liệu đã có hay chưa
     const result = await CheckSubjectExist(dataInput.data);
     if (result.status == false) {

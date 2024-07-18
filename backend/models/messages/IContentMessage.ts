@@ -7,7 +7,7 @@ export interface IContentMessage {
     REQUIRED: string;
   };
 
-  COLLECTION_NOT_FOUND: string;
+  COURSE_NOT_FOUND: string;
   UNIT_NOT_FOUND: string;
   CONTENT_ADD_COMPLETE: string;
   CONTENT_ADD_FAILED: string;
@@ -19,7 +19,7 @@ export interface IContentMessage {
 
 export interface IContentError {
   status: boolean;
-  contentCollectionIDError: string | null;
+  courseIDError: string | null;
   contentUnitIDError: string | null;
   systemError: string | null;
 }

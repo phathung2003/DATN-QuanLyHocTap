@@ -11,29 +11,29 @@ import { TableName } from '@/backend/globalVariable';
 
 //Thêm lớp
 export async function AddUnit(data: IUnit): Promise<boolean> {
-  const collectionData = {
-    collectionID: data.collectionID,
+  const courseData = {
+    courseID: data.courseID,
     unitName: data.unitName,
     unitNo: data.unitNo,
     unitDescription: data.unitDescription,
     unitUploadDate: new Date(),
     unitLastEditDate: null,
   };
-  const id = await GenerateID(TableName.CONTENT);
+  const id = await GenerateID(TableName.UNIT);
   return await AddDatabaseWithoutID(
-    `${TableName.CONTENT}/${data.collectionID}/${TableName.UNIT}/${id}`,
-    collectionData,
+    `${TableName.COURSE}/${data.courseID}/${TableName.UNIT}/${id}`,
+    courseData,
   );
 }
 
 //Lấy danh sách
-export async function GetUnit(collectionID: string, unitID: null | string) {
+export async function GetUnit(courseID: string, unitID: null | string) {
   try {
     //Tìm kiếm ID cụ thể
     if (unitID) {
       const docRef = doc(
         db,
-        `${TableName.CONTENT}/${collectionID}/${TableName.UNIT}/`,
+        `${TableName.COURSE}/${courseID}/${TableName.UNIT}/`,
         unitID,
       );
       const docData = await getDoc(docRef);
@@ -45,7 +45,7 @@ export async function GetUnit(collectionID: string, unitID: null | string) {
 
     const unitDatabase = collection(
       db,
-      `${TableName.CONTENT}/${TableName.COLLECTION}/${collectionID}`,
+      `${TableName.COURSE}/${courseID}/${TableName.UNIT}`,
     );
     const unitData = await getDocs(unitDatabase);
     const unitList = await Promise.all(
@@ -56,16 +56,15 @@ export async function GetUnit(collectionID: string, unitID: null | string) {
       return null;
     }
     return unitList;
-  } catch (e) {
-    console.log(e);
+  } catch {
     return GradeMessage.SYSTEM_ERROR;
   }
 }
 
 async function UnitListData(doc) {
   return {
-    unitID: doc.data().id,
-    collectionID: doc.data().collectionID,
+    unitID: doc.id,
+    courseID: doc.data().courseID,
     unitName: doc.data().unitName,
     unitNo: doc.data().unitNo,
     unitDescription: doc.data().unitDescription,
@@ -74,9 +73,7 @@ async function UnitListData(doc) {
     ),
     unitLastEditDate:
       doc.data().unitLastEditDate != null
-        ? FormatISODate(
-            doc.data().collectionLastEditDate.toDate().toISOString(),
-          )
+        ? FormatISODate(doc.data().courseLastEditDate.toDate().toISOString())
         : null,
   };
 }

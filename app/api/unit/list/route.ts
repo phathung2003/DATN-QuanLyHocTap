@@ -5,13 +5,13 @@ import { GetUnit } from '@/backend/database/unit';
 
 export async function GET(request) {
   try {
-    const collectionID = request.nextUrl.searchParams.get('collectionID');
+    const courseID = request.nextUrl.searchParams.get('courseID');
     const unitID = request.nextUrl.searchParams.get('unitID');
 
-    if (!collectionID) {
+    if (!courseID) {
       return MessageReturnOnly(APIMessage.WRONG_INPUT, 400);
     }
-    const unitList = await GetUnit(collectionID, unitID);
+    const unitList = await GetUnit(courseID, unitID);
 
     return new NextResponse(JSON.stringify(unitList), {
       status: 200,

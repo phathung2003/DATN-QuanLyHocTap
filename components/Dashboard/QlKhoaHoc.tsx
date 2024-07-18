@@ -1,37 +1,18 @@
 'use client';
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Package } from '@/types/package';
 import AddModal from '@/components/Modal/AddModal';
 import FormAddBlog from '@/components/FormCRUD/FormAddBlog';
 import EditModal from '@/components/Modal/EditModal';
 import FormEditBlog from '@/components/FormCRUD/FormEditBlog';
 import DeleteModal from '@/components/Modal/DeleteModal';
 import Pagination from '@/components/Pagination/Pagination';
-
-const packageData: Package[] = [
-  {
-    id: '01',
-    title: 'Khóa học bảng chữ cái',
-    lesson: 5,
-  },
-  {
-    id: '02',
-    title: 'Khóa học số đếm',
-    image: '/images/qldanhmuc/sodem.jpg',
-    lesson: 6,
-  },
-  {
-    id: '03',
-    title: 'Khóa học các con vật hằng ngày',
-    image: '/images/qldanhmuc/convat.jpg',
-    lesson: 8,
-  },
-];
+import { GetCollection } from '@/app/admin/qlkhoahoc/getData';
+import ICourse from '@/backend/models/data/ICourse';
 
 const QlKhoaHoc = () => {
+  const [course, setCollection] = useState<ICourse[]>([]);
   // state for modal Add category
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [currentFormComponent, setCurrentFormComponent] = useState<React.FC>(
@@ -57,6 +38,15 @@ const QlKhoaHoc = () => {
   const handleDelete = () => {
     setIsDelModalOpen(true);
   };
+
+  //Get Data
+  useEffect(() => {
+    const fetchData = async () => {
+      const courseData = await GetCollection();
+      setCollection(courseData);
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-8 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
@@ -227,11 +217,11 @@ const QlKhoaHoc = () => {
             </tr>
           </thead>
           <tbody>
-            {packageData.map((packageItem, key) => (
+            {course.map((packageItem, key) => (
               <tr key={key}>
                 <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="text-sm font-medium text-slate-500 dark:text-white">
-                    {packageItem.id}
+                    {packageItem.courseID}
                   </h5>
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
@@ -239,21 +229,25 @@ const QlKhoaHoc = () => {
                     href="#"
                     className="text-sm text-blue-500 hover:text-blue-700 dark:text-white"
                   >
-                    {packageItem.title}
+                    {packageItem.courseName}
                   </a>
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <p className="text-sm text-slate-500 dark:text-white">
-                    <Image
-                      width={120}
-                      height={50}
-                      src={packageItem.image}
-                      alt="Logo"
-                    />
+                    {packageItem.courseImage != null ? (
+                      <Image
+                        width={120}
+                        height={50}
+                        src={packageItem.courseImage}
+                        alt="Logo"
+                      />
+                    ) : (
+                      <div />
+                    )}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 text-center text-sm text-slate-500 dark:border-strokedark">
-                  {packageItem.lesson}
+                  {packageItem.courseAuthor}
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <div className="flex items-center space-x-1">

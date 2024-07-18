@@ -5,9 +5,15 @@ export enum Status {
 }
 
 export enum TableName {
-  CONTENT = 'content',
+  COURSE = 'course',
   UNIT = 'unit',
-  COLLECTION = 'collection',
+  CONTENT = 'content',
   GRADE = 'grade',
   SUBJECT = 'subject',
+}
+
+export enum ContentType {
+  FLASHCARD = 'FLASHCARD',
+  CALCULATE_TWO_NUMBER = 'CALCULATE_TWO_NUMBER',
+  CARD = 'CARD',
 }

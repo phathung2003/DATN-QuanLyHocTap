@@ -135,7 +135,6 @@ export async function CheckGradeEditExist(originalID: string, data: IGrade) {
 
         if (gradeData.empty == false) {
           gradeData.forEach((doc) => {
-            console.log(doc.id);
             if (doc.id !== originalID) {
               error.status = false;
               switch (field[i]) {

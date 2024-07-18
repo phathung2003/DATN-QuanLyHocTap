@@ -1,5 +1,5 @@
 export default interface IUnit {
-  collectionID: string;
+  courseID: string;
   unitName: string;
   unitNo: number;
   unitDescription: string | null;

@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
-import { AddCollection } from '@/backend/database/collection';
+import { AddCourse } from '@/backend/database/course';
 import { CheckDataInputNeedLogin, GetUserID } from '@/app/api/checkData';
-import CollectionMessage from '@/backend/messages/collectionMessage';
+import CourseMessage from '@/backend/messages/courseMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import CollectionData from '@/app/api/collection/collectionData';
+import CourseData from '@/app/api/course/courseData';
 import { CheckInfoExist } from '@/backend/database/generalFeature';
 import { Status, TableName } from '@/backend/globalVariable';
-import { DefaultCollectionErrorValue } from '@/backend/defaultData/collection';
-import ICollection from '@/backend/models/data/ICollection';
+import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
+import ICourse from '@/backend/models/data/ICourse';
 
 export async function POST(request: Request) {
   try {
@@ -25,14 +25,14 @@ export async function POST(request: Request) {
     }
 
     //Kiểm tra xem lớp với môn học có tồn tại trên hệ thống hay chưa
-    const collectionData = await CheckClassification(dataInput.data, userID);
-    if (collectionData instanceof NextResponse) {
-      return collectionData;
+    const courseData = await CheckClassification(dataInput.data, userID);
+    if (courseData instanceof NextResponse) {
+      return courseData;
     }
 
     //Thêm dữ liệu vào bảng
-    await AddCollection(collectionData);
-    return MessageReturnOnly(CollectionMessage.COLLECTION_ADD_COMPLETE, 201);
+    await AddCourse(courseData);
+    return MessageReturnOnly(CourseMessage.COURSE_ADD_COMPLETE, 201);
   } catch {
     return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
   }
@@ -42,12 +42,8 @@ export async function POST(request: Request) {
 async function CheckData(request: Request) {
   try {
     //Các trường có thể null
-    const nullableCheckField = ['collectionDescription', 'collectionImage'];
-    const checkField = [
-      'collectionGrade',
-      'collectionSubject',
-      'collectionName',
-    ];
+    const nullableCheckField = ['courseDescription', 'courseImage'];
+    const checkField = ['courseGrade', 'courseSubject', 'courseName'];
     const result = await CheckDataInputNeedLogin(
       request,
       checkField,
@@ -57,7 +53,7 @@ async function CheckData(request: Request) {
       return false;
     }
 
-    const gradeData = CollectionData(result.data);
+    const gradeData = CourseData(result.data);
     if (!gradeData) {
       return false;
     }
@@ -68,17 +64,17 @@ async function CheckData(request: Request) {
 }
 
 //Kiểm tra loại có trên hệ thống hay không
-async function CheckClassification(dataInput: ICollection, authorID: string) {
-  const error = DefaultCollectionErrorValue;
-  const collectionData = dataInput;
-  collectionData.collectionAuthorID = authorID;
+async function CheckClassification(dataInput: ICourse, authorID: string) {
+  const error = DefaultCourseErrorValue;
+  const courseData = dataInput;
+  courseData.courseAuthorID = authorID;
 
   const filed = [
     ['gradeID', 'gradeName'],
     ['subjectID', 'subjectName'],
   ];
 
-  const data = [dataInput.collectionGrade, dataInput.collectionSubject];
+  const data = [dataInput.courseGrade, dataInput.courseSubject];
   const table = [TableName.GRADE, TableName.SUBJECT];
 
   //Kiểm tra thông tin
@@ -91,21 +87,19 @@ async function CheckClassification(dataInput: ICollection, authorID: string) {
       error.status = false;
       switch (table[i]) {
         case TableName.GRADE:
-          error.collectionGradeError =
-            CollectionMessage.COLLECTION_GRADE.NOT_EXIST;
+          error.courseGradeError = CourseMessage.COURSE_GRADE.NOT_EXIST;
           break;
         case TableName.SUBJECT:
-          error.collectionSubjectError =
-            CollectionMessage.COLLECTION_SUBJECT.NOT_EXIST;
+          error.courseSubjectError = CourseMessage.COURSE_SUBJECT.NOT_EXIST;
           break;
       }
     } else {
       switch (table[i]) {
         case TableName.GRADE:
-          collectionData.collectionGrade = result;
+          courseData.courseGrade = result;
           break;
         case TableName.SUBJECT:
-          collectionData.collectionSubject = result;
+          courseData.courseSubject = result;
           break;
       }
     }
@@ -115,7 +109,7 @@ async function CheckClassification(dataInput: ICollection, authorID: string) {
   if (!error.status) {
     return new NextResponse(
       JSON.stringify({
-        message: CollectionMessage.COLLECTION_ADD_FAILED,
+        message: CourseMessage.COURSE_ADD_FAILED,
         errorMessage: error,
       }),
       {
@@ -124,5 +118,5 @@ async function CheckClassification(dataInput: ICollection, authorID: string) {
       },
     );
   }
-  return collectionData;
+  return courseData;
 }

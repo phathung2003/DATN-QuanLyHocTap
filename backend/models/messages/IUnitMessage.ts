@@ -9,7 +9,7 @@ export interface IUnitMessage {
     REQUIRED: string;
   };
 
-  COLLECTION_NOT_FOUND: string;
+  COURSE_NOT_FOUND: string;
   UNIT_ADD_COMPLETE: string;
   UNIT_ADD_FAILED: string;
   UNIT_EDIT_NOT_FOUND: string;
@@ -21,7 +21,7 @@ export interface IUnitMessage {
 
 export interface IUnitError {
   status: boolean;
-  unitCollectionIDError: string | null;
+  courseIDError: string | null;
   unitNameError: string | null;
   unitDescriptionError: string | null;
   systemError: string | null;

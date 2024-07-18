@@ -1,16 +1,18 @@
 import { NextResponse } from 'next/server';
 import { AddContent } from '@/backend/database/content';
-import {
-  CheckDataInputTrueFalse,
-  LoginSession,
-  CheckToken,
-} from '@/app/api/checkData';
+import { LoginSession, CheckToken } from '@/app/api/checkData';
 import ContentMessage from '@/backend/messages/contentMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import { TableName } from '@/backend/globalVariable';
+import { TableName, ContentType } from '@/backend/globalVariable';
 import { DefaultContentErrorValue } from '@/backend/defaultData/content';
 import { CheckIDExist } from '@/backend/database/generalFeature';
+import {
+  IsFlashcard,
+  IsCalculateTwoNumber,
+  IsCard,
+} from '@/app/api/content/contentData';
+
 export async function POST(request: Request) {
   try {
     //Kiểm tra dữ liệu hợp lệ
@@ -27,14 +29,18 @@ export async function POST(request: Request) {
 
     //Kiểm tra xem lớp với môn học có tồn tại trên hệ thống hay chưa
     const contentData = await CheckClassification(
-      dataInput.collectionID,
+      dataInput.courseID,
       dataInput.unitID,
     );
     if (contentData instanceof NextResponse) {
       return contentData;
     }
     //Thêm dữ liệu vào bảng
-    await AddContent(dataInput.collectionID, dataInput.unitID, dataInput.data);
+    if (
+      !(await AddContent(dataInput.courseID, dataInput.unitID, dataInput.data))
+    ) {
+      return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    }
 
     return MessageReturnOnly(ContentMessage.CONTENT_ADD_COMPLETE, 201);
   } catch {
@@ -43,26 +49,39 @@ export async function POST(request: Request) {
 }
 
 //Kiểm tra dữ liệu
-/* eslint-disable */
 async function CheckData(request) {
   try {
     const tokenID = LoginSession(request);
-    const unitID = request.nextUrl.searchParams.get('unitID');
-    const collectionID = request.nextUrl.searchParams.get('collectionID');
-    if (!tokenID || !collectionID || !unitID) {
+    const unitFileID = request.nextUrl.searchParams.get('unitID');
+    const courseFileID = request.nextUrl.searchParams.get('courseID');
+    const dataInput = await request.json();
+
+    if (
+      !tokenID ||
+      !courseFileID ||
+      !unitFileID ||
+      !(dataInput instanceof Array)
+    ) {
       return false;
     }
-
-    const dataInput: any[] = await request.json();
 
     for (let type = 0; type < dataInput.length; type++) {
       if (!dataInput[type].taskNo) {
         return false;
       }
-
-      switch (dataInput[type].contentType) {
-        case 'Flashcard':
+      switch (dataInput[type].contentType.toUpperCase()) {
+        case ContentType.FLASHCARD:
           if (!IsFlashcard(dataInput[type].content)) {
+            return false;
+          }
+          break;
+        case ContentType.CALCULATE_TWO_NUMBER:
+          if (!IsCalculateTwoNumber(dataInput[type].content)) {
+            return false;
+          }
+          break;
+        case ContentType.CARD:
+          if (!IsCard(dataInput[type].content)) {
             return false;
           }
           break;
@@ -74,44 +93,21 @@ async function CheckData(request) {
     return {
       token: tokenID,
       data: dataInput,
-      collectionID: collectionID,
-      unitID: unitID,
+      courseID: courseFileID,
+      unitID: unitFileID,
     };
   } catch {
     return false;
   }
 }
 
-function IsFlashcard(data: any[]): boolean {
-  try {
-    for (let slide = 0; slide < data.length; slide++) {
-      const nullableCheckField = [
-        'firstSideText',
-        'firstSideImage',
-        'secondSideText',
-        'secondSideImage',
-      ];
-      const checkField = ['position'];
-      if (
-        !CheckDataInputTrueFalse(data[slide], checkField, nullableCheckField)
-      ) {
-        return false;
-      }
-    }
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 //Kiểm tra loại có trên hệ thống hay không
-async function CheckClassification(collectionID: string, unitID: string) {
+async function CheckClassification(courseID: string, unitID: string) {
   const error = DefaultContentErrorValue;
 
-  if (!(await CheckIDExist(TableName.CONTENT, collectionID))) {
+  if (!(await CheckIDExist(TableName.COURSE, courseID))) {
     error.status = false;
-    error.contentCollectionIDError = ContentMessage.COLLECTION_NOT_FOUND;
-
+    error.courseIDError = ContentMessage.COURSE_NOT_FOUND;
     return new NextResponse(
       JSON.stringify({
         message: ContentMessage.CONTENT_ADD_FAILED,
@@ -126,7 +122,7 @@ async function CheckClassification(collectionID: string, unitID: string) {
 
   if (
     !(await CheckIDExist(
-      `${TableName.CONTENT}/${collectionID}/${TableName.UNIT}`,
+      `${TableName.COURSE}/${courseID}/${TableName.UNIT}`,
       unitID,
     ))
   ) {

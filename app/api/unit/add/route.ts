@@ -20,18 +20,21 @@ export async function POST(request: Request) {
 
     //Kiểm tra phiên đăng nhập hợp lệ
     const loginSession = await CheckToken(dataInput.token);
-    if (loginSession != true) {
+    if (loginSession instanceof NextResponse) {
       return loginSession;
     }
 
     //Kiểm tra xem lớp với môn học có tồn tại trên hệ thống hay chưa
-    const collectionData = await CheckClassification(dataInput.data);
-    if (collectionData instanceof NextResponse) {
-      return collectionData;
+    const courseCheck = await CheckClassification(dataInput.data);
+    if (courseCheck instanceof NextResponse) {
+      return courseCheck;
     }
 
     //Thêm dữ liệu vào bảng
-    await AddUnit(dataInput.data);
+    if (!(await AddUnit(dataInput.data))) {
+      return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    }
+
     return MessageReturnOnly(UnitMessage.UNIT_ADD_COMPLETE, 201);
   } catch {
     return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
@@ -43,7 +46,7 @@ async function CheckData(request: Request) {
   try {
     //Các trường có thể null
     const nullableCheckField = ['unitDescription'];
-    const checkField = ['collectionID', 'unitName', 'unitNo'];
+    const checkField = ['courseID', 'unitName', 'unitNo'];
 
     const result = await CheckDataInputNeedLogin(
       request,
@@ -67,11 +70,9 @@ async function CheckData(request: Request) {
 //Kiểm tra mã khóa học có trên hệ thống hay không
 async function CheckClassification(dataInput: IUnit) {
   const error = DefaultUnitErrorValue;
-  const collectionData = dataInput;
-
-  if (!(await CheckIDExist(TableName.CONTENT, collectionData.collectionID))) {
+  if (!(await CheckIDExist(TableName.COURSE, dataInput.courseID))) {
     error.status = false;
-    error.unitCollectionIDError = UnitMessage.COLLECTION_NOT_FOUND;
+    error.courseIDError = UnitMessage.COURSE_NOT_FOUND;
 
     return new NextResponse(
       JSON.stringify({

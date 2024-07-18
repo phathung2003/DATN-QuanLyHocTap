@@ -96,7 +96,6 @@ export async function CheckSubjectExist(data: ISubject) {
           where(field[i], '==', input[i]),
         );
         const result = await getDocs(subjectQuery);
-        console.log(result.size);
         if (result.empty == false) {
           error.status = false;
           switch (field[i]) {
@@ -139,7 +138,6 @@ export async function CheckSubjectEditExist(
 
         if (subjectData.empty == false) {
           subjectData.forEach((doc) => {
-            console.log(doc.id);
             if (doc.id !== originalID) {
               error.status = false;
               switch (field[i]) {

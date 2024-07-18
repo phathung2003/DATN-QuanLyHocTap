@@ -50,7 +50,6 @@ export async function AddUser(data: IRegisterDB) {
 //Kiểm tra đã có tài khoản chưa
 export async function CheckInfoExist(data: IRegisterDB) {
   const error = DefaultRegisteErrorValue;
-  console.log(data);
   try {
     const usersDatabase = collection(db, TABLE_NAME);
     const field = ['username', 'email', 'phoneNumber'];

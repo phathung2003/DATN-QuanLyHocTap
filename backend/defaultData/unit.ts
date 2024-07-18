@@ -2,7 +2,7 @@ import IUnit from '@/backend/models/data/IUnit';
 import { IUnitError } from '@/backend/models/messages/IUnitMessage';
 
 export const DefaultUnitValue: IUnit = {
-  collectionID: '',
+  courseID: '',
   unitName: '',
   unitNo: 0,
   unitDescription: null,
@@ -12,7 +12,7 @@ export const DefaultUnitValue: IUnit = {
 
 export const DefaultUnitErrorValue: IUnitError = {
   status: true,
-  unitCollectionIDError: null,
+  courseIDError: null,
   unitNameError: null,
   unitDescriptionError: null,
   systemError: null,

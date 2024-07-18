@@ -3,7 +3,7 @@ import IUnit from '@/backend/models/data/IUnit';
 export default function UnitData(dataInput): IUnit | null {
   try {
     const data: IUnit = {
-      collectionID: dataInput.collectionID,
+      courseID: dataInput.courseID,
       unitName: dataInput.unitName,
       unitNo: dataInput.unitNo,
       unitDescription: dataInput.unitDescription,

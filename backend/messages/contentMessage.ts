@@ -9,7 +9,7 @@ const UnitMessage: IContentMessage = {
     REQUIRED: 'Xin hãy đánh số thứ tự',
   },
 
-  COLLECTION_NOT_FOUND: 'Không tìm thấy khóa học này trên hệ thống',
+  COURSE_NOT_FOUND: 'Không tìm thấy khóa học này trên hệ thống',
   UNIT_NOT_FOUND: 'Không tìm thấy bài học này trên hệ thống',
   CONTENT_ADD_COMPLETE: 'Thêm nội dung thành công',
   CONTENT_ADD_FAILED: 'Thêm nội dung thất bại',

@@ -57,14 +57,9 @@ export async function AddDatabaseWithoutID(
 ): Promise<boolean> {
   try {
     const docReferrence = doc(db, pathName);
-
-    const uploadResult = await setDoc(docReferrence, data, { merge: true });
-    if (uploadResult != null) {
-      return true;
-    } else {
-      return false;
-    }
-  } catch {
+    await setDoc(docReferrence, data, { merge: true });
+    return true;
+  } catch (e) {
     return false;
   }
 }

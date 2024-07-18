@@ -1,15 +1,15 @@
-import { ICollectionError } from '@/backend/models/messages/ICollectionMessage';
+import { ICourseError } from '@/backend/models/messages/ICourseMessage';
 // import { createHash } from 'crypto';
-import { DefaultCollectionErrorValue } from '@/backend/defaultData/collection';
-import ICollection from '@/backend/models/data/ICollection';
+import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
+import ICourse from '@/backend/models/data/ICourse';
 
 //Thêm loại
 export async function handelSubmit(
-  data: ICollection,
-  setError: React.Dispatch<React.SetStateAction<ICollectionError>>,
+  data: ICourse,
+  setError: React.Dispatch<React.SetStateAction<ICourseError>>,
 ) {
   console.log(data);
-  setError(DefaultCollectionErrorValue);
+  setError(DefaultCourseErrorValue);
 }
 
 //----------- Nội bộ -----------//
@@ -18,7 +18,7 @@ export async function handelSubmit(
 export function ResetError(
   data,
   setFieldValue,
-  setError: React.Dispatch<React.SetStateAction<ICollectionError>>,
+  setError: React.Dispatch<React.SetStateAction<ICourseError>>,
   setPreview: React.Dispatch<React.SetStateAction<string | null>>,
 ) {
   //Nếu là hình ==> Đặt hình xem trước

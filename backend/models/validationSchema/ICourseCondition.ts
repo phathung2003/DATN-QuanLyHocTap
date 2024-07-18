@@ -1,23 +1,23 @@
-export default interface ICollectionMessage {
-  COLLECTION_NAME: {
+export default interface ICourseMessage {
+  COURSE_NAME: {
     MAX: number;
     REQUIRED: boolean;
   };
 
-  COLLECTION_GRADE: {
+  COURSE_GRADE: {
     REQUIRED: boolean;
   };
 
-  COLLECTION_SUBJECT: {
+  COURSE_SUBJECT: {
     REQUIRED: boolean;
   };
 
-  COLLECTION_DESCRIPTION: {
+  COURSE_DESCRIPTION: {
     MAX: number;
     REQUIRED: boolean;
   };
 
-  COLLECTION_IMAGE: {
+  COURSE_IMAGE: {
     REQUIRED: boolean;
   };
 }

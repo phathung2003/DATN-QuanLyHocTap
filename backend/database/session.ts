@@ -23,7 +23,7 @@ export async function AddSession(data: ISession) {
       expiresAt: data.expiresAt,
       createAt: data.createAt,
     });
-    // console.log(docRef.id);
+
     if (docRef.id != null) {
       return true;
     } else {
