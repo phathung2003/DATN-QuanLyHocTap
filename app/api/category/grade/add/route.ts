@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import SubjectMessage from '@/backend/messages/subjectMessage';
+import GradeMessage from '@/backend/messages/gradeMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import { CheckSubjectExist, AddSubject } from '@/backend/database/subject';
+import { CheckGradeExist, AddGrade } from '@/backend/database/grade';
 import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
-import SubjectData from '@/app/api/subject/subjectData';
+import GradeData from '@/app/api/category/grade/gradeData';
 
 export async function POST(request: Request) {
   try {
@@ -14,17 +14,18 @@ export async function POST(request: Request) {
       return MessageReturnOnly(APIMessage.WRONG_INPUT, 400);
     }
 
-    //Kiểm tra phiên đăng nhập
-    const loginSession = await CheckToken(dataInput.token);
-    if (loginSession != true) {
-      return loginSession;
+    //Kiểm tra phiên đăng nhập hợp lệ
+    const sessionCheck = await CheckToken(dataInput.token);
+    if (sessionCheck != true) {
+      return sessionCheck;
     }
+
     //Kiểm tra xem dữ liệu đã có hay chưa
-    const result = await CheckSubjectExist(dataInput.data);
+    const result = await CheckGradeExist(dataInput.data);
     if (result.status == false) {
       return new NextResponse(
         JSON.stringify({
-          message: SubjectMessage.SUBJECT_EXIST,
+          message: GradeMessage.GRADE_EXIST,
           errorMessage: result,
         }),
         {
@@ -37,8 +38,8 @@ export async function POST(request: Request) {
     }
 
     //Thêm dữ liệu vào bảng
-    await AddSubject(dataInput.data);
-    return MessageReturnOnly(SubjectMessage.SUBJECT_ADD_COMPLETE, 201);
+    await AddGrade(dataInput.data);
+    return MessageReturnOnly(GradeMessage.GRADE_ADD_COMPLETE, 201);
   } catch {
     return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
   }
@@ -48,8 +49,8 @@ export async function POST(request: Request) {
 async function CheckData(request: Request) {
   try {
     //Các trường có thể null
-    const nullableCheckField = ['subjectImage', 'subjectDescription'];
-    const checkField = ['subjectID', 'subjectName'];
+    const nullableCheckField = ['gradeImage', 'gradeDescription'];
+    const checkField = ['gradeID', 'gradeName'];
     const result = await CheckDataInputNeedLogin(
       request,
       checkField,
@@ -59,12 +60,12 @@ async function CheckData(request: Request) {
       return false;
     }
 
-    const subjectData = SubjectData(result);
-    if (!subjectData) {
+    const gradeData = GradeData(result);
+    if (!gradeData) {
       return false;
     }
 
-    return { token: result.token, data: subjectData };
+    return { token: result.token, data: gradeData };
   } catch {
     return false;
   }

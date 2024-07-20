@@ -4,7 +4,7 @@ import { CheckDataInputNeedLogin, GetUserID } from '@/app/api/checkData';
 import CourseMessage from '@/backend/messages/courseMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import CourseData from '@/app/api/course/courseData';
+import CourseData from '@/app/api/content/course/courseData';
 import { CheckInfoExist } from '@/backend/database/generalFeature';
 import { Status, TableName } from '@/backend/globalVariable';
 import { DefaultCourseErrorValue } from '@/backend/defaultData/course';

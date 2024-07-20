@@ -5,6 +5,7 @@ export enum Status {
 }
 
 export enum TableName {
+  TASK = 'task',
   COURSE = 'course',
   UNIT = 'unit',
   CONTENT = 'content',

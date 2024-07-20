@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { AddContent } from '@/backend/database/content';
+import { AddTask } from '@/backend/database/task';
 import { LoginSession, CheckToken } from '@/app/api/checkData';
 import ContentMessage from '@/backend/messages/contentMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
@@ -11,7 +11,9 @@ import {
   IsFlashcard,
   IsCalculateTwoNumber,
   IsCard,
-} from '@/app/api/content/contentData';
+  IsNumber,
+} from '@/app/api/content/task/contentData';
+import { CheckDataInputTrueFalse } from '@/app/api/checkData';
 
 export async function POST(request: Request) {
   try {
@@ -37,7 +39,7 @@ export async function POST(request: Request) {
     }
     //Thêm dữ liệu vào bảng
     if (
-      !(await AddContent(dataInput.courseID, dataInput.unitID, dataInput.data))
+      !(await AddTask(dataInput.courseID, dataInput.unitID, dataInput.data))
     ) {
       return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
     }
@@ -66,27 +68,12 @@ async function CheckData(request) {
     }
 
     for (let type = 0; type < dataInput.length; type++) {
-      if (!dataInput[type].taskNo) {
+      if (!CheckTask(dataInput[type])) {
         return false;
       }
-      switch (dataInput[type].contentType.toUpperCase()) {
-        case ContentType.FLASHCARD:
-          if (!IsFlashcard(dataInput[type].content)) {
-            return false;
-          }
-          break;
-        case ContentType.CALCULATE_TWO_NUMBER:
-          if (!IsCalculateTwoNumber(dataInput[type].content)) {
-            return false;
-          }
-          break;
-        case ContentType.CARD:
-          if (!IsCard(dataInput[type].content)) {
-            return false;
-          }
-          break;
-        default:
-          return false;
+
+      if (!CheckContent(dataInput[type].content)) {
+        return false;
       }
     }
 
@@ -139,6 +126,56 @@ async function CheckClassification(courseID: string, unitID: string) {
         headers: { 'Content-Type': 'application/json' },
       },
     );
+  }
+  return true;
+}
+
+//Kiểm tra nội dung
+function CheckTask(dataInput): boolean {
+  const nullableCheckField = ['taskDescription', 'content'];
+  const checkField = ['taskNo', 'taskName'];
+  if (!CheckDataInputTrueFalse(dataInput, checkField, nullableCheckField)) {
+    return false;
+  }
+
+  if (!IsNumber(dataInput.taskNo)) {
+    return false;
+  }
+  return true;
+}
+
+function CheckContent(dataInput): boolean {
+  if (!(dataInput instanceof Array)) {
+    return false;
+  }
+
+  for (let content = 0; content < dataInput.length; content++) {
+    if (
+      !dataInput[content].contentNo ||
+      !IsNumber(dataInput[content].contentNo)
+    ) {
+      return false;
+    }
+
+    switch (dataInput[content].contentType.toUpperCase()) {
+      case ContentType.FLASHCARD:
+        if (!IsFlashcard(dataInput[content].contentData)) {
+          return false;
+        }
+        break;
+      case ContentType.CALCULATE_TWO_NUMBER:
+        if (!IsCalculateTwoNumber(dataInput[content].contentData)) {
+          return false;
+        }
+        break;
+      case ContentType.CARD:
+        if (!IsCard(dataInput[content].contentData)) {
+          return false;
+        }
+        break;
+      default:
+        return false;
+    }
   }
   return true;
 }

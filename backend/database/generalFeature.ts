@@ -57,20 +57,20 @@ export async function AddDatabaseWithoutID(
 ): Promise<boolean> {
   try {
     const docReferrence = doc(db, pathName);
-    await setDoc(docReferrence, data, { merge: true });
+    await setDoc(docReferrence, data, { merge: false });
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 }
 
 export async function CheckInfoExist(
   data: string,
-  tableName: string,
+  tablePath: string,
   checkField: string[],
 ): Promise<string> {
   try {
-    const databaseCollection = collection(db, tableName);
+    const databaseCollection = collection(db, tablePath);
     for (let i = 0; i < checkField.length; i++) {
       if (data != null) {
         const databaseQuery = query(
@@ -115,7 +115,6 @@ export async function GenerateID(filePath: string): Promise<string> {
 
     //Kiểm tra ID có tồn tại không
     exists = await CheckIDExist(filePath, id);
-
     //Không tồn tại => Tăng số lần thử
     attempt++;
   } while (exists);

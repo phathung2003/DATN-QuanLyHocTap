@@ -1,16 +1,21 @@
 import { NextResponse } from 'next/server';
-import GradeMessage from '@/backend/messages/gradeMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import { CheckGradeExist, AddGrade } from '@/backend/database/grade';
+import GradeMessage from '@/backend/messages/gradeMessage';
+import {
+  CheckGradeEditExist,
+  EditGrade,
+  GetGradeIDFile,
+} from '@/backend/database/grade';
 import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
-import GradeData from '@/app/api/grade/gradeData';
+import GradeData from '@/app/api/category/grade/gradeData';
 
-export async function POST(request: Request) {
+export async function PUT(request) {
   try {
-    //Kiểm tra dữ liệu hợp lệ
     const dataInput = await CheckData(request);
-    if (dataInput === false) {
+
+    //Kiểm tra dữ liệu hợp lệ
+    if (dataInput == false) {
       return MessageReturnOnly(APIMessage.WRONG_INPUT, 400);
     }
 
@@ -20,8 +25,17 @@ export async function POST(request: Request) {
       return sessionCheck;
     }
 
-    //Kiểm tra xem dữ liệu đã có hay chưa
-    const result = await CheckGradeExist(dataInput.data);
+    //Kiểm tra mã loại cần sửa có trên hệ thống
+    const categoryFileID = await GetGradeIDFile(dataInput.gradeID);
+    switch (categoryFileID) {
+      case GradeMessage.SYSTEM_ERROR:
+        return MessageReturnOnly(categoryFileID, 500);
+      case GradeMessage.GRADE_EDIT_NOT_FOUND:
+        return MessageReturnOnly(categoryFileID, 404);
+    }
+
+    //Kiểm tra thông tin chỉnh sửa đã tồn tại hay chưa
+    const result = await CheckGradeEditExist(categoryFileID, dataInput.data);
     if (result.status == false) {
       return new NextResponse(
         JSON.stringify({
@@ -37,18 +51,19 @@ export async function POST(request: Request) {
       );
     }
 
-    //Thêm dữ liệu vào bảng
-    await AddGrade(dataInput.data);
-    return MessageReturnOnly(GradeMessage.GRADE_ADD_COMPLETE, 201);
+    //Tiến hành cập nhật
+    await EditGrade(categoryFileID, dataInput.data);
+    return MessageReturnOnly(GradeMessage.GRADE_EDIT_COMPLETE, 200);
   } catch {
     return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
   }
 }
 
 //Kiểm tra dữ liệu
-async function CheckData(request: Request) {
+async function CheckData(request) {
   try {
     //Các trường có thể null
+    const gradeIDRequest = request.nextUrl.searchParams.get('gradeID');
     const nullableCheckField = ['gradeImage', 'gradeDescription'];
     const checkField = ['gradeID', 'gradeName'];
     const result = await CheckDataInputNeedLogin(
@@ -56,7 +71,7 @@ async function CheckData(request: Request) {
       checkField,
       nullableCheckField,
     );
-    if (!result) {
+    if (!result || !gradeIDRequest) {
       return false;
     }
 
@@ -65,7 +80,7 @@ async function CheckData(request: Request) {
       return false;
     }
 
-    return { token: result.token, data: gradeData };
+    return { token: result.token, data: gradeData, gradeID: gradeIDRequest };
   } catch {
     return false;
   }

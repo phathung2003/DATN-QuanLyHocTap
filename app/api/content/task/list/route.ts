@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import { GetContent } from '@/backend/database/content';
+import { GetContent } from '@/backend/database/task';
 
 export async function GET(request) {
   try {

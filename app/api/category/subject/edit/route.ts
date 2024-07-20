@@ -7,7 +7,7 @@ import {
   GetSubjectIDFile,
 } from '@/backend/database/subject';
 import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
-import SubjectData from '@/app/api/subject/subjectData';
+import SubjectData from '@/app/api/category/subject/subjectData';
 import { NextResponse } from 'next/server';
 
 export async function PUT(request) {

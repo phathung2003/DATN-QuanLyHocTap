@@ -17,7 +17,7 @@ export function IsFlashcard(data: any[]): boolean {
       }
 
       //Kiểm tra có phải dạng số không
-      if (!isNumber(data[slide].position)) {
+      if (!IsNumber(data[slide].position)) {
         return false;
       }
     }
@@ -48,9 +48,9 @@ export function IsCalculateTwoNumber(data: any[]): boolean {
       }
 
       if (
-        !isNumber(data[calculation].firstNumber) ||
-        !isNumber(data[calculation].secondNumber) ||
-        !isNumber(data[calculation].questionNo)
+        !IsNumber(data[calculation].firstNumber) ||
+        !IsNumber(data[calculation].secondNumber) ||
+        !IsNumber(data[calculation].questionNo)
       ) {
         return false;
       }
@@ -81,6 +81,6 @@ export function IsCard(data: any[]): boolean {
 }
 
 //--- Nội bộ ---//
-function isNumber(value: any): value is number {
+export function IsNumber(value: any): value is number {
   return typeof value === 'number' && !Number.isNaN(value);
 }
