@@ -1,16 +1,16 @@
 import { ISubjectMessage } from '@/backend/models/messages/ISubjectMessage';
-import CategoryCondition from '@/backend/validationSchema/category/categoryCondition';
+import SubjectCondition from '@/backend/validationSchema/subject/subjectCondition';
 
 const SubjectMessage: ISubjectMessage = {
   SUBJECT_NAME: {
-    OVER_MAX_CHARACTER: `Tên loại dài quá ${CategoryCondition.CATEGORY_NAME.MAX} ký tự`,
+    OVER_MAX_CHARACTER: `Tên loại dài quá ${SubjectCondition.SUBJECT_NAME.MAX} ký tự`,
     REQUIRED: 'Xin hãy nhập tên môn học',
   },
   SUBJECT_TYPE: {
     REQUIRED: 'Xin hãy chọn loại',
   },
   SUBJECT_DESCRIPTION: {
-    OVER_MAX_CHARACTER: `Mô tả dài quá ${CategoryCondition.CATEGORY_DESCRIPTION.MAX} ký tự`,
+    OVER_MAX_CHARACTER: `Mô tả dài quá ${SubjectCondition.SUBJECT_DESCRIPTION.MAX} ký tự`,
     REQUIRED: 'Xin hãy nhập mô tả',
   },
   SUBJECT_IMAGE: {

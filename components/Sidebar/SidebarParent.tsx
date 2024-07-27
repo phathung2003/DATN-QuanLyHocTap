@@ -1,7 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { DashboardIcon, LogoIcon, LessonIcon, BlogIcon } from '../icons';
 import Link from 'next/link';
+
+//Icon
+import DashboardIcon from '@/public/vector/dashboard.svg';
+import LogoIcon from '@/public/vector/logo.svg';
+import LessonIcon from '@/public/vector/lesson.svg';
+import BlogIcon from '@/public/vector/calendar.svg';
 
 const menuItems = [
   { id: 1, icon: DashboardIcon, link: '/phuhuynh' },

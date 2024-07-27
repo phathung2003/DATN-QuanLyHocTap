@@ -28,5 +28,7 @@ export interface IGradeError {
   status: boolean;
   gradeIDError: string | null;
   gradeNameError: string | null;
+  gradeImageError: string | null;
+  gradeFileError?: string | null;
   systemError: string | null;
 }

@@ -3,7 +3,7 @@ import { ICourseError } from '@/backend/models/messages/ICourseMessage';
 import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
 import ICourse from '@/backend/models/data/ICourse';
 
-//Thêm loại
+//Thêm khóa học
 export async function handelSubmit(
   data: ICourse,
   setError: React.Dispatch<React.SetStateAction<ICourseError>>,

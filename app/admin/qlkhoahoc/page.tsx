@@ -1,8 +1,6 @@
 import React from 'react';
 import QlKhoaHoc from '@/components/Dashboard/QlKhoaHoc';
 
-const QLKhoaHocPage = () => {
+export default function QLKhoaHocPage() {
   return <QlKhoaHoc />;
-};
-
-export default QLKhoaHocPage;
+}

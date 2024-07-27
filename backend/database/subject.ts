@@ -10,7 +10,7 @@ import {
 } from 'firebase/firestore';
 import { ISubject } from '@/backend/models/data/ISubject';
 import SubjectMessage from '@/backend/messages/subjectMessage';
-import DefaultSubjectErrorValue from '@/backend//defaultData/subject';
+import { DefaultSubjectErrorValue } from '@/backend//defaultData/subject';
 import { db } from '@/backend/database/firebase';
 
 const TABLE_NAME = 'subject';

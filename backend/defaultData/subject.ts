@@ -1,6 +1,7 @@
 import { ISubjectError } from '@/backend/models/messages/ISubjectMessage';
 import { ISubject } from '@/backend/models/data/ISubject';
-const DefaultSubjectErrorValue: ISubjectError = {
+
+export const DefaultSubjectErrorValue: ISubjectError = {
   status: true,
   subjectIDError: null,
   subjectNameError: null,
@@ -19,4 +20,9 @@ export function SubjectEditDefaultValue(data: ISubject): ISubject {
   return editData;
 }
 
-export default DefaultSubjectErrorValue;
+export const DefaultSubjectValue: ISubject = {
+  subjectID: '',
+  subjectName: '',
+  subjectDescription: '',
+  subjectImage: '',
+};

@@ -1,0 +1,12 @@
+<svg
+  width="18"
+  height="18"
+  viewBox="0 0 48 48"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g data-name="7-Book">
+    <path d="M16 41h28v2H16zM5 42H3V6a6.006 6.006 0 0 1 6-6h35a1 1 0 0 1 1 1v36h-2V2H9a4 4 0 0 0-4 4z" />
+    <path d="M44 48H9a6 6 0 0 1 0-12h35a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1M9 38a4 4 0 0 0 0 8h34v-8z" />
+    <path d="M9 1h2v36H9z" />
+  </g>
+</svg>

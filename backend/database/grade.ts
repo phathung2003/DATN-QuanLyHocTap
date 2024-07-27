@@ -10,7 +10,7 @@ import {
 } from 'firebase/firestore';
 import { IGrade } from '@/backend/models/data/IGrade';
 import GradeMessage from '@/backend/messages/gradeMessage';
-import DefaultGradeErrorValue from '@/backend//defaultData/grade';
+import { DefaultGradeErrorValue } from '@/backend//defaultData/grade';
 import { db } from '@/backend/database/firebase';
 
 const TABLE_NAME = 'grade';

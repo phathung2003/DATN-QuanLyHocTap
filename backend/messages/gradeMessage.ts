@@ -1,16 +1,16 @@
 import { IGradeMessage } from '@/backend/models/messages/IGradeMessage';
-import CategoryCondition from '@/backend/validationSchema/category/categoryCondition';
+import GradeCondition from '@/backend/validationSchema/grade/gradeCondition';
 
 const GRADEMessage: IGradeMessage = {
   GRADE_NAME: {
-    OVER_MAX_CHARACTER: `Tên loại dài quá ${CategoryCondition.CATEGORY_NAME.MAX} ký tự`,
-    REQUIRED: 'Xin hãy nhập tên môn học',
+    OVER_MAX_CHARACTER: `Tên loại dài quá ${GradeCondition.GRADE_NAME.MAX} ký tự`,
+    REQUIRED: 'Xin hãy nhập tên cấp bậc học',
   },
   GRADE_TYPE: {
-    REQUIRED: 'Xin hãy chọn lớp',
+    REQUIRED: 'Xin hãy chọn cấp bậc học',
   },
   GRADE_DESCRIPTION: {
-    OVER_MAX_CHARACTER: `Mô tả dài quá ${CategoryCondition.CATEGORY_DESCRIPTION.MAX} ký tự`,
+    OVER_MAX_CHARACTER: `Mô tả dài quá ${GradeCondition.GRADE_DESCRIPTION.MAX} ký tự`,
     REQUIRED: 'Xin hãy nhập mô tả',
   },
   GRADE_IMAGE: {

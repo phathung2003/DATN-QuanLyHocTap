@@ -2,7 +2,8 @@ import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
 import { DeleteSubject } from '@/backend/database/subject';
 import SubjectMessage from '@/backend/messages/subjectMessage';
-import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
+import { CheckToken, LoginSession } from '@/app/api/checkData';
+
 export async function DELETE(request) {
   try {
     //Kiểm tra dữ liệu hợp lệ
@@ -29,18 +30,13 @@ export async function DELETE(request) {
 async function CheckData(request) {
   try {
     const subjectIDRequest = request.nextUrl.searchParams.get('subjectID');
-
-    const result = await CheckDataInputNeedLogin(
-      request,
-      [subjectIDRequest],
-      null,
-    );
-    if (!result) {
+    const tokenID = LoginSession(request);
+    if (!tokenID || !subjectIDRequest) {
       return false;
     }
 
     return {
-      token: result.token,
+      token: tokenID,
       subjectID: subjectIDRequest,
     };
   } catch {

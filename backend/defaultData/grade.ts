@@ -1,9 +1,11 @@
 import { IGradeError } from '@/backend/models/messages/IGradeMessage';
 import { IGrade } from '@/backend/models/data/IGrade';
-const DefaultgradeErrorValue: IGradeError = {
+
+export const DefaultGradeErrorValue: IGradeError = {
   status: true,
   gradeIDError: null,
   gradeNameError: null,
+  gradeImageError: null,
   systemError: null,
 };
 
@@ -19,4 +21,9 @@ export function GradeEditDefaultValue(data: IGrade): IGrade {
   return editData;
 }
 
-export default DefaultgradeErrorValue;
+export const DefaultGradeValue: IGrade = {
+  gradeID: '',
+  gradeName: '',
+  gradeDescription: '',
+  gradeImage: '',
+};

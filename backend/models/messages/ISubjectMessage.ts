@@ -28,5 +28,6 @@ export interface ISubjectError {
   status: boolean;
   subjectIDError: string | null;
   subjectNameError: string | null;
+  subjectFileError?: string | null;
   systemError: string | null;
 }

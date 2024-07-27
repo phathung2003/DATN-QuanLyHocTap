@@ -3,7 +3,9 @@ import DarkModeSwitcher from './DarkModeSwitcher';
 import DropdownMessage from './DropdownMessage';
 import DropdownNotification from './DropdownNotification';
 import DropdownUser from './DropdownUser';
-import { LogoIcon } from '../icons';
+
+//Icon
+import LogoIcon from '@/public/vector/logo.svg';
 
 import Image from 'next/image';
 

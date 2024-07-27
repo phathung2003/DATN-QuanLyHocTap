@@ -3,20 +3,24 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import AddModal from '@/components/Modal/AddModal';
-import FormAddBlog from '@/components/FormCRUD/FormAddBlog';
+import AddCourse from '@/components/FormCRUD/FormAddBlog';
 import EditModal from '@/components/Modal/EditModal';
 import FormEditBlog from '@/components/FormCRUD/FormEditBlog';
 import DeleteModal from '@/components/Modal/DeleteModal';
 import Pagination from '@/components/Pagination/Pagination';
-import { GetCollection } from '@/app/admin/qlkhoahoc/getData';
+import { GetCourse } from '@/app/admin/qlkhoahoc/getData';
 import ICourse from '@/backend/models/data/ICourse';
 
+import FindIcon from '@/public/vector/find.svg';
+import AddIcon from '@/public/vector/plus-white.svg';
+import FilterIcon from '@/public/vector/funnel-black.svg';
+import DownIcon from '@/public/vector/dropdown-black.svg';
 const QlKhoaHoc = () => {
-  const [course, setCollection] = useState<ICourse[]>([]);
+  const [course, setCourse] = useState<ICourse[]>([]);
   // state for modal Add category
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [currentFormComponent, setCurrentFormComponent] = useState<React.FC>(
-    () => FormAddBlog,
+    () => AddCourse,
   );
   const handleOpenAddModal = (FormComponent: React.FC) => {
     setCurrentFormComponent(() => FormComponent);
@@ -42,8 +46,8 @@ const QlKhoaHoc = () => {
   //Get Data
   useEffect(() => {
     const fetchData = async () => {
-      const courseData = await GetCollection();
-      setCollection(courseData);
+      const courseData = await GetCourse();
+      setCourse(courseData);
     };
     fetchData();
   }, []);
@@ -60,19 +64,9 @@ const QlKhoaHoc = () => {
                 </label>
                 <div className="relative w-full">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 dark:bg-black">
-                    <svg
-                      aria-hidden="true"
-                      className="text-gray-500 dark:text-gray-400 h-5 w-5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    <div>
+                      <FindIcon className="h-5 w-5 fill-black dark:fill-white" />
+                    </div>
                   </div>
                   <input
                     type="text"
@@ -90,24 +84,11 @@ const QlKhoaHoc = () => {
               <button
                 type="button"
                 className="hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 ml-auto inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-primary p-1.5 px-2 py-2 text-sm text-white dark:hover:text-white md:w-auto"
-                onClick={() => handleOpenAddModal(FormAddBlog)}
+                onClick={() => handleOpenAddModal(AddCourse)}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#ffffff"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="12" y1="5" x2="12" y2="19"></line>
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
+                <AddIcon className="h-5 w-5" />
                 <span className="sr-only">Open modal</span>
-                Thêm Bài Viết
+                Thêm khóa học
               </button>
             </div>
 
@@ -128,33 +109,9 @@ const QlKhoaHoc = () => {
                 className="flex w-full items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 hover:bg-slate-100 hover:text-slate-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-600 dark:focus:ring-slate-700 md:w-auto"
                 type="button"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  className="text-gray-400 mr-2 h-4 w-4"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <FilterIcon className="mr-2 h-4 w-4" />
                 Lọc
-                <svg
-                  className="-mr-1 ml-1.5 h-5 w-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path
-                    clipRule="evenodd"
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  />
-                </svg>
+                <DownIcon className="-mr-1 ml-1.5 h-5 w-5" />
               </button>
             </div>
 
@@ -166,33 +123,9 @@ const QlKhoaHoc = () => {
                 className="flex rounded-xl bg-rose-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-rose-800 focus:outline-none focus:ring-4 focus:ring-rose-300 dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-900"
                 type="button"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  className="text-gray-400 mr-2 h-4 w-4"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <FilterIcon className="mr-2 h-4 w-4" />
                 Xóa hết
-                <svg
-                  className="-mr-1 ml-1.5 h-5 w-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path
-                    clipRule="evenodd"
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  />
-                </svg>
+                <DownIcon className="-mr-1 ml-1.5 h-5 w-5" />
               </button>
             </div>
           </div>
@@ -238,6 +171,7 @@ const QlKhoaHoc = () => {
                       <Image
                         width={120}
                         height={50}
+                        priority
                         src={packageItem.courseImage}
                         alt="Logo"
                       />

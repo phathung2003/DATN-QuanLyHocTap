@@ -2,7 +2,7 @@ import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
 import { DeleteGrade } from '@/backend/database/grade';
 import GradeMessage from '@/backend/messages/gradeMessage';
-import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
+import { CheckToken, LoginSession } from '@/app/api/checkData';
 
 export async function DELETE(request) {
   try {
@@ -31,18 +31,13 @@ export async function DELETE(request) {
 async function CheckData(request) {
   try {
     const gradeIDRequest = request.nextUrl.searchParams.get('gradeID');
-
-    const result = await CheckDataInputNeedLogin(
-      request,
-      [gradeIDRequest],
-      null,
-    );
-    if (!result) {
+    const tokenID = LoginSession(request);
+    if (!tokenID || !gradeIDRequest) {
       return false;
     }
 
     return {
-      token: result.token,
+      token: tokenID,
       gradeID: gradeIDRequest,
     };
   } catch {
