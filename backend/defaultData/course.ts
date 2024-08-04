@@ -21,3 +21,18 @@ export const DefaultCourseErrorValue: ICourseError = {
   courseImageError: null,
   systemError: null,
 };
+
+export function CourseEditDefaultValue(data: ICourse): ICourse {
+  const editData: ICourse = {
+    courseName: data.courseName,
+    courseAuthorID: data.courseAuthorID,
+    courseGrade: data.courseGrade,
+    courseSubject: data.courseSubject,
+    courseDescription: data.courseDescription,
+    courseImage: data.courseImage,
+    courseLastEditDate: data.courseLastEditDate,
+    courseUploadDate: data.courseUploadDate,
+  };
+
+  return editData;
+}

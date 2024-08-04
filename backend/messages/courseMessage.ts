@@ -1,10 +1,10 @@
 import { ICourseMessage } from '@/backend/models/messages/ICourseMessage';
 import CourseCondition from '@/backend/validationSchema/course/courseCondition';
 
-const CollectionMessage: ICourseMessage = {
+const CourseMessage: ICourseMessage = {
   COURSE_NAME: {
     OVER_MAX_CHARACTER: `Tên khóa học dài quá ${CourseCondition.COURSE_NAME.MAX} ký tự`,
-    REQUIRED: 'Xin hãy nhập tên danh mục bài học',
+    REQUIRED: 'Xin hãy nhập tên khóa học',
   },
 
   COURSE_GRADE: {
@@ -36,4 +36,4 @@ const CollectionMessage: ICourseMessage = {
   SYSTEM_ERROR: 'Hệ thống hiện tại đang bị lỗi. Xin vui lòng thử lại sau',
 };
 
-export default CollectionMessage;
+export default CourseMessage;

@@ -40,5 +40,6 @@ export interface ICourseError {
   courseSubjectError: string | null;
   courseDescriptionError: string | null;
   courseImageError: string | null;
+  courseFileError?: string | null;
   systemError: string | null;
 }

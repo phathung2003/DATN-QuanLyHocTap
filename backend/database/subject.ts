@@ -3,6 +3,7 @@ import {
   query,
   where,
   getDocs,
+  getDoc,
   deleteDoc,
   doc,
   addDoc,
@@ -66,7 +67,7 @@ export async function GetSubjectList() {
     const subjectDatabase = collection(db, TABLE_NAME);
     const subjectData = await getDocs(subjectDatabase);
     const categoryList = await subjectData.docs.map((doc) => ({
-      subjectID: doc.data().subjectID,
+      subjectID: doc.id,
       subjectName: doc.data().subjectName,
       subjectDescription: doc.data().subjectDescription,
       subjectImage: doc.data().subjectImage,
@@ -176,6 +177,18 @@ export async function GetSubjectIDFile(subjectID: string) {
   } catch {
     return SubjectMessage.SYSTEM_ERROR;
   }
+}
+
+//Lấy tên môn học
+export async function GetSubjectName(
+  subjectID: string,
+): Promise<string | null> {
+  const docRef = doc(db, TABLE_NAME, subjectID);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return docSnap.data().subjectName;
+  }
+  return null;
 }
 
 function ToTitleCase(text: string): string {

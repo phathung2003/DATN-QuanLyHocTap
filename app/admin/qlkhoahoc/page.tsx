@@ -1,6 +1,6 @@
 import React from 'react';
-import QlKhoaHoc from '@/components/Dashboard/QlKhoaHoc';
+import CourseManagement from '@/app/admin/qlkhoahoc/courseManagement';
 
 export default function QLKhoaHocPage() {
-  return <QlKhoaHoc />;
+  return <CourseManagement />;
 }

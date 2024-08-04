@@ -59,14 +59,15 @@ const SubjectManagement = ({ data }) => {
 
   return (
     <section className="antialiase overflow-y-auto px-4 pt-5 lg:px-8">
-      <div className="x grid grid-cols-1 gap-4 sm:mb-5 min-[890px]:grid-cols-2">
-        <h2
-          id="header"
-          className="font-manrope text-center text-2xl font-bold text-black dark:text-white min-[890px]:text-left"
-        >
-          Danh Mục Môn Học
-        </h2>
+      <h2
+        id="header"
+        className="font-manrope text-center text-2xl font-bold text-black dark:text-white min-[890px]:text-left"
+      >
+        Quản lý môn học
+      </h2>
 
+      <div className="x grid grid-cols-1 gap-4 sm:mb-5 min-[890px]:grid-cols-2">
+        <div />
         <div className="flex flex-col gap-2.5 min-[890px]:flex-row ">
           <AddButton
             onClick={() => handleAddModal(AddSubjectForm)}

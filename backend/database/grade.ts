@@ -3,6 +3,7 @@ import {
   query,
   where,
   getDocs,
+  getDoc,
   deleteDoc,
   doc,
   addDoc,
@@ -14,6 +15,7 @@ import { DefaultGradeErrorValue } from '@/backend//defaultData/grade';
 import { db } from '@/backend/database/firebase';
 
 const TABLE_NAME = 'grade';
+
 //Thêm lớp
 export async function AddGrade(data: IGrade) {
   try {
@@ -66,7 +68,7 @@ export async function GetGradeList() {
     const gradeDatabase = collection(db, TABLE_NAME);
     const gradeData = await getDocs(gradeDatabase);
     const categoryList = await gradeData.docs.map((doc) => ({
-      gradeID: doc.data().gradeID,
+      gradeID: doc.id,
       gradeName: doc.data().gradeName,
       gradeDescription: doc.data().gradeDescription,
       gradeImage: doc.data().gradeImage,
@@ -173,6 +175,16 @@ export async function GetGradeIDFile(gradeID: string) {
   } catch {
     return GradeMessage.SYSTEM_ERROR;
   }
+}
+
+//Lấy tên môn học
+export async function GetGradeName(gradeID: string): Promise<string | null> {
+  const docRef = doc(db, TABLE_NAME, gradeID);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return docSnap.data().gradeName;
+  }
+  return null;
 }
 
 function ToTitleCase(text: string): string {

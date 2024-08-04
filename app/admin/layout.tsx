@@ -24,7 +24,7 @@ export default function AdminMainLayout({
 
           {/* <!-- ===== Main Content ===== --> */}
           <main>
-            <div className="mx-auto max-w-screen-3xl  2xl:p-10">
+            <div className="mx-auto max-w-screen-3xl 2xl:p-5">
               <ProgressBarProvider>{children}</ProgressBarProvider>
             </div>
           </main>

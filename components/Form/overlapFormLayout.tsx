@@ -24,7 +24,7 @@ const OverlapFormLayout: React.FC<FormModalProperties> = ({
       aria-hidden="true"
       className="fixed inset-0 z-9999 flex justify-center bg-slate-800 bg-opacity-70"
     >
-      <div className="relative max-h-full w-full max-w-2xl rounded-lg bg-white p-4 shadow dark:bg-slate-800 sm:p-5">
+      <div className="relative w-full max-w-2xl rounded-lg bg-white p-4 shadow dark:bg-slate-800 sm:p-5">
         <div className="mb-2 flex items-center justify-between rounded-t border-b border-slate-200 pb-2 dark:border-slate-600 sm:mb-2">
           <h3
             id="formHeader"
@@ -42,7 +42,7 @@ const OverlapFormLayout: React.FC<FormModalProperties> = ({
           </button>
         </div>
 
-        <div>
+        <div className="relative max-h-[85vh] overflow-auto pr-3">
           {typeof FormComponent === 'function' ? (
             <FormComponent />
           ) : (

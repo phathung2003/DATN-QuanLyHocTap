@@ -3,7 +3,7 @@ import { ErrorMessage } from 'formik';
 
 const FormikShowError = ({ type, filedName, errorMessage }) => {
   return (
-    <div className="text-sm font-semibold text-rose-600 dark:text-rose-300">
+    <div className="my-2 text-sm font-semibold text-rose-600 dark:text-rose-300">
       <p id={`${filedName}_${type}Error`}>{errorMessage}</p>
 
       <ErrorMessage id={`${filedName}_${type}Error`} name={filedName} />

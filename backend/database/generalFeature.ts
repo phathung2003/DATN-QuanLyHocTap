@@ -3,6 +3,7 @@ import {
   query,
   where,
   getDocs,
+  deleteDoc,
   doc,
   getDoc,
   setDoc,
@@ -17,6 +18,7 @@ import {
 import GlobalMessage from '@/backend/messages/gobalMessage';
 import { Status } from '@/backend/globalVariable';
 import { nanoid } from 'nanoid';
+
 //Đăng hình lên máy chủ
 export async function UploadImage(image: File, filePath: string) {
   try {
@@ -28,6 +30,7 @@ export async function UploadImage(image: File, filePath: string) {
   }
 }
 
+//Xóa hình trong Storage
 export async function DeleteImage(imagePath: string | null) {
   if (!imagePath) {
     return true;
@@ -51,6 +54,12 @@ export async function DeleteImage(imagePath: string | null) {
   }
 }
 
+//Xóa trường dữ liệu đơn trong FireStore
+export async function DeleteDocument(tablePath: string, documentID: string) {
+  await deleteDoc(doc(db, tablePath, documentID));
+}
+
+//Thêm dữ liệu chèn ID trực tiếp
 export async function AddDatabaseWithoutID(
   pathName: string,
   data,
@@ -64,6 +73,7 @@ export async function AddDatabaseWithoutID(
   }
 }
 
+//Kiểm tra thông tin có tồn tại hay không
 export async function CheckInfoExist(
   data: string,
   tablePath: string,
@@ -89,7 +99,7 @@ export async function CheckInfoExist(
   }
 }
 
-//Nội bộ
+//Tạo ID
 export async function GenerateID(filePath: string): Promise<string> {
   let id: string;
   let attempt: number = 0;
@@ -122,15 +132,17 @@ export async function GenerateID(filePath: string): Promise<string> {
   return id;
 }
 
+//Kiểm tra ID có tồn tại trên hệ thống hay không
 export async function CheckIDExist(
   filePath: string,
   id: string,
 ): Promise<boolean> {
-  const docRef = doc(db, filePath, id);
-  const docSnap = await getDoc(docRef);
-  return docSnap.exists();
+  const document = doc(db, filePath, id);
+  const documentData = await getDoc(document);
+  return documentData.exists();
 }
 
+//Format ngày
 export function FormatISODate(ISODateString: string): string {
   const date = new Date(ISODateString);
 

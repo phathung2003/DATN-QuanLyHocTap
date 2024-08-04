@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-
+/* eslint-disable */
 import { IGrade } from '@/backend/models/data/IGrade';
 import { IGradeError } from '@/backend/models/messages/IGradeMessage';
 import { GetGrade, DeleteGrade } from '@/backend/feature/grade';
@@ -14,6 +13,8 @@ import DeleteButton from '@/components/Button/deleteButton';
 import EditButton from '@/components/Button/editButton';
 import AddButton from '@/components/Button/addButton';
 
+import SearchBar from '@/components/Field/searchBar';
+
 const DefaultErrorMessage: IGradeError = {
   status: true,
   gradeIDError: null,
@@ -24,20 +25,31 @@ const DefaultErrorMessage: IGradeError = {
 };
 
 const GradeManagement = ({ data }) => {
+  // eslint-disable-next-line
   const [grade, setGrade] = useState<IGrade[]>(data);
+  const [searchGrade, setSearchGrade] = useState<IGrade[]>(data);
+  const [search, setSearch] = useState<string>('');
+  // eslint-disable-next-line
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalHeader, setModalHeader] = useState('Thêm cấp bậc học');
   const [currentForm, setCurrentForm] = useState<React.FC>(() => AddGradeForm);
+  // eslint-disable-next-line
   const [errorEdit, setErrorEdit] = useState(DefaultErrorMessage);
-  console.log(errorEdit);
+
   //Get Data
   useEffect(() => {
     const fetchData = async () => {
       const gradeData = await GetGrade();
       setGrade(gradeData);
+      setSearchGrade(gradeData);
     };
     fetchData();
   }, []);
+
+  // //Tìm kiếm
+  // useEffect(() => {
+  //   setSearchGrade(SearchGrade(search, grade));
+  // }, [search, grade]);
 
   // Add Category Form
   const handleOpenAddModal = (FormComponent: React.FC) => {
@@ -57,14 +69,16 @@ const GradeManagement = ({ data }) => {
   };
 
   return (
-    <section className="antialiase overflow-y-auto px-4 pt-5 lg:px-8">
-      <div className="x grid grid-cols-1 gap-4 sm:mb-5 min-[890px]:grid-cols-2">
-        <h2
-          id="header"
-          className="font-manrope text-center text-2xl font-bold text-black dark:text-white min-[890px]:text-left"
-        >
-          Danh Mục Cấp Bậc
-        </h2>
+    <section className="antialiase overflow-y-auto px-4 lg:px-8">
+      <h2
+        id="header"
+        className="font-manrope mb-2 mt-2 text-center text-2xl font-bold text-black dark:text-white min-[890px]:text-left"
+      >
+        Quản lý cấp bậc
+      </h2>
+
+      <div className="x mt-3 grid grid-cols-1 gap-4 sm:mb-5 min-[890px]:grid-cols-2">
+        <SearchBar onChange={(e) => setSearch(e.target.value)} />
 
         <div className="flex flex-col gap-2.5 min-[890px]:flex-row ">
           <AddButton
@@ -74,15 +88,15 @@ const GradeManagement = ({ data }) => {
         </div>
       </div>
 
-      <div className="relative max-h-[65vh] flex-col overflow-auto ">
+      <div className="relative max-h-[65vh] flex-col overflow-auto">
         <table id="table" className="w-full">
           <thead className="text-gray-400 sticky top-0 bg-slate-200 text-left text-xs uppercase dark:bg-slate-700 dark:text-white">
             <tr>
-              <th id="imageHead" className="w-[100px]  text-center">
-                Hình ảnh
+              <th id="idHead" className="w-[30px] text-center">
+                STT
               </th>
               <th id="nameHead" className="px-4 py-3">
-                Tên danh mục
+                Tên cấp bậc
               </th>
               <th id="descriptionHead" className="w-[12rem] px-4 py-3">
                 Mô tả
@@ -91,21 +105,15 @@ const GradeManagement = ({ data }) => {
             </tr>
           </thead>
           <tbody className="h-[50px] items-center divide-y">
-            {grade.map((gradeData, index) => (
+            {searchGrade.map((gradeData, index) => (
               <tr
                 key={index}
                 className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
               >
-                <td className="px-4 py-3">
-                  <Image
-                    id="image"
-                    width={100}
-                    height={0}
-                    src={gradeData.gradeImage}
-                    alt="hinhanh"
-                    priority={true}
-                  />
+                <td id="gradeID" className="w-[30px] text-center">
+                  {index}
                 </td>
+
                 <td id="name" className="px-4">
                   {gradeData.gradeName}
                 </td>

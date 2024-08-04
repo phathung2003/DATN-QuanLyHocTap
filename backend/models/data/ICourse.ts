@@ -3,7 +3,9 @@ export default interface ICourse {
   courseAuthor?: string;
   courseAuthorID: string;
   courseGrade: string;
+  courseGradeName?: string;
   courseSubject: string;
+  courseSubjectName?: string;
   courseName: string;
   courseDescription: string | null;
   courseImage: string | null;

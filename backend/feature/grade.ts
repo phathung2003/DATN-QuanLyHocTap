@@ -194,6 +194,15 @@ export async function DeleteGrade(
   return;
 }
 
+//Tìm kiếm
+export function SearchGrade(search: string, gradeList: IGrade[]) {
+  const searchInfo = RemoveAccent(search);
+  return gradeList.filter(
+    (gradeData) =>
+      RemoveAccent(gradeData.gradeID.toLowerCase()).includes(searchInfo) ||
+      RemoveAccent(gradeData.gradeName.toLowerCase()).includes(searchInfo),
+  );
+}
 //Reset lỗi
 export function ResetError(
   data,
@@ -281,4 +290,13 @@ function ChangeData(
     }
   }
   return imageLink != null || change;
+}
+
+//Bỏ dấu tiếng việt
+function RemoveAccent(data: string) {
+  return data
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D');
 }
