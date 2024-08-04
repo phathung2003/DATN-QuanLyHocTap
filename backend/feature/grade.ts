@@ -58,6 +58,7 @@ export async function AddGrade(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/grade/add`,
     {
       method: 'POST',
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${token}`,
@@ -131,6 +132,7 @@ export async function EditGrade(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/grade/edit?gradeID=${defaultData.gradeID}`,
     {
       method: 'PUT',
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${token}`,
@@ -150,7 +152,6 @@ export async function EditGrade(
   }
   const errorData = await response.json();
   error.status = false;
-  console.log(errorData.message);
   if (errorData.message == GradeMessage.GRADE_EXIST) {
     error.gradeNameError = errorData.message;
   } else {
@@ -176,13 +177,13 @@ export async function DeleteGrade(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/grade/delete?gradeID=${gradeID}`,
     {
       method: 'DELETE',
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${token}`,
       },
     },
   );
-  console.log('Go here');
   //Xóa thành công
   if (response.ok) {
     return window.location.reload();
@@ -199,7 +200,7 @@ export async function DeleteGrade(
 
 //Tìm kiếm
 export function SearchGrade(search: string, gradeList: IGrade[]) {
-  const searchInfo = RemoveAccent(search);
+  const searchInfo = RemoveAccent(search).toLowerCase();
   return gradeList.filter(
     (gradeData) =>
       RemoveAccent(gradeData.gradeID.toLowerCase()).includes(searchInfo) ||

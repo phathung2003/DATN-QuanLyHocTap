@@ -12,8 +12,8 @@ import BottomFormError from '@/components/ErrorMessage/bottomForm';
 import { ICourseError } from '@/backend/models/messages/ICourseMessage';
 import ICourse from '@/backend/models/data/ICourse';
 import IUnit from '@/backend/models/data/IUnit';
-import { SearchUnit } from '@/backend/feature/unit';
-import AddUnitForm from '@/app/admin/qlkhoahoc/[id]/addUnitForm';
+import { SearchUnit, DeleteUnit } from '@/backend/feature/unit';
+import AddUnitForm from '@/app/admin/course/[courseID]/addUnitForm';
 import OverlapForm from '@/components/Form/overlapForm';
 //Icon
 import SubmitButton from '@/components/Button/submitButton';
@@ -22,6 +22,7 @@ import SubmitButton from '@/components/Button/submitButton';
 import DeleteButton from '@/components/Button/deleteButton';
 import AddButton from '@/components/Button/addButton';
 import SearchBar from '@/components/Field/searchBar';
+import DetailButton from '@/components/Button/detailButton';
 
 const DefaultErrorMessage: ICourseError = {
   status: true,
@@ -37,7 +38,6 @@ interface UnitProperties {
   courseID: string;
 }
 
-/* eslint-disable */
 const CourseDetail: React.FC<{
   courseID: string;
   courseInfo: ICourse;
@@ -49,7 +49,6 @@ const CourseDetail: React.FC<{
   const [preview, setPreview] = useState<string | null>(null);
   const [searchUnit, setSearchUnit] = useState<IUnit[]>(unitList);
   const [search, setSearch] = useState<string>('');
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalHeader, setModalHeader] = useState('Thêm cấp bậc học');
   const [currentForm, setCurrentForm] = useState<React.FC>(() => AddUnitForm);
@@ -57,7 +56,7 @@ const CourseDetail: React.FC<{
   //Tìm kiếm
   useEffect(() => {
     setSearchUnit(SearchUnit(search, unitList));
-  }, [search]);
+  }, [search, unitList]);
 
   // Add Unit Form
   const handleOpenAddModal = (FormComponent: React.FC<UnitProperties>) => {
@@ -93,10 +92,10 @@ const CourseDetail: React.FC<{
                 {/* Nửa trái */}
                 <div className="flex w-[40%] items-start">
                   <div className="relative w-full">
-                    <div id="gradeImage_Edit">
+                    <div id="courseImage_Edit">
                       <div className="mb-4 flex w-full items-center justify-center">
                         <label
-                          htmlFor="gradeImage_EditInput"
+                          htmlFor="courseImage_EditInput"
                           className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600"
                         >
                           <div className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600">
@@ -124,9 +123,9 @@ const CourseDetail: React.FC<{
                               )}
                             </div>
                             <Field
-                              id="gradeImage_EditInput"
+                              id="courseImage_EditInput"
                               type="file"
-                              name="gradeFile"
+                              name="courseImage"
                               className="hidden"
                               value={undefined}
                               onChange={(
@@ -145,8 +144,8 @@ const CourseDetail: React.FC<{
                       </div>
                       <FormikShowError
                         type={'Edit'}
-                        filedName={'gradeFile'}
-                        errorMessage={error.courseNameError}
+                        filedName={'courseImage'}
+                        errorMessage={error.courseImageError}
                       />
                     </div>
                     <p id="authorName">Người tạo: {courseInfo.courseAuthor}</p>
@@ -336,13 +335,13 @@ const CourseDetail: React.FC<{
                 <th id="nameHead" className="px-4 py-3">
                   Tên bài học
                 </th>
-                <th id="createAtHead" className="w-[12rem] px-4 py-3">
+                <th id="createAtHead" className="w-[13rem] px-4 py-3">
                   Ngày tạo
                 </th>
-                <th id="LastUpdateHead" className="w-[12rem] px-4 py-3">
+                <th id="LastUpdateHead" className="w-[13rem] px-4 py-3">
                   Chỉnh sửa lần cuối
                 </th>
-                <th id="managerOptionHead" className="px-4 py-3"></th>
+                <th id="managerOptionHead" className="w-[12rem] px-4 py-3"></th>
               </tr>
             </thead>
             <tbody className="h-[50px] items-center divide-y">
@@ -370,7 +369,23 @@ const CourseDetail: React.FC<{
                     <div
                       id="managerOption"
                       className="flex items-center justify-end px-4 py-3"
-                    ></div>
+                    >
+                      <DetailButton
+                        link={`/admin/course/${courseID}/unit/${unitData.unitID}`}
+                        buttonName="Chi tiết"
+                      />
+                      <div className="ml-4">
+                        <DeleteButton
+                          onClick={async () =>
+                            await DeleteUnit(
+                              courseID,
+                              unitData.unitID ?? '',
+                              null,
+                            )
+                          }
+                        />
+                      </div>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -378,6 +393,7 @@ const CourseDetail: React.FC<{
           </table>
         </div>
       </div>
+
       {OverlapForm(isModalOpen, setIsModalOpen, currentForm, modalHeader)}
     </section>
   );

@@ -1,9 +1,10 @@
 import IUnit from '@/backend/models/data/IUnit';
 import { GetToken } from '@/backend/feature/validate';
-import { HomePage } from '@/backend/routers';
+import { HomePage, CourseDetail } from '@/backend/routers';
 import { IUnitError } from '@/backend/models/messages/IUnitMessage';
 import { RemoveAccent } from '@/backend/feature/general';
 import { DefaultUnitErrorValue } from '@/backend/defaultData/unit';
+
 //Lấy danh sách bài học
 export async function GetUnitList(courseID: string) {
   const response = await fetch(
@@ -15,6 +16,22 @@ export async function GetUnitList(courseID: string) {
     return info;
   }
   return [];
+}
+
+//Lấy thông tin 1 bài học
+export async function GetUnitInfo(
+  courseID: string,
+  unitID: string,
+): Promise<IUnit | null> {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/content/unit/list?courseID=${courseID}&unitID=${unitID}`,
+    { method: 'GET', cache: 'no-store' },
+  );
+  const info: IUnit = await response.json();
+  if (info) {
+    return info;
+  }
+  return null;
 }
 
 //Thêm bài học
@@ -34,6 +51,7 @@ export async function AddUnit(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/content/unit/add?courseID=${courseID}`,
     {
       method: 'POST',
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${token}`,
@@ -56,6 +74,104 @@ export async function AddUnit(
   error.status = false;
   error.systemError = errorData.message;
   setError(error);
+  return;
+}
+
+//Chỉnh sửa bài học
+export async function EditUnit(
+  courseID: string,
+  unitID: string,
+  editData: IUnit,
+  defaultData: IUnit,
+  setError: React.Dispatch<React.SetStateAction<IUnitError>>,
+) {
+  //Kiểm tra lấy token
+  const token = await GetToken();
+  if (typeof token === 'object') {
+    return await HomePage();
+  }
+
+  //Kiểm tra có sự thay đổi dữ liệu hay không
+  const checkDefault = [
+    defaultData.unitName,
+    defaultData.unitNo,
+    defaultData.unitDescription,
+  ];
+  const checkEdit = [
+    editData.unitName,
+    editData.unitNo,
+    editData.unitDescription,
+  ];
+
+  if (!ChangeData(checkDefault, checkEdit, null)) {
+    return;
+  }
+
+  //Tiến hành cập nhật dữ liệu
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/content/unit/edit?courseID=${courseID}&unitID=${unitID}`,
+    {
+      method: 'PATCH',
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      },
+      body: JSON.stringify({
+        unitName: editData.unitName,
+        unitNo: editData.unitNo,
+        unitDescription: editData.unitDescription,
+      }),
+    },
+  );
+
+  if (response.ok) {
+    return window.location.reload();
+  }
+  const errorData = await response.json();
+  const error = DefaultUnitErrorValue;
+  error.status = false;
+  error.systemError = errorData.message;
+  setError(error);
+  return;
+}
+
+//Xóa bài học
+export async function DeleteUnit(
+  courseID: string,
+  unitID: string,
+  setError: React.Dispatch<React.SetStateAction<IUnitError>> | null,
+) {
+  //Kiểm tra phiên đăng nhập
+  const token = await GetToken();
+  if (typeof token === 'object') {
+    return await HomePage();
+  }
+
+  //Tiến hành xóa bài học
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/content/unit/delete?courseID=${courseID}&unitID=${unitID}`,
+    {
+      method: 'DELETE',
+      cache: 'no-store',
+      headers: { Authorization: `${token}` },
+    },
+  );
+
+  //Xóa thành công
+  if (response.ok) {
+    return await CourseDetail(courseID);
+  }
+
+  //Xóa thất bại
+  if (setError) {
+    const error = DefaultUnitErrorValue;
+    const errorData = await response.json();
+    error.status = false;
+    error.systemError = errorData.message;
+    setError(error);
+  }
+
   return;
 }
 
@@ -89,4 +205,21 @@ export function ResetError(
 
     return newErrorState;
   });
+}
+
+//Kiểm tra dữ liệu có chỉnh sửa hay không
+function ChangeData(
+  defaultData: (string | null)[],
+  editData: (string | null)[],
+  imageLink: string | null,
+): boolean {
+  //Kiểm tra dữ liệu có thay đổi không
+  let change = false;
+  for (let i = 0; i < defaultData.length; i++) {
+    if (defaultData[i] != editData[i]) {
+      change = true;
+      break;
+    }
+  }
+  return imageLink != null || change;
 }

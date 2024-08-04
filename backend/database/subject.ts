@@ -136,7 +136,7 @@ export async function CheckSubjectEditExist(
         );
         const subjectData = await getDocs(subjectQuery);
 
-        if (subjectData.empty == false) {
+        if (subjectData.size > 0) {
           subjectData.forEach((doc) => {
             if (doc.id !== originalID) {
               error.status = false;

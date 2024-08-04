@@ -21,19 +21,19 @@ const menuItems = [
     link: '/admin/subject',
   },
   {
-    label: 'Quản lý lớp học',
+    label: 'Quản lý cấp độ',
     icon: BoardIcon,
     link: '/admin/grade',
+  },
+  {
+    label: 'Quản lý khóa học',
+    icon: LessonIcon,
+    link: '/admin/course',
   },
   {
     label: 'Quản lý bài viết',
     icon: CalendarIcon,
     link: '/admin/qlbaiviet',
-  },
-  {
-    label: 'Quản lý khóa học',
-    icon: LessonIcon,
-    link: '/admin/qlkhoahoc',
   },
   {
     label: 'Quản lý thông tin',

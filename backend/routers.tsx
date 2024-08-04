@@ -13,11 +13,11 @@ export async function CategoryManager() {
 }
 
 export async function CourseManager() {
-  redirect(`/admin/qlkhoahoc`);
+  redirect(`/admin/course`);
 }
 
 export async function CourseDetail(id) {
-  redirect(`/admin/qlkhoahoc/${id}`);
+  redirect(`/admin/course/${id}`);
 }
 
 export async function LoginPage() {

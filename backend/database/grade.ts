@@ -132,8 +132,7 @@ export async function CheckGradeEditExist(originalID: string, data: IGrade) {
           where(field[i], '==', input[i]),
         );
         const gradeData = await getDocs(gradeQuery);
-
-        if (gradeData.empty == false) {
+        if (gradeData.size > 0) {
           gradeData.forEach((doc) => {
             if (doc.id !== originalID) {
               error.status = false;

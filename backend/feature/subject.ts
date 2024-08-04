@@ -7,6 +7,7 @@ import { UploadImage, DeleteImage } from '@/backend/database/generalFeature';
 import { GenerateID, GenerateFileName } from '@/backend/feature/general';
 import GlobalMessage from '@/backend/messages/gobalMessage';
 import SubjectMessage from '@/backend/messages/subjectMessage';
+import { RemoveAccent } from '@/backend/feature/general';
 
 //Lấy môn học
 export async function GetSubject() {
@@ -54,6 +55,7 @@ export async function AddSubject(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/subject/add`,
     {
       method: 'POST',
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${token}`,
@@ -130,6 +132,7 @@ export async function EditSubject(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/subject/edit?subjectID=${defaultData.subjectID}`,
     {
       method: 'PUT',
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${token}`,
@@ -149,7 +152,7 @@ export async function EditSubject(
   }
   const errorData = await response.json();
   error.status = false;
-  console.log(errorData.message);
+
   if (errorData.message == SubjectMessage.SUBJECT_EXIST) {
     error.subjectNameError = errorData.message;
   } else {
@@ -175,6 +178,7 @@ export async function DeleteSubject(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/subject/delete?subjectID=${subjectID}`,
     {
       method: 'DELETE',
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${token}`,
@@ -194,6 +198,16 @@ export async function DeleteSubject(
   error.systemError = errorData.message;
   setError(error);
   return;
+}
+
+//Tìm kiếm
+export function SearchSubject(search: string, subjectList: ISubject[]) {
+  const searchInfo = RemoveAccent(search).toLowerCase();
+  return subjectList.filter(
+    (data) =>
+      RemoveAccent(data.subjectID.toLowerCase()).includes(searchInfo) ||
+      RemoveAccent(data.subjectName.toLowerCase()).includes(searchInfo),
+  );
 }
 
 //Reset lỗi

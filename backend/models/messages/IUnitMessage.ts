@@ -1,7 +1,7 @@
 export interface IUnitMessage {
   UNIT_NO: {
     NOT_A_NUMBER: string;
-    NEGATIVE_CHARACTER: string;
+    NEGATIVE_NUMBER: string;
     REQUIRED: string;
   };
 

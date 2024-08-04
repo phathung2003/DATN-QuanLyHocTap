@@ -1,5 +1,6 @@
 export interface ICard {
   contentType: 'Card';
+  contentNo: number;
   content: ICardContent[];
 }
 

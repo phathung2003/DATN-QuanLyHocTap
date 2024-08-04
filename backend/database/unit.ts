@@ -29,7 +29,6 @@ export async function AddUnit(courseID: string, data: IUnit): Promise<boolean> {
   let pathName = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/`;
   const id = await GenerateID(pathName);
   pathName = pathName + id;
-  console.log(pathName);
   return await AddDatabaseWithoutID(pathName, courseData);
 }
 

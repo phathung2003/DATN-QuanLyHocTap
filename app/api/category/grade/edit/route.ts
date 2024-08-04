@@ -2,13 +2,11 @@ import { NextResponse } from 'next/server';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
 import GradeMessage from '@/backend/messages/gradeMessage';
-import {
-  CheckGradeEditExist,
-  EditGrade,
-  GetGradeIDFile,
-} from '@/backend/database/grade';
+import { CheckGradeEditExist, EditGrade } from '@/backend/database/grade';
 import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
 import GradeData from '@/app/api/category/grade/gradeData';
+import { CheckIDExist } from '@/backend/database/generalFeature';
+import { TableName } from '@/backend/globalVariable';
 
 export async function PUT(request) {
   try {
@@ -26,16 +24,12 @@ export async function PUT(request) {
     }
 
     //Kiểm tra mã loại cần sửa có trên hệ thống
-    const categoryFileID = await GetGradeIDFile(dataInput.gradeID);
-    switch (categoryFileID) {
-      case GradeMessage.SYSTEM_ERROR:
-        return MessageReturnOnly(categoryFileID, 500);
-      case GradeMessage.GRADE_EDIT_NOT_FOUND:
-        return MessageReturnOnly(categoryFileID, 404);
+    if (!(await CheckIDExist(TableName.GRADE, dataInput.gradeID))) {
+      return MessageReturnOnly(GradeMessage.GRADE_EDIT_NOT_FOUND, 404);
     }
 
     //Kiểm tra thông tin chỉnh sửa đã tồn tại hay chưa
-    const result = await CheckGradeEditExist(categoryFileID, dataInput.data);
+    const result = await CheckGradeEditExist(dataInput.gradeID, dataInput.data);
     if (result.status == false) {
       return new NextResponse(
         JSON.stringify({
@@ -52,7 +46,7 @@ export async function PUT(request) {
     }
 
     //Tiến hành cập nhật
-    await EditGrade(categoryFileID, dataInput.data);
+    await EditGrade(dataInput.gradeID, dataInput.data);
     return MessageReturnOnly(GradeMessage.GRADE_EDIT_COMPLETE, 200);
   } catch {
     return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);

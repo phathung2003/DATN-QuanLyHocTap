@@ -1,15 +1,12 @@
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
 import SubjectMessage from '@/backend/messages/subjectMessage';
-import {
-  CheckSubjectEditExist,
-  EditSubject,
-  GetSubjectIDFile,
-} from '@/backend/database/subject';
+import { CheckSubjectEditExist, EditSubject } from '@/backend/database/subject';
 import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
 import SubjectData from '@/app/api/category/subject/subjectData';
 import { NextResponse } from 'next/server';
-
+import { CheckIDExist } from '@/backend/database/generalFeature';
+import { TableName } from '@/backend/globalVariable';
 export async function PUT(request) {
   try {
     //Kiểm tra dữ liệu hợp lệ
@@ -24,17 +21,16 @@ export async function PUT(request) {
       return sessionCheck;
     }
 
-    //Kiểm tra mã loại cần sửa có trên hệ thống
-    const categoryFileID = await GetSubjectIDFile(dataInput.subjectID);
-    switch (categoryFileID) {
-      case SubjectMessage.SYSTEM_ERROR:
-        return MessageReturnOnly(categoryFileID, 500);
-      case SubjectMessage.SUBJECT_EDIT_NOT_FOUND:
-        return MessageReturnOnly(categoryFileID, 404);
+    //Kiểm tra mã môn học cần sửa có trên hệ thống
+    if (!(await CheckIDExist(TableName.SUBJECT, dataInput.subjectID))) {
+      return MessageReturnOnly(SubjectMessage.SUBJECT_EDIT_NOT_FOUND, 404);
     }
 
     //Kiểm tra thông tin chỉnh sửa đã tồn tại hay chưa
-    const result = await CheckSubjectEditExist(categoryFileID, dataInput.data);
+    const result = await CheckSubjectEditExist(
+      dataInput.subjectID,
+      dataInput.data,
+    );
     if (result.status == false) {
       return new NextResponse(
         JSON.stringify({
@@ -51,7 +47,7 @@ export async function PUT(request) {
     }
 
     //Tiến hành cập nhật
-    await EditSubject(categoryFileID, dataInput.data);
+    await EditSubject(dataInput.subjectID, dataInput.data);
     return MessageReturnOnly(SubjectMessage.SUBJECT_EDIT_COMPLETE, 200);
   } catch {
     return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);

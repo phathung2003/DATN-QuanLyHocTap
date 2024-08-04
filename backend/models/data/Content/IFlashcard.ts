@@ -1,5 +1,6 @@
 export interface IFlashcard {
   contentType: 'Flashcard';
+  contentNo: number;
   content: IFlashcardContent[];
 }
 

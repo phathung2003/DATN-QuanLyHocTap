@@ -1,5 +1,6 @@
 export interface ICalculateTwoNumbers {
   contentType: 'CalculateTwoNumber';
+  contentNo: number;
   content: ICalculateTwoNumbersContent[];
 }
 

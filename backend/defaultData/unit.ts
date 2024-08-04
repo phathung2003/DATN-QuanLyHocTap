@@ -16,3 +16,15 @@ export const DefaultUnitErrorValue: IUnitError = {
   unitNoError: null,
   systemError: null,
 };
+
+export function UnitEditDefaultValue(data: IUnit): IUnit {
+  const editData: IUnit = {
+    unitName: data.unitName,
+    unitNo: data.unitNo,
+    unitDescription: data.unitDescription,
+    unitUploadDate: data.unitUploadDate,
+    unitLastEditDate: data.unitLastEditDate,
+  };
+
+  return editData;
+}

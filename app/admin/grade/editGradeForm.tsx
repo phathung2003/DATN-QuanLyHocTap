@@ -79,7 +79,7 @@ const EditGradeForm: React.FC<{ data: IGrade }> = (gradeInfo) => {
             <FormikShowError
               type={'Edit'}
               filedName={'gradeDescription'}
-              errorMessage={error.gradeNameError}
+              errorMessage={null}
             />
           </div>
 
@@ -143,7 +143,7 @@ const EditGradeForm: React.FC<{ data: IGrade }> = (gradeInfo) => {
             <FormikShowError
               type={'Edit'}
               filedName={'gradeFile'}
-              errorMessage={error.gradeNameError}
+              errorMessage={error.gradeFileError}
             />
           </div>
 

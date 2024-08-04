@@ -4,7 +4,7 @@ import CourseCondition from '@/backend/validationSchema/course/courseCondition';
 const UnitMessage: IUnitMessage = {
   UNIT_NO: {
     NOT_A_NUMBER: 'Dữ liệu phải là số',
-    NEGATIVE_CHARACTER: `Số thứ tự bài phải lớn hơn 0`,
+    NEGATIVE_NUMBER: `Số thứ tự bài phải lớn hơn 0`,
     REQUIRED: 'Xin hãy nhập số bài học',
   },
 

@@ -27,7 +27,6 @@ const DefaultErrorMessage: IGradeError = {
 const GradeManagement = ({ data }) => {
   const [searchGrade, setSearchGrade] = useState<IGrade[]>(data);
   const [search, setSearch] = useState<string>('');
-  // eslint-disable-next-line
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalHeader, setModalHeader] = useState('Thêm cấp bậc học');
   const [currentForm, setCurrentForm] = useState<React.FC>(() => AddGradeForm);
@@ -71,7 +70,7 @@ const GradeManagement = ({ data }) => {
         <div className="flex flex-col gap-2.5 min-[890px]:flex-row ">
           <AddButton
             onClick={() => handleOpenAddModal(AddGradeForm)}
-            buttonName="Thêm Danh Mục"
+            buttonName="Thêm cấp bậc"
           />
         </div>
       </div>
@@ -86,10 +85,10 @@ const GradeManagement = ({ data }) => {
               <th id="nameHead" className="px-4 py-3">
                 Tên cấp bậc
               </th>
-              <th id="descriptionHead" className="w-[12rem] px-4 py-3">
+              <th id="createAtHead" className="w-[30rem] px-4 py-3">
                 Mô tả
               </th>
-              <th id="managerOptionHead" className="px-4 py-3"></th>
+              <th id="managerOptionHead" className="w-[10rem] px-4 py-3"></th>
             </tr>
           </thead>
           <tbody className="h-[50px] items-center divide-y">
@@ -99,7 +98,7 @@ const GradeManagement = ({ data }) => {
                 className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
               >
                 <td id="gradeID" className="w-[30px] text-center">
-                  {index}
+                  {index + 1}
                 </td>
 
                 <td id="name" className="px-4">

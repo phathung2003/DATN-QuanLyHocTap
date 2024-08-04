@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import SubjectMessage from '@/backend/messages/subjectMessage';
 import SubjectCondition from '@/backend/validationSchema/subject/subjectCondition';
 
-const SchemaLogin = Yup.object().shape({
+const SchemaSubject = Yup.object().shape({
   //Kiểm tra tên loại
   subjectName: Yup.string().when([], (isRequired, schema) => {
     let baseSchema = schema;
@@ -62,4 +62,4 @@ const SchemaLogin = Yup.object().shape({
   }),
 });
 
-export default SchemaLogin;
+export default SchemaSubject;

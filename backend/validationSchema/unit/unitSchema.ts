@@ -2,13 +2,13 @@ import * as Yup from 'yup';
 import UnitMessage from '@/backend/messages/unitMessage';
 import UnitCondition from '@/backend/validationSchema/unit/unitCondition';
 
-const SchemaCourse = Yup.object().shape({
+const SchemaUnit = Yup.object().shape({
   //Kiểm tra số bài
   unitNo: Yup.number().when([], (isRequired, schema) => {
     let baseSchema = schema;
     baseSchema = baseSchema
       .typeError(UnitMessage.UNIT_NO.NOT_A_NUMBER)
-      .positive(UnitMessage.UNIT_NO.NEGATIVE_CHARACTER);
+      .positive(UnitMessage.UNIT_NO.NEGATIVE_NUMBER);
 
     if (UnitCondition.UNIT_NAME.REQUIRED) {
       baseSchema = baseSchema.required(UnitMessage.UNIT_NAME.REQUIRED);
@@ -51,4 +51,4 @@ const SchemaCourse = Yup.object().shape({
   }),
 });
 
-export default SchemaCourse;
+export default SchemaUnit;

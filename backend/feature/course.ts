@@ -6,12 +6,25 @@ import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
 import ICourse from '@/backend/models/data/ICourse';
 import GlobalMessage from '@/backend/messages/gobalMessage';
 import { GenerateFileName } from '@/backend/feature/general';
+import { RemoveAccent } from '@/backend/feature/general';
+//Lấy danh sách khóa học
+export async function GetCourse() {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/content/course/list`,
+    { method: 'GET', cache: 'no-store' },
+  );
+  const info: ICourse[] = await response.json();
+  if (Array.isArray(info)) {
+    return info;
+  }
+  return [];
+}
 
 //Lấy thông tin 1 khóa học
 export async function GetCourseInfo(courseID: string): Promise<ICourse | null> {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/content/course/list?courseID=${courseID}`,
-    { method: 'GET', cache: 'no-cache' },
+    { method: 'GET', cache: 'no-store' },
   );
   const info = await response.json();
   if (info) {
@@ -56,6 +69,7 @@ export async function AddCourse(
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${token}`,
+        cache: 'no-store',
       },
       body: JSON.stringify({
         courseGrade: data.courseGrade,
@@ -126,6 +140,7 @@ export async function EditCourse(
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${token}`,
+        cache: 'no-store',
       },
       body: JSON.stringify({
         courseGrade: editData.courseGrade,
@@ -143,13 +158,12 @@ export async function EditCourse(
   }
   const errorData = await response.json();
   error.status = false;
-  console.log(errorData.message);
   error.systemError = errorData.message;
   setError(error);
   return;
 }
 
-//Xóa loại
+//Xóa khóa học
 export async function DeleteCourse(
   courseID: string,
   setError: React.Dispatch<React.SetStateAction<ICourseError>>,
@@ -160,15 +174,13 @@ export async function DeleteCourse(
     return await HomePage();
   }
 
-  //Tiến hành xóa loại
+  //Tiến hành xóa khóa học
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/content/course/delete?courseID=${courseID}`,
     {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${token}`,
-      },
+      cache: 'no-store',
+      headers: { Authorization: `${token}` },
     },
   );
 
@@ -184,6 +196,19 @@ export async function DeleteCourse(
   error.systemError = errorData.message;
   setError(error);
   return;
+}
+
+//Tìm kiếm khóa học
+export function SearchCourse(search: string, courseList: ICourse[]) {
+  const searchInfo = RemoveAccent(search).toLowerCase();
+  return courseList.filter(
+    (data) =>
+      RemoveAccent(data.courseName.toLowerCase()).includes(searchInfo) ||
+      (data.courseAuthor &&
+        RemoveAccent(data.courseAuthor.toLowerCase()).includes(searchInfo)) ||
+      (data.courseID &&
+        RemoveAccent(data.courseID.toLowerCase()).includes(searchInfo)),
+  );
 }
 
 //Reset lỗi

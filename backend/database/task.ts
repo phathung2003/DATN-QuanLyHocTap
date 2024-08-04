@@ -1,152 +1,91 @@
-import { collection, getDocs } from 'firebase/firestore';
-import GradeMessage from '@/backend/messages/gradeMessage';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import TaskMessage from '@/backend/messages/taskMessage';
 import { db } from '@/backend/database/firebase';
 import {
   AddDatabaseWithoutID,
   CheckInfoExist,
   GenerateID,
 } from '@/backend/database/generalFeature';
-import { ContentType, Status, TableName } from '@/backend/globalVariable';
+import { Status, TableName } from '@/backend/globalVariable';
+import ITask from '@/backend/models/data/ITask';
+import { FormatISODate } from '@/backend/database/generalFeature';
 
-//Thêm nội dung học
+//Thêm bài
 export async function AddTask(
   courseID: string,
   unitID: string,
-  data: any[],
+  data: ITask,
 ): Promise<boolean> {
   const baseURL = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}`;
 
-  for (let type = 0; type < data.length; type++) {
-    //Tạo bộ task
-    let taskID = await CheckInfoExist(data[type].taskNo, `${baseURL}`, [
-      'taskNo',
-    ]);
-    switch (taskID) {
-      case Status.SYSTEM_ERROR:
-        return false;
-      case Status.NOT_FOUND:
-        taskID = await GenerateID(baseURL);
-        if (!(await TaskInput(data[type], baseURL, taskID))) {
-          return false;
-        }
-        break;
-    }
+  //Tạo bộ task
+  let taskID = await CheckInfoExist(data.taskNo.toString(), `${baseURL}`, [
+    'taskNo',
+  ]);
 
-    //Chèn nội dung vào task
-    if (!(await TaskContentInput(data[type].content, baseURL, taskID))) {
-      return false;
-    }
+  if (taskID == Status.SYSTEM_ERROR || taskID != Status.NOT_FOUND) {
+    return false;
   }
-  return true;
+
+  taskID = await GenerateID(baseURL);
+  const taskData = {
+    taskNo: data.taskNo,
+    taskName: data.taskName,
+    taskDescription: data.taskDescription,
+    taskUploadDate: new Date(),
+    taskLastEditDate: null,
+  };
+  return await AddDatabaseWithoutID(`${baseURL}/${taskID}`, taskData);
 }
 
-//Lấy nội dung học
-export async function GetContent(courseID: string, unitID: string) {
-  const baseURL = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}`;
-
+//Lấy bài
+export async function GetTask(
+  courseID: string,
+  unitID: string,
+  taskID: string | null,
+) {
+  const pathName = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}`;
   try {
-    const unitDatabase = collection(db, baseURL);
-    const unitData = await getDocs(unitDatabase);
-    const unitList = await Promise.all(
-      unitData.docs.map(async (doc) => await TaskListData(doc, baseURL)),
+    //Tìm kiếm ID cụ thể
+    if (taskID) {
+      const document = doc(db, pathName, taskID);
+      const documentData = await getDoc(document);
+      if (!documentData.exists()) {
+        return null;
+      }
+      return await UnitData(documentData);
+    }
+
+    //Lấy toàn bộ danh sách
+    const taskCollection = collection(db, pathName);
+    const taskDocuments = await getDocs(taskCollection);
+    const taskList = await Promise.all(
+      taskDocuments.docs.map(async (doc) => await UnitData(doc)),
     );
 
-    if (unitList.length === 0) {
+    if (taskList.length === 0) {
       return null;
     }
-    return unitList;
+    return taskList;
   } catch {
-    return GradeMessage.SYSTEM_ERROR;
+    return TaskMessage.SYSTEM_ERROR;
   }
 }
 
-//--- Nội bộ ---//
-async function TaskListData(doc, baseURL: string) {
-  const contentData = await ContentListData(
-    `${baseURL}/${doc.id}/${TableName.CONTENT}`,
-  );
-
+//--- Cục bộ ---//
+//Format danh sách
+async function UnitData(doc) {
   return {
+    taskID: doc.id,
     taskNo: doc.data().taskNo,
     taskName: doc.data().taskName,
     taskDescription: doc.data().taskDescription,
-    content: contentData,
+    taskUploadDate: FormatISODate(
+      doc.data().taskUploadDate.toDate().toISOString(),
+    ),
+    taskLastEditDate:
+      doc.data().taskLastEditDate != null
+        ? FormatISODate(doc.data().taskLastEditDate.toDate().toISOString())
+        : null,
   };
-}
-
-async function ContentListData(baseURL: string) {
-  const contentDatabase = collection(db, baseURL);
-  const contentData = await getDocs(contentDatabase);
-  const contentList = await Promise.all(
-    contentData.docs.map(async (doc) => {
-      //Lấy dữ liệu
-      let updatedContent = doc.data().contentData;
-      switch (doc.id) {
-        case ContentType.CALCULATE_TWO_NUMBER:
-          updatedContent = doc.data().contentData.map((item) => ({
-            ...item,
-            result: Calculation(item),
-          }));
-      }
-
-      return {
-        contentType: doc.id.toUpperCase(),
-        contentNo: doc.data().contentNo,
-        contentData: updatedContent,
-      };
-    }),
-  );
-
-  return contentList;
-}
-
-function Calculation(data) {
-  const firstNumber = data.firstNumber;
-  const secondNumber = data.secondNumber;
-  switch (data.operator) {
-    case '+':
-      return firstNumber + secondNumber;
-    case '-':
-      return firstNumber - secondNumber;
-    case '*':
-      return firstNumber * secondNumber;
-    case '/':
-      return firstNumber / secondNumber;
-    default:
-      return NaN; // Xử lý cho các toán tử không xác định
-  }
-}
-
-async function TaskInput(
-  dataInput,
-  baseURL: string,
-  taskID: string,
-): Promise<boolean> {
-  const tablePath = `${baseURL}/${taskID}`;
-
-  const taskData = {
-    taskNo: dataInput.taskNo,
-    taskName: dataInput.taskName,
-    taskDescription: dataInput.taskDescription,
-  };
-  return await AddDatabaseWithoutID(tablePath, taskData);
-}
-
-async function TaskContentInput(
-  dataInput,
-  baseURL: string,
-  taskID: string,
-): Promise<boolean> {
-  for (let data = 0; data < dataInput.length; data++) {
-    const contentData = {
-      contentNo: dataInput[data].contentNo,
-      contentData: dataInput[data].contentData,
-    };
-    const uploadURL = `${baseURL}/${taskID}/${TableName.CONTENT}/${dataInput[data].contentType.toUpperCase()}`;
-    const result = await AddDatabaseWithoutID(uploadURL, contentData);
-    if (!result) {
-      return false;
-    }
-  }
-  return true;
 }

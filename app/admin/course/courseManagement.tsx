@@ -1,34 +1,31 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import AddCourseForm from '@/app/admin/qlkhoahoc/addCourseForm';
-// import EditModal from '@/components/Modal/EditModal';
-// import FormEditBlog from '@/components/FormCRUD/FormEditBlog';
+import AddCourseForm from '@/app/admin/course/addCourseForm';
 import DeleteModal from '@/components/Modal/DeleteModal';
-import { GetCourse } from '@/app/admin/qlkhoahoc/getData';
+
 import ICourse from '@/backend/models/data/ICourse';
 import OverlapForm from '@/components/Form/overlapForm';
-
+import { SearchCourse } from '@/backend/feature/course';
 //Icon
-// import SearchBar from '@/components/Field/searchBar';
+import SearchBar from '@/components/Field/searchBar';
 import AddButton from '@/components/Button/addButton';
 import DeleteButton from '@/components/Button/deleteButton';
 import DetailButton from '@/components/Button/detailButton';
 // import EditButton from '@/components/Button/editButton';
 
-const CourseManagement = () => {
-  const [course, setCourse] = useState<ICourse[]>([]);
+const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
+  courseList,
+}) => {
+  const [searchCourse, setSearchCourse] = useState<ICourse[]>(courseList);
+  const [search, setSearch] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalHeader, setModalHeader] = useState('Thêm cấp bậc học');
   const [currentForm, setCurrentForm] = useState<React.FC>(() => AddCourseForm);
 
-  //Get Data
+  //Tìm kiếm
   useEffect(() => {
-    const fetchData = async () => {
-      const courseData = await GetCourse();
-      setCourse(courseData);
-    };
-    fetchData();
-  }, []);
+    setSearchCourse(SearchCourse(search, courseList));
+  }, [search, courseList]);
 
   // Add Category Form
   const handleOpenAddModal = (FormComponent: React.FC) => {
@@ -64,7 +61,7 @@ const CourseManagement = () => {
       </h2>
 
       <div className="x mt-3 grid grid-cols-1 gap-4 sm:mb-5 min-[890px]:grid-cols-2">
-        {/* <SearchBar onChange={(e) => setSearch(e.target.value)} /> */}
+        <SearchBar onChange={(e) => setSearch(e.target.value)} />
 
         <div className="flex flex-col gap-2.5 min-[890px]:flex-row ">
           <AddButton
@@ -95,26 +92,26 @@ const CourseManagement = () => {
           </thead>
 
           <tbody className="h-[50px] items-center divide-y">
-            {course.map((courseItem, index) => (
+            {searchCourse.map((data, index) => (
               <tr
                 key={index}
                 className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
               >
                 <td id="gradeID" className="w-[30px] text-center">
-                  {courseItem.courseID}
+                  {data.courseID}
                 </td>
 
                 <td id="name" className="px-4">
-                  {courseItem.courseName}
+                  {data.courseName}
                 </td>
 
                 <td id="subject" className="px-4">
-                  {courseItem.courseAuthor}
+                  {data.courseAuthor}
                 </td>
 
                 <td id="grade" className="px-3">
-                  {courseItem.courseUploadDate != null ? (
-                    <p>{`${courseItem.courseUploadDate}`}</p>
+                  {data.courseUploadDate != null ? (
+                    <p>{`${data.courseUploadDate}`}</p>
                   ) : (
                     <p>Không xác định</p>
                   )}
@@ -132,7 +129,7 @@ const CourseManagement = () => {
                     </div> */}
 
                     <DetailButton
-                      link={`/admin/qlkhoahoc/${courseItem.courseID}`}
+                      link={`/admin/course/${data.courseID}`}
                       buttonName="Chi tiết"
                     />
 
