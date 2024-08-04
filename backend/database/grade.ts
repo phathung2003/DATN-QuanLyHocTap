@@ -4,7 +4,6 @@ import {
   where,
   getDocs,
   getDoc,
-  deleteDoc,
   doc,
   addDoc,
   updateDoc,
@@ -13,7 +12,8 @@ import { IGrade } from '@/backend/models/data/IGrade';
 import GradeMessage from '@/backend/messages/gradeMessage';
 import { DefaultGradeErrorValue } from '@/backend//defaultData/grade';
 import { db } from '@/backend/database/firebase';
-
+import { TableName } from '@/backend/globalVariable';
+import { DeleteDocument } from '@/backend/database/generalFeature';
 const TABLE_NAME = 'grade';
 
 //Thêm lớp
@@ -36,16 +36,14 @@ export async function AddGrade(data: IGrade) {
 
 //Xóa lớp
 export async function DeleteGrade(gradeID: string) {
-  const gradeDatabase = collection(db, TABLE_NAME);
-  const gradeQuery = query(
-    gradeDatabase,
-    where('gradeID', '==', gradeID.toUpperCase()),
-  );
-  const gradeData = await getDocs(gradeQuery);
-
-  gradeData.forEach(async (grade) => {
-    await deleteDoc(grade.ref);
-  });
+  let documentID = await GetGradeIDFile(gradeID);
+  if (
+    documentID == GradeMessage.GRADE_EDIT_NOT_FOUND ||
+    documentID == GradeMessage.SYSTEM_ERROR
+  ) {
+    documentID = gradeID;
+  }
+  await DeleteDocument(TableName.GRADE, documentID);
 }
 
 //Sửa thông tin lớp

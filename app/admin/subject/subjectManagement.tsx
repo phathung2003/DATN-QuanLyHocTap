@@ -1,10 +1,10 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 import { ISubject } from '@/backend/models/data/ISubject';
 import { ISubjectError } from '@/backend/models/messages/ISubjectMessage';
-import { GetSubject, DeleteSubject } from '@/backend/feature/subject';
+import { DeleteSubject } from '@/backend/feature/subject';
 import AddSubjectForm from '@/app/admin/subject/addSubjectForm';
 import EditSubjectForm from '@/app/admin/subject/editSubjectForm';
 import OverlapForm from '@/components/Form/overlapForm';
@@ -23,7 +23,6 @@ const DefaultErrorMessage: ISubjectError = {
 };
 
 const SubjectManagement = ({ data }) => {
-  const [grade, setGrade] = useState<ISubject[]>(data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalHeader, setModalHeader] = useState('Thêm môn học');
   const [currentForm, setCurrentForm] = useState<React.FC>(
@@ -31,14 +30,6 @@ const SubjectManagement = ({ data }) => {
   );
   const [errorEdit, setErrorEdit] = useState(DefaultErrorMessage);
   console.log(errorEdit);
-  //Get Data
-  useEffect(() => {
-    const fetchData = async () => {
-      const gradeData = await GetSubject();
-      setGrade(gradeData);
-    };
-    fetchData();
-  }, []);
 
   // Add Category Form
   const handleAddModal = (FormComponent: React.FC) => {
@@ -93,7 +84,7 @@ const SubjectManagement = ({ data }) => {
             </tr>
           </thead>
           <tbody className="h-[50px] items-center divide-y">
-            {grade.map((gradeData, index) => (
+            {data.map((gradeData, index) => (
               <tr
                 key={index}
                 className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"

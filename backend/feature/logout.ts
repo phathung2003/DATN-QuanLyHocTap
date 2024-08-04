@@ -2,6 +2,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
+//Đăng xuất
 export default async function LogOut() {
   const cookie = cookies().get('token');
   const token = cookie?.value;

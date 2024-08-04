@@ -4,8 +4,8 @@ import { IUnitError } from '@/backend/models/messages/IUnitMessage';
 export const DefaultUnitValue: IUnit = {
   courseID: '',
   unitName: '',
-  unitNo: 0,
-  unitDescription: null,
+  unitNo: '',
+  unitDescription: '',
   unitUploadDate: null,
   unitLastEditDate: null,
 };
@@ -13,7 +13,6 @@ export const DefaultUnitValue: IUnit = {
 export const DefaultUnitErrorValue: IUnitError = {
   status: true,
   courseIDError: null,
-  unitNameError: null,
-  unitDescriptionError: null,
+  unitNoError: null,
   systemError: null,
 };

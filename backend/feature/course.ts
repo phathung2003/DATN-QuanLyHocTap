@@ -1,18 +1,17 @@
 import { ICourseError } from '@/backend/models/messages/ICourseMessage';
 import { GetToken } from '@/backend/feature/validate';
-import { HomePage } from '@/backend/routers';
+import { HomePage, CourseManager, CourseDetail } from '@/backend/routers';
 import { UploadImage, DeleteImage } from '@/backend/database/generalFeature';
 import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
 import ICourse from '@/backend/models/data/ICourse';
-import { createHash } from 'crypto';
-
 import GlobalMessage from '@/backend/messages/gobalMessage';
+import { GenerateFileName } from '@/backend/feature/general';
 
 //Lấy thông tin 1 khóa học
 export async function GetCourseInfo(courseID: string): Promise<ICourse | null> {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/content/course/list?courseID=${courseID}`,
-    { method: 'GET' },
+    { method: 'GET', cache: 'no-cache' },
   );
   const info = await response.json();
   if (info) {
@@ -116,7 +115,7 @@ export async function EditCourse(
 
   if (!ChangeData(checkDefault, checkEdit, editData.courseImage)) {
     DeleteImage(editData.courseImage);
-    return window.location.reload();
+    await CourseDetail(defaultData.courseID);
   }
 
   //Tiến hành cập nhật dữ liệu
@@ -175,7 +174,7 @@ export async function DeleteCourse(
 
   //Xóa thành công
   if (response.ok) {
-    return window.location.reload();
+    return await CourseManager();
   }
 
   //Xóa thất bại
@@ -187,7 +186,6 @@ export async function DeleteCourse(
   return;
 }
 
-//----------- Nội bộ -----------//
 //Reset lỗi
 export function ResetError(
   data,
@@ -227,72 +225,6 @@ export function ResetError(
 
     return newErrorState;
   });
-}
-
-// //Tạo mã ID
-// function GenerateID(input: string | null) {
-//   // Normalize the string to remove accents
-//   if (input != null) {
-//     const normalized = input.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-//     // Replace spaces with dashes and make lowercase
-//     const ID = normalized.replace(/\s+/g, '-').toLowerCase();
-//     return ID;
-//   }
-//   return null;
-// }
-
-// //Tạo tên hình
-// function GenerateFileName(image: File, type: string, ...data: string[]) {
-//   let streamFile = '';
-
-//   //Đọc file hình
-//   const reader = new FileReader();
-//   reader.readAsDataURL(image);
-//   reader.onloadend = () => {
-//     if (typeof reader.result === 'string') {
-//       streamFile = reader.result;
-//     }
-//   };
-//   const combinedData = data.join('') + streamFile + new Date();
-
-//   const fileName = createHash('sha256').update(combinedData).digest('hex');
-//   return `${type.toLowerCase()}/${fileName}`;
-// }
-
-// //Kiểm tra dữ liệu có chỉnh sửa hay không
-// function ChangeData(
-//   defaultData: (string | null)[],
-//   editData: (string | null)[],
-//   imageLink: string | null,
-// ): boolean {
-//   //Kiểm tra dữ liệu có thay đổi không
-//   let change = false;
-//   for (let i = 0; i < defaultData.length; i++) {
-//     if (defaultData[i] != editData[i]) {
-//       change = true;
-//       break;
-//     }
-//   }
-//   return imageLink != null || change;
-// }
-
-//Tạo tên hình
-function GenerateFileName(image: File, type: string, ...data: string[]) {
-  let streamFile = '';
-
-  //Đọc file hình
-  const reader = new FileReader();
-  reader.readAsDataURL(image);
-  reader.onloadend = () => {
-    if (typeof reader.result === 'string') {
-      streamFile = reader.result;
-    }
-  };
-  const combinedData = data.join('') + streamFile + new Date();
-
-  const fileName = createHash('sha256').update(combinedData).digest('hex');
-  return `${type.toLowerCase()}/${fileName}`;
 }
 
 //Kiểm tra dữ liệu có chỉnh sửa hay không

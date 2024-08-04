@@ -15,7 +15,7 @@ import UploadIcon from '@/public/vector/upload.svg';
 import AddSubmitButton from '@/components/Button/addSubmitButton';
 
 const DefaultErrorMessage: IGradeError = {
-  status: true,
+  status: false,
   gradeIDError: null,
   gradeNameError: null,
   gradeImageError: null,

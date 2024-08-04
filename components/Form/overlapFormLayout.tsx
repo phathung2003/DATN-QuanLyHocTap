@@ -22,7 +22,7 @@ const OverlapFormLayout: React.FC<FormModalProperties> = ({
     <div
       id="createProductModal"
       aria-hidden="true"
-      className="fixed inset-0 z-9999 flex justify-center bg-slate-800 bg-opacity-70"
+      className="fixed inset-0 z-9999 flex items-center justify-center bg-slate-800 bg-opacity-70"
     >
       <div className="relative w-full max-w-2xl rounded-lg bg-white p-4 shadow dark:bg-slate-800 sm:p-5">
         <div className="mb-2 flex items-center justify-between rounded-t border-b border-slate-200 pb-2 dark:border-slate-600 sm:mb-2">

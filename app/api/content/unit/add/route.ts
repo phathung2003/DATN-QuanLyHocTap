@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     }
 
     //Thêm bài học
-    if (!(await AddUnit(dataInput.data))) {
+    if (!(await AddUnit(dataInput.courseID, dataInput.data))) {
       return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
     }
 

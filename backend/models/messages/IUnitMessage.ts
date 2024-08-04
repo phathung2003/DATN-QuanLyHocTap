@@ -1,4 +1,10 @@
 export interface IUnitMessage {
+  UNIT_NO: {
+    NOT_A_NUMBER: string;
+    NEGATIVE_CHARACTER: string;
+    REQUIRED: string;
+  };
+
   UNIT_NAME: {
     OVER_MAX_CHARACTER: string;
     REQUIRED: string;
@@ -22,7 +28,6 @@ export interface IUnitMessage {
 export interface IUnitError {
   status: boolean;
   courseIDError: string | null;
-  unitNameError: string | null;
-  unitDescriptionError: string | null;
+  unitNoError: string | null;
   systemError: string | null;
 }

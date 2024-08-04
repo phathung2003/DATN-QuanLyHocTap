@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 /* eslint-disable */
 import { IGrade } from '@/backend/models/data/IGrade';
 import { IGradeError } from '@/backend/models/messages/IGradeMessage';
-import { GetGrade, DeleteGrade } from '@/backend/feature/grade';
+import { DeleteGrade, SearchGrade } from '@/backend/feature/grade';
 import AddGradeForm from '@/app/admin/grade/addGradeForm';
 import EditGradeForm from '@/app/admin/grade/editGradeForm';
 import OverlapForm from '@/components/Form/overlapForm';
@@ -25,8 +25,6 @@ const DefaultErrorMessage: IGradeError = {
 };
 
 const GradeManagement = ({ data }) => {
-  // eslint-disable-next-line
-  const [grade, setGrade] = useState<IGrade[]>(data);
   const [searchGrade, setSearchGrade] = useState<IGrade[]>(data);
   const [search, setSearch] = useState<string>('');
   // eslint-disable-next-line
@@ -36,20 +34,10 @@ const GradeManagement = ({ data }) => {
   // eslint-disable-next-line
   const [errorEdit, setErrorEdit] = useState(DefaultErrorMessage);
 
-  //Get Data
+  //Tìm kiếm
   useEffect(() => {
-    const fetchData = async () => {
-      const gradeData = await GetGrade();
-      setGrade(gradeData);
-      setSearchGrade(gradeData);
-    };
-    fetchData();
-  }, []);
-
-  // //Tìm kiếm
-  // useEffect(() => {
-  //   setSearchGrade(SearchGrade(search, grade));
-  // }, [search, grade]);
+    setSearchGrade(SearchGrade(search, data));
+  }, [search, data]);
 
   // Add Category Form
   const handleOpenAddModal = (FormComponent: React.FC) => {

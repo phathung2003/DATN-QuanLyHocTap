@@ -4,6 +4,7 @@ import { IRegisterError } from '@/backend/models/messages/IRegisterMessage';
 import RegisterMessage from '@/backend/messages/registerMessage';
 import { DefaultRegisteErrorValue } from '../defaultData/register';
 
+//Đăng ký
 export async function handelSubmit(
   data: IRegister,
   setError: React.Dispatch<React.SetStateAction<IRegisterError>>,
@@ -38,6 +39,7 @@ export async function handelSubmit(
   }
 }
 
+//Reset lỗi
 export function ResetError(
   data: React.ChangeEvent<HTMLInputElement>,
   setFieldValue,

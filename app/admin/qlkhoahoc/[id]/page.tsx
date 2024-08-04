@@ -11,7 +11,7 @@ interface ProductPageProps {
   };
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
+export default async function CoursePage({ params }: ProductPageProps) {
   const { id } = params;
   const course = await GetCourseInfo(id);
   if (!course) return <NotFoundCourse />;

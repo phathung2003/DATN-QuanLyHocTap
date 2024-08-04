@@ -4,8 +4,11 @@ import { GetToken } from '@/backend/feature/validate';
 import { HomePage } from '@/backend/routers';
 import { DefaultGradeErrorValue } from '@/backend/defaultData/grade';
 import { UploadImage, DeleteImage } from '@/backend/database/generalFeature';
-import { createHash } from 'crypto';
-
+import {
+  RemoveAccent,
+  GenerateID,
+  GenerateFileName,
+} from '@/backend/feature/general';
 import GlobalMessage from '@/backend/messages/gobalMessage';
 import GradeMessage from '@/backend/messages/gradeMessage';
 
@@ -13,7 +16,7 @@ import GradeMessage from '@/backend/messages/gradeMessage';
 export async function GetGrade() {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/grade/list`,
-    { method: 'GET' },
+    { method: 'GET', cache: 'no-store' },
   );
   const info: IGrade[] = await response.json();
   if (Array.isArray(info)) {
@@ -22,7 +25,7 @@ export async function GetGrade() {
   return [];
 }
 
-//Thêm cấp bậc
+//Thêm cấp độ
 export async function AddGrade(
   data: IGrade,
   setError: React.Dispatch<React.SetStateAction<IGradeError>>,
@@ -157,7 +160,7 @@ export async function EditGrade(
   return;
 }
 
-//Xóa loại
+//Xóa cấp độ
 export async function DeleteGrade(
   gradeID: string,
   setError: React.Dispatch<React.SetStateAction<IGradeError>>,
@@ -179,7 +182,7 @@ export async function DeleteGrade(
       },
     },
   );
-
+  console.log('Go here');
   //Xóa thành công
   if (response.ok) {
     return window.location.reload();
@@ -203,6 +206,7 @@ export function SearchGrade(search: string, gradeList: IGrade[]) {
       RemoveAccent(gradeData.gradeName.toLowerCase()).includes(searchInfo),
   );
 }
+
 //Reset lỗi
 export function ResetError(
   data,
@@ -244,37 +248,6 @@ export function ResetError(
   });
 }
 
-//Tạo tên hình
-function GenerateFileName(image: File, type: string, ...data: string[]) {
-  let streamFile = '';
-
-  //Đọc file hình
-  const reader = new FileReader();
-  reader.readAsDataURL(image);
-  reader.onloadend = () => {
-    if (typeof reader.result === 'string') {
-      streamFile = reader.result;
-    }
-  };
-  const combinedData = data.join('') + streamFile + new Date();
-
-  const fileName = createHash('sha256').update(combinedData).digest('hex');
-  return `${type.toLowerCase()}/${fileName}`;
-}
-
-//Tạo mã ID
-function GenerateID(input: string | null) {
-  // Normalize the string to remove accents
-  if (input != null) {
-    const normalized = input.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-    // Replace spaces with dashes and make lowercase
-    const ID = normalized.replace(/\s+/g, '-').toLowerCase();
-    return ID;
-  }
-  return null;
-}
-
 //Kiểm tra dữ liệu có chỉnh sửa hay không
 function ChangeData(
   defaultData: (string | null)[],
@@ -290,13 +263,4 @@ function ChangeData(
     }
   }
   return imageLink != null || change;
-}
-
-//Bỏ dấu tiếng việt
-function RemoveAccent(data: string) {
-  return data
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/đ/g, 'd')
-    .replace(/Đ/g, 'D');
 }

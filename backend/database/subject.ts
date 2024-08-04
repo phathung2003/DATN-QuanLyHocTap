@@ -4,15 +4,16 @@ import {
   where,
   getDocs,
   getDoc,
-  deleteDoc,
   doc,
   addDoc,
   updateDoc,
 } from 'firebase/firestore';
+import { db } from '@/backend/database/firebase';
 import { ISubject } from '@/backend/models/data/ISubject';
 import SubjectMessage from '@/backend/messages/subjectMessage';
 import { DefaultSubjectErrorValue } from '@/backend//defaultData/subject';
-import { db } from '@/backend/database/firebase';
+import { TableName } from '@/backend/globalVariable';
+import { DeleteDocument } from '@/backend/database/generalFeature';
 
 const TABLE_NAME = 'subject';
 //Thêm lớp học
@@ -35,16 +36,14 @@ export async function AddSubject(data: ISubject) {
 
 //Xóa lớp học
 export async function DeleteSubject(subjectID: string) {
-  const subjectDatabase = collection(db, TABLE_NAME);
-  const subjectQuery = query(
-    subjectDatabase,
-    where('subjectID', '==', subjectID.toUpperCase()),
-  );
-  const subjectData = await getDocs(subjectQuery);
-
-  subjectData.forEach(async (subject) => {
-    await deleteDoc(subject.ref);
-  });
+  let documentID = await GetSubjectIDFile(subjectID);
+  if (
+    documentID == SubjectMessage.SUBJECT_EDIT_NOT_FOUND ||
+    documentID == SubjectMessage.SYSTEM_ERROR
+  ) {
+    documentID = subjectID;
+  }
+  await DeleteDocument(TableName.SUBJECT, documentID);
 }
 
 //Sửa lớp học

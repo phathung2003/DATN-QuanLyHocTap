@@ -17,7 +17,7 @@ import GradeMessage from '@/backend/messages/gradeMessage';
 import IUnit from '@/backend/models/data/IUnit';
 
 //Thêm bài học
-export async function AddUnit(data: IUnit): Promise<boolean> {
+export async function AddUnit(courseID: string, data: IUnit): Promise<boolean> {
   const courseData = {
     unitName: data.unitName,
     unitNo: data.unitNo,
@@ -26,9 +26,10 @@ export async function AddUnit(data: IUnit): Promise<boolean> {
     unitLastEditDate: null,
   };
 
-  let pathName = `${TableName.COURSE}/${data.courseID}/${TableName.UNIT}/`;
+  let pathName = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/`;
   const id = await GenerateID(pathName);
   pathName = pathName + id;
+  console.log(pathName);
   return await AddDatabaseWithoutID(pathName, courseData);
 }
 

@@ -4,8 +4,7 @@ import { GetToken } from '@/backend/feature/validate';
 import { HomePage } from '@/backend/routers';
 import { DefaultSubjectErrorValue } from '@/backend/defaultData/subject';
 import { UploadImage, DeleteImage } from '@/backend/database/generalFeature';
-import { createHash } from 'crypto';
-
+import { GenerateID, GenerateFileName } from '@/backend/feature/general';
 import GlobalMessage from '@/backend/messages/gobalMessage';
 import SubjectMessage from '@/backend/messages/subjectMessage';
 
@@ -13,7 +12,7 @@ import SubjectMessage from '@/backend/messages/subjectMessage';
 export async function GetSubject() {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/subject/list`,
-    { method: 'GET' },
+    { method: 'GET', cache: 'no-store' },
   );
   const info: ISubject[] = await response.json();
   if (Array.isArray(info)) {
@@ -22,7 +21,7 @@ export async function GetSubject() {
   return [];
 }
 
-//Thêm cấp bậc
+//Thêm môn học
 export async function AddSubject(
   data: ISubject,
   setError: React.Dispatch<React.SetStateAction<ISubjectError>>,
@@ -84,7 +83,7 @@ export async function AddSubject(
   }
 }
 
-//Chỉnh sửa cấp độ
+//Chỉnh sửa môn học
 export async function EditSubject(
   editData: ISubject,
   defaultData: ISubject,
@@ -160,7 +159,7 @@ export async function EditSubject(
   return;
 }
 
-//Xóa loại
+//Xóa môn học
 export async function DeleteSubject(
   subjectID: string,
   setError: React.Dispatch<React.SetStateAction<ISubjectError>>,
@@ -239,37 +238,6 @@ export function ResetError(
 
     return newErrorState;
   });
-}
-
-//Tạo tên hình
-function GenerateFileName(image: File, type: string, ...data: string[]) {
-  let streamFile = '';
-
-  //Đọc file hình
-  const reader = new FileReader();
-  reader.readAsDataURL(image);
-  reader.onloadend = () => {
-    if (typeof reader.result === 'string') {
-      streamFile = reader.result;
-    }
-  };
-  const combinedData = data.join('') + streamFile + new Date();
-
-  const fileName = createHash('sha256').update(combinedData).digest('hex');
-  return `${type.toLowerCase()}/${fileName}`;
-}
-
-//Tạo mã ID
-function GenerateID(input: string | null) {
-  // Normalize the string to remove accents
-  if (input != null) {
-    const normalized = input.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-    // Replace spaces with dashes and make lowercase
-    const ID = normalized.replace(/\s+/g, '-').toLowerCase();
-    return ID;
-  }
-  return null;
 }
 
 //Kiểm tra dữ liệu có chỉnh sửa hay không

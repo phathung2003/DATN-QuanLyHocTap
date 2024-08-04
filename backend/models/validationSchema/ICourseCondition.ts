@@ -1,4 +1,4 @@
-export default interface ICourseMessage {
+export default interface ICourseCondition {
   COURSE_NAME: {
     MAX: number;
     REQUIRED: boolean;
