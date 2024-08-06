@@ -2,6 +2,7 @@ export interface IUnitMessage {
   UNIT_NO: {
     NOT_A_NUMBER: string;
     NEGATIVE_NUMBER: string;
+    ALREADY_EXIST: string;
     REQUIRED: string;
   };
 
@@ -16,9 +17,10 @@ export interface IUnitMessage {
   };
 
   COURSE_NOT_FOUND: string;
+  UNIT_NOT_FOUND: string;
+
   UNIT_ADD_COMPLETE: string;
   UNIT_ADD_FAILED: string;
-  UNIT_EDIT_NOT_FOUND: string;
   UNIT_EDIT_COMPLETE: string;
   UNIT_DELETE_COMPLETE: string;
 

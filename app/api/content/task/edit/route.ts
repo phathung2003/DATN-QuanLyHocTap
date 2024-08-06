@@ -1,6 +1,6 @@
-import { EditUnit } from '@/backend/database/unit';
+import { EditTask } from '@/backend/database/task';
 import { CheckToken } from '@/app/api/checkData';
-import CheckUnitData from '@/app/api/content/unit/unitData';
+import CheckTaskData from '@/app/api/content/task/taskData';
 import {
   CheckIDExist,
   CheckGetEditNo,
@@ -10,6 +10,7 @@ import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
 import CourseMessage from '@/backend/messages/courseMessage';
 import UnitMessage from '@/backend/messages/unitMessage';
+import TaskMessage from '@/backend/messages/taskMessage';
 
 export async function PATCH(request) {
   try {
@@ -37,26 +38,39 @@ export async function PATCH(request) {
       return MessageReturnOnly(UnitMessage.UNIT_NOT_FOUND, 404);
     }
 
-    //Kiểm tra số thứ tự bài
-    if (!isNaN(dataInput.data.unitNo) && dataInput.data.unitNo < 0) {
-      return MessageReturnOnly(UnitMessage.UNIT_NO.NEGATIVE_NUMBER, 500);
-    }
-    const unitPathName = `${TableName.COURSE}/${dataInput.courseID}/${TableName.UNIT}/`;
-    dataInput.data.unitNo = await CheckGetEditNo(
-      unitPathName,
-      'unitNo',
-      dataInput.unitID,
-      dataInput.data.unitNo,
-    );
-    if (isNaN(dataInput.data.unitNo)) {
-      return MessageReturnOnly(UnitMessage.UNIT_NO.ALREADY_EXIST, 500);
+    //Kiểm tra mã tác vụ bài có tồn tại
+    const taskPathName = `${TableName.COURSE}/${dataInput.courseID}/${TableName.UNIT}/${dataInput.unitID}/${TableName.TASK}/`;
+    if (!(await CheckIDExist(taskPathName, dataInput.taskID))) {
+      return MessageReturnOnly(TaskMessage.TASK_NOT_FOUND, 404);
     }
 
-    //Tiến hành cập nhật
-    if (await EditUnit(dataInput.courseID, dataInput.unitID, dataInput.data)) {
-      return MessageReturnOnly(CourseMessage.COURSE_EDIT_COMPLETE, 200);
+    //Kiểm tra số thứ tự tác vụ bài
+    if (!isNaN(dataInput.data.taskNo) && dataInput.data.taskNo < 0) {
+      return MessageReturnOnly(TaskMessage.TASK_NO.NEGATIVE_NUMBER, 500);
     }
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    dataInput.data.taskNo = await CheckGetEditNo(
+      taskPathName,
+      'taskNo',
+      dataInput.taskID,
+      dataInput.data.taskNo,
+    );
+    if (isNaN(dataInput.data.taskNo)) {
+      return MessageReturnOnly(TaskMessage.TASK_NO.ALREADY_EXIST, 500);
+    }
+
+    //Tiến hành cập nhật tác vụ
+    if (
+      !(await EditTask(
+        dataInput.courseID,
+        dataInput.unitID,
+        dataInput.taskID,
+        dataInput.data,
+      ))
+    ) {
+      return MessageReturnOnly(TaskMessage.TASK_EDIT_FAILED, 500);
+    }
+
+    return MessageReturnOnly(TaskMessage.TASK_EDIT_COMPLETE, 200);
   } catch {
     return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
   }
@@ -65,10 +79,10 @@ export async function PATCH(request) {
 //Kiểm tra dữ liệu
 async function CheckData(request) {
   try {
-    const unitIDRequest = request.nextUrl.searchParams.get('unitID');
-    const checkResult = await CheckUnitData(request);
+    const taskIDRequest = request.nextUrl.searchParams.get('taskID');
+    const checkResult = await CheckTaskData(request);
 
-    if (!checkResult || !unitIDRequest) {
+    if (!checkResult || !taskIDRequest) {
       return false;
     }
 
@@ -76,7 +90,8 @@ async function CheckData(request) {
       token: checkResult.token,
       data: checkResult.data,
       courseID: checkResult.courseID,
-      unitID: unitIDRequest,
+      unitID: checkResult.unitID,
+      taskID: taskIDRequest,
     };
   } catch {
     return false;

@@ -18,6 +18,8 @@ import IUnit from '@/backend/models/data/IUnit';
 
 //Thêm bài học
 export async function AddUnit(courseID: string, data: IUnit): Promise<boolean> {
+  let pathName = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/`;
+
   const courseData = {
     unitName: data.unitName,
     unitNo: data.unitNo,
@@ -26,7 +28,6 @@ export async function AddUnit(courseID: string, data: IUnit): Promise<boolean> {
     unitLastEditDate: null,
   };
 
-  let pathName = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/`;
   const id = await GenerateID(pathName);
   pathName = pathName + id;
   return await AddDatabaseWithoutID(pathName, courseData);

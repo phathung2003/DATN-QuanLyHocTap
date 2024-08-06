@@ -1,12 +1,13 @@
 import IUnit from '@/backend/models/data/IUnit';
 import { CheckDataInputNeedLogin } from '@/app/api/checkData';
 
+//Kiểm tra dữ liệu
 export default async function CheckUnitData(request) {
-  try {
-    const courseIDRequest = request.nextUrl.searchParams.get('courseID');
-    const optionField = ['unitDescription'];
-    const requireField = ['unitName', 'unitNo'];
+  const courseIDRequest = request.nextUrl.searchParams.get('courseID');
+  const optionField = ['unitDescription'];
+  const requireField = ['unitName'];
 
+  try {
     const result = await CheckDataInputNeedLogin(
       request,
       requireField,
@@ -29,11 +30,16 @@ export default async function CheckUnitData(request) {
 
 //Format
 function UnitData(dataInput): IUnit | null {
+  //Kiểm tra unitNo có null không
+  const unitNo = dataInput.unitNo ?? NaN;
+  if (!isNaN(unitNo) && isNaN(Number(dataInput.unitNo))) {
+    return null;
+  }
+
   try {
     const data: IUnit = {
-      courseID: dataInput.courseID,
       unitName: dataInput.unitName,
-      unitNo: dataInput.unitNo,
+      unitNo: Number(unitNo),
       unitDescription: dataInput.unitDescription,
     };
     return data;

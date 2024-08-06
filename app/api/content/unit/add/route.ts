@@ -1,5 +1,8 @@
 import { CheckToken } from '@/app/api/checkData';
-import { CheckIDExist } from '@/backend/database/generalFeature';
+import {
+  CheckIDExist,
+  CheckSuggestAddNo,
+} from '@/backend/database/generalFeature';
 import { TableName } from '@/backend/globalVariable';
 import { AddUnit } from '@/backend/database/unit';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
@@ -25,6 +28,22 @@ export async function POST(request: Request) {
     //Kiểm tra mã khóa học có tồn tại
     if (!(await CheckIDExist(TableName.COURSE, dataInput.courseID))) {
       return MessageReturnOnly(CourseMessage.COURSE_EDIT_NOT_FOUND, 404);
+    }
+
+    //Kiểm tra số thứ tự bài học
+    if (!isNaN(dataInput.data.unitNo) && dataInput.data.unitNo < 0) {
+      return MessageReturnOnly(UnitMessage.UNIT_NO.NEGATIVE_NUMBER, 500);
+    }
+
+    //Kiểm tra số thứ tự bài
+    const pathName = `${TableName.COURSE}/${dataInput.courseID}/${TableName.UNIT}/`;
+    dataInput.data.unitNo = await CheckSuggestAddNo(
+      pathName,
+      'unitNo',
+      dataInput.data.unitNo,
+    );
+    if (isNaN(dataInput.data.unitNo)) {
+      return MessageReturnOnly(UnitMessage.UNIT_NO.ALREADY_EXIST, 500);
     }
 
     //Thêm bài học

@@ -5,6 +5,7 @@ const TaskMessage: ITaskMessage = {
   TASK_NO: {
     NOT_A_NUMBER: 'Dữ liệu phải là số',
     NEGATIVE_NUMBER: `Số thứ tự bài phải lớn hơn 0`,
+    ALREADY_EXIST: 'Số thứ tự nội dung bài này đã tồn tại',
     REQUIRED: 'Xin hãy nhập số bài học',
   },
 
@@ -18,10 +19,14 @@ const TaskMessage: ITaskMessage = {
     REQUIRED: 'Xin hãy nhập mô tả',
   },
 
+  TASK_NOT_FOUND: 'Không tìm thấy bài học này trên hệ thống',
+
   TASK_ADD_COMPLETE: 'Thêm bài học thành công',
   TASK_ADD_FAILED: 'Thêm bài học thất bại',
-  TASK_NOT_FOUND: 'Không tìm thấy bài học này trên hệ thống',
+
   TASK_EDIT_COMPLETE: 'Chỉnh sửa bài học thành công',
+  TASK_EDIT_FAILED: 'Chỉnh sửa tác vụ bài thất bại',
+
   TASK_DELETE_COMPLETE: 'Xóa bài học thành công',
 
   SYSTEM_ERROR: 'Hệ thống hiện tại đang bị lỗi. Xin vui lòng thử lại sau',

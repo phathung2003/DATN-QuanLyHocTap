@@ -4,13 +4,13 @@ import { TableName } from '@/backend/globalVariable';
 import { CheckIDExist } from '@/backend/database/generalFeature';
 
 //Kiểm tra dữ liệu
-export async function CheckTaskData(request) {
+export default async function CheckTaskData(request) {
   try {
     const unitFileID = request.nextUrl.searchParams.get('unitID');
     const courseFileID = request.nextUrl.searchParams.get('courseID');
 
     const optionField = ['taskDescription'];
-    const requireField = ['taskNo', 'taskName'];
+    const requireField = ['taskName'];
     const result = await CheckDataInputNeedLogin(
       request,
       requireField,
@@ -54,9 +54,15 @@ export async function CheckTaskData(request) {
 
 //Format dữ liệu
 function TaskData(dataInput): ITask | null {
+  //Kiểm tra unitNo có null không
+  const taskNo = dataInput.taskNo ?? NaN;
+  if (!isNaN(taskNo) && isNaN(Number(dataInput.taskNo))) {
+    return null;
+  }
+
   try {
     const data: ITask = {
-      taskNo: dataInput.taskNo,
+      taskNo: Number(taskNo),
       taskName: dataInput.taskName,
       taskDescription: dataInput.taskDescription,
     };

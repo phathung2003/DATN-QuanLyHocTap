@@ -2,7 +2,7 @@ import ITask from '@/backend/models/data/ITask';
 import { ITaskError } from '@/backend/models/messages/ITaskMessage';
 
 export const DefaultTaskValue: ITask = {
-  taskNo: '',
+  taskNo: NaN,
   taskName: '',
   taskDescription: '',
 };
