@@ -1,4 +1,5 @@
 'use client';
+/*eslint-disable*/
 import IUnit from '@/backend/models/data/IUnit';
 
 import React, { useState } from 'react';
@@ -14,12 +15,14 @@ import { IUnitError } from '@/backend/models/messages/IUnitMessage';
 import ITask from '@/backend/models/data/ITask';
 //Icon
 import SubmitButton from '@/components/Button/submitButton';
-import DetailButton from '@/components/Button/detailButton';
 //Button
 import DeleteButton from '@/components/Button/deleteButton';
 import AddButton from '@/components/Button/addButton';
 import SearchBar from '@/components/Field/searchBar';
 import AddTaskForm from './addTaskForm';
+
+// Accordionlist
+import AccordionList from '@/components/AccordionList/AccordionList';
 
 const DefaultErrorMessage: IUnitError = {
   status: false,
@@ -203,67 +206,7 @@ const UnitDetail: React.FC<{
           </div>
         </div>
         <div className="flex max-h-[65vh] flex-col overflow-auto">
-          <table id="table" className="w-full">
-            <thead className="text-gray-400 sticky top-0 bg-slate-200 text-left text-xs uppercase dark:bg-slate-700 dark:text-white">
-              <tr>
-                <th id="idHead" className="w-[30px] text-center">
-                  STT
-                </th>
-                <th id="nameHead" className="px-4 py-3">
-                  Tên bài
-                </th>
-                <th id="createAtHead" className="w-[13rem] px-4 py-3">
-                  Ngày tạo
-                </th>
-                <th id="LastUpdateHead" className="w-[13rem] px-4 py-3">
-                  Chỉnh sửa lần cuối
-                </th>
-                <th id="managerOptionHead" className="w-[12rem] px-4 py-3"></th>
-              </tr>
-            </thead>
-            <tbody className="h-[50px] items-center divide-y">
-              {taskList.map((data, index) => (
-                <tr
-                  key={index}
-                  className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
-                >
-                  <td id="unitID" className="w-[30px] text-center">
-                    {index}
-                  </td>
-
-                  <td id="name" className="px-4">
-                    {data.taskName}
-                  </td>
-                  <td id="createAt" className="px-4">
-                    {`${data.taskUploadDate}`}
-                  </td>
-                  <td id="editAt" className="px-4">
-                    {!data.taskLastEditDate
-                      ? 'Chưa chỉnh sửa'
-                      : `${data.taskLastEditDate}`}
-                  </td>
-                  <td>
-                    <div
-                      id="managerOption"
-                      className="flex items-center justify-end px-4 py-3"
-                    >
-                      <DetailButton
-                        link={`/admin/qlkhoahoc/${courseID}/unit/${unitID}`}
-                        buttonName="Chi tiết"
-                      />
-                      <div className="ml-4">
-                        <DeleteButton
-                          onClick={async () =>
-                            await DeleteUnit(courseID, data.taskID ?? '', null)
-                          }
-                        />
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <AccordionList />
         </div>
       </div>
       {OverlapForm(isModalOpen, setIsModalOpen, currentForm, modalHeader)}
