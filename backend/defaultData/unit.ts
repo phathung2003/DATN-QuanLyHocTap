@@ -4,7 +4,7 @@ import { IUnitError } from '@/backend/models/messages/IUnitMessage';
 export const DefaultUnitValue: IUnit = {
   courseID: '',
   unitName: '',
-  unitNo: '',
+  unitNo: NaN,
   unitDescription: '',
   unitUploadDate: null,
   unitLastEditDate: null,

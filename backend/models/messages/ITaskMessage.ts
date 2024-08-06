@@ -12,13 +12,18 @@ export interface ITaskMessage {
   TASK_NO: {
     NOT_A_NUMBER: string;
     NEGATIVE_NUMBER: string;
+    ALREADY_EXIST: string;
     REQUIRED: string;
   };
 
+  TASK_NOT_FOUND: string;
+
   TASK_ADD_COMPLETE: string;
   TASK_ADD_FAILED: string;
-  TASK_NOT_FOUND: string;
+
   TASK_EDIT_COMPLETE: string;
+  TASK_EDIT_FAILED: string;
+
   TASK_DELETE_COMPLETE: string;
   SYSTEM_ERROR: string;
 }

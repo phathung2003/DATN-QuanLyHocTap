@@ -209,8 +209,8 @@ export function ResetError(
 
 //Kiểm tra dữ liệu có chỉnh sửa hay không
 function ChangeData(
-  defaultData: (string | null)[],
-  editData: (string | null)[],
+  defaultData: (string | number | null)[],
+  editData: (string | number | null)[],
   imageLink: string | null,
 ): boolean {
   //Kiểm tra dữ liệu có thay đổi không

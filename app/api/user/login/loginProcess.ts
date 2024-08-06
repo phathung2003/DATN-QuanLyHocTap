@@ -63,7 +63,7 @@ export async function GenerateToken(
       createAt: currentTime,
       expiredDate: expireDate,
     },
-    process.env.NEXTAUTH_SECRET,
+    process.env.SECRET_KEY,
   );
 
   try {

@@ -18,7 +18,7 @@ const TABLE_NAME = 'sessions';
 export async function AddSession(data: ISession) {
   try {
     const docRef = await addDoc(collection(db, TABLE_NAME), {
-      tokenID: data.tokenID,
+      tokenID: data.tokenID.replace('Bearer ', ''),
       accountID: data.accountID,
       expiresAt: data.expiresAt,
       createAt: data.createAt,
@@ -37,7 +37,10 @@ export async function AddSession(data: ISession) {
 //Xóa session
 export async function DeleteSession(token: string) {
   const tokenDatabase = collection(db, TABLE_NAME);
-  const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
+  const tokenQuery = query(
+    tokenDatabase,
+    where('tokenID', '==', token.replace('Bearer ', '')),
+  );
   const tokenData = await getDocs(tokenQuery);
 
   tokenData.forEach(async (session) => {
@@ -54,7 +57,10 @@ export async function GetSessionInfo(token: string) {
   try {
     //Lấy thông tin session
     const tokenDatabase = collection(db, TABLE_NAME);
-    const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
+    const tokenQuery = query(
+      tokenDatabase,
+      where('tokenID', '==', token.replace('Bearer ', '')),
+    );
     const tokenData = await getDocs(tokenQuery);
 
     if (tokenData.empty) {
@@ -95,7 +101,10 @@ export async function CheckSession(token: string) {
   try {
     //Lấy thông tin session
     const tokenDatabase = collection(db, TABLE_NAME);
-    const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
+    const tokenQuery = query(
+      tokenDatabase,
+      where('tokenID', '==', token.replace('Bearer ', '')),
+    );
     const tokenData = await getDocs(tokenQuery);
 
     if (tokenData.empty) {
@@ -131,7 +140,10 @@ export async function GetUserIDFromSession(
   try {
     //Lấy thông tin session
     const tokenDatabase = collection(db, TABLE_NAME);
-    const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
+    const tokenQuery = query(
+      tokenDatabase,
+      where('tokenID', '==', token.replace('Bearer ', '')),
+    );
     const tokenData = await getDocs(tokenQuery);
 
     if (tokenData.empty) {

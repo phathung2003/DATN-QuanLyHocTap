@@ -61,7 +61,7 @@ const GradeManagement = ({ data }) => {
         id="header"
         className="font-manrope mb-2 mt-2 text-center text-2xl font-bold text-black dark:text-white min-[890px]:text-left"
       >
-        Quản lý cấp bậc
+        Quản lý cấp độ
       </h2>
 
       <div className="x mt-3 grid grid-cols-1 gap-4 sm:mb-5 min-[890px]:grid-cols-2">
