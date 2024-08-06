@@ -132,6 +132,73 @@ export async function GenerateID(filePath: string): Promise<string> {
   return id;
 }
 
+//Kiểm tra - Đề xuất số thứ tự khi thêm vào
+export async function CheckSuggestAddNo(
+  pathName: string,
+  fieldName: string,
+  dataNo: number,
+): Promise<number> {
+  const dataCollection = collection(db, pathName);
+  const dataDocuments = await getDocs(dataCollection);
+  const suggestNo: number = dataNo;
+
+  //Không có số ==> Tiến hành gợi ý số
+  if (isNaN(suggestNo) || suggestNo == null) {
+    let suggestNo = 1;
+
+    //Kiểm tra để lấy số lớn nhất
+    for (const doc of dataDocuments.docs) {
+      const previousUnitNo = Number(doc.data()[fieldName]);
+      if (!isNaN(previousUnitNo) && previousUnitNo >= suggestNo) {
+        suggestNo = previousUnitNo + 1;
+      }
+    }
+    return suggestNo;
+  }
+
+  //Kiểm tra số có hợp lệ không
+  for (const doc of dataDocuments.docs) {
+    const previousUnitNo = Number(doc.data()[fieldName]);
+    if (!isNaN(previousUnitNo) && previousUnitNo === suggestNo) {
+      return NaN;
+    }
+  }
+  return suggestNo;
+}
+
+//Kiểm tra - Lấy số thứ tự khi chỉnh sửa
+export async function CheckGetEditNo(
+  pathName: string,
+  fieldName: string,
+  dataID: string,
+  dataNo: number,
+): Promise<number> {
+  const dataCollection = collection(db, pathName);
+  const dataDocuments = await getDocs(dataCollection);
+
+  //Nếu dataNo là NaN => Lấy số cũ
+  if (isNaN(dataNo)) {
+    for (const doc of dataDocuments.docs) {
+      if (doc.id === dataID) {
+        return Number(doc.data()[fieldName]);
+      }
+    }
+  }
+
+  //Kiểm tra số có hợp lệ không
+  for (const doc of dataDocuments.docs) {
+    const previousUnitNo = Number(doc.data()[fieldName]);
+    if (
+      !isNaN(previousUnitNo) &&
+      previousUnitNo === dataNo &&
+      doc.id != dataID
+    ) {
+      return NaN;
+    }
+  }
+  return dataNo;
+}
+
 //Kiểm tra ID có tồn tại trên hệ thống hay không
 export async function CheckIDExist(
   filePath: string,

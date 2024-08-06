@@ -2,7 +2,7 @@ export default interface IUnit {
   courseID?: string;
   unitID?: string;
   unitName: string;
-  unitNo: string;
+  unitNo: number;
   unitDescription: string | null;
   unitUploadDate?: Date | null;
   unitLastEditDate?: Date | null;
