@@ -34,7 +34,7 @@ export async function AddSubject(
   }
 
   //Đăng tải hình
-  const error = DefaultSubjectErrorValue;
+  const error = DefaultSubjectErrorValue();
   if (data.subjectFile instanceof File) {
     const uploadResult = await UploadImage(
       data.subjectFile,
@@ -55,7 +55,7 @@ export async function AddSubject(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/subject/add`,
     {
       method: 'POST',
-      cache: 'no-store',
+      cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${token}`,
@@ -98,7 +98,7 @@ export async function EditSubject(
   }
 
   //Tải hình
-  const error = DefaultSubjectErrorValue;
+  const error = DefaultSubjectErrorValue();
   let subjectImageLink: string | null = null;
   if (editData.subjectFile instanceof File) {
     const uploadResult = await UploadImage(
@@ -192,7 +192,7 @@ export async function DeleteSubject(
   }
 
   //Xóa thất bại
-  const error = DefaultSubjectErrorValue;
+  const error = DefaultSubjectErrorValue();
   const errorData = await response.json();
   error.status = false;
   error.systemError = errorData.message;

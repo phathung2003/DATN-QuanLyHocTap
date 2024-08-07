@@ -6,17 +6,14 @@ import {
   DefaultRegisterValue,
   DefaultRegisteErrorValue,
 } from '@/backend/defaultData/register';
-import {
-  handelSubmit,
-  ResetError,
-} from '@/app/(main)/register/registerProcess';
+import { handelSubmit, ResetError } from '@/backend/feature/register';
 
 export default function RegisterForm() {
   //Ghi nhận lỗi báo từ server
   const [error, setError] = useState(DefaultRegisteErrorValue);
   return (
     <Formik
-      initialValues={DefaultRegisterValue}
+      initialValues={DefaultRegisterValue()}
       validationSchema={SchemaRegister}
       onSubmit={(data) => handelSubmit(data, setError)}
     >

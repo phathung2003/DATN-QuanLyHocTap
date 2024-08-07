@@ -4,10 +4,9 @@ import { Formik, Form, Field } from 'formik';
 import Image from 'next/image';
 
 import { IGrade } from '@/backend/models/data/IGrade';
-import { IGradeError } from '@/backend/models/messages/IGradeMessage';
 import { GradeEditDefaultValue } from '@/backend/defaultData/grade';
 import { EditGrade, ResetError, DeleteGrade } from '@/backend/feature/grade';
-
+import { DefaultGradeErrorValue } from '@/backend/defaultData/grade';
 import SchemaGrade from '@/backend/validationSchema/grade/gradeSchema';
 import FormikShowError from '@/components/ErrorMessage/formikForm';
 import BottomFormError from '@/components/ErrorMessage/bottomForm';
@@ -17,17 +16,8 @@ import SubmitButton from '@/components/Button/submitButton';
 import DeleteButton from '@/components/Button/deleteButton';
 import UploadIcon from '@/public/vector/upload.svg';
 
-const DefaultErrorMessage: IGradeError = {
-  status: true,
-  gradeIDError: null,
-  gradeNameError: null,
-  gradeImageError: null,
-  gradeFileError: null,
-  systemError: null,
-};
-
 const EditGradeForm: React.FC<{ data: IGrade }> = (gradeInfo) => {
-  const [error, setError] = useState(DefaultErrorMessage);
+  const [error, setError] = useState(DefaultGradeErrorValue());
   const [preview, setPreview] = useState<string | null>(null);
 
   return (

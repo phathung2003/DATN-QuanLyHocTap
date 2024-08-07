@@ -2,26 +2,17 @@
 import React, { useState, useEffect } from 'react';
 
 import { ISubject } from '@/backend/models/data/ISubject';
-import { ISubjectError } from '@/backend/models/messages/ISubjectMessage';
 import { DeleteSubject, SearchSubject } from '@/backend/feature/subject';
 import AddSubjectForm from '@/app/admin/subject/addSubjectForm';
 import EditSubjectForm from '@/app/admin/subject/editSubjectForm';
 import OverlapForm from '@/components/Form/overlapForm';
-
+import { DefaultSubjectErrorValue } from '@/backend/defaultData/subject';
 //Button
 import DeleteButton from '@/components/Button/deleteButton';
 import EditButton from '@/components/Button/editButton';
 import AddButton from '@/components/Button/addButton';
 
 import SearchBar from '@/components/Field/searchBar';
-
-const DefaultErrorMessage: ISubjectError = {
-  status: true,
-  subjectIDError: null,
-  subjectNameError: null,
-  subjectFileError: null,
-  systemError: null,
-};
 
 const SubjectManagement = ({ data }) => {
   const [searchSubject, setSearchSubject] = useState<ISubject[]>(data);
@@ -32,7 +23,7 @@ const SubjectManagement = ({ data }) => {
     () => AddSubjectForm,
   );
   // eslint-disable-next-line
-  const [errorEdit, setErrorEdit] = useState(DefaultErrorMessage);
+  const [errorEdit, setErrorEdit] = useState(DefaultSubjectErrorValue());
 
   //Tìm kiếm
   useEffect(() => {

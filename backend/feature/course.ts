@@ -45,7 +45,7 @@ export async function AddCourse(
   }
 
   //Đăng tải hình
-  const error = DefaultCourseErrorValue;
+  const error = DefaultCourseErrorValue();
   if (data.courseFile instanceof File) {
     const uploadResult = await UploadImage(
       data.courseFile,
@@ -106,7 +106,7 @@ export async function EditCourse(
   }
 
   //Tải hình
-  const error = DefaultCourseErrorValue;
+  const error = DefaultCourseErrorValue();
   if (editData.courseFile instanceof File) {
     const uploadResult = await UploadImage(
       editData.courseFile,
@@ -190,7 +190,7 @@ export async function DeleteCourse(
   }
 
   //Xóa thất bại
-  const error = DefaultCourseErrorValue;
+  const error = DefaultCourseErrorValue();
   const errorData = await response.json();
   error.status = false;
   error.systemError = errorData.message;

@@ -90,7 +90,7 @@ async function CheckData(request) {
 
 //Kiểm tra loại có trên hệ thống hay không
 async function CheckClassification(courseID: string, unitID: string) {
-  const error = DefaultContentErrorValue;
+  const error = DefaultContentErrorValue();
 
   if (!(await CheckIDExist(TableName.COURSE, courseID))) {
     error.status = false;

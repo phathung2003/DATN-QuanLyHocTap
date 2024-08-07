@@ -10,7 +10,7 @@ import {
 } from 'firebase/firestore';
 import { IGrade } from '@/backend/models/data/IGrade';
 import GradeMessage from '@/backend/messages/gradeMessage';
-import { DefaultGradeErrorValue } from '@/backend//defaultData/grade';
+import { DefaultGradeErrorValue } from '@/backend/defaultData/grade';
 import { db } from '@/backend/database/firebase';
 import { TableName } from '@/backend/globalVariable';
 import { DeleteDocument } from '@/backend/database/generalFeature';
@@ -82,7 +82,7 @@ export async function GetGradeList() {
 
 //Kiểm tra đã có lớp chưa
 export async function CheckGradeExist(data: IGrade) {
-  const error = DefaultGradeErrorValue;
+  const error = DefaultGradeErrorValue();
 
   try {
     const gradeDatabase = collection(db, TABLE_NAME);
@@ -96,7 +96,7 @@ export async function CheckGradeExist(data: IGrade) {
           where(field[i], '==', input[i]),
         );
         const result = await getDocs(gradeQuery);
-        if (result.empty == false) {
+        if (result.size > 0) {
           error.status = false;
           switch (field[i]) {
             case field[0]:
@@ -118,7 +118,7 @@ export async function CheckGradeExist(data: IGrade) {
 
 //Kiểm tra đã có loại chưa (Edit)
 export async function CheckGradeEditExist(originalID: string, data: IGrade) {
-  const error = DefaultGradeErrorValue;
+  const error = DefaultGradeErrorValue();
 
   try {
     const gradeDatabase = collection(db, TABLE_NAME);

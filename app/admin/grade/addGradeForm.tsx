@@ -4,32 +4,21 @@ import Image from 'next/image';
 import { Formik, Form, Field } from 'formik';
 import SchemaGrade from '@/backend/validationSchema/grade/gradeSchema';
 import { DefaultGradeValue } from '@/backend/defaultData/grade';
-
 import { AddGrade, ResetError } from '@/backend/feature/grade';
-
-import { IGradeError } from '@/backend/models/messages/IGradeMessage';
+import { DefaultGradeErrorValue } from '@/backend/defaultData/grade';
 import FormikShowError from '@/components/ErrorMessage/formikForm';
 import BottomFormError from '@/components/ErrorMessage/bottomForm';
 //Icon
 import UploadIcon from '@/public/vector/upload.svg';
 import AddSubmitButton from '@/components/Button/addSubmitButton';
 
-const DefaultErrorMessage: IGradeError = {
-  status: false,
-  gradeIDError: null,
-  gradeNameError: null,
-  gradeImageError: null,
-  gradeFileError: null,
-  systemError: null,
-};
-
 const AddGradeForm: React.FC = () => {
-  const [error, setError] = useState(DefaultErrorMessage);
+  const [error, setError] = useState(DefaultGradeErrorValue());
   const [preview, setPreview] = useState<string | null>(null);
 
   return (
     <Formik
-      initialValues={DefaultGradeValue}
+      initialValues={DefaultGradeValue()}
       validationSchema={SchemaGrade}
       onSubmit={(data) => AddGrade(data, setError)}
     >

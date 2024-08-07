@@ -33,7 +33,7 @@ export async function handelSubmit(
       setError(errorData.errorMessage);
     }
   } catch {
-    const error = DefaultRegisteErrorValue;
+    const error = DefaultRegisteErrorValue();
     error.systemError = RegisterMessage.SYSTEM_ERROR;
     setError(error);
   }

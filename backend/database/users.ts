@@ -49,7 +49,7 @@ export async function AddUser(data: IRegisterDB) {
 
 //Kiểm tra đã có tài khoản chưa
 export async function CheckInfoExist(data: IRegisterDB) {
-  const error = DefaultRegisteErrorValue;
+  const error = DefaultRegisteErrorValue();
   try {
     const usersDatabase = collection(db, TABLE_NAME);
     const field = ['username', 'email', 'phoneNumber'];
@@ -162,7 +162,7 @@ async function EmailLogin(email: string, password: string) {
 
 //Quên mật khẩu (Chỉ dành cho người dùng sử dụng email)
 export async function ResetPassword(info: string) {
-  const result = DefaultAPIResult;
+  const result = DefaultAPIResult();
 
   const usersDatabase = collection(db, 'users');
   const fields = ['email', 'username', 'phoneNumber'];
@@ -189,7 +189,7 @@ export async function ResetPassword(info: string) {
 
 //Gửi email đặt lại mật khẩu
 async function SendEmail(email: string) {
-  const result = DefaultAPIResult;
+  const result = DefaultAPIResult();
   try {
     await sendPasswordResetEmail(auth, email);
     result.message = UserMessage.RESET_PASSWORD_SEND_SUCCESFULLY;

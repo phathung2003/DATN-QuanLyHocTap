@@ -37,7 +37,7 @@ export async function AddGrade(
   }
 
   //Đăng tải hình
-  const error = DefaultGradeErrorValue;
+  const error = DefaultGradeErrorValue();
   if (data.gradeFile instanceof File) {
     const uploadResult = await UploadImage(
       data.gradeFile,
@@ -52,7 +52,6 @@ export async function AddGrade(
     }
     data.gradeImage = uploadResult;
   }
-
   //Thêm dữ liệu vào cơ sở dữ liệu
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/grade/add`,
@@ -101,7 +100,7 @@ export async function EditGrade(
   }
 
   //Tải hình
-  const error = DefaultGradeErrorValue;
+  const error = DefaultGradeErrorValue();
   let gradeImageLink: string | null = null;
   if (editData.gradeFile instanceof File) {
     const uploadResult = await UploadImage(
@@ -190,7 +189,7 @@ export async function DeleteGrade(
   }
 
   //Xóa thất bại
-  const error = DefaultGradeErrorValue;
+  const error = DefaultGradeErrorValue();
   const errorData = await response.json();
   error.status = false;
   error.systemError = errorData.message;

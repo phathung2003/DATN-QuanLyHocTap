@@ -53,7 +53,7 @@ export async function POST(request: Request) {
     return MessageReturnOnly(RegisterMessage.REGISTER_COMPLETE, 201);
   } catch {
     //Lỗi xảy ra trong quá trình đăng ký
-    const error = DefaultRegisteErrorValue;
+    const error = DefaultRegisteErrorValue();
     error.status = false;
     error.systemError = RegisterMessage.SYSTEM_ERROR;
 

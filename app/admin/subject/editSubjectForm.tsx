@@ -10,25 +10,16 @@ import {
 } from '@/backend/feature/subject';
 import { ISubject } from '@/backend/models/data/ISubject';
 import { SubjectEditDefaultValue } from '@/backend/defaultData/subject';
-import { ISubjectError } from '@/backend/models/messages/ISubjectMessage';
 import FormikShowError from '@/components/ErrorMessage/formikForm';
 import BottomFormError from '@/components/ErrorMessage/bottomForm';
-
+import { DefaultSubjectErrorValue } from '@/backend/defaultData/subject';
 //Icon
 import SubmitButton from '@/components/Button/submitButton';
 import DeleteButton from '@/components/Button/deleteButton';
 import UploadIcon from '@/public/vector/upload.svg';
 
-const DefaultErrorMessage: ISubjectError = {
-  status: true,
-  subjectIDError: null,
-  subjectNameError: null,
-  subjectFileError: null,
-  systemError: null,
-};
-
 const EditSubjectForm: React.FC<{ data: ISubject }> = (subjectInfo) => {
-  const [error, setError] = useState(DefaultErrorMessage);
+  const [error, setError] = useState(DefaultSubjectErrorValue());
   const [preview, setPreview] = useState<string | null>(null);
 
   return (

@@ -4,30 +4,20 @@ import { Formik, Form, Field } from 'formik';
 import SchemaUnit from '@/backend/validationSchema/unit/unitSchema';
 import { DefaultUnitValue } from '@/backend/defaultData/unit';
 import { AddUnit, ResetError } from '@/backend/feature/unit';
-
-import { IUnitError } from '@/backend/models/messages/IUnitMessage';
 import FormikShowError from '@/components/ErrorMessage/formikForm';
 import BottomFormError from '@/components/ErrorMessage/bottomForm';
-
+import { DefaultUnitErrorValue } from '@/backend/defaultData/unit';
 //Icon
 import AddSubmitButton from '@/components/Button/addSubmitButton';
-
-const DefaultErrorMessage: IUnitError = {
-  status: false,
-  courseIDError: null,
-  unitNoError: null,
-  systemError: null,
-};
-
 interface AddUnitFormProps {
   courseID: string;
 }
 
 const AddUnitForm: React.FC<AddUnitFormProps> = ({ courseID }) => {
-  const [error, setError] = useState(DefaultErrorMessage);
+  const [error, setError] = useState(DefaultUnitErrorValue());
   return (
     <Formik
-      initialValues={DefaultUnitValue}
+      initialValues={DefaultUnitValue()}
       validationSchema={SchemaUnit}
       onSubmit={(data) => AddUnit(courseID, data, setError)}
     >

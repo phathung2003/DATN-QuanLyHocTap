@@ -5,30 +5,18 @@ import { Formik, Form, Field } from 'formik';
 import SchemaCourse from '@/backend/validationSchema/course/courseSchema';
 import { DefaultCourseValue } from '@/backend/defaultData/course';
 import { AddCourse, ResetError } from '@/backend/feature/course';
-import { ICourseError } from '@/backend/models/messages/ICourseMessage';
 import { GetSubject, GetGrade } from '@/app/admin/qlbaihoc/process/getData';
 import { ISubject } from '@/backend/models/data/ISubject';
 import { IGrade } from '@/backend/models/data/IGrade';
-
+import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
 //Icon
 import UploadIcon from '@/public/vector/upload.svg';
 import AddSubmitButton from '@/components/Button/addSubmitButton';
 import FormikShowError from '@/components/ErrorMessage/formikForm';
 import BottomFormError from '@/components/ErrorMessage/bottomForm';
 
-const DefaultErrorMessage: ICourseError = {
-  status: true,
-  courseNameError: null,
-  courseGradeError: null,
-  courseSubjectError: null,
-  courseDescriptionError: null,
-  courseImageError: null,
-  courseFileError: null,
-  systemError: null,
-};
-
 const AddCourseForm: React.FC = () => {
-  const [error, setError] = useState(DefaultErrorMessage);
+  const [error, setError] = useState(DefaultCourseErrorValue());
   const [preview, setPreview] = useState<string | null>(null);
   const [gradeList, setGradeList] = useState<IGrade[]>();
   const [subjectList, setSubjectList] = useState<ISubject[]>();
@@ -46,7 +34,7 @@ const AddCourseForm: React.FC = () => {
 
   return (
     <Formik
-      initialValues={DefaultCourseValue}
+      initialValues={DefaultCourseValue()}
       validationSchema={SchemaCourse}
       onSubmit={(data) => AddCourse(data, setError)}
     >

@@ -82,7 +82,7 @@ export async function GetSubjectList() {
 
 //Kiểm tra đã có loại chưa
 export async function CheckSubjectExist(data: ISubject) {
-  const error = DefaultSubjectErrorValue;
+  const error = DefaultSubjectErrorValue();
 
   try {
     const subjectDatabase = collection(db, TABLE_NAME);
@@ -96,7 +96,7 @@ export async function CheckSubjectExist(data: ISubject) {
           where(field[i], '==', input[i]),
         );
         const result = await getDocs(subjectQuery);
-        if (result.empty == false) {
+        if (result.size > 0) {
           error.status = false;
           switch (field[i]) {
             case field[0]:
@@ -121,7 +121,7 @@ export async function CheckSubjectEditExist(
   originalID: string,
   data: ISubject,
 ) {
-  const error = DefaultSubjectErrorValue;
+  const error = DefaultSubjectErrorValue();
 
   try {
     const subjectDatabase = collection(db, TABLE_NAME);

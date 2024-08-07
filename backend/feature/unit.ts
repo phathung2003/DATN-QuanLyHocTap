@@ -68,7 +68,7 @@ export async function AddUnit(
     return window.location.reload();
   }
 
-  const error = DefaultUnitErrorValue;
+  const error = DefaultUnitErrorValue();
   const errorData = await response.json();
 
   error.status = false;
@@ -129,7 +129,7 @@ export async function EditUnit(
     return window.location.reload();
   }
   const errorData = await response.json();
-  const error = DefaultUnitErrorValue;
+  const error = DefaultUnitErrorValue();
   error.status = false;
   error.systemError = errorData.message;
   setError(error);
@@ -165,7 +165,7 @@ export async function DeleteUnit(
 
   //Xóa thất bại
   if (setError) {
-    const error = DefaultUnitErrorValue;
+    const error = DefaultUnitErrorValue();
     const errorData = await response.json();
     error.status = false;
     error.systemError = errorData.message;

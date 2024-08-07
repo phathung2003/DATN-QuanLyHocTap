@@ -51,7 +51,7 @@ export async function AddTask(
     return window.location.reload();
   }
 
-  const error = DefaultTaskErrorValue;
+  const error = DefaultTaskErrorValue();
   const errorData = await response.json();
 
   error.status = false;

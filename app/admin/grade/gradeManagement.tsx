@@ -2,27 +2,17 @@
 import React, { useState, useEffect } from 'react';
 /* eslint-disable */
 import { IGrade } from '@/backend/models/data/IGrade';
-import { IGradeError } from '@/backend/models/messages/IGradeMessage';
 import { DeleteGrade, SearchGrade } from '@/backend/feature/grade';
 import AddGradeForm from '@/app/admin/grade/addGradeForm';
 import EditGradeForm from '@/app/admin/grade/editGradeForm';
 import OverlapForm from '@/components/Form/overlapForm';
-
+import { DefaultGradeErrorValue } from '@/backend/defaultData/grade';
 //Button
 import DeleteButton from '@/components/Button/deleteButton';
 import EditButton from '@/components/Button/editButton';
 import AddButton from '@/components/Button/addButton';
 
 import SearchBar from '@/components/Field/searchBar';
-
-const DefaultErrorMessage: IGradeError = {
-  status: true,
-  gradeIDError: null,
-  gradeNameError: null,
-  gradeImageError: null,
-  gradeFileError: null,
-  systemError: null,
-};
 
 const GradeManagement = ({ data }) => {
   const [searchGrade, setSearchGrade] = useState<IGrade[]>(data);
@@ -31,7 +21,7 @@ const GradeManagement = ({ data }) => {
   const [modalHeader, setModalHeader] = useState('Thêm cấp bậc học');
   const [currentForm, setCurrentForm] = useState<React.FC>(() => AddGradeForm);
   // eslint-disable-next-line
-  const [errorEdit, setErrorEdit] = useState(DefaultErrorMessage);
+  const [errorEdit, setErrorEdit] = useState(DefaultGradeErrorValue());
 
   //Tìm kiếm
   useEffect(() => {

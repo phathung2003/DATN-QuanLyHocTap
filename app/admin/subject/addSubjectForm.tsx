@@ -4,31 +4,21 @@ import Image from 'next/image';
 import { Formik, Form, Field } from 'formik';
 import SchemaSubject from '@/backend/validationSchema/subject/subjectSchema';
 import { DefaultSubjectValue } from '@/backend/defaultData/subject';
-
 import { AddSubject, ResetError } from '@/backend/feature/subject';
-
-import { ISubjectError } from '@/backend/models/messages/ISubjectMessage';
 import FormikShowError from '@/components/ErrorMessage/formikForm';
 import BottomFormError from '@/components/ErrorMessage/bottomForm';
+import { DefaultSubjectErrorValue } from '@/backend/defaultData/subject';
 //Icon
 import UploadIcon from '@/public/vector/upload.svg';
 import AddSubmitButton from '@/components/Button/addSubmitButton';
 
-const DefaultErrorMessage: ISubjectError = {
-  status: true,
-  subjectIDError: null,
-  subjectNameError: null,
-  subjectFileError: null,
-  systemError: null,
-};
-
 const AddSubjectForm: React.FC = () => {
-  const [error, setError] = useState(DefaultErrorMessage);
+  const [error, setError] = useState(DefaultSubjectErrorValue());
   const [preview, setPreview] = useState<string | null>(null);
 
   return (
     <Formik
-      initialValues={DefaultSubjectValue}
+      initialValues={DefaultSubjectValue()}
       validationSchema={SchemaSubject}
       onSubmit={(data) => AddSubject(data, setError)}
     >

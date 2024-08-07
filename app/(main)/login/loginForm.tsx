@@ -9,7 +9,7 @@ export default function LoginForm() {
   const [errorMessage, setErrorMessage] = useState('');
   return (
     <Formik
-      initialValues={DefaultLoginValue}
+      initialValues={DefaultLoginValue()}
       validationSchema={SchemaLogin}
       onSubmit={(data) => handelSubmit(data, setErrorMessage)}
     >

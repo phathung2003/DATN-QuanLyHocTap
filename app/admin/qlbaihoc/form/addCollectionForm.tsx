@@ -6,29 +6,18 @@ import { Formik, Form, ErrorMessage, Field } from 'formik';
 import SchemaCourse from '@/backend/validationSchema/course/courseSchema';
 import { DefaultCourseValue } from '@/backend/defaultData/course';
 import { handelSubmit, ResetError } from '@/app/admin/qlbaihoc/process/course';
-import { ICourseError } from '@/backend/models/messages/ICourseMessage';
-
+import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
 //Icon
 import UploadIcon from '@/public/vector/upload.svg';
 import PlusIcon from '@/public/vector/plus-black.svg';
 
-const DefaultErrorMessage: ICourseError = {
-  status: true,
-  courseNameError: null,
-  courseGradeError: null,
-  courseSubjectError: null,
-  courseDescriptionError: null,
-  courseImageError: null,
-  systemError: null,
-};
-
 const AddCollection: React.FC = () => {
-  const [error, setError] = useState(DefaultErrorMessage);
+  const [error, setError] = useState(DefaultCourseErrorValue());
   const [preview, setPreview] = useState<string | null>(null);
 
   return (
     <Formik
-      initialValues={DefaultCourseValue}
+      initialValues={DefaultCourseValue()}
       validationSchema={SchemaCourse}
       onSubmit={(data) => handelSubmit(data, setError)}
     >

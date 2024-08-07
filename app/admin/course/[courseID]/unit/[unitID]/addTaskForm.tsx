@@ -3,20 +3,13 @@ import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 
 import { DefaultTaskValue } from '@/backend/defaultData/task';
-
-import { ITaskError } from '@/backend/models/messages/ITaskMessage';
 import FormikShowError from '@/components/ErrorMessage/formikForm';
 import BottomFormError from '@/components/ErrorMessage/bottomForm';
 import { ResetError, AddTask } from '@/backend/feature/task';
+import { DefaultTaskErrorValue } from '@/backend/defaultData/task';
 //Icon
 import AddSubmitButton from '@/components/Button/addSubmitButton';
 import SchemaTask from '@/backend/validationSchema/task/taskSchema';
-
-const DefaultErrorMessage: ITaskError = {
-  status: false,
-  taskNoError: null,
-  systemError: null,
-};
 
 interface AddTaskFormProps {
   courseID: string;
@@ -24,10 +17,10 @@ interface AddTaskFormProps {
 }
 
 const AddTaskForm: React.FC<AddTaskFormProps> = ({ courseID, unitID }) => {
-  const [error, setError] = useState(DefaultErrorMessage);
+  const [error, setError] = useState(DefaultTaskErrorValue());
   return (
     <Formik
-      initialValues={DefaultTaskValue}
+      initialValues={DefaultTaskValue()}
       validationSchema={SchemaTask}
       onSubmit={(data) => AddTask(courseID, unitID, data, setError)}
     >

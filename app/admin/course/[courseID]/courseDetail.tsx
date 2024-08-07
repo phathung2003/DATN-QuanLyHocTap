@@ -9,12 +9,12 @@ import { EditCourse, ResetError, DeleteCourse } from '@/backend/feature/course';
 import SchemaCourse from '@/backend/validationSchema/course/courseSchema';
 import FormikShowError from '@/components/ErrorMessage/formikForm';
 import BottomFormError from '@/components/ErrorMessage/bottomForm';
-import { ICourseError } from '@/backend/models/messages/ICourseMessage';
 import ICourse from '@/backend/models/data/ICourse';
 import IUnit from '@/backend/models/data/IUnit';
 import { SearchUnit, DeleteUnit } from '@/backend/feature/unit';
 import AddUnitForm from '@/app/admin/course/[courseID]/addUnitForm';
 import OverlapForm from '@/components/Form/overlapForm';
+import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
 //Icon
 import SubmitButton from '@/components/Button/submitButton';
 
@@ -24,16 +24,6 @@ import AddButton from '@/components/Button/addButton';
 import SearchBar from '@/components/Field/searchBar';
 import DetailButton from '@/components/Button/detailButton';
 
-const DefaultErrorMessage: ICourseError = {
-  status: true,
-  courseNameError: null,
-  courseGradeError: null,
-  courseSubjectError: null,
-  courseDescriptionError: null,
-  courseImageError: null,
-  courseFileError: null,
-  systemError: null,
-};
 interface UnitProperties {
   courseID: string;
 }
@@ -45,7 +35,7 @@ const CourseDetail: React.FC<{
   grade: IGrade[];
   subject: ISubject[];
 }> = ({ courseID, courseInfo, unitList, grade, subject }) => {
-  const [error, setError] = useState(DefaultErrorMessage);
+  const [error, setError] = useState(DefaultCourseErrorValue());
   const [preview, setPreview] = useState<string | null>(null);
   const [searchUnit, setSearchUnit] = useState<IUnit[]>(unitList);
   const [search, setSearch] = useState<string>('');
