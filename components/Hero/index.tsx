@@ -94,6 +94,7 @@ export default function Hero() {
                       fill
                       src={card.imageUrl}
                       sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover"
                     />
                     <div className="to-gray-900 absolute bottom-0 left-0 right-0 top-0 mt-20 bg-gradient-to-b from-transparent" />
                     <div className="absolute left-0 right-0 top-0 mx-5 mt-2 flex items-center justify-between">

@@ -17,7 +17,7 @@ export default function LoginForm() {
         <div id="info_Login" className="mb-8">
           <label
             htmlFor="info_LoginInput"
-            className="text-dark mb-3 block text-sm dark:text-white"
+            className="text-dark mb-3 block text-sm dark:text-black"
           >
             {' '}
             Tên đăng nhập/Email/Số điện thoại
@@ -37,7 +37,7 @@ export default function LoginForm() {
         <div id="password_Login" className="mb-8">
           <label
             htmlFor="password_LoginInput"
-            className="text-dark mb-3 block text-sm dark:text-white"
+            className="text-dark mb-3 block text-sm dark:text-black"
           >
             Mật khẩu
           </label>

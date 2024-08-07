@@ -13,17 +13,17 @@ export default function LoginnPage() {
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
               <div className="dark:bg-dark mx-auto max-w-[500px] rounded bg-white px-6 py-10 shadow-md sm:p-[60px]">
-                <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
+                <h3 className="mb-3 text-center text-2xl font-bold text-black sm:text-3xl">
                   Đăng nhập
                 </h3>
 
                 <div className="mb-8 flex items-center justify-center">
-                  <span className="hidden h-[1px] w-full max-w-[70px] bg-slate-200 sm:block"></span>
+                  <span className="hidden h-[1.5px] w-full max-w-[70px] bg-slate-200 sm:block"></span>
                 </div>
 
                 <LoginForm />
 
-                <p className="text-body-color text-center text-base font-medium">
+                <p className="text-body-color pt-5 text-center text-base font-medium dark:text-black">
                   Bạn không có tài khoản?{' '}
                   <Link
                     href="/register"
