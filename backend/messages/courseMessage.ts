@@ -9,7 +9,7 @@ const CourseMessage: ICourseMessage = {
 
   COURSE_GRADE: {
     NOT_EXIST: 'Lớp này không tồn tại trên hệ thống',
-    REQUIRED: 'Xin hãy chọn lớp',
+    REQUIRED: 'Xin hãy chọn cấp độ',
   },
 
   COURSE_SUBJECT: {

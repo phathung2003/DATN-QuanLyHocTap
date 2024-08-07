@@ -25,7 +25,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
             sizes="(max-width: 600px) 100vw, 
                (max-width: 1200px) 50vw, 
                33vw"
-            className="object-cover"
+            className="object-contain"
           />
         </Link>
         <div className="p-6 sm:p-8 md:px-6 md:py-8 lg:p-8 xl:px-5 xl:py-8 2xl:p-8">

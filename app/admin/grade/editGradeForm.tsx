@@ -94,7 +94,7 @@ const EditGradeForm: React.FC<{ data: IGrade }> = (gradeInfo) => {
                         alt="Preview"
                         width={200}
                         height={240}
-                        className="max-h-60"
+                        className="max-h-60 object-contain"
                       />
                     ) : gradeInfo.data.gradeImage ==
                       process.env.NEXT_PUBLIC_GRADE_DEFAULT_IMAGE ? (
@@ -113,7 +113,7 @@ const EditGradeForm: React.FC<{ data: IGrade }> = (gradeInfo) => {
                         alt="Current Image"
                         width={200}
                         height={240}
-                        className="max-h-60"
+                        className="max-h-60 object-contain"
                       />
                     )}
                   </div>

@@ -219,9 +219,7 @@ export function ResetError(
   setPreview: React.Dispatch<React.SetStateAction<string | null>>,
 ) {
   //Nếu là hình ==> Đặt hình xem trước
-  if (
-    ['categoryImage', 'subjectFile', 'gradeFile'].includes(data.target.name)
-  ) {
+  if (['courseImage', 'courseFile'].includes(data.target.name)) {
     const file = data.currentTarget.files ? data.currentTarget.files[0] : '';
     if (file) {
       setFieldValue(data.target.name, file);
@@ -242,10 +240,10 @@ export function ResetError(
       ...prev,
       systemError: null,
     };
-    if (['Name', 'Image'].includes(data.target.name.replace(/^category/, ''))) {
-      newErrorState[
-        `category${data.target.name.replace(/^category/, '')}Error`
-      ] = null;
+    if (
+      ['courseImage', 'courseFile', 'courseName'].includes(data.target.name)
+    ) {
+      newErrorState[`${data.target.name}Error`] = null;
     }
 
     return newErrorState;

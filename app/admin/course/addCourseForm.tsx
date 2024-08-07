@@ -116,7 +116,7 @@ const AddCourseForm: React.FC = () => {
                 as="select"
                 className="text-gray-900 dark:placeholder-gray-400 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
               >
-                <option value="Default">Chọn khóa học</option>
+                <option value="Default">Chọn cấp độ</option>
                 {gradeList?.map((data) => {
                   return (
                     <option
@@ -171,7 +171,7 @@ const AddCourseForm: React.FC = () => {
 
             <div className="flex w-full items-center justify-center">
               <label
-                htmlFor="gradeFile_AddInput"
+                htmlFor="courseFile_AddInput"
                 className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600"
               >
                 <div className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600">
@@ -182,7 +182,7 @@ const AddCourseForm: React.FC = () => {
                         alt="Preview"
                         width={200}
                         height={240}
-                        className="max-h-60"
+                        className="max-h-60 object-contain"
                       />
                     ) : (
                       <div className="flex flex-col items-center justify-center">

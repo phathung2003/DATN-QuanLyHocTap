@@ -256,7 +256,7 @@ const QlBaiViet = () => {
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <p
-                    className={`rounded-full bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 px-5 py-2 text-center text-xs font-bold text-white hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-lime-300 dark:focus:ring-lime-800 ${
+                    className={`rounded-full px-5 py-2 text-center text-xs font-bold text-white hover:bg-gradient-to-br focus:outline-none focus:ring-4 focus:ring-lime-300 dark:focus:ring-lime-800 ${
                       packageItem.status === 'Public'
                         ? 'bg-success text-success'
                         : packageItem.status === 'Private'

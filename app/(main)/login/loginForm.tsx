@@ -29,7 +29,7 @@ export default function LoginForm() {
             placeholder="Tên đăng nhập/Email/Số điện thoại"
             className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
           />
-          <div>
+          <div className="pt-2 font-bold text-rose-500">
             <ErrorMessage id="info_LoginError" name="info" />
           </div>
         </div>
@@ -48,12 +48,16 @@ export default function LoginForm() {
             placeholder="••••••"
             className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
           />
-          <div>
+          <div className="pt-2 font-bold text-rose-500">
             <ErrorMessage id="password_LoginError" name="password" />
           </div>
         </div>
 
-        {errorMessage != null && <div id="LoginError">{errorMessage}</div>}
+        {errorMessage != null && (
+          <div id="LoginError" className="font-bold text-rose-500">
+            {errorMessage}
+          </div>
+        )}
         <div>
           <a
             href="#0"
