@@ -94,7 +94,7 @@ async function CheckClassification(courseID: string, unitID: string) {
 
   if (!(await CheckIDExist(TableName.COURSE, courseID))) {
     error.status = false;
-    error.courseIDError = ContentMessage.COURSE_NOT_FOUND;
+    error.systemError = ContentMessage.CONTENT_ADD_FAILED;
     return new NextResponse(
       JSON.stringify({
         message: ContentMessage.CONTENT_ADD_FAILED,
@@ -114,7 +114,7 @@ async function CheckClassification(courseID: string, unitID: string) {
     ))
   ) {
     error.status = false;
-    error.contentUnitIDError = ContentMessage.UNIT_NOT_FOUND;
+    error.systemError = ContentMessage.CONTENT_ADD_FAILED;
 
     return new NextResponse(
       JSON.stringify({

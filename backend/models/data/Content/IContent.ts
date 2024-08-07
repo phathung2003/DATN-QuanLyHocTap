@@ -1,10 +1,14 @@
-import { ICalculateTwoNumbers } from '@/backend/models/data/Content/ICalculateTwoNumbers';
-import { ICard } from '@/backend/models/data/Content/ICard';
-import { IFlashcard } from '@/backend/models/data/Content/IFlashcard';
+import { ICalculateTwoNumbersContent } from '@/backend/models/data/Content/ICalculateTwoNumbers';
+import { ICardContent } from '@/backend/models/data/Content/ICard';
+import { IFlashcardContent } from '@/backend/models/data/Content/IFlashcard';
 
 export default interface IContent {
-  taskNo: number;
-  taskName: string;
-  taskDescription: string;
-  content: ICalculateTwoNumbers[] | ICard[] | IFlashcard[];
+  contentID?: string;
+  contentNo: number;
+  contentName: string;
+  contentDescription: string;
+  contentType: string;
+  contentData: ICalculateTwoNumbersContent | ICardContent | IFlashcardContent;
+  contentCreateAt?: Date;
+  contentLastEditDate?: Date | null;
 }

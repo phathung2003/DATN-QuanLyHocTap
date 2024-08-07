@@ -12,7 +12,7 @@ import {
 import { TableName } from '@/backend/globalVariable';
 import TaskMessage from '@/backend/messages/taskMessage';
 import CourseMessage from '@/backend/messages/courseMessage';
-import UnitMessage from '@/backend/messages/contentMessage';
+import UnitMessage from '@/backend/messages/unitMessage';
 
 export async function POST(request: Request) {
   try {

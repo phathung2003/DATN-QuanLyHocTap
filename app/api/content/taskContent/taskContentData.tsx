@@ -1,24 +1,37 @@
-import { LoginSession } from '@/app/api/checkData';
-import { CheckDataInputTrueFalse } from '@/app/api/checkData';
+import {
+  CheckDataInputTrueFalse,
+  CheckDataInputNeedLogin,
+} from '@/app/api/checkData';
 import { ContentType } from '@/backend/globalVariable';
 import { CheckIDExist } from '@/backend/database/generalFeature';
 import { TableName } from '@/backend/globalVariable';
+import IContent from '@/backend/models/data/Content/IContent';
+import { ICalculateTwoNumbersContent } from '@/backend/models/data/Content/ICalculateTwoNumbers';
+import { ICardContent } from '@/backend/models/data/Content/ICard';
+import { IFlashcardContent } from '@/backend/models/data/Content/IFlashcard';
 
 //Kiểm tra dữ liệu
 export async function CheckData(request) {
+  const optionField = ['contentName', 'contentDescription'];
+  const requireField = ['contentData', 'contentType'];
   try {
-    const tokenID = LoginSession(request);
     const courseFileID = request.nextUrl.searchParams.get('courseID');
     const unitFileID = request.nextUrl.searchParams.get('unitID');
     const taskFileID = request.nextUrl.searchParams.get('taskID');
     const contentFileID = request.nextUrl.searchParams.get('contentID');
-    const dataInput = await request.json();
 
-    if (!tokenID || !courseFileID || !unitFileID || !taskFileID) {
+    const result = await CheckDataInputNeedLogin(
+      request,
+      requireField,
+      optionField,
+    );
+
+    if (!result || !courseFileID || !unitFileID || !taskFileID) {
       return false;
     }
 
-    if (!CheckContent(dataInput)) {
+    const content = CheckContent(result.data);
+    if (!content) {
       return false;
     }
 
@@ -33,7 +46,7 @@ export async function CheckData(request) {
       return false;
     }
 
-    //Kiểm tra bài có trên hệ thống hay không
+    //Kiểm tra tác vụ bài có trên hệ thống hay không
     const taskPath = `${TableName.COURSE}/${courseFileID}/${TableName.UNIT}/${unitFileID}/${TableName.TASK}`;
     if (!(await CheckIDExist(taskPath, taskFileID))) {
       return false;
@@ -48,8 +61,8 @@ export async function CheckData(request) {
     }
 
     return {
-      token: tokenID,
-      data: dataInput,
+      token: result.token,
+      data: content,
       courseID: courseFileID,
       unitID: unitFileID,
       taskID: taskFileID,
@@ -61,119 +74,172 @@ export async function CheckData(request) {
 }
 
 //Kiểm tra nội dung
+function CheckContent(dataInput): IContent | null {
+  try {
+    //Kiểm tra contentNo có null không
+    const contentNo = dataInput.contentNo ?? NaN;
+    if (!isNaN(contentNo) && isNaN(Number(dataInput.contentNo))) {
+      return null;
+    }
 
-function CheckContent(dataInput): boolean {
-  if (!dataInput.contentNo || !IsNumber(dataInput.contentNo)) {
-    return false;
+    //Lấy contentData
+    let contentData:
+      | ICalculateTwoNumbersContent
+      | ICardContent
+      | IFlashcardContent
+      | null;
+    switch (dataInput.contentType.toUpperCase()) {
+      case ContentType.FLASHCARD:
+        contentData = IsFlashcard(dataInput.contentData);
+        break;
+      case ContentType.CALCULATE_TWO_NUMBER:
+        contentData = IsCalculateTwoNumber(dataInput.contentData);
+        break;
+      case ContentType.CARD:
+        contentData = IsCard(dataInput.contentData);
+        break;
+      default:
+        return null;
+    }
+    if (!contentData) {
+      return null;
+    }
+
+    const data: IContent = {
+      contentName: dataInput.contentName,
+      contentDescription: dataInput.contentDescription,
+      contentType: dataInput.contentType.toUpperCase(),
+      contentNo: Number(contentNo),
+      contentData: dataInput.contentData,
+    };
+    return data;
+  } catch {
+    return null;
   }
-
-  switch (dataInput.contentType.toUpperCase()) {
-    case ContentType.FLASHCARD:
-      if (!IsFlashcard(dataInput.contentData)) {
-        return false;
-      }
-      break;
-    case ContentType.CALCULATE_TWO_NUMBER:
-      if (!IsCalculateTwoNumber(dataInput.contentData)) {
-        return false;
-      }
-      break;
-    case ContentType.CARD:
-      if (!IsCard(dataInput.contentData)) {
-        return false;
-      }
-      break;
-    default:
-      return false;
-  }
-
-  return true;
 }
 
 //Kiểu dạng: Flashcard
-export function IsFlashcard(data: any[]): boolean {
+export function IsFlashcard(data): IFlashcardContent | null {
   try {
-    for (let slide = 0; slide < data.length; slide++) {
-      const nullableCheckField = [
-        'firstSideText',
-        'firstSideImage',
-        'secondSideText',
-        'secondSideImage',
-      ];
-      const checkField = ['position'];
-      if (
-        !CheckDataInputTrueFalse(data[slide], checkField, nullableCheckField)
-      ) {
-        return false;
-      }
+    const optionField = [
+      'firstSideText',
+      'firstSideImage',
+      'secondSideText',
+      'secondSideImage',
+    ];
 
-      //Kiểm tra có phải dạng số không
-      if (!IsNumber(data[slide].position)) {
-        return false;
-      }
+    //Kiểm tra có đủ các trường không
+    if (!CheckDataInputTrueFalse(data, null, optionField)) {
+      return null;
     }
-    return true;
+
+    //Kiểm tra có phải dạng số không
+    const positionNo = NullNaNNumber(data.position);
+    if (positionNo == null) {
+      return null;
+    }
+    //Ít nhất 1 trong 2 trường của mỗi mặt phải có dữ liệu
+    if (
+      (!data.firstSideText && !data.firstSideImage) ||
+      (!data.secondSideText && !data.secondSideImage)
+    ) {
+      return null;
+    }
+
+    //Xuất dữ liệu
+    const flashcardData: IFlashcardContent = {
+      position: positionNo,
+      firstSideImage: data.firstSideImage,
+      firstSideText: data.firstSideText,
+      secondSideImage: data.secondSideImage,
+      secondSideText: data.secondSideText,
+    };
+    return flashcardData;
   } catch {
-    return false;
+    return null;
   }
 }
 
 //Kiểu dạng: CalculateTwoNumber
-export function IsCalculateTwoNumber(data: any[]): boolean {
+export function IsCalculateTwoNumber(data): ICalculateTwoNumbersContent | null {
   try {
-    for (let calculation = 0; calculation < data.length; calculation++) {
-      const checkField = [
-        'questionNo',
-        'firstNumber',
-        'secondNumber',
-        'operator',
-      ];
-
-      //Kiểm tra có chứa đủ các trường
-      if (!CheckDataInputTrueFalse(data[calculation], checkField, null)) {
-        return false;
-      }
-
-      //Kiểm tra các dấu phép tính có hợp lệ
-      if (!['+', '-', '*', '/'].includes(data[calculation].operator)) {
-        return false;
-      }
-
-      if (
-        !IsNumber(data[calculation].firstNumber) ||
-        !IsNumber(data[calculation].secondNumber) ||
-        !IsNumber(data[calculation].questionNo)
-      ) {
-        return false;
-      }
+    const requireField = ['firstNumber', 'secondNumber', 'operator'];
+    //Kiểm tra có chứa đủ các trường
+    if (!CheckDataInputTrueFalse(data, requireField, null)) {
+      return null;
     }
-    return true;
+
+    //Kiểm tra các dấu phép tính có hợp lệ
+    if (!['+', '-', '*', '/'].includes(data.operator)) {
+      return null;
+    }
+
+    //Kiểm tra số thứ nhất và số thứ hai có phải là số không
+    if (!IsNumber(data.firstNumber) || !IsNumber(data.secondNumber)) {
+      return null;
+    }
+
+    //Kiểm tra có phải dạng số không
+    const positionNo = NullNaNNumber(data.position);
+    if (positionNo == null) {
+      return null;
+    }
+
+    //Xuất dữ liệu
+    const mathData: ICalculateTwoNumbersContent = {
+      position: positionNo,
+      firstNumber: data.firstNumber,
+      secondNumber: data.secondNumber,
+      operator: data.operator,
+    };
+    return mathData;
   } catch {
-    return false;
+    return null;
   }
 }
 
 //Kiểu dạng: Card
-export function IsCard(data: any[]): boolean {
+export function IsCard(data): ICardContent | null {
   try {
-    for (let calculation = 0; calculation < data.length; calculation++) {
-      const nullableField = ['image'];
-      const checkField = ['position', 'word'];
+    const optionField = ['image', 'word'];
 
-      //Kiểm tra có chứa đủ các trường
-      if (
-        !CheckDataInputTrueFalse(data[calculation], checkField, nullableField)
-      ) {
-        return false;
-      }
+    //Kiểm tra có chứa đủ các trường
+    if (!CheckDataInputTrueFalse(data, null, optionField)) {
+      return null;
     }
-    return true;
+
+    //Phải có 1 trong 2 trường
+    if (!data.image && !data.word) {
+      return null;
+    }
+
+    //Kiểm tra có phải dạng số không
+    const positionNo = NullNaNNumber(data.position);
+    if (positionNo == null) {
+      return null;
+    }
+
+    const cardData: ICardContent = {
+      position: positionNo,
+      image: data.image,
+      text: data.word,
+    };
+    return cardData;
   } catch {
-    return false;
+    return null;
   }
 }
 
 //--- Nội bộ ---//
 export function IsNumber(value: any): value is number {
   return typeof value === 'number' && !Number.isNaN(value);
+}
+
+//Kiểm tra có phải dạng số không - Cho phép null và NaN
+export function NullNaNNumber(numberInput): number | null {
+  const number = numberInput ?? NaN;
+  if (!isNaN(number) && isNaN(Number(numberInput))) {
+    return null;
+  }
+  return Number(number);
 }

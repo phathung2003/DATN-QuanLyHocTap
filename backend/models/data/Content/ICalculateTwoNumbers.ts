@@ -5,7 +5,7 @@ export interface ICalculateTwoNumbers {
 }
 
 export interface ICalculateTwoNumbersContent {
-  questionNo: number;
+  position: number;
   firstNumber: number;
   secondNumber: number;
   operator: '+' | '-' | '*' | '/';

@@ -199,6 +199,35 @@ export async function CheckGetEditNo(
   return dataNo;
 }
 
+//Kiểm tra - Lấy số thứ tự khi thêm
+export async function CheckGetAddNo(
+  pathName: string,
+  fieldName: string,
+  dataID: string,
+  dataNo: number,
+): Promise<number> {
+  const dataCollection = collection(db, pathName);
+  const dataDocuments = await getDocs(dataCollection);
+
+  //Nếu dataNo là NaN => Lấy số cũ
+  if (isNaN(dataNo)) {
+    for (const doc of dataDocuments.docs) {
+      if (doc.id === dataID) {
+        return Number(doc.data()[fieldName]);
+      }
+    }
+  }
+
+  //Kiểm tra số có hợp lệ không
+  for (const doc of dataDocuments.docs) {
+    const existUnitNo = Number(doc.data()[fieldName]);
+    if (doc.id == dataID && existUnitNo == dataNo) {
+      return dataNo;
+    }
+  }
+  return NaN;
+}
+
 //Kiểm tra ID có tồn tại trên hệ thống hay không
 export async function CheckIDExist(
   filePath: string,

@@ -35,13 +35,13 @@ export async function POST(request: Request) {
       return MessageReturnOnly(UnitMessage.UNIT_NO.NEGATIVE_NUMBER, 500);
     }
 
-    //Kiểm tra số thứ tự bài
     const pathName = `${TableName.COURSE}/${dataInput.courseID}/${TableName.UNIT}/`;
     dataInput.data.unitNo = await CheckSuggestAddNo(
       pathName,
       'unitNo',
       dataInput.data.unitNo,
     );
+
     if (isNaN(dataInput.data.unitNo)) {
       return MessageReturnOnly(UnitMessage.UNIT_NO.ALREADY_EXIST, 500);
     }
