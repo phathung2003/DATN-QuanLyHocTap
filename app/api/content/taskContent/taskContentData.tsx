@@ -12,8 +12,8 @@ import { IFlashcardContent } from '@/backend/models/data/Content/IFlashcard';
 
 //Kiểm tra dữ liệu
 export async function CheckData(request) {
-  const optionField = ['contentName', 'contentDescription'];
-  const requireField = ['contentData', 'contentType'];
+  const optionField = ['contentName', 'contentDescription', 'contentData'];
+  const requireField = ['contentType'];
   try {
     const courseFileID = request.nextUrl.searchParams.get('courseID');
     const unitFileID = request.nextUrl.searchParams.get('unitID');
@@ -30,9 +30,12 @@ export async function CheckData(request) {
       return false;
     }
 
-    const content = CheckContent(result.data);
-    if (!content) {
-      return false;
+    let content = result.data;
+    if (result.data.contentData) {
+      content = CheckContent(result.data);
+      if (!content) {
+        return false;
+      }
     }
 
     //Kiểm tra khóa học có trên hệ thống hay không
@@ -242,4 +245,87 @@ export function NullNaNNumber(numberInput): number | null {
     return null;
   }
   return Number(number);
+}
+
+//Kiểm tra dữ liệu
+export async function CheckEditData(request) {
+  const optionField = ['contentName', 'contentDescription', 'contentData'];
+  const requireField = ['contentType'];
+
+  try {
+    const courseFileID = request.nextUrl.searchParams.get('courseID');
+    const unitFileID = request.nextUrl.searchParams.get('unitID');
+    const taskFileID = request.nextUrl.searchParams.get('taskID');
+    const contentFileID = request.nextUrl.searchParams.get('contentID');
+    const positionRequest = Number(
+      request.nextUrl.searchParams.get('position'),
+    );
+
+    const result = await CheckDataInputNeedLogin(
+      request,
+      requireField,
+      optionField,
+    );
+
+    if (
+      !result ||
+      !courseFileID ||
+      !unitFileID ||
+      !taskFileID ||
+      !contentFileID
+    ) {
+      return false;
+    }
+
+    let content = result.data;
+    if (result.data.contentData) {
+      if (!positionRequest) {
+        return false;
+      }
+      content = CheckContent(result.data);
+      if (!content) {
+        return false;
+      }
+    }
+
+    //Kiểm tra xem position có phải là số không
+    if (!Number.isFinite(positionRequest)) {
+      return false;
+    }
+
+    //Kiểm tra khóa học có trên hệ thống hay không
+    if (!(await CheckIDExist(TableName.COURSE, courseFileID))) {
+      return false;
+    }
+
+    //Kiểm tra bài học có trên hệ thống hay không
+    const unitPath = `${TableName.COURSE}/${courseFileID}/${TableName.UNIT}`;
+    if (!(await CheckIDExist(unitPath, unitFileID))) {
+      return false;
+    }
+
+    //Kiểm tra tác vụ bài có trên hệ thống hay không
+    const taskPath = `${TableName.COURSE}/${courseFileID}/${TableName.UNIT}/${unitFileID}/${TableName.TASK}`;
+    if (!(await CheckIDExist(taskPath, taskFileID))) {
+      return false;
+    }
+
+    //Kiểm tra nội dung có trên hệ thống
+    const contentPath = `${TableName.COURSE}/${courseFileID}/${TableName.UNIT}/${unitFileID}/${TableName.TASK}/${taskFileID}/${TableName.CONTENT}`;
+    if (!(await CheckIDExist(contentPath, contentFileID))) {
+      return false;
+    }
+
+    return {
+      token: result.token,
+      data: content,
+      courseID: courseFileID,
+      unitID: unitFileID,
+      taskID: taskFileID,
+      contentID: contentFileID,
+      position: positionRequest,
+    };
+  } catch {
+    return false;
+  }
 }

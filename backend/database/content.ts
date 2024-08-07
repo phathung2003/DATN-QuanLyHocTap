@@ -22,7 +22,7 @@ export async function AddContent(
   const baseURL = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}/${taskID}/${TableName.CONTENT}`;
 
   //Có contentID ==> Dữ liệu cũ
-  if (contentID) {
+  if (contentID && data.contentData != null) {
     try {
       const document = doc(db, baseURL, contentID);
       const documentData = await getDoc(document);
@@ -42,14 +42,14 @@ export async function AddContent(
     }
   }
 
-  //KhÔng có contentID ==> Dữ liệu mới
+  //Không có contentID ==> Dữ liệu mới
   const id = await GenerateID(baseURL);
   const contentData = {
     contentNo: data.contentNo,
     contentType: data.contentType.toUpperCase(),
     contentName: data.contentName,
     contentDescription: data.contentDescription,
-    contentData: [data.contentData],
+    contentData: data.contentData == null ? [] : [data.contentData],
     contentCreateAt: new Date(),
     contentLastEditDate: null,
   };
@@ -85,7 +85,50 @@ export async function DeleteContent(
 }
 
 //Sửa nội dung bài học
-export async function EditContent() {}
+export async function EditContent(
+  courseID: string,
+  unitID: string,
+  taskID: string,
+  contentID: string,
+  data: IContent,
+  originalPosition: number,
+) {
+  const baseURL = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}/${taskID}/${TableName.CONTENT}`;
+  const document = doc(db, baseURL, contentID);
+
+  //Bản chỉnh sửa ban đầu
+  const originalDocumentData = await getDoc(document);
+  if (!originalDocumentData.exists()) {
+    return false;
+  }
+
+  //Có chỉnh sửa Content Data
+  let editContent = originalDocumentData.data().contentData;
+  if (data.contentData) {
+    editContent = editContent.map((original) => {
+      if (original.position == originalPosition) {
+        return data.contentData;
+      }
+      return original;
+    });
+  }
+
+  //Tiến hành cập nhật
+  try {
+    await updateDoc(document, {
+      contentType: originalDocumentData.data().contentType,
+      contentName: data.contentName,
+      contentDescription: data.contentDescription,
+      contentNo: data.contentNo,
+      contentData: editContent,
+      contentCreateAt: originalDocumentData.data().contentCreateAt,
+      contentLastEditDate: new Date(),
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
 
 //Kiểm tra và đề xuất vị trí cho position trong contentData
 export async function SuggestCheckAddPosition(
@@ -165,5 +208,83 @@ export async function CheckContentType(
     }
   }
 
+  return false;
+}
+
+//Kiểm tra đổi thứ tự nội dung
+export async function CheckPositionEdit(
+  courseID: string,
+  unitID: string,
+  taskID: string,
+  contentID: string,
+  previousPosition: number,
+  position: number,
+): Promise<number> {
+  //Lấy danh sách nội dung
+  const pathName = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}/${taskID}/${TableName.CONTENT}`;
+  const document = doc(db, pathName, contentID);
+  const documentData = await getDoc(document);
+
+  //Lấy được danh sách
+  if (documentData.exists()) {
+    const dataList:
+      | ICalculateTwoNumbersContent[]
+      | ICardContent[]
+      | IFlashcardContent[] = documentData.data().contentData;
+
+    //Nếu số bị null
+    if (isNaN(position)) {
+      return previousPosition;
+    }
+
+    //Kiểm tra số có hợp lệ không
+    for (const data of dataList) {
+      const currentNo = Number(data.position);
+      if (
+        !isNaN(currentNo) &&
+        currentNo === position &&
+        currentNo != previousPosition
+      ) {
+        return NaN;
+      }
+    }
+    return position;
+  }
+  return NaN;
+}
+
+export async function CheckEditPositionExist(
+  courseID: string,
+  unitID: string,
+  taskID: string,
+  contentID: string,
+  contentType: string,
+  position: number,
+): Promise<boolean> {
+  //Lấy danh sách nội dung
+  const pathName = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}/${taskID}/${TableName.CONTENT}`;
+  const document = doc(db, pathName, contentID);
+  const documentData = await getDoc(document);
+  console.log(position);
+  //Lấy được danh sách
+  if (documentData.exists()) {
+    if (contentType != documentData.data().contentType) {
+      return false;
+    }
+
+    const dataList:
+      | ICalculateTwoNumbersContent[]
+      | ICardContent[]
+      | IFlashcardContent[] = documentData.data().contentData;
+
+    //Kiểm tra vị trí cũ có tồn tại không
+    for (const data of dataList) {
+      const currentNo = Number(data.position);
+      if (currentNo == position) {
+        return true;
+      }
+    }
+    return false;
+  }
   return false;
 }

@@ -8,7 +8,11 @@ export default interface IContent {
   contentName: string;
   contentDescription: string;
   contentType: string;
-  contentData: ICalculateTwoNumbersContent | ICardContent | IFlashcardContent;
+  contentData:
+    | ICalculateTwoNumbersContent
+    | ICardContent
+    | IFlashcardContent
+    | null;
   contentCreateAt?: Date;
   contentLastEditDate?: Date | null;
 }
