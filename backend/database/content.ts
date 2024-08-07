@@ -1,4 +1,10 @@
-import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import {
+  doc,
+  updateDoc,
+  getDoc,
+  collection,
+  getDocs,
+} from 'firebase/firestore';
 import { db } from '@/backend/database/firebase';
 import { TableName } from '@/backend/globalVariable';
 import {
@@ -10,7 +16,9 @@ import { ICardContent } from '@/backend/models/data/Content/ICard';
 import { IFlashcardContent } from '@/backend/models/data/Content/IFlashcard';
 import IContent from '@/backend/models/data/Content/IContent';
 import { DeleteDocument } from '@/backend/database/generalFeature';
-
+import ContentMessage from '@/backend/messages/contentMessage';
+import { FormatISODate } from '@/backend/database/generalFeature';
+import { ContentType } from '@/backend/globalVariable';
 //Thêm nội dung học
 export async function AddContent(
   courseID: string,
@@ -127,6 +135,38 @@ export async function EditContent(
     return true;
   } catch (e) {
     return false;
+  }
+}
+
+//Lấy danh sách nội dung
+export async function GetContent(
+  courseID: string,
+  unitID: string,
+  taskID: string,
+  contentID: string,
+) {
+  const baseURL = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}/${taskID}/${TableName.CONTENT}/`;
+  try {
+    if (contentID) {
+      const document = doc(db, baseURL, contentID);
+      const documentData = await getDoc(document);
+      if (!documentData.exists()) {
+        return null;
+      }
+      return await ContentData(documentData);
+    }
+    const contentCollection = collection(db, baseURL);
+    const contentDocuments = await getDocs(contentCollection);
+    const contentList = await Promise.all(
+      contentDocuments.docs.map(async (doc) => await ContentData(doc)),
+    );
+
+    if (contentList.length === 0) {
+      return null;
+    }
+    return contentList;
+  } catch {
+    return ContentMessage.SYSTEM_ERROR;
   }
 }
 
@@ -265,7 +305,6 @@ export async function CheckEditPositionExist(
   const pathName = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}/${taskID}/${TableName.CONTENT}`;
   const document = doc(db, pathName, contentID);
   const documentData = await getDoc(document);
-  console.log(position);
   //Lấy được danh sách
   if (documentData.exists()) {
     if (contentType != documentData.data().contentType) {
@@ -287,4 +326,61 @@ export async function CheckEditPositionExist(
     return false;
   }
   return false;
+}
+
+//Format danh sách
+async function ContentData(doc) {
+  return {
+    contentID: doc.id,
+    contentType: doc.data().contentType,
+    contentNo: doc.data().contentNo,
+    contentName: doc.data().contentName,
+    contentDescription: doc.data().contentDescription,
+    contentCreateAt: FormatISODate(
+      doc.data().contentCreateAt.toDate().toISOString(),
+    ),
+    contentLastEditDate:
+      doc.data().contentLastEditDate != null
+        ? FormatISODate(doc.data().contentLastEditDate.toDate().toISOString())
+        : null,
+    contentData: ContentListData(
+      doc.data().contentData,
+      doc.data().contentType,
+    ),
+  };
+}
+
+function ContentListData(content, type: string) {
+  let contentList;
+
+  switch (type) {
+    case ContentType.CALCULATE_TWO_NUMBER:
+      contentList = content.map((item) => ({
+        ...item,
+        result: Calculation(item),
+      }));
+      break;
+    default:
+      contentList = content.map((data) => {
+        return data;
+      });
+  }
+  return contentList;
+}
+
+function Calculation(data) {
+  const firstNumber = data.firstNumber;
+  const secondNumber = data.secondNumber;
+  switch (data.operator) {
+    case '+':
+      return firstNumber + secondNumber;
+    case '-':
+      return firstNumber - secondNumber;
+    case '*':
+      return firstNumber * secondNumber;
+    case '/':
+      return firstNumber / secondNumber;
+    default:
+      return NaN; // Xử lý cho các toán tử không xác định
+  }
 }
