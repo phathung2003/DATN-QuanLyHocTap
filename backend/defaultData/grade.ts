@@ -3,7 +3,7 @@ import { IGrade } from '@/backend/models/data/IGrade';
 
 export function DefaultGradeErrorValue(): IGradeError {
   return {
-    status: false,
+    status: true,
     gradeIDError: null,
     gradeNameError: null,
     gradeImageError: null,

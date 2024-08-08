@@ -252,3 +252,10 @@ export function FormatISODate(ISODateString: string): string {
 
   return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
 }
+
+export function ToTitleCase(text: string): string {
+  return text.replace(
+    /\w\S*/g,
+    (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase(),
+  );
+}

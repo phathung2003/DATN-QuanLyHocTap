@@ -7,6 +7,7 @@ import ICourse from '@/backend/models/data/ICourse';
 import GlobalMessage from '@/backend/messages/gobalMessage';
 import { GenerateFileName } from '@/backend/feature/general';
 import { RemoveAccent } from '@/backend/feature/general';
+
 //Lấy danh sách khóa học
 export async function GetCourse() {
   const response = await fetch(
@@ -166,7 +167,7 @@ export async function EditCourse(
 //Xóa khóa học
 export async function DeleteCourse(
   courseID: string,
-  setError: React.Dispatch<React.SetStateAction<ICourseError>>,
+  setError?: React.Dispatch<React.SetStateAction<ICourseError>>,
 ) {
   //Kiểm tra phiên đăng nhập
   const token = await GetToken();
@@ -190,11 +191,13 @@ export async function DeleteCourse(
   }
 
   //Xóa thất bại
-  const error = DefaultCourseErrorValue();
-  const errorData = await response.json();
-  error.status = false;
-  error.systemError = errorData.message;
-  setError(error);
+  if (setError) {
+    const error = DefaultCourseErrorValue();
+    const errorData = await response.json();
+    error.status = false;
+    error.systemError = errorData.message;
+    setError(error);
+  }
   return;
 }
 

@@ -319,29 +319,29 @@ const CourseDetail: React.FC<{
           <table id="table" className="w-full">
             <thead className="text-gray-400 sticky top-0 bg-slate-200 text-left text-xs uppercase dark:bg-slate-700 dark:text-white">
               <tr>
-                <th id="idHead" className="w-[30px] text-center">
-                  STT
+                <th id="idHead" className="w-[5rem] text-center">
+                  Bài số
                 </th>
                 <th id="nameHead" className="px-4 py-3">
                   Tên bài học
                 </th>
-                <th id="createAtHead" className="w-[13rem] px-4 py-3">
+                <th id="createAtHead" className="w-[12rem] px-4 py-3">
                   Ngày tạo
                 </th>
-                <th id="LastUpdateHead" className="w-[13rem] px-4 py-3">
+                <th id="LastUpdateHead" className="w-[12rem] px-4 py-3">
                   Chỉnh sửa lần cuối
                 </th>
                 <th id="managerOptionHead" className="w-[12rem] px-4 py-3"></th>
               </tr>
             </thead>
             <tbody className="h-[50px] items-center divide-y">
-              {searchUnit.map((unitData, index) => (
+              {searchUnit.map((unitData) => (
                 <tr
-                  key={index}
+                  key={unitData.unitNo}
                   className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
                 >
-                  <td id="unitID" className="w-[30px] text-center">
-                    {index}
+                  <td id="unitID" className="w-[5rem] text-center">
+                    {unitData.unitNo}
                   </td>
 
                   <td id="name" className="px-4">

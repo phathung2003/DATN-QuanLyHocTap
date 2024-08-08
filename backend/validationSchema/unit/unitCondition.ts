@@ -11,10 +11,6 @@ const UnitCondition: IUnitCondition = {
     MAX: 0,
     REQUIRED: false,
   },
-
-  UNIT_NO: {
-    REQUIRED: true,
-  },
 };
 
 export default UnitCondition;

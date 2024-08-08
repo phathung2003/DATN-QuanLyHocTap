@@ -14,11 +14,12 @@ import {
 import { ICalculateTwoNumbersContent } from '@/backend/models/data/Content/ICalculateTwoNumbers';
 import { ICardContent } from '@/backend/models/data/Content/ICard';
 import { IFlashcardContent } from '@/backend/models/data/Content/IFlashcard';
-import IContent from '@/backend/models/data/Content/IContent';
+import { IContent } from '@/backend/models/data/Content/IContent';
 import { DeleteDocument } from '@/backend/database/generalFeature';
 import ContentMessage from '@/backend/messages/contentMessage';
 import { FormatISODate } from '@/backend/database/generalFeature';
 import { ContentType } from '@/backend/globalVariable';
+
 //Thêm nội dung học
 export async function AddContent(
   courseID: string,
@@ -147,6 +148,29 @@ export async function GetContent(
 ) {
   const baseURL = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}/${taskID}/${TableName.CONTENT}/`;
   try {
+    if (!taskID) {
+      const taskURL = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}/`;
+
+      try {
+        const taskDatabase = collection(db, taskURL);
+        const taskData = await getDocs(taskDatabase);
+        const taskList = await Promise.all(
+          taskData.docs.map(
+            async (doc) =>
+              await GetTask(doc, `${taskURL}${doc.id}/${TableName.CONTENT}/`),
+          ),
+        );
+
+        if (taskList.length === 0) {
+          return null;
+        }
+        return taskList;
+      } catch {
+        return ContentMessage.SYSTEM_ERROR;
+      }
+    }
+
+    //Lấy chi tiết contentID
     if (contentID) {
       const document = doc(db, baseURL, contentID);
       const documentData = await getDoc(document);
@@ -155,6 +179,7 @@ export async function GetContent(
       }
       return await ContentData(documentData);
     }
+
     const contentCollection = collection(db, baseURL);
     const contentDocuments = await getDocs(contentCollection);
     const contentList = await Promise.all(
@@ -329,6 +354,28 @@ export async function CheckEditPositionExist(
 }
 
 //Format danh sách
+async function GetTask(doc, baseURL: string) {
+  const contentCollection = collection(db, baseURL);
+  const contentDocuments = await getDocs(contentCollection);
+  const contentList = await Promise.all(
+    contentDocuments.docs.map(async (doc) => await ContentData(doc)),
+  );
+
+  return {
+    taskID: doc.id,
+    taskNo: doc.data().taskNo,
+    taskName: doc.data().taskName,
+    taskDescription: doc.data().taskDescription,
+    taskUploadDate: FormatISODate(
+      doc.data().taskUploadDate.toDate().toISOString(),
+    ),
+    taskLastEditDate:
+      doc.data().taskLastEditDate != null
+        ? FormatISODate(doc.data().taskLastEditDate.toDate().toISOString())
+        : null,
+    content: contentList,
+  };
+}
 async function ContentData(doc) {
   return {
     contentID: doc.id,

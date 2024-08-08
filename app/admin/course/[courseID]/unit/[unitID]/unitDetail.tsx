@@ -2,10 +2,10 @@
 /*eslint-disable*/
 import IUnit from '@/backend/models/data/IUnit';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { UnitEditDefaultValue } from '@/backend/defaultData/unit';
-
+import { SearchTask, DeleteTask } from '@/backend/feature/task';
 import FormikShowError from '@/components/ErrorMessage/formikForm';
 import BottomFormError from '@/components/ErrorMessage/bottomForm';
 import { EditUnit, ResetError, DeleteUnit } from '@/backend/feature/unit';
@@ -15,6 +15,7 @@ import { IUnitError } from '@/backend/models/messages/IUnitMessage';
 import ITask from '@/backend/models/data/ITask';
 //Icon
 import SubmitButton from '@/components/Button/submitButton';
+import DetailButton from '@/components/Button/detailButton';
 //Button
 import DeleteButton from '@/components/Button/deleteButton';
 import AddButton from '@/components/Button/addButton';
@@ -35,6 +36,7 @@ interface TaskProperties {
   courseID: string;
   unitID: string;
 }
+
 const UnitDetail: React.FC<{
   courseID: string;
   unitID: string;
@@ -47,6 +49,12 @@ const UnitDetail: React.FC<{
   const [currentForm, setCurrentForm] = useState<React.FC>(() => AddTaskForm);
   //eslint-disable-next-line
   const [search, setSearch] = useState<string>('');
+  const [searchTask, setSearchTask] = useState(taskList);
+
+  //Tìm kiếm
+  useEffect(() => {
+    setSearchTask(SearchTask(search, taskList));
+  }, [search, taskList]);
 
   // Add Unit Form
   const handleOpenAddModal = (FormComponent: React.FC<TaskProperties>) => {
@@ -55,7 +63,7 @@ const UnitDetail: React.FC<{
     );
     setCurrentForm(() => WrappedFormComponent);
     setIsModalOpen(true);
-    setModalHeader('Thêm bài học');
+    setModalHeader('Thêm danh mục');
   };
 
   return (
@@ -99,32 +107,7 @@ const UnitDetail: React.FC<{
           {({ setFieldValue }) => (
             <Form>
               <div className="flex gap-4">
-                <div id="unitNo_Add" className="w-1/3">
-                  <label
-                    htmlFor="unitNo_AddInput"
-                    className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
-                  >
-                    Thứ tự bài học
-                  </label>
-
-                  <Field
-                    id="unitNo_AddInput"
-                    name="unitNo"
-                    type="text"
-                    placeholder="Điền số bài học..."
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                      ResetError(event, setFieldValue, setError)
-                    }
-                    className="text-gray-900 dark:placeholder-gray-400 mb-2 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
-                  />
-                  <FormikShowError
-                    type={'Add'}
-                    filedName={'unitNo'}
-                    errorMessage={error.unitNoError}
-                  />
-                </div>
-
-                <div id="unitName_Add" className="w-2/3">
+                <div id="unitName_Add" className="w-full">
                   <label
                     htmlFor="unitName_AddInput"
                     className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
@@ -186,29 +169,101 @@ const UnitDetail: React.FC<{
         </Formik>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-5">
         <div>
           <h2
             id="header"
             className="font-manrope my-3 text-2xl font-bold text-black dark:text-white"
           >
-            Nội dung bài học
+            Danh mục bài học
           </h2>
         </div>
+
         <div className="x mt-3 grid grid-cols-1 gap-4 sm:mb-5 min-[890px]:grid-cols-2">
           <SearchBar onChange={(e) => setSearch(e.target.value)} />
 
           <div className="flex flex-col gap-2.5 min-[890px]:flex-row ">
             <AddButton
               onClick={() => handleOpenAddModal(AddTaskForm)}
-              buttonName="Thêm Bài"
+              buttonName="Thêm danh mục"
             />
           </div>
         </div>
+
         <div className="flex max-h-[65vh] flex-col overflow-auto">
-          <AccordionList />
+          <table id="table" className="w-full">
+            <thead className="text-gray-400 sticky top-0 bg-slate-200 text-left text-xs uppercase dark:bg-slate-700 dark:text-white">
+              <tr>
+                <th id="idHead" className="w-[5rem] text-center">
+                  STT
+                </th>
+                <th id="nameHead" className="px-4 py-3">
+                  Tên danh mục
+                </th>
+                <th id="createAtHead" className="w-[13rem] px-4 py-3">
+                  Ngày tạo
+                </th>
+                <th id="LastUpdateHead" className="w-[13rem] px-4 py-3">
+                  Chỉnh sửa lần cuối
+                </th>
+                <th id="managerOptionHead" className="w-[12rem] px-4 py-3"></th>
+              </tr>
+            </thead>
+            <tbody className="h-[50px] items-center divide-y">
+              {searchTask
+                .sort((a, b) => a.taskNo - b.taskNo)
+                .map((data) => (
+                  <tr
+                    key={data.taskNo}
+                    className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
+                  >
+                    <td id="taskID" className="w-[5rem] text-center">
+                      {data.taskNo}
+                    </td>
+
+                    <td id="name" className="px-4">
+                      {`${data.taskName}`}
+                    </td>
+
+                    <td id="createAt" className="px-4">
+                      {`${data.taskUploadDate}`}
+                    </td>
+
+                    <td id="editAt" className="px-4">
+                      {!data.taskLastEditDate
+                        ? 'Chưa chỉnh sửa'
+                        : `${data.taskLastEditDate}`}
+                    </td>
+                    <td>
+                      <div
+                        id="managerOption"
+                        className="flex items-center justify-end px-4 py-3"
+                      >
+                        <DetailButton
+                          link={`/admin/course/${courseID}/unit/${unitID}/task/${data.taskID}`}
+                          buttonName="Chi tiết"
+                        />
+                        <div className="ml-4">
+                          <DeleteButton
+                            onClick={async () =>
+                              await DeleteTask(
+                                courseID,
+                                unitID,
+                                data.taskID ?? '',
+                              )
+                            }
+                          />
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
       </div>
+
+      <div></div>
       {OverlapForm(isModalOpen, setIsModalOpen, currentForm, modalHeader)}
     </section>
   );
