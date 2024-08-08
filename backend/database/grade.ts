@@ -83,7 +83,6 @@ export async function GetGradeList() {
 //Kiểm tra đã có lớp chưa
 export async function CheckGradeExist(data: IGrade) {
   const error = DefaultGradeErrorValue();
-
   try {
     const gradeDatabase = collection(db, TABLE_NAME);
     const field = ['gradeID', 'gradeName'];
@@ -96,6 +95,7 @@ export async function CheckGradeExist(data: IGrade) {
           where(field[i], '==', input[i]),
         );
         const result = await getDocs(gradeQuery);
+
         if (result.size > 0) {
           error.status = false;
           switch (field[i]) {

@@ -29,10 +29,10 @@ const GradeManagement = ({ data }) => {
   }, [search, data]);
 
   // Add Category Form
-  const handleOpenAddModal = (FormComponent: React.FC) => {
+  const handleOpenModal = (FormComponent: React.FC, title: string) => {
     setCurrentForm(() => FormComponent);
     setIsModalOpen(true);
-    setModalHeader('Thêm cấp bậc học');
+    setModalHeader(title);
   };
 
   // Edit category Form
@@ -59,7 +59,7 @@ const GradeManagement = ({ data }) => {
 
         <div className="flex flex-col gap-2.5 min-[890px]:flex-row ">
           <AddButton
-            onClick={() => handleOpenAddModal(AddGradeForm)}
+            onClick={() => handleOpenModal(AddGradeForm, 'Thêm cấp bậc học')}
             buttonName="Thêm cấp bậc"
           />
         </div>

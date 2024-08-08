@@ -1,11 +1,12 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import AddCourseForm from '@/app/admin/course/addCourseForm';
-import DeleteModal from '@/components/Modal/DeleteModal';
 
 import ICourse from '@/backend/models/data/ICourse';
 import OverlapForm from '@/components/Form/overlapForm';
-import { SearchCourse } from '@/backend/feature/course';
+import DeleteForm from '@/components/Form/deleteModal';
+import { SearchCourse, DeleteCourse } from '@/backend/feature/course';
+
 //Icon
 import SearchBar from '@/components/Field/searchBar';
 import AddButton from '@/components/Button/addButton';
@@ -19,19 +20,26 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
   const [searchCourse, setSearchCourse] = useState<ICourse[]>(courseList);
   const [search, setSearch] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [modalHeader, setModalHeader] = useState('Thêm cấp bậc học');
   const [currentForm, setCurrentForm] = useState<React.FC>(() => AddCourseForm);
-
+  const [deleteID, setDeleteID] = useState<string>('');
   //Tìm kiếm
   useEffect(() => {
     setSearchCourse(SearchCourse(search, courseList));
   }, [search, courseList]);
 
-  // Add Category Form
-  const handleOpenAddModal = (FormComponent: React.FC) => {
+  //Add form
+  const handleOpenModal = (FormComponent: React.FC, title: string) => {
     setCurrentForm(() => FormComponent);
     setIsModalOpen(true);
-    setModalHeader('Thêm khóa học');
+    setModalHeader(title);
+  };
+
+  //Delete Form
+  const handleDelete = (ID: string) => {
+    setIsDeleteModalOpen(true);
+    setDeleteID(ID);
   };
 
   // Edit category Form
@@ -46,10 +54,6 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
   };
 
   //state for Delete modal
-  const [isDelModalOpen, setIsDelModalOpen] = useState(false);
-  const handleDelete = () => {
-    setIsDelModalOpen(true);
-  };
 
   return (
     <section className="antialiase overflow-y-auto px-4 lg:px-8">
@@ -65,7 +69,7 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
 
         <div className="flex flex-col gap-2.5 min-[890px]:flex-row ">
           <AddButton
-            onClick={() => handleOpenAddModal(AddCourseForm)}
+            onClick={() => handleOpenModal(AddCourseForm, 'Thêm khóa học')}
             buttonName="Thêm khóa học"
           />
         </div>
@@ -134,7 +138,9 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
                     />
 
                     <div className="ml-4">
-                      <DeleteButton onClick={() => handleDelete()} />
+                      <DeleteButton
+                        onClick={() => handleDelete(data.courseID ?? '')}
+                      />
                     </div>
                   </div>
                 </td>
@@ -143,11 +149,13 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
           </tbody>
         </table>
       </div>
+
+      {DeleteForm(
+        isDeleteModalOpen,
+        setIsDeleteModalOpen,
+        async () => await DeleteCourse(deleteID),
+      )}
       {OverlapForm(isModalOpen, setIsModalOpen, currentForm, modalHeader)}
-      <DeleteModal
-        isOpen={isDelModalOpen}
-        onClose={() => setIsDelModalOpen(false)}
-      />
     </section>
   );
 };
