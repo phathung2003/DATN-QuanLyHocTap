@@ -114,7 +114,7 @@ export async function EditTask(
       taskNo: data.taskNo,
 
       taskUploadDate: originalDocumentData.data().taskUploadDate,
-      unitLastEditDate: new Date(),
+      taskLastEditDate: new Date(),
     });
     return true;
   } catch {

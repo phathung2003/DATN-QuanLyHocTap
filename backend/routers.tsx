@@ -20,6 +20,10 @@ export async function CourseDetail(id) {
   redirect(`/admin/course/${id}`);
 }
 
+export async function UnitDetail(courseID, unitID) {
+  redirect(`/admin/course/${courseID}/unit/${unitID}`);
+}
+
 export async function LoginPage() {
   redirect(`/login`);
 }

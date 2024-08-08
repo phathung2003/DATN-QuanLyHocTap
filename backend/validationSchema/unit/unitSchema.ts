@@ -3,19 +3,6 @@ import UnitMessage from '@/backend/messages/unitMessage';
 import UnitCondition from '@/backend/validationSchema/unit/unitCondition';
 
 const SchemaUnit = Yup.object().shape({
-  //Kiểm tra số bài
-  unitNo: Yup.number().when([], (isRequired, schema) => {
-    let baseSchema = schema;
-    baseSchema = baseSchema
-      .typeError(UnitMessage.UNIT_NO.NOT_A_NUMBER)
-      .positive(UnitMessage.UNIT_NO.NEGATIVE_NUMBER);
-
-    if (UnitCondition.UNIT_NAME.REQUIRED) {
-      baseSchema = baseSchema.required(UnitMessage.UNIT_NAME.REQUIRED);
-    }
-    return baseSchema;
-  }),
-
   //Kiểm tra tên danh mục
   unitName: Yup.string().when([], (isRequired, schema) => {
     let baseSchema = schema;

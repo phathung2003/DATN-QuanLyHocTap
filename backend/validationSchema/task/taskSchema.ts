@@ -3,19 +3,6 @@ import TaskMessage from '@/backend/messages/taskMessage';
 import TaskCondition from '@/backend/validationSchema/task/taskCondition';
 
 const SchemaTask = Yup.object().shape({
-  //Kiểm tra số bài
-  taskNo: Yup.number().when([], (isRequired, schema) => {
-    let baseSchema = schema;
-    baseSchema = baseSchema
-      .typeError(TaskMessage.TASK_NO.NOT_A_NUMBER)
-      .positive(TaskMessage.TASK_NO.NEGATIVE_NUMBER);
-
-    if (TaskCondition.TASK_NO.REQUIRED) {
-      baseSchema = baseSchema.required(TaskMessage.TASK_NO.REQUIRED);
-    }
-    return baseSchema;
-  }),
-
   //Kiểm tra tên danh mục
   taskName: Yup.string().when([], (isRequired, schema) => {
     let baseSchema = schema;

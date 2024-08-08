@@ -2,7 +2,7 @@ import { ICalculateTwoNumbersContent } from '@/backend/models/data/Content/ICalc
 import { ICardContent } from '@/backend/models/data/Content/ICard';
 import { IFlashcardContent } from '@/backend/models/data/Content/IFlashcard';
 
-export default interface IContent {
+export interface IContent {
   contentID?: string;
   contentNo: number;
   contentName: string;
@@ -12,6 +12,20 @@ export default interface IContent {
     | ICalculateTwoNumbersContent
     | ICardContent
     | IFlashcardContent
+    | null;
+  contentCreateAt?: Date;
+  contentLastEditDate?: Date | null;
+}
+export interface IContentList {
+  contentID?: string;
+  contentNo: number;
+  contentName: string;
+  contentDescription: string;
+  contentType: string;
+  contentData:
+    | ICalculateTwoNumbersContent[]
+    | ICardContent[]
+    | IFlashcardContent[]
     | null;
   contentCreateAt?: Date;
   contentLastEditDate?: Date | null;

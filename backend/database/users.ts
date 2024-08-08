@@ -149,15 +149,19 @@ export async function Login(info: string, password: string) {
 
 //Đăng nhập bằng email với Firebase Authentication
 async function EmailLogin(email: string, password: string) {
-  const userCredential = await signInWithEmailAndPassword(
-    auth,
-    email,
-    password,
-  );
-  if (userCredential.user.uid != null) {
-    return await GetInfo(userCredential.user.uid);
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password,
+    );
+    if (userCredential.user.uid != null) {
+      return await GetInfo(userCredential.user.uid);
+    }
+    return null;
+  } catch {
+    return null;
   }
-  return null;
 }
 
 //Quên mật khẩu (Chỉ dành cho người dùng sử dụng email)

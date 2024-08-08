@@ -24,32 +24,7 @@ const AddUnitForm: React.FC<AddUnitFormProps> = ({ courseID }) => {
       {({ setFieldValue }) => (
         <Form>
           <div className="flex gap-4">
-            <div id="unitNo_Add" className="w-1/3">
-              <label
-                htmlFor="unitNo_AddInput"
-                className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
-              >
-                Thứ tự bài học
-              </label>
-
-              <Field
-                id="unitNo_AddInput"
-                name="unitNo"
-                type="text"
-                placeholder="Điền số bài học..."
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  ResetError(event, setFieldValue, setError)
-                }
-                className="text-gray-900 dark:placeholder-gray-400 mb-2 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
-              />
-              <FormikShowError
-                type={'Add'}
-                filedName={'unitNo'}
-                errorMessage={error.unitNoError}
-              />
-            </div>
-
-            <div id="unitName_Add" className="w-2/3">
+            <div id="unitName_Add" className="w-full">
               <label
                 htmlFor="unitName_AddInput"
                 className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"

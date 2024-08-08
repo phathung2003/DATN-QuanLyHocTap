@@ -5,7 +5,7 @@ import {
 import { ContentType } from '@/backend/globalVariable';
 import { CheckIDExist } from '@/backend/database/generalFeature';
 import { TableName } from '@/backend/globalVariable';
-import IContent from '@/backend/models/data/Content/IContent';
+import { IContent } from '@/backend/models/data/Content/IContent';
 import { ICalculateTwoNumbersContent } from '@/backend/models/data/Content/ICalculateTwoNumbers';
 import { ICardContent } from '@/backend/models/data/Content/ICard';
 import { IFlashcardContent } from '@/backend/models/data/Content/IFlashcard';
@@ -31,7 +31,8 @@ export async function CheckData(request) {
     }
 
     let content = result.data;
-    if (result.data.contentData) {
+
+    if (result.data.contentData != null) {
       content = CheckContent(result.data);
       if (!content) {
         return false;
@@ -204,7 +205,7 @@ export function IsCalculateTwoNumber(data): ICalculateTwoNumbersContent | null {
 //Kiểu dạng: Card
 export function IsCard(data): ICardContent | null {
   try {
-    const optionField = ['image', 'word'];
+    const optionField = ['image', 'text'];
 
     //Kiểm tra có chứa đủ các trường
     if (!CheckDataInputTrueFalse(data, null, optionField)) {

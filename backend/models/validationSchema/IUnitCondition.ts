@@ -8,8 +8,4 @@ export default interface IUnitCondition {
     MAX: number;
     REQUIRED: boolean;
   };
-
-  UNIT_NO: {
-    REQUIRED: boolean;
-  };
 }

@@ -9,6 +9,7 @@ const expiresInSeconds = process.env.NEXT_PUBLIC_TOKEN_EXPIRED;
 export async function POST(request: Request) {
   try {
     const data = await request.json();
+
     //Xác đinh thời gian có phải là số hay không
     const tokenExpirationNumber = expiresInSeconds
       ? Number(expiresInSeconds)
@@ -28,7 +29,7 @@ export async function POST(request: Request) {
     const user = await LoginResult(info, password);
 
     if (!user) {
-      return MessageReturnOnly(LoginMessage.WRONG_INFO, 404);
+      return MessageReturnOnly(LoginMessage.WRONG_INFO, 400);
     }
 
     const token = await GenerateToken(user, tokenExpirationNumber);
