@@ -13,9 +13,7 @@ export async function handelSubmit(
     //Kết nối API
     const response = await fetch('/api/register', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: data.name,
         username: data.username,

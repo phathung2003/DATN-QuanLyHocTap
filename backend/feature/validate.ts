@@ -6,11 +6,7 @@ export async function CookieCheck() {
   //Lấy cookie = True: Cho vào trang | False: Cho chuyển trang
   const response = await PostAPI();
   if (response == true) return true;
-  if (response.ok) {
-    return false;
-  } else {
-    return true;
-  }
+  return !response.ok;
 }
 
 export async function CookieGetInfo() {
@@ -19,9 +15,8 @@ export async function CookieGetInfo() {
   if (response.ok) {
     const info = await response.json();
     return info.userInfo;
-  } else {
-    return null;
   }
+  return null;
 }
 
 export async function GetToken() {
@@ -43,9 +38,7 @@ async function PostAPI() {
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/checkToken`,
     {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         tokenID: token,
       }),
@@ -62,9 +55,7 @@ async function PostAPICheckSession(cookie: string | undefined) {
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/checkToken`,
     {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         tokenID: cookie,
       }),

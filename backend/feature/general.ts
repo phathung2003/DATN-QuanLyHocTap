@@ -43,3 +43,20 @@ export function GenerateFileName(image: File, type: string, ...data: string[]) {
   const fileName = createHash('sha256').update(combinedData).digest('hex');
   return `${type.toLowerCase()}/${fileName}`;
 }
+
+//Kiểm tra dữ liệu có chỉnh sửa hay không
+export function CheckChangeData(
+  defaultData: (string | number | null)[],
+  editData: (string | number | null)[],
+  imageLink: string | null,
+): boolean {
+  //Kiểm tra dữ liệu có thay đổi không
+  let change = false;
+  for (let i = 0; i < defaultData.length; i++) {
+    if (defaultData[i] != editData[i]) {
+      change = true;
+      break;
+    }
+  }
+  return imageLink != null || change;
+}

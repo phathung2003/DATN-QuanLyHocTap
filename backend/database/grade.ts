@@ -80,9 +80,10 @@ export async function GetGradeList() {
   }
 }
 
-//Kiểm tra đã có lớp chưa
+//Kiểm tra đã có cấp bậc chưa (Add)
 export async function CheckGradeExist(data: IGrade) {
   const error = DefaultGradeErrorValue();
+  error.status = true;
   try {
     const gradeDatabase = collection(db, TABLE_NAME);
     const field = ['gradeID', 'gradeName'];
@@ -116,10 +117,10 @@ export async function CheckGradeExist(data: IGrade) {
   return error;
 }
 
-//Kiểm tra đã có loại chưa (Edit)
+//Kiểm tra đã có cấp bậc chưa (Edit)
 export async function CheckGradeEditExist(originalID: string, data: IGrade) {
   const error = DefaultGradeErrorValue();
-
+  error.status = true;
   try {
     const gradeDatabase = collection(db, TABLE_NAME);
     const field = ['gradeID', 'gradeName'];

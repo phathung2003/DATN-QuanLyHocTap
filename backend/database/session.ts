@@ -23,12 +23,7 @@ export async function AddSession(data: ISession) {
       expiresAt: data.expiresAt,
       createAt: data.createAt,
     });
-
-    if (docRef.id != null) {
-      return true;
-    } else {
-      return false;
-    }
+    return docRef.id != null ? true : false;
   } catch {
     return false;
   }
@@ -93,6 +88,7 @@ export async function GetSessionInfo(token: string) {
   }
 }
 
+//Kiểm tra phiên đăng nhập
 export async function CheckSession(token: string) {
   const defaultError: ISessionError = {
     status: true,

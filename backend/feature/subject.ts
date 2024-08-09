@@ -4,7 +4,11 @@ import { GetToken } from '@/backend/feature/validate';
 import { HomePage } from '@/backend/routers';
 import { DefaultSubjectErrorValue } from '@/backend/defaultData/subject';
 import { UploadImage, DeleteImage } from '@/backend/database/generalFeature';
-import { GenerateID, GenerateFileName } from '@/backend/feature/general';
+import {
+  GenerateID,
+  GenerateFileName,
+  CheckChangeData,
+} from '@/backend/feature/general';
 import GlobalMessage from '@/backend/messages/gobalMessage';
 import SubjectMessage from '@/backend/messages/subjectMessage';
 import { RemoveAccent } from '@/backend/feature/general';
@@ -122,7 +126,7 @@ export async function EditSubject(
   ];
   const checkEdit = [editData.subjectName, editData.subjectDescription];
 
-  if (!ChangeData(checkDefault, checkEdit, subjectImageLink)) {
+  if (!CheckChangeData(checkDefault, checkEdit, subjectImageLink)) {
     DeleteImage(subjectImageLink);
     return window.location.reload();
   }
@@ -165,7 +169,7 @@ export async function EditSubject(
 //Xóa môn học
 export async function DeleteSubject(
   subjectID: string,
-  setError: React.Dispatch<React.SetStateAction<ISubjectError>>,
+  setError: React.Dispatch<React.SetStateAction<ISubjectError>> | null,
 ) {
   //Kiểm tra phiên đăng nhập
   const token = await GetToken();
@@ -192,11 +196,13 @@ export async function DeleteSubject(
   }
 
   //Xóa thất bại
-  const error = DefaultSubjectErrorValue();
-  const errorData = await response.json();
-  error.status = false;
-  error.systemError = errorData.message;
-  setError(error);
+  if (setError) {
+    const error = DefaultSubjectErrorValue();
+    const errorData = await response.json();
+    error.status = false;
+    error.systemError = errorData.message;
+    setError(error);
+  }
   return;
 }
 
@@ -252,21 +258,4 @@ export function ResetError(
 
     return newErrorState;
   });
-}
-
-//Kiểm tra dữ liệu có chỉnh sửa hay không
-function ChangeData(
-  defaultData: (string | null)[],
-  editData: (string | null)[],
-  imageLink: string | null,
-): boolean {
-  //Kiểm tra dữ liệu có thay đổi không
-  let change = false;
-  for (let i = 0; i < defaultData.length; i++) {
-    if (defaultData[i] != editData[i]) {
-      change = true;
-      break;
-    }
-  }
-  return imageLink != null || change;
 }

@@ -1,12 +1,15 @@
-import { ICourseError } from '@/backend/models/messages/ICourseMessage';
 import { GetToken } from '@/backend/feature/validate';
-import { HomePage, CourseManager, CourseDetail } from '@/backend/routers';
+import {
+  CheckChangeData,
+  GenerateFileName,
+  RemoveAccent,
+} from '@/backend/feature/general';
 import { UploadImage, DeleteImage } from '@/backend/database/generalFeature';
+import { HomePage, CourseManager, CourseDetail } from '@/backend/routers';
 import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
+import { ICourseError } from '@/backend/models/messages/ICourseMessage';
 import ICourse from '@/backend/models/data/ICourse';
 import GlobalMessage from '@/backend/messages/gobalMessage';
-import { GenerateFileName } from '@/backend/feature/general';
-import { RemoveAccent } from '@/backend/feature/general';
 
 //Lấy danh sách khóa học
 export async function GetCourse() {
@@ -128,7 +131,7 @@ export async function EditCourse(
   const checkDefault = [defaultData.courseName, defaultData.courseDescription];
   const checkEdit = [editData.courseName, editData.courseDescription];
 
-  if (!ChangeData(checkDefault, checkEdit, editData.courseImage)) {
+  if (!CheckChangeData(checkDefault, checkEdit, editData.courseImage)) {
     DeleteImage(editData.courseImage);
     await CourseDetail(defaultData.courseID);
   }
@@ -251,21 +254,4 @@ export function ResetError(
 
     return newErrorState;
   });
-}
-
-//Kiểm tra dữ liệu có chỉnh sửa hay không
-function ChangeData(
-  defaultData: (string | null)[],
-  editData: (string | null)[],
-  imageLink: string | null,
-): boolean {
-  //Kiểm tra dữ liệu có thay đổi không
-  let change = false;
-  for (let i = 0; i < defaultData.length; i++) {
-    if (defaultData[i] != editData[i]) {
-      change = true;
-      break;
-    }
-  }
-  return imageLink != null || change;
 }

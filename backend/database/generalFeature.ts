@@ -253,6 +253,7 @@ export function FormatISODate(ISODateString: string): string {
   return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
 }
 
+//Format chữ in hoa chữ đầu, còn lại chữ thường
 export function ToTitleCase(text: string): string {
   return text.replace(
     /\w\S*/g,

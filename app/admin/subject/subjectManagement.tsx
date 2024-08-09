@@ -1,17 +1,16 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-
 import { ISubject } from '@/backend/models/data/ISubject';
 import { DeleteSubject, SearchSubject } from '@/backend/feature/subject';
 import AddSubjectForm from '@/app/admin/subject/addSubjectForm';
 import EditSubjectForm from '@/app/admin/subject/editSubjectForm';
 import OverlapForm from '@/components/Form/overlapForm';
-import { DefaultSubjectErrorValue } from '@/backend/defaultData/subject';
+import DeleteForm from '@/components/Form/deleteModal';
+
 //Button
 import DeleteButton from '@/components/Button/deleteButton';
 import EditButton from '@/components/Button/editButton';
 import AddButton from '@/components/Button/addButton';
-
 import SearchBar from '@/components/Field/searchBar';
 
 const SubjectManagement = ({ data }) => {
@@ -22,8 +21,8 @@ const SubjectManagement = ({ data }) => {
   const [currentForm, setCurrentForm] = useState<React.FC>(
     () => AddSubjectForm,
   );
-  // eslint-disable-next-line
-  const [errorEdit, setErrorEdit] = useState(DefaultSubjectErrorValue());
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteID, setDeleteID] = useState<string>('');
 
   //Tìm kiếm
   useEffect(() => {
@@ -47,8 +46,14 @@ const SubjectManagement = ({ data }) => {
     setModalHeader('Chỉnh sửa môn học');
   };
 
+  //Delete Form
+  const handleDelete = (ID: string) => {
+    setIsDeleteModalOpen(true);
+    setDeleteID(ID);
+  };
+
   return (
-    <section className="antialiase overflow-y-auto px-4 pt-5 lg:px-8">
+    <section className="antialiase overflow-y-auto px-4 pt-1 lg:px-8">
       <h2
         id="header"
         className="font-manrope mb-2 mt-2 text-center text-2xl font-bold text-black dark:text-white min-[890px]:text-left"
@@ -109,9 +114,7 @@ const SubjectManagement = ({ data }) => {
                     />
 
                     <DeleteButton
-                      onClick={async () =>
-                        await DeleteSubject(data.subjectID, setErrorEdit)
-                      }
+                      onClick={() => handleDelete(data.subjectID)}
                     />
                   </div>
                 </td>
@@ -120,7 +123,11 @@ const SubjectManagement = ({ data }) => {
           </tbody>
         </table>
       </div>
-
+      {DeleteForm(
+        isDeleteModalOpen,
+        setIsDeleteModalOpen,
+        async () => await DeleteSubject(deleteID, null),
+      )}
       {OverlapForm(isModalOpen, setIsModalOpen, currentForm, modalHeader)}
     </section>
   );

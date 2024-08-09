@@ -11,9 +11,9 @@ import {
 import { db } from '@/backend/database/firebase';
 import { ISubject } from '@/backend/models/data/ISubject';
 import SubjectMessage from '@/backend/messages/subjectMessage';
-import { DefaultSubjectErrorValue } from '@/backend//defaultData/subject';
+import { DefaultSubjectErrorValue } from '@/backend/defaultData/subject';
 import { TableName } from '@/backend/globalVariable';
-import { DeleteDocument } from '@/backend/database/generalFeature';
+import { DeleteDocument, ToTitleCase } from '@/backend/database/generalFeature';
 
 const TABLE_NAME = 'subject';
 //Thêm lớp học
@@ -83,7 +83,7 @@ export async function GetSubjectList() {
 //Kiểm tra đã có loại chưa
 export async function CheckSubjectExist(data: ISubject) {
   const error = DefaultSubjectErrorValue();
-
+  error.status = true;
   try {
     const subjectDatabase = collection(db, TABLE_NAME);
     const field = ['subjectID', 'subjectName'];
@@ -122,7 +122,7 @@ export async function CheckSubjectEditExist(
   data: ISubject,
 ) {
   const error = DefaultSubjectErrorValue();
-
+  error.status = true;
   try {
     const subjectDatabase = collection(db, TABLE_NAME);
     const field = ['subjectID', 'subjectName'];
@@ -188,11 +188,4 @@ export async function GetSubjectName(
     return docSnap.data().subjectName;
   }
   return null;
-}
-
-function ToTitleCase(text: string): string {
-  return text.replace(
-    /\w\S*/g,
-    (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase(),
-  );
 }

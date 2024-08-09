@@ -8,6 +8,7 @@ import {
   RemoveAccent,
   GenerateID,
   GenerateFileName,
+  CheckChangeData,
 } from '@/backend/feature/general';
 import GlobalMessage from '@/backend/messages/gobalMessage';
 import GradeMessage from '@/backend/messages/gradeMessage';
@@ -121,7 +122,7 @@ export async function EditGrade(
   const checkDefault = [defaultData.gradeName, defaultData.gradeDescription];
   const checkEdit = [editData.gradeName, editData.gradeDescription];
 
-  if (!ChangeData(checkDefault, checkEdit, gradeImageLink)) {
+  if (!CheckChangeData(checkDefault, checkEdit, gradeImageLink)) {
     DeleteImage(gradeImageLink);
     return window.location.reload();
   }
@@ -246,21 +247,4 @@ export function ResetError(
 
     return newErrorState;
   });
-}
-
-//Kiểm tra dữ liệu có chỉnh sửa hay không
-function ChangeData(
-  defaultData: (string | null)[],
-  editData: (string | null)[],
-  imageLink: string | null,
-): boolean {
-  //Kiểm tra dữ liệu có thay đổi không
-  let change = false;
-  for (let i = 0; i < defaultData.length; i++) {
-    if (defaultData[i] != editData[i]) {
-      change = true;
-      break;
-    }
-  }
-  return imageLink != null || change;
 }

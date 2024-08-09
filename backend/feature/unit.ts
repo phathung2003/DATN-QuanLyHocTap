@@ -2,7 +2,7 @@ import IUnit from '@/backend/models/data/IUnit';
 import { GetToken } from '@/backend/feature/validate';
 import { HomePage, CourseDetail } from '@/backend/routers';
 import { IUnitError } from '@/backend/models/messages/IUnitMessage';
-import { RemoveAccent } from '@/backend/feature/general';
+import { RemoveAccent, CheckChangeData } from '@/backend/feature/general';
 import { DefaultUnitErrorValue } from '@/backend/defaultData/unit';
 
 //Lấy danh sách bài học
@@ -103,7 +103,7 @@ export async function EditUnit(
     editData.unitDescription,
   ];
 
-  if (!ChangeData(checkDefault, checkEdit, null)) {
+  if (!CheckChangeData(checkDefault, checkEdit, null)) {
     return;
   }
 
@@ -205,21 +205,4 @@ export function ResetError(
 
     return newErrorState;
   });
-}
-
-//Kiểm tra dữ liệu có chỉnh sửa hay không
-function ChangeData(
-  defaultData: (string | number | null)[],
-  editData: (string | number | null)[],
-  imageLink: string | null,
-): boolean {
-  //Kiểm tra dữ liệu có thay đổi không
-  let change = false;
-  for (let i = 0; i < defaultData.length; i++) {
-    if (defaultData[i] != editData[i]) {
-      change = true;
-      break;
-    }
-  }
-  return imageLink != null || change;
 }

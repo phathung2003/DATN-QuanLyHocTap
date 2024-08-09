@@ -49,7 +49,7 @@ const GradeManagement = ({ data }) => {
     <section className="antialiase overflow-y-auto px-4 lg:px-8">
       <h2
         id="header"
-        className="font-manrope mb-2 mt-2 text-center text-2xl font-bold text-black dark:text-white min-[890px]:text-left"
+        className="font-manrope mb-2 mt-1 text-center text-2xl font-bold text-black dark:text-white min-[890px]:text-left"
       >
         Quản lý cấp độ
       </h2>

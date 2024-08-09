@@ -3,7 +3,7 @@ import { GetToken } from '@/backend/feature/validate';
 import { ITaskError } from '@/backend/models/messages/ITaskMessage';
 import { HomePage, UnitDetail } from '@/backend/routers';
 import { DefaultTaskErrorValue } from '@/backend/defaultData/task';
-import { RemoveAccent } from './general';
+import { RemoveAccent, CheckChangeData } from '@/backend/feature/general';
 
 //Lấy danh sách danh mục bài học
 export async function GetTaskList(courseID: string, unitID: string) {
@@ -98,7 +98,7 @@ export async function EditTask(
   const checkDefault = [defaultData.taskName, defaultData.taskDescription];
   const checkEdit = [editData.taskName, editData.taskDescription];
 
-  if (!ChangeData(checkDefault, checkEdit, null)) {
+  if (!CheckChangeData(checkDefault, checkEdit, null)) {
     return;
   }
 
@@ -197,21 +197,4 @@ export function ResetError(
 
     return newErrorState;
   });
-}
-
-//Kiểm tra dữ liệu có chỉnh sửa hay không
-function ChangeData(
-  defaultData: (string | number | null)[],
-  editData: (string | number | null)[],
-  imageLink: string | null,
-): boolean {
-  //Kiểm tra dữ liệu có thay đổi không
-  let change = false;
-  for (let i = 0; i < defaultData.length; i++) {
-    if (defaultData[i] != editData[i]) {
-      change = true;
-      break;
-    }
-  }
-  return imageLink != null || change;
 }

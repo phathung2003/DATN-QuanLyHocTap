@@ -139,7 +139,7 @@ const EditGradeForm: React.FC<{ data: IGrade }> = (gradeInfo) => {
 
           <BottomFormError type={'Edit'} errorMessage={error.systemError} />
 
-          <div className="flex items-center space-x-4">
+          <div className="flex space-x-4">
             <SubmitButton buttonName="Cập nhật" />
             <DeleteButton
               onClick={async () =>
