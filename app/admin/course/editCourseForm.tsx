@@ -2,21 +2,30 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Formik, Form, Field } from 'formik';
-import SchemaCourse from '@/backend/validationSchema/course/courseSchema';
-import { DefaultCourseValue } from '@/backend/defaultData/course';
-import { AddCourse, ResetError } from '@/backend/feature/course';
+import { EditCourse, DeleteCourse, ResetError } from '@/backend/feature/course';
 import { GetSubject, GetGrade } from '@/app/admin/qlbaihoc/process/getData';
 import { ISubject } from '@/backend/models/data/ISubject';
 import { IGrade } from '@/backend/models/data/IGrade';
-import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
+import {
+  CourseEditDefaultValue,
+  DefaultCourseErrorValue,
+} from '@/backend/defaultData/course';
+import SchemaCourse from '@/backend/validationSchema/course/courseSchema';
+import FormikShowError from '@/components/ErrorMessage/formikForm';
+import BottomFormError from '@/components/ErrorMessage/bottomForm';
+import ICourse from '@/backend/models/data/ICourse';
 
 //Icon
 import UploadIcon from '@/public/vector/upload.svg';
-import AddSubmitButton from '@/components/Button/addSubmitButton';
-import FormikShowError from '@/components/ErrorMessage/formikForm';
-import BottomFormError from '@/components/ErrorMessage/bottomForm';
+import SubmitButton from '@/components/Button/submitButton';
+import DeleteButton from '@/components/Button/deleteButton';
 
-const AddCourseForm: React.FC = () => {
+interface EditCourseComponents {
+  courseID: string;
+  data: ICourse;
+}
+
+const EditCourseForm: React.FC<EditCourseComponents> = ({ courseID, data }) => {
   const [error, setError] = useState(DefaultCourseErrorValue());
   const [preview, setPreview] = useState<string | null>(null);
   const [gradeList, setGradeList] = useState<IGrade[]>();
@@ -35,22 +44,22 @@ const AddCourseForm: React.FC = () => {
 
   return (
     <Formik
-      initialValues={DefaultCourseValue()}
+      initialValues={CourseEditDefaultValue(data)}
       validationSchema={SchemaCourse}
-      onSubmit={(data) => AddCourse(data, setError)}
+      onSubmit={(editData) => EditCourse(editData, data, setError)}
     >
       {({ setFieldValue }) => (
         <Form>
-          <div id="gradeName_Add">
+          <div id="gradeName_Edit">
             <label
-              htmlFor="courseName_AddInput"
+              htmlFor="courseName_EditInput"
               className="text-gray-900 mb-3 block text-sm font-medium dark:text-white"
             >
               Tên khóa học
             </label>
 
             <Field
-              id="courseName_AddInput"
+              id="courseName_EditInput"
               name="courseName"
               type="text"
               placeholder="Điền tên khóa học..."
@@ -60,23 +69,23 @@ const AddCourseForm: React.FC = () => {
               className="text-gray-900 dark:placeholder-gray-400 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
             />
             <FormikShowError
-              type={'Add'}
+              type={'Edit'}
               filedName={'courseName'}
               errorMessage={error.courseNameError}
             />
           </div>
 
           <div className=" grid gap-4 sm:grid-cols-2">
-            <div id="courseSubject_Add">
+            <div id="courseSubject_Edit">
               <label
-                htmlFor="courseGrade_AddInput"
+                htmlFor="courseGrade_EditInput"
                 className="text-gray-900 mb-3 block text-sm font-medium dark:text-white"
               >
                 Môn học
               </label>
 
               <Field
-                id="courseSubject_AddInput"
+                id="courseSubject_EditInput"
                 name="courseSubject"
                 as="select"
                 className="text-gray-900 dark:placeholder-gray-400 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
@@ -96,23 +105,23 @@ const AddCourseForm: React.FC = () => {
               </Field>
               <div>
                 <FormikShowError
-                  type={'Add'}
+                  type={'Edit'}
                   filedName={'courseSubject'}
                   errorMessage={null}
                 />
               </div>
             </div>
 
-            <div id="courseGrade_Add">
+            <div id="courseGrade_Edit">
               <label
-                htmlFor="courseGrade_AddInput"
+                htmlFor="courseGrade_EditInput"
                 className="text-gray-900 mb-3 block text-sm font-medium dark:text-white"
               >
                 Cấp độ
               </label>
 
               <Field
-                id="courseGrade_AddInput"
+                id="courseGrade_EditInput"
                 name="courseGrade"
                 as="select"
                 className="text-gray-900 dark:placeholder-gray-400 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
@@ -132,7 +141,7 @@ const AddCourseForm: React.FC = () => {
               </Field>
               <div>
                 <FormikShowError
-                  type={'Add'}
+                  type={'Edit'}
                   filedName={'courseGrade'}
                   errorMessage={null}
                 />
@@ -140,31 +149,31 @@ const AddCourseForm: React.FC = () => {
             </div>
           </div>
 
-          <div id="courseDescription_Add">
+          <div id="courseDescription_Edit">
             <label
-              htmlFor="courseDescription_AddInput"
+              htmlFor="courseDescription_EditInput"
               className="text-gray-900 mt-3 block text-sm font-medium dark:text-white"
             >
               Mô tả
             </label>
 
             <Field
-              id="courseDescription_AddInput"
+              id="courseDescription_EditInput"
               name="courseDescription"
               type="text"
               placeholder="Điền vào mô tả..."
               className="text-gray-900 focus:ring-primary-600 focus:border-primary-600 dark:placeholder-gray-400 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm dark:border-slate-600 dark:bg-slate-700 dark:text-white"
             />
             <FormikShowError
-              type={'Add'}
+              type={'Edit'}
               filedName={'courseDescription'}
               errorMessage={null}
             />
           </div>
 
-          <div id="courseFile_Add">
+          <div id="courseFile_Edit">
             <label
-              htmlFor="courseFile_AddInput"
+              htmlFor="courseFile_EditInput"
               className="text-gray-900 mb-3 mt-3 block text-sm font-medium dark:text-white"
             >
               Hình ảnh
@@ -172,7 +181,7 @@ const AddCourseForm: React.FC = () => {
 
             <div className="flex w-full items-center justify-center">
               <label
-                htmlFor="courseFile_AddInput"
+                htmlFor="courseFile_EditInput"
                 className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600"
               >
                 <div className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600">
@@ -198,7 +207,7 @@ const AddCourseForm: React.FC = () => {
                     )}
                   </div>
                   <Field
-                    id="courseFile_AddInput"
+                    id="courseFile_EditInput"
                     type="file"
                     name="courseFile"
                     value={undefined}
@@ -211,15 +220,18 @@ const AddCourseForm: React.FC = () => {
               </label>
             </div>
             <FormikShowError
-              type={'Add'}
+              type={'Edit'}
               filedName={'courseFile'}
               errorMessage={error.courseFileError}
             />
           </div>
 
-          <BottomFormError type={'Add'} errorMessage={error.systemError} />
-          <div className="mt-4">
-            <AddSubmitButton buttonName="Thêm khóa học mới" />
+          <BottomFormError type={'Edit'} errorMessage={error.systemError} />
+          <div className="mb-2 mt-7 flex space-x-4">
+            <SubmitButton buttonName="Cập nhật" />
+            <DeleteButton
+              onClick={async () => await DeleteCourse(courseID, true)}
+            />
           </div>
         </Form>
       )}
@@ -227,4 +239,4 @@ const AddCourseForm: React.FC = () => {
   );
 };
 
-export default AddCourseForm;
+export default EditCourseForm;

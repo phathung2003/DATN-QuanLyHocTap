@@ -170,6 +170,7 @@ export async function EditCourse(
 //Xóa khóa học
 export async function DeleteCourse(
   courseID: string,
+  reload: boolean,
   setError?: React.Dispatch<React.SetStateAction<ICourseError>>,
 ) {
   //Kiểm tra phiên đăng nhập
@@ -190,6 +191,9 @@ export async function DeleteCourse(
 
   //Xóa thành công
   if (response.ok) {
+    if (reload) {
+      return window.location.reload();
+    }
     return await CourseManager();
   }
 

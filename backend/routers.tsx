@@ -31,3 +31,7 @@ export async function UnitDetail(courseID, unitID) {
 export async function LoginPage() {
   redirect(`/login`);
 }
+
+export async function CustomURL(url) {
+  redirect(url);
+}

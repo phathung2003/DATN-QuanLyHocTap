@@ -5,6 +5,7 @@ import ICourse from '@/backend/models/data/ICourse';
 
 //Form
 import AddCourseForm from '@/app/admin/course/addCourseForm';
+import EditCourseForm from '@/app/admin/course/editCourseForm';
 import OverlapForm from '@/components/Form/overlapForm';
 import DeleteForm from '@/components/Form/deleteModal';
 
@@ -13,7 +14,12 @@ import SearchBar from '@/components/Field/searchBar';
 import AddButton from '@/components/Button/addButton';
 import DeleteButton from '@/components/Button/deleteButton';
 import DetailButton from '@/components/Button/detailButton';
-// import EditButton from '@/components/Button/editButton';
+import EditButton from '@/components/Button/editButton';
+
+interface EditCourseComponent {
+  courseID: string;
+  data: ICourse;
+}
 
 const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
   courseList,
@@ -25,6 +31,7 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
   const [modalHeader, setModalHeader] = useState('Thêm cấp bậc học');
   const [currentForm, setCurrentForm] = useState<React.FC>(() => AddCourseForm);
   const [deleteID, setDeleteID] = useState<string>('');
+
   //Tìm kiếm
   useEffect(() => {
     setSearchCourse(SearchCourse(search, courseList));
@@ -44,14 +51,16 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
   };
 
   // Edit category Form
-  // eslint-disable-next-line
-  const handleCourseEditClick = (
-    FormComponent: React.FC<{ data: ICourse }>,
-    course,
+  const handleOpenEditModal = (
+    FormComponent: React.FC<EditCourseComponent>,
+    courseID: string,
+    contentData,
   ) => {
-    setCurrentForm(() => <FormComponent data={course} />);
+    setCurrentForm(() => (
+      <FormComponent courseID={courseID} data={contentData} />
+    ));
     setIsModalOpen(true);
-    setModalHeader('Chỉnh sửa cấp bậc');
+    setModalHeader('Chỉnh sửa khóa học');
   };
 
   //state for Delete modal
@@ -138,11 +147,17 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
                       id="managerOption"
                       className="flex items-center justify-end py-3"
                     >
-                      {/* <div>
-                      <EditButton
-                        onClick={() => handleEditClick(FormEditBlog)}
-                      />
-                    </div> */}
+                      <div>
+                        <EditButton
+                          onClick={() =>
+                            handleOpenEditModal(
+                              EditCourseForm,
+                              data.courseID ?? '',
+                              data,
+                            )
+                          }
+                        />
+                      </div>
 
                       <DetailButton
                         link={`/admin/course/${data.courseID}`}
@@ -166,7 +181,7 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
       {DeleteForm(
         isDeleteModalOpen,
         setIsDeleteModalOpen,
-        async () => await DeleteCourse(deleteID),
+        async () => await DeleteCourse(deleteID, true),
       )}
       {OverlapForm(isModalOpen, setIsModalOpen, currentForm, modalHeader)}
     </section>

@@ -99,7 +99,7 @@ export async function EditTask(
   const checkEdit = [editData.taskName, editData.taskDescription];
 
   if (!CheckChangeData(checkDefault, checkEdit, null)) {
-    return;
+    return window.location.reload();
   }
 
   //Tiến hành cập nhật dữ liệu
@@ -143,6 +143,7 @@ export async function DeleteTask(
   courseID: string,
   unitID: string,
   taskID: string,
+  reload: boolean,
   setError?: React.Dispatch<React.SetStateAction<ITaskError>>,
 ) {
   //Kiểm tra phiên đăng nhập
@@ -163,6 +164,9 @@ export async function DeleteTask(
 
   //Xóa thành công
   if (response.ok) {
+    if (reload) {
+      return window.location.reload();
+    }
     return await UnitDetail(courseID, unitID);
   }
 

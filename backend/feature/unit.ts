@@ -92,19 +92,11 @@ export async function EditUnit(
   }
 
   //Kiểm tra có sự thay đổi dữ liệu hay không
-  const checkDefault = [
-    defaultData.unitName,
-    defaultData.unitNo,
-    defaultData.unitDescription,
-  ];
-  const checkEdit = [
-    editData.unitName,
-    editData.unitNo,
-    editData.unitDescription,
-  ];
+  const checkDefault = [defaultData.unitName, defaultData.unitDescription];
+  const checkEdit = [editData.unitName, editData.unitDescription];
 
   if (!CheckChangeData(checkDefault, checkEdit, null)) {
-    return;
+    return window.location.reload();
   }
 
   //Tiến hành cập nhật dữ liệu
@@ -140,6 +132,7 @@ export async function EditUnit(
 export async function DeleteUnit(
   courseID: string,
   unitID: string,
+  reload: boolean,
   setError?: React.Dispatch<React.SetStateAction<IUnitError>>,
 ) {
   //Kiểm tra phiên đăng nhập
@@ -160,6 +153,9 @@ export async function DeleteUnit(
 
   //Xóa thành công
   if (response.ok) {
+    if (reload) {
+      return window.location.reload();
+    }
     return await CourseDetail(courseID);
   }
 

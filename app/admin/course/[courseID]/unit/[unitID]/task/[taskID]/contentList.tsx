@@ -187,14 +187,18 @@ const Accordion: React.FC<ContentFormProps> = ({
               buttonName="Thêm nội dung"
             />
             <EditButton
-              onClick={() => handleOpenEditModal(EditContentForm, data)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleOpenEditModal(EditContentForm, data);
+              }}
             />
             <DeleteButton
-              onClick={() =>
+              onClick={(e) => {
+                e.stopPropagation();
                 handleDelete(() =>
                   DeleteContent(courseID, unitID, taskID, contentID),
-                )
-              }
+                );
+              }}
             />
             <button
               type="button"
