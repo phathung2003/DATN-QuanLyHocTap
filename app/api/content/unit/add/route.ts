@@ -8,6 +8,7 @@ import { AddUnit } from '@/backend/database/unit';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import CheckUnitData from '@/app/api/content/unit/unitData';
 import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 import CourseMessage from '@/backend/messages/courseMessage';
 import UnitMessage from '@/backend/messages/unitMessage';
 
@@ -27,7 +28,7 @@ export async function POST(request: Request) {
 
     //Kiểm tra mã khóa học có tồn tại
     if (!(await CheckIDExist(TableName.COURSE, dataInput.courseID))) {
-      return MessageReturnOnly(CourseMessage.COURSE_EDIT_NOT_FOUND, 404);
+      return MessageReturnOnly(CourseMessage.COURSE_NOT_FOUND, 404);
     }
 
     //Kiểm tra số thứ tự bài học
@@ -48,11 +49,11 @@ export async function POST(request: Request) {
 
     //Thêm bài học
     if (!(await AddUnit(dataInput.courseID, dataInput.data))) {
-      return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+      return MessageReturnOnly(UnitMessage.UNIT_ADD_FAILED, 500);
     }
 
-    return MessageReturnOnly(UnitMessage.UNIT_ADD_COMPLETE, 201);
+    return MessageReturnOnly(UnitMessage.UNIT_ADD_COMPLETED, 201);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }

@@ -10,7 +10,7 @@ import {
   GenerateFileName,
   CheckChangeData,
 } from '@/backend/feature/general';
-import GlobalMessage from '@/backend/messages/gobalMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 import GradeMessage from '@/backend/messages/gradeMessage';
 
 //Lấy cấp độ
@@ -45,7 +45,7 @@ export async function AddGrade(
       GenerateFileName(data.gradeFile, data.gradeName, token),
     );
 
-    if (uploadResult === GlobalMessage.UPLOAD_IMAGE_ERROR) {
+    if (uploadResult === SystemMessage.UPLOAD_IMAGE_ERROR) {
       error.status = false;
       error.gradeFileError = uploadResult;
       setError(error);
@@ -109,7 +109,7 @@ export async function EditGrade(
       GenerateFileName(editData.gradeFile, 'grade', token),
     );
 
-    if (uploadResult === GlobalMessage.UPLOAD_IMAGE_ERROR) {
+    if (uploadResult === SystemMessage.UPLOAD_IMAGE_ERROR) {
       error.status = false;
       error.gradeFileError = uploadResult;
       setError(error);
@@ -122,7 +122,7 @@ export async function EditGrade(
   const checkDefault = [defaultData.gradeName, defaultData.gradeDescription];
   const checkEdit = [editData.gradeName, editData.gradeDescription];
 
-  if (!CheckChangeData(checkDefault, checkEdit, gradeImageLink)) {
+  if (!CheckChangeData(checkDefault, checkEdit, [gradeImageLink])) {
     DeleteImage(gradeImageLink);
     return window.location.reload();
   }
@@ -164,7 +164,7 @@ export async function EditGrade(
 //Xóa cấp độ
 export async function DeleteGrade(
   gradeID: string,
-  setError: React.Dispatch<React.SetStateAction<IGradeError>>,
+  setError?: React.Dispatch<React.SetStateAction<IGradeError>>,
 ) {
   //Kiểm tra phiên đăng nhập
   const token = await GetToken();
@@ -190,11 +190,13 @@ export async function DeleteGrade(
   }
 
   //Xóa thất bại
-  const error = DefaultGradeErrorValue();
-  const errorData = await response.json();
-  error.status = false;
-  error.systemError = errorData.message;
-  setError(error);
+  if (setError) {
+    const error = DefaultGradeErrorValue();
+    const errorData = await response.json();
+    error.status = false;
+    error.systemError = errorData.message;
+    setError(error);
+  }
   return;
 }
 

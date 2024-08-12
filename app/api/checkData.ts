@@ -1,6 +1,6 @@
 import { CheckSession, GetUserIDFromSession } from '@/backend/database/session';
-import SessionMessage from '@/backend/messages/sessionMessage';
 import { DeleteToken } from '@/app/api/user/checkToken/deleteToken';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 export async function CheckDataInputNeedLogin(
   request: Request,
@@ -30,8 +30,7 @@ export async function CheckDataInputNeedLogin(
 export async function CheckToken(tokenID: string) {
   const result = await CheckSession(tokenID);
   if (result.status === false) {
-    const errorCode =
-      result.message === SessionMessage.SYSTEM_ERROR ? 404 : 401;
+    const errorCode = result.message === SystemMessage.SYSTEM_ERROR ? 404 : 401;
     return DeleteToken(tokenID, result.message, errorCode);
   }
   return true;
@@ -40,8 +39,7 @@ export async function CheckToken(tokenID: string) {
 export async function GetUserID(tokenID: string) {
   const result = await GetUserIDFromSession(tokenID);
   if (typeof result != 'string') {
-    const errorCode =
-      result.message === SessionMessage.SYSTEM_ERROR ? 404 : 401;
+    const errorCode = result.message === SystemMessage.SYSTEM_ERROR ? 404 : 401;
     return DeleteToken(tokenID, result.message, errorCode);
   }
   return result;

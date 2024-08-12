@@ -17,6 +17,7 @@ import ITask from '@/backend/models/data/ITask';
 import SubmitButton from '@/components/Button/submitButton';
 import DetailButton from '@/components/Button/detailButton';
 //Button
+import BackButton from '@/components/Button/backButton';
 import DeleteButton from '@/components/Button/deleteButton';
 import AddButton from '@/components/Button/addButton';
 import SearchBar from '@/components/Field/searchBar';
@@ -68,7 +69,9 @@ const UnitDetail: React.FC<{
 
   return (
     <section className="antialiase overflow-y-auto px-4 lg:px-8">
-      <div className="mb-3 flex items-start justify-between">
+      <BackButton />
+
+      <div className="my-3 flex items-start justify-between">
         <div>
           <h2
             id="header"

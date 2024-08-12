@@ -13,4 +13,5 @@ export interface IRegisterDB {
   phoneNumber: string | null;
   email: string | null;
   password: string;
+  role: string;
 }

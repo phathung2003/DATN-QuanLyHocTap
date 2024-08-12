@@ -140,7 +140,7 @@ export async function EditUnit(
 export async function DeleteUnit(
   courseID: string,
   unitID: string,
-  setError: React.Dispatch<React.SetStateAction<IUnitError>> | null,
+  setError?: React.Dispatch<React.SetStateAction<IUnitError>>,
 ) {
   //Kiểm tra phiên đăng nhập
   const token = await GetToken();

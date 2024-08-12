@@ -18,14 +18,14 @@ export interface ITaskMessage {
 
   TASK_NOT_FOUND: string;
 
-  TASK_ADD_COMPLETE: string;
+  TASK_ADD_COMPLETED: string;
   TASK_ADD_FAILED: string;
 
-  TASK_EDIT_COMPLETE: string;
+  TASK_EDIT_COMPLETED: string;
   TASK_EDIT_FAILED: string;
 
-  TASK_DELETE_COMPLETE: string;
-  SYSTEM_ERROR: string;
+  TASK_DELETE_COMPLETED: string;
+  TASK_DELETE_FAILED: string;
 }
 
 export interface ITaskError {

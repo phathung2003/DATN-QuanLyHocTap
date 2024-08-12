@@ -6,6 +6,7 @@ import { GetGradeIDFile } from '@/backend/database/grade';
 import { GetSubjectIDFile } from '@/backend/database/subject';
 import GradeMessage from '@/backend/messages/gradeMessage';
 import SubjectMessage from '@/backend/messages/subjectMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 //Kiểm tra dữ liệu
 export async function CheckCourseData(request) {
@@ -24,8 +25,8 @@ export async function CheckCourseData(request) {
     //Lấy mã documentID của courseID
     const gradeID = await GetGradeIDFile(result.data.courseGrade);
     if (
-      gradeID != GradeMessage.GRADE_EDIT_NOT_FOUND &&
-      gradeID != GradeMessage.SYSTEM_ERROR
+      gradeID != GradeMessage.GRADE_NOT_FOUND &&
+      gradeID != SystemMessage.SYSTEM_ERROR
     ) {
       result.data.courseGrade = gradeID;
     }
@@ -37,8 +38,8 @@ export async function CheckCourseData(request) {
     //Lấy mã documentID của subjectID
     const subjectID = await GetSubjectIDFile(result.data.courseSubject);
     if (
-      subjectID != SubjectMessage.SUBJECT_EDIT_NOT_FOUND &&
-      subjectID != SubjectMessage.SYSTEM_ERROR
+      subjectID != SubjectMessage.SUBJECT_NOT_FOUND &&
+      subjectID != SystemMessage.SYSTEM_ERROR
     ) {
       result.data.courseSubject = subjectID;
     }

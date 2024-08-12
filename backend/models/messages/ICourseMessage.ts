@@ -24,13 +24,16 @@ export interface ICourseMessage {
     REQUIRED: string;
   };
 
-  COURSE_ADD_COMPLETE: string;
-  COURSE_ADD_FAILED: string;
-  COURSE_EDIT_NOT_FOUND: string;
-  COURSE_EDIT_COMPLETE: string;
-  COURSE_DELETE_COMPLETE: string;
+  COURSE_NOT_FOUND: string;
 
-  SYSTEM_ERROR: string;
+  COURSE_ADD_COMPLETED: string;
+  COURSE_ADD_FAILED: string;
+
+  COURSE_EDIT_COMPLETED: string;
+  COURSE_EDIT_FAILED: string;
+
+  COURSE_DELETE_COMPLETED: string;
+  COURSE_DELETE_FAILED: string;
 }
 
 export interface ICourseError {

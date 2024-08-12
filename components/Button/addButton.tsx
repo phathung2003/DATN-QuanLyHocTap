@@ -1,3 +1,4 @@
+/* eslint-disable */
 //Icon
 import AddIcon from '@/public/vector/plus-white.svg';
 
@@ -6,7 +7,15 @@ interface AddButtonProperties {
   buttonName: string;
 }
 
-const AddButton: React.FC<AddButtonProperties> = ({ onClick, buttonName }) => {
+//eslint-disabled-next-line
+interface AddButtonHaveEventProperties {
+  onClick: (e) => void;
+  buttonName: string;
+}
+
+const AddButton: React.FC<
+  AddButtonProperties | AddButtonHaveEventProperties
+> = ({ onClick, buttonName }) => {
   return (
     <button
       id="add_Button"

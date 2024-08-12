@@ -9,7 +9,7 @@ import {
   GenerateFileName,
   CheckChangeData,
 } from '@/backend/feature/general';
-import GlobalMessage from '@/backend/messages/gobalMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 import SubjectMessage from '@/backend/messages/subjectMessage';
 import { RemoveAccent } from '@/backend/feature/general';
 
@@ -45,7 +45,7 @@ export async function AddSubject(
       GenerateFileName(data.subjectFile, data.subjectName, token),
     );
 
-    if (uploadResult === GlobalMessage.UPLOAD_IMAGE_ERROR) {
+    if (uploadResult === SystemMessage.UPLOAD_IMAGE_ERROR) {
       error.status = false;
       error.subjectFileError = uploadResult;
       setError(error);
@@ -110,7 +110,7 @@ export async function EditSubject(
       GenerateFileName(editData.subjectFile, 'subject', token),
     );
 
-    if (uploadResult === GlobalMessage.UPLOAD_IMAGE_ERROR) {
+    if (uploadResult === SystemMessage.UPLOAD_IMAGE_ERROR) {
       error.status = false;
       error.subjectFileError = uploadResult;
       setError(error);
@@ -126,7 +126,7 @@ export async function EditSubject(
   ];
   const checkEdit = [editData.subjectName, editData.subjectDescription];
 
-  if (!CheckChangeData(checkDefault, checkEdit, subjectImageLink)) {
+  if (!CheckChangeData(checkDefault, checkEdit, [subjectImageLink])) {
     DeleteImage(subjectImageLink);
     return window.location.reload();
   }
@@ -169,7 +169,7 @@ export async function EditSubject(
 //Xóa môn học
 export async function DeleteSubject(
   subjectID: string,
-  setError: React.Dispatch<React.SetStateAction<ISubjectError>> | null,
+  setError?: React.Dispatch<React.SetStateAction<ISubjectError>>,
 ) {
   //Kiểm tra phiên đăng nhập
   const token = await GetToken();

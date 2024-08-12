@@ -27,13 +27,16 @@ const CourseMessage: ICourseMessage = {
     REQUIRED: 'Xin hãy chọn hình',
   },
 
-  COURSE_ADD_COMPLETE: 'Thêm khóa học thành công',
-  COURSE_ADD_FAILED: 'Thêm khóa học thất bại',
-  COURSE_EDIT_NOT_FOUND: 'Không tìm thấy khóa học này trên hệ thống',
-  COURSE_EDIT_COMPLETE: 'Chỉnh sửa khóa học thành công',
-  COURSE_DELETE_COMPLETE: 'Xóa khóa học thành công',
+  COURSE_NOT_FOUND: 'Không tìm thấy khóa học này trên hệ thống',
 
-  SYSTEM_ERROR: 'Hệ thống hiện tại đang bị lỗi. Xin vui lòng thử lại sau',
+  COURSE_ADD_COMPLETED: 'Thêm khóa học thành công',
+  COURSE_ADD_FAILED: 'Thêm khóa học thất bại',
+
+  COURSE_EDIT_COMPLETED: 'Chỉnh sửa khóa học thành công',
+  COURSE_EDIT_FAILED: 'Chỉnh sửa khóa học thành công',
+
+  COURSE_DELETE_COMPLETED: 'Xóa khóa học thành công',
+  COURSE_DELETE_FAILED: 'Xóa khóa học thành công',
 };
 
 export default CourseMessage;

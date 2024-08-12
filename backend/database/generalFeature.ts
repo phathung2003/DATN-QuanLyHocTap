@@ -15,7 +15,7 @@ import {
   getDownloadURL,
   deleteObject,
 } from 'firebase/storage';
-import GlobalMessage from '@/backend/messages/gobalMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 import { Status } from '@/backend/globalVariable';
 import { nanoid } from 'nanoid';
 
@@ -26,7 +26,7 @@ export async function UploadImage(image: File, filePath: string) {
     await uploadBytes(storageReference, image);
     return await getDownloadURL(storageReference);
   } catch {
-    return GlobalMessage.UPLOAD_IMAGE_ERROR;
+    return SystemMessage.UPLOAD_IMAGE_ERROR;
   }
 }
 

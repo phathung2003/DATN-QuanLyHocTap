@@ -1,8 +1,9 @@
-import MessageReturnOnly from '@/app/api/messageReturnOnly';
-import APIMessage from '@/backend/messages/apiMessage';
-import CourseMessage from '@/backend/messages/courseMessage';
 import { DeleteCourse } from '@/backend/database/course';
 import { CheckToken, LoginSession } from '@/app/api/checkData';
+import MessageReturnOnly from '@/app/api/messageReturnOnly';
+import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
+import CourseMessage from '@/backend/messages/courseMessage';
 
 export async function DELETE(request) {
   try {
@@ -21,9 +22,9 @@ export async function DELETE(request) {
 
     //Xóa loại
     await DeleteCourse(dataInput.courseID);
-    return MessageReturnOnly(CourseMessage.COURSE_DELETE_COMPLETE, 200);
+    return MessageReturnOnly(CourseMessage.COURSE_DELETE_COMPLETED, 200);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }
 

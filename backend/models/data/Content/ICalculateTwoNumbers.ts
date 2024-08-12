@@ -6,8 +6,8 @@ export interface ICalculateTwoNumbers {
 
 export interface ICalculateTwoNumbersContent {
   position: number;
-  firstNumber: number;
-  secondNumber: number;
+  firstNumber: number | string;
+  secondNumber: number | string;
   operator: '+' | '-' | '*' | '/';
   result?: number;
 }

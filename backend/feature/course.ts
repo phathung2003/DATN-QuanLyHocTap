@@ -9,7 +9,7 @@ import { HomePage, CourseManager, CourseDetail } from '@/backend/routers';
 import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
 import { ICourseError } from '@/backend/models/messages/ICourseMessage';
 import ICourse from '@/backend/models/data/ICourse';
-import GlobalMessage from '@/backend/messages/gobalMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 //Lấy danh sách khóa học
 export async function GetCourse() {
@@ -56,7 +56,7 @@ export async function AddCourse(
       GenerateFileName(data.courseFile, data.courseName, token),
     );
 
-    if (uploadResult === GlobalMessage.UPLOAD_IMAGE_ERROR) {
+    if (uploadResult === SystemMessage.UPLOAD_IMAGE_ERROR) {
       error.status = false;
       error.courseFileError = uploadResult;
       setError(error);
@@ -117,7 +117,7 @@ export async function EditCourse(
       GenerateFileName(editData.courseFile, 'course', token),
     );
 
-    if (uploadResult === GlobalMessage.UPLOAD_IMAGE_ERROR) {
+    if (uploadResult === SystemMessage.UPLOAD_IMAGE_ERROR) {
       error.status = false;
       error.courseFileError = uploadResult;
       setError(error);
@@ -131,7 +131,7 @@ export async function EditCourse(
   const checkDefault = [defaultData.courseName, defaultData.courseDescription];
   const checkEdit = [editData.courseName, editData.courseDescription];
 
-  if (!CheckChangeData(checkDefault, checkEdit, editData.courseImage)) {
+  if (!CheckChangeData(checkDefault, checkEdit, [editData.courseImage])) {
     DeleteImage(editData.courseImage);
     await CourseDetail(defaultData.courseID);
   }

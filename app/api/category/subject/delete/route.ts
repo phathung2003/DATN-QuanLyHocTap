@@ -1,8 +1,9 @@
+import { DeleteSubject } from '@/backend/database/subject';
+import { CheckToken, LoginSession } from '@/app/api/checkData';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import { DeleteSubject } from '@/backend/database/subject';
+import SystemMessage from '@/backend/messages/systemMessage';
 import SubjectMessage from '@/backend/messages/subjectMessage';
-import { CheckToken, LoginSession } from '@/app/api/checkData';
 
 export async function DELETE(request) {
   try {
@@ -20,9 +21,9 @@ export async function DELETE(request) {
 
     //Xóa loại
     await DeleteSubject(dataInput.subjectID);
-    return MessageReturnOnly(SubjectMessage.SUBJECT_DELETE_COMPLETE, 200);
+    return MessageReturnOnly(SubjectMessage.SUBJECT_DELETE_COMPLETED, 200);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }
 

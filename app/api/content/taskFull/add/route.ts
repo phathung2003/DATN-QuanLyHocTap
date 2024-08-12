@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
 import { AddTask } from '@/backend/database/taskFull';
 import { LoginSession, CheckToken } from '@/app/api/checkData';
-import ContentMessage from '@/backend/messages/contentMessage';
-import MessageReturnOnly from '@/app/api/messageReturnOnly';
-import APIMessage from '@/backend/messages/apiMessage';
 import { TableName, ContentType } from '@/backend/globalVariable';
 import { DefaultContentErrorValue } from '@/backend/defaultData/content';
 import { CheckIDExist } from '@/backend/database/generalFeature';
@@ -14,6 +11,10 @@ import {
   IsNumber,
 } from '@/app/api/content/taskFull/contentData';
 import { CheckDataInputTrueFalse } from '@/app/api/checkData';
+import MessageReturnOnly from '@/app/api/messageReturnOnly';
+import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
+import ContentMessage from '@/backend/messages/contentMessage';
 
 export async function POST(request: Request) {
   try {
@@ -41,12 +42,12 @@ export async function POST(request: Request) {
     if (
       !(await AddTask(dataInput.courseID, dataInput.unitID, dataInput.data))
     ) {
-      return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+      return MessageReturnOnly(ContentMessage.CONTENT_ADD_FAILED, 500);
     }
 
-    return MessageReturnOnly(ContentMessage.CONTENT_ADD_COMPLETE, 201);
+    return MessageReturnOnly(ContentMessage.CONTENT_ADD_COMPLETED, 201);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }
 

@@ -2,6 +2,7 @@ import { DeleteTask } from '@/backend/database/task';
 import { CheckToken, LoginSession } from '@/app/api/checkData';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 import TaskMessage from '@/backend/messages/taskMessage';
 
 export async function DELETE(request) {
@@ -21,9 +22,9 @@ export async function DELETE(request) {
 
     //Xóa tác vụ bài
     await DeleteTask(dataInput.courseID, dataInput.unitID, dataInput.taskID);
-    return MessageReturnOnly(TaskMessage.TASK_DELETE_COMPLETE, 200);
+    return MessageReturnOnly(TaskMessage.TASK_DELETE_COMPLETED, 200);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }
 

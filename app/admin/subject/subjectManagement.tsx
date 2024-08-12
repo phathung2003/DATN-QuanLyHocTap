@@ -2,12 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { ISubject } from '@/backend/models/data/ISubject';
 import { DeleteSubject, SearchSubject } from '@/backend/feature/subject';
+
+//Form
 import AddSubjectForm from '@/app/admin/subject/addSubjectForm';
 import EditSubjectForm from '@/app/admin/subject/editSubjectForm';
 import OverlapForm from '@/components/Form/overlapForm';
 import DeleteForm from '@/components/Form/deleteModal';
 
-//Button
+//Button - Components
 import DeleteButton from '@/components/Button/deleteButton';
 import EditButton from '@/components/Button/editButton';
 import AddButton from '@/components/Button/addButton';
@@ -88,45 +90,57 @@ const SubjectManagement = ({ data }) => {
               <th id="managerOptionHead" className="w-[10rem] px-4 py-3"></th>
             </tr>
           </thead>
-          <tbody className="h-[50px] items-center divide-y">
-            {searchSubject.map((data, index) => (
-              <tr
-                key={index}
-                className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
-              >
-                <td id="gradeID" className="w-[30px] text-center">
-                  {index + 1}
-                </td>
 
-                <td id="name" className="px-4">
-                  {data.subjectName}
-                </td>
-                <td id="description" className="px-4">
-                  {data.subjectDescription}
-                </td>
-                <td>
-                  <div
-                    id="managerOption"
-                    className="flex items-center justify-end px-4 py-3"
-                  >
-                    <EditButton
-                      onClick={() => handleEditModal(EditSubjectForm, data)}
-                    />
-
-                    <DeleteButton
-                      onClick={() => handleDelete(data.subjectID)}
-                    />
-                  </div>
+          {searchSubject.length == 0 ? (
+            <tbody>
+              <tr>
+                <td colSpan={4}>
+                  <p className="mt-4 flex w-full justify-center text-lg font-bold">
+                    Không có danh mục môn học nào
+                  </p>
                 </td>
               </tr>
-            ))}
-          </tbody>
+            </tbody>
+          ) : (
+            <tbody className="h-[50px] items-center divide-y">
+              {searchSubject.map((data, index) => (
+                <tr
+                  key={index}
+                  className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
+                >
+                  <td id="gradeID" className="w-[30px] text-center">
+                    {index + 1}
+                  </td>
+
+                  <td id="name" className="px-4">
+                    {data.subjectName}
+                  </td>
+                  <td id="description" className="px-4">
+                    {data.subjectDescription}
+                  </td>
+                  <td>
+                    <div
+                      id="managerOption"
+                      className="flex items-center justify-end px-4 py-3"
+                    >
+                      <EditButton
+                        onClick={() => handleEditModal(EditSubjectForm, data)}
+                      />
+                      <DeleteButton
+                        onClick={() => handleDelete(data.subjectID)}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          )}
         </table>
       </div>
       {DeleteForm(
         isDeleteModalOpen,
         setIsDeleteModalOpen,
-        async () => await DeleteSubject(deleteID, null),
+        async () => await DeleteSubject(deleteID),
       )}
       {OverlapForm(isModalOpen, setIsModalOpen, currentForm, modalHeader)}
     </section>

@@ -5,14 +5,15 @@ import {
   CheckContentType,
 } from '@/backend/database/content';
 import { CheckToken } from '@/app/api/checkData';
-import MessageReturnOnly from '@/app/api/messageReturnOnly';
-import APIMessage from '@/backend/messages/apiMessage';
 import { CheckData } from '@/app/api/content/taskContent/taskContentData';
 import {
   CheckSuggestAddNo,
   CheckGetAddNo,
 } from '@/backend/database/generalFeature';
 import { TableName } from '@/backend/globalVariable';
+import MessageReturnOnly from '@/app/api/messageReturnOnly';
+import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 import ContentMessage from '@/backend/messages/contentMessage';
 
 export async function POST(request: Request) {
@@ -152,11 +153,11 @@ export async function POST(request: Request) {
         dataInput.data,
       ))
     ) {
-      return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+      return MessageReturnOnly(ContentMessage.CONTENT_ADD_FAILED, 500);
     }
 
-    return MessageReturnOnly(ContentMessage.CONTENT_ADD_COMPLETE, 201);
+    return MessageReturnOnly(ContentMessage.CONTENT_ADD_COMPLETED, 201);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }

@@ -1,9 +1,10 @@
 import { AddCourse } from '@/backend/database/course';
 import { GetUserID } from '@/app/api/checkData';
-import CourseMessage from '@/backend/messages/courseMessage';
+import { CheckCourseData } from '@/app/api/content/course/courseData';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import { CheckCourseData } from '@/app/api/content/course/courseData';
+import SystemMessage from '@/backend/messages/systemMessage';
+import CourseMessage from '@/backend/messages/courseMessage';
 
 export async function POST(request: Request) {
   try {
@@ -22,8 +23,8 @@ export async function POST(request: Request) {
 
     //Thêm dữ liệu vào bảng
     await AddCourse(dataInput.data);
-    return MessageReturnOnly(CourseMessage.COURSE_ADD_COMPLETE, 201);
+    return MessageReturnOnly(CourseMessage.COURSE_ADD_COMPLETED, 201);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }

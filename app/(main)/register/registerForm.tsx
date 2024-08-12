@@ -10,7 +10,7 @@ import { handelSubmit, ResetError } from '@/backend/feature/register';
 
 export default function RegisterForm() {
   //Ghi nhận lỗi báo từ server
-  const [error, setError] = useState(DefaultRegisteErrorValue);
+  const [error, setError] = useState(DefaultRegisteErrorValue());
   return (
     <Formik
       initialValues={DefaultRegisterValue()}

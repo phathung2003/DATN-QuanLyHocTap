@@ -1,13 +1,14 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import AddCourseForm from '@/app/admin/course/addCourseForm';
-
+import { SearchCourse, DeleteCourse } from '@/backend/feature/course';
 import ICourse from '@/backend/models/data/ICourse';
+
+//Form
+import AddCourseForm from '@/app/admin/course/addCourseForm';
 import OverlapForm from '@/components/Form/overlapForm';
 import DeleteForm from '@/components/Form/deleteModal';
-import { SearchCourse, DeleteCourse } from '@/backend/feature/course';
 
-//Icon
+//Button
 import SearchBar from '@/components/Field/searchBar';
 import AddButton from '@/components/Button/addButton';
 import DeleteButton from '@/components/Button/deleteButton';
@@ -95,58 +96,70 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
             </tr>
           </thead>
 
-          <tbody className="h-[50px] items-center divide-y">
-            {searchCourse.map((data, index) => (
-              <tr
-                key={index}
-                className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
-              >
-                <td id="gradeID" className="w-[30px] text-center">
-                  {data.courseID}
+          {searchCourse.length == 0 ? (
+            <tbody>
+              <tr>
+                <td colSpan={5}>
+                  <p className="mt-4 flex w-full justify-center text-lg font-bold">
+                    Không có khóa học nào
+                  </p>
                 </td>
+              </tr>
+            </tbody>
+          ) : (
+            <tbody className="h-[50px] items-center divide-y">
+              {searchCourse.map((data, index) => (
+                <tr
+                  key={index}
+                  className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
+                >
+                  <td id="gradeID" className="w-[30px] text-center">
+                    {data.courseID}
+                  </td>
 
-                <td id="name" className="px-4">
-                  {data.courseName}
-                </td>
+                  <td id="name" className="px-4">
+                    {data.courseName}
+                  </td>
 
-                <td id="subject" className="px-4">
-                  {data.courseAuthor}
-                </td>
+                  <td id="subject" className="px-4">
+                    {data.courseAuthor}
+                  </td>
 
-                <td id="grade" className="px-3">
-                  {data.courseUploadDate != null ? (
-                    <p>{`${data.courseUploadDate}`}</p>
-                  ) : (
-                    <p>Không xác định</p>
-                  )}
-                </td>
+                  <td id="grade" className="px-3">
+                    {data.courseUploadDate != null ? (
+                      <p>{`${data.courseUploadDate}`}</p>
+                    ) : (
+                      <p>Không xác định</p>
+                    )}
+                  </td>
 
-                <td>
-                  <div
-                    id="managerOption"
-                    className="flex items-center justify-end py-3"
-                  >
-                    {/* <div>
+                  <td>
+                    <div
+                      id="managerOption"
+                      className="flex items-center justify-end py-3"
+                    >
+                      {/* <div>
                       <EditButton
                         onClick={() => handleEditClick(FormEditBlog)}
                       />
                     </div> */}
 
-                    <DetailButton
-                      link={`/admin/course/${data.courseID}`}
-                      buttonName="Chi tiết"
-                    />
-
-                    <div className="ml-4">
-                      <DeleteButton
-                        onClick={() => handleDelete(data.courseID ?? '')}
+                      <DetailButton
+                        link={`/admin/course/${data.courseID}`}
+                        buttonName="Chi tiết"
                       />
+
+                      <div className="ml-4">
+                        <DeleteButton
+                          onClick={() => handleDelete(data.courseID ?? '')}
+                        />
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          )}
         </table>
       </div>
 
