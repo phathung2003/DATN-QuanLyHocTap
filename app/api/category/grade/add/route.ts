@@ -5,6 +5,7 @@ import APIMessage from '@/backend/messages/apiMessage';
 import { CheckGradeExist, AddGrade } from '@/backend/database/grade';
 import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
 import GradeData from '@/app/api/category/grade/gradeData';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 export async function POST(request: Request) {
   try {
@@ -39,9 +40,9 @@ export async function POST(request: Request) {
 
     //Thêm dữ liệu vào bảng
     await AddGrade(dataInput.data);
-    return MessageReturnOnly(GradeMessage.GRADE_ADD_COMPLETE, 201);
+    return MessageReturnOnly(GradeMessage.GRADE_ADD_COMPLETED, 201);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }
 

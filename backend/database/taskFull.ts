@@ -1,5 +1,4 @@
 import { collection, getDocs } from 'firebase/firestore';
-import GradeMessage from '@/backend/messages/gradeMessage';
 import { db } from '@/backend/database/firebase';
 import {
   AddDatabaseWithoutID,
@@ -7,6 +6,7 @@ import {
   GenerateID,
 } from '@/backend/database/generalFeature';
 import { ContentType, Status, TableName } from '@/backend/globalVariable';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 //Thêm nội dung học
 export async function AddTask(
@@ -56,7 +56,7 @@ export async function GetContent(courseID: string, unitID: string) {
     }
     return unitList;
   } catch {
-    return GradeMessage.SYSTEM_ERROR;
+    return SystemMessage.SYSTEM_ERROR;
   }
 }
 

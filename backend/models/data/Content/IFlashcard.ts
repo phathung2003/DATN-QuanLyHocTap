@@ -7,7 +7,9 @@ export interface IFlashcard {
 export interface IFlashcardContent {
   position: number;
   firstSideText: string;
-  firstSideImage: string;
+  firstSideImage: string | null;
+  firstSideFile?: File;
   secondSideText: string;
-  secondSideImage: string;
+  secondSideImage: string | null;
+  secondSideFile?: File;
 }

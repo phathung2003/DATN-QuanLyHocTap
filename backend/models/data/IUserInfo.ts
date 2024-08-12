@@ -4,4 +4,5 @@ export default interface IUserInfo {
   username: string;
   phoneNumber: string;
   email: string;
+  role: string;
 }

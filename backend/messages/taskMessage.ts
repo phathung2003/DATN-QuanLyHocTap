@@ -21,15 +21,14 @@ const TaskMessage: ITaskMessage = {
 
   TASK_NOT_FOUND: 'Không tìm thấy bài học này trên hệ thống',
 
-  TASK_ADD_COMPLETE: 'Thêm bài học thành công',
+  TASK_ADD_COMPLETED: 'Thêm bài học thành công',
   TASK_ADD_FAILED: 'Thêm bài học thất bại',
 
-  TASK_EDIT_COMPLETE: 'Chỉnh sửa bài học thành công',
+  TASK_EDIT_COMPLETED: 'Chỉnh sửa bài học thành công',
   TASK_EDIT_FAILED: 'Chỉnh sửa tác vụ bài thất bại',
 
-  TASK_DELETE_COMPLETE: 'Xóa bài học thành công',
-
-  SYSTEM_ERROR: 'Hệ thống hiện tại đang bị lỗi. Xin vui lòng thử lại sau',
+  TASK_DELETE_COMPLETED: 'Xóa bài học thành công',
+  TASK_DELETE_FAILED: 'Xóa bài học thất bại',
 };
 
 export default TaskMessage;

@@ -8,6 +8,10 @@ export async function HomePage() {
   redirect(`/`);
 }
 
+export async function AdminPage() {
+  redirect(`/admin`);
+}
+
 export async function CategoryManager() {
   redirect(`/admin/qldanhmuc`);
 }
@@ -26,4 +30,8 @@ export async function UnitDetail(courseID, unitID) {
 
 export async function LoginPage() {
   redirect(`/login`);
+}
+
+export async function CustomURL(url) {
+  redirect(url);
 }

@@ -2,6 +2,7 @@ import { DeleteUnit } from '@/backend/database/unit';
 import { CheckToken, LoginSession } from '@/app/api/checkData';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 import UnitMessage from '@/backend/messages/unitMessage';
 
 export async function DELETE(request) {
@@ -21,9 +22,9 @@ export async function DELETE(request) {
 
     //Xóa loại
     await DeleteUnit(dataInput.courseID, dataInput.unitID);
-    return MessageReturnOnly(UnitMessage.UNIT_DELETE_COMPLETE, 200);
+    return MessageReturnOnly(UnitMessage.UNIT_DELETE_COMPLETED, 200);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }
 

@@ -11,9 +11,7 @@ export default async function LogOut() {
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/logout`,
     {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         tokenID: token,
       }),

@@ -1,17 +1,18 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-
 import { ISubject } from '@/backend/models/data/ISubject';
 import { DeleteSubject, SearchSubject } from '@/backend/feature/subject';
+
+//Form
 import AddSubjectForm from '@/app/admin/subject/addSubjectForm';
 import EditSubjectForm from '@/app/admin/subject/editSubjectForm';
 import OverlapForm from '@/components/Form/overlapForm';
-import { DefaultSubjectErrorValue } from '@/backend/defaultData/subject';
-//Button
+import DeleteForm from '@/components/Form/deleteModal';
+
+//Button - Components
 import DeleteButton from '@/components/Button/deleteButton';
 import EditButton from '@/components/Button/editButton';
 import AddButton from '@/components/Button/addButton';
-
 import SearchBar from '@/components/Field/searchBar';
 
 const SubjectManagement = ({ data }) => {
@@ -22,8 +23,8 @@ const SubjectManagement = ({ data }) => {
   const [currentForm, setCurrentForm] = useState<React.FC>(
     () => AddSubjectForm,
   );
-  // eslint-disable-next-line
-  const [errorEdit, setErrorEdit] = useState(DefaultSubjectErrorValue());
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteID, setDeleteID] = useState<string>('');
 
   //Tìm kiếm
   useEffect(() => {
@@ -47,8 +48,14 @@ const SubjectManagement = ({ data }) => {
     setModalHeader('Chỉnh sửa môn học');
   };
 
+  //Delete Form
+  const handleDelete = (ID: string) => {
+    setIsDeleteModalOpen(true);
+    setDeleteID(ID);
+  };
+
   return (
-    <section className="antialiase overflow-y-auto px-4 pt-5 lg:px-8">
+    <section className="antialiase overflow-y-auto px-4 pt-1 lg:px-8">
       <h2
         id="header"
         className="font-manrope mb-2 mt-2 text-center text-2xl font-bold text-black dark:text-white min-[890px]:text-left"
@@ -83,44 +90,58 @@ const SubjectManagement = ({ data }) => {
               <th id="managerOptionHead" className="w-[10rem] px-4 py-3"></th>
             </tr>
           </thead>
-          <tbody className="h-[50px] items-center divide-y">
-            {searchSubject.map((data, index) => (
-              <tr
-                key={index}
-                className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
-              >
-                <td id="gradeID" className="w-[30px] text-center">
-                  {index + 1}
-                </td>
 
-                <td id="name" className="px-4">
-                  {data.subjectName}
-                </td>
-                <td id="description" className="px-4">
-                  {data.subjectDescription}
-                </td>
-                <td>
-                  <div
-                    id="managerOption"
-                    className="flex items-center justify-end px-4 py-3"
-                  >
-                    <EditButton
-                      onClick={() => handleEditModal(EditSubjectForm, data)}
-                    />
-
-                    <DeleteButton
-                      onClick={async () =>
-                        await DeleteSubject(data.subjectID, setErrorEdit)
-                      }
-                    />
-                  </div>
+          {searchSubject.length == 0 ? (
+            <tbody>
+              <tr>
+                <td colSpan={4}>
+                  <p className="mt-4 flex w-full justify-center text-lg font-bold">
+                    Không có danh mục môn học nào
+                  </p>
                 </td>
               </tr>
-            ))}
-          </tbody>
+            </tbody>
+          ) : (
+            <tbody className="h-[50px] items-center divide-y">
+              {searchSubject.map((data, index) => (
+                <tr
+                  key={index}
+                  className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
+                >
+                  <td id="gradeID" className="w-[30px] text-center">
+                    {index + 1}
+                  </td>
+
+                  <td id="name" className="px-4">
+                    {data.subjectName}
+                  </td>
+                  <td id="description" className="px-4">
+                    {data.subjectDescription}
+                  </td>
+                  <td>
+                    <div
+                      id="managerOption"
+                      className="flex items-center justify-end px-4 py-3"
+                    >
+                      <EditButton
+                        onClick={() => handleEditModal(EditSubjectForm, data)}
+                      />
+                      <DeleteButton
+                        onClick={() => handleDelete(data.subjectID)}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          )}
         </table>
       </div>
-
+      {DeleteForm(
+        isDeleteModalOpen,
+        setIsDeleteModalOpen,
+        async () => await DeleteSubject(deleteID),
+      )}
       {OverlapForm(isModalOpen, setIsModalOpen, currentForm, modalHeader)}
     </section>
   );

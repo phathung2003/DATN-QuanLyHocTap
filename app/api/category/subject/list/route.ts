@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import MessageReturnOnly from '@/app/api/messageReturnOnly';
-import APIMessage from '@/backend/messages/apiMessage';
 import { GetSubjectList } from '@/backend/database/subject';
+import MessageReturnOnly from '@/app/api/messageReturnOnly';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 export async function GET() {
   try {
@@ -9,11 +9,9 @@ export async function GET() {
 
     return new NextResponse(JSON.stringify(subjectList), {
       status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     });
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }

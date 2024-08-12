@@ -16,9 +16,9 @@ import { ICardContent } from '@/backend/models/data/Content/ICard';
 import { IFlashcardContent } from '@/backend/models/data/Content/IFlashcard';
 import { IContent } from '@/backend/models/data/Content/IContent';
 import { DeleteDocument } from '@/backend/database/generalFeature';
-import ContentMessage from '@/backend/messages/contentMessage';
 import { FormatISODate } from '@/backend/database/generalFeature';
 import { ContentType } from '@/backend/globalVariable';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 //Thêm nội dung học
 export async function AddContent(
@@ -82,11 +82,13 @@ export async function DeleteContent(
     if (documentData.exists()) {
       let contents = documentData.data().contentData;
       contents = contents.filter((question) => question.position != position);
+
       await updateDoc(document, {
         contentData: contents,
         contentLastEditDate: new Date(),
       });
     }
+    return;
   }
 
   //Không liệt kê vị trí => Xóa content
@@ -121,9 +123,24 @@ export async function EditContent(
       return original;
     });
   }
+  console.log(originalPosition);
 
   //Tiến hành cập nhật
   try {
+    //Chỉ chỉnh sửa nội dung
+    if (originalPosition > 0) {
+      await updateDoc(document, {
+        contentType: originalDocumentData.data().contentType,
+        contentName: originalDocumentData.data().contentName,
+        contentDescription: originalDocumentData.data().contentDescription,
+        contentNo: originalDocumentData.data().contentNo,
+        contentData: editContent,
+        contentCreateAt: originalDocumentData.data().contentCreateAt,
+        contentLastEditDate: new Date(),
+      });
+      return true;
+    }
+    //Chỉnh sửa tiêu đề
     await updateDoc(document, {
       contentType: originalDocumentData.data().contentType,
       contentName: data.contentName,
@@ -133,6 +150,7 @@ export async function EditContent(
       contentCreateAt: originalDocumentData.data().contentCreateAt,
       contentLastEditDate: new Date(),
     });
+
     return true;
   } catch (e) {
     return false;
@@ -166,7 +184,7 @@ export async function GetContent(
         }
         return taskList;
       } catch {
-        return ContentMessage.SYSTEM_ERROR;
+        return SystemMessage.SYSTEM_ERROR;
       }
     }
 
@@ -191,7 +209,7 @@ export async function GetContent(
     }
     return contentList;
   } catch {
-    return ContentMessage.SYSTEM_ERROR;
+    return SystemMessage.SYSTEM_ERROR;
   }
 }
 

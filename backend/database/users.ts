@@ -15,19 +15,19 @@ import {
 } from 'firebase/auth';
 import { db, auth } from '@/backend/database/firebase';
 import { IRegisterDB } from '@/backend/models/data/IRegister';
-import IUserInfo from '@/backend/models/data/IUserInfo';
-import RegisterMessage from '@/backend/messages/registerMessage';
-import UserMessage from '@/backend/messages/userMessage';
 import { DefaultRegisteErrorValue } from '@/backend/defaultData/register';
 import { DefaultAPIResult } from '@/backend/defaultData/global';
-
-const TABLE_NAME = 'users';
+import { TableName } from '@/backend/globalVariable';
+import IUserInfo from '@/backend/models/data/IUserInfo';
+import SystemMessage from '@/backend/messages/systemMessage';
+import RegisterMessage from '@/backend/messages/registerMessage';
+import UserMessage from '@/backend/messages/userMessage';
 
 //Đăng ký tài khoản
 export async function AddUser(data: IRegisterDB) {
   //Không có email
   if (data.email == null) {
-    await addDoc(collection(db, TABLE_NAME), data);
+    await addDoc(collection(db, TableName.USER), data);
     return;
   }
 
@@ -37,13 +37,14 @@ export async function AddUser(data: IRegisterDB) {
     data.email,
     data.password,
   );
-  const userInfo = doc(db, TABLE_NAME, userCredential.user.uid);
+  const userInfo = doc(db, TableName.USER, userCredential.user.uid);
   await setDoc(userInfo, {
     name: data.name,
     username: data.username,
     phoneNumber: data.phoneNumber,
     email: data.email,
     password: null,
+    role: data.role,
   });
 }
 
@@ -51,7 +52,7 @@ export async function AddUser(data: IRegisterDB) {
 export async function CheckInfoExist(data: IRegisterDB) {
   const error = DefaultRegisteErrorValue();
   try {
-    const usersDatabase = collection(db, TABLE_NAME);
+    const usersDatabase = collection(db, TableName.USER);
     const field = ['username', 'email', 'phoneNumber'];
     const input = [data.username, data.email, data.phoneNumber];
 
@@ -78,7 +79,7 @@ export async function CheckInfoExist(data: IRegisterDB) {
     }
   } catch (error) {
     error.status = false;
-    error.systemError = RegisterMessage.SYSTEM_ERROR;
+    error.systemError = SystemMessage.SYSTEM_ERROR;
   }
   return error;
 }
@@ -86,7 +87,7 @@ export async function CheckInfoExist(data: IRegisterDB) {
 //Lấy dữ liệu người dùng
 export async function GetInfo(userID: string) {
   try {
-    const usersData = doc(db, 'users', userID);
+    const usersData = doc(db, TableName.USER, userID);
     const userInfo = await getDoc(usersData);
     if (!userInfo.exists()) {
       return false;
@@ -98,6 +99,7 @@ export async function GetInfo(userID: string) {
         username: data.username,
         phoneNumber: data.phoneNumber,
         email: data.email,
+        role: data.role,
       };
       return info;
     }
@@ -109,7 +111,7 @@ export async function GetInfo(userID: string) {
 //Lấy tên người dùng
 export async function GetName(userID: string) {
   try {
-    const usersData = doc(db, 'users', userID);
+    const usersData = doc(db, TableName.USER, userID);
     const userInfo = await getDoc(usersData);
     if (!userInfo.exists()) {
       return false;
@@ -130,7 +132,7 @@ export async function Login(info: string, password: string) {
   }
 
   //Đăng nhập bằng số điện thoại/username
-  const usersDatabase = collection(db, 'users');
+  const usersDatabase = collection(db, TableName.USER);
   const fields = ['username', 'phoneNumber'];
   for (const field of fields) {
     const userQuery = query(usersDatabase, where(field, '==', info));
@@ -168,7 +170,7 @@ async function EmailLogin(email: string, password: string) {
 export async function ResetPassword(info: string) {
   const result = DefaultAPIResult();
 
-  const usersDatabase = collection(db, 'users');
+  const usersDatabase = collection(db, TableName.USER);
   const fields = ['email', 'username', 'phoneNumber'];
   for (const field of fields) {
     const userQuery = query(usersDatabase, where(field, '==', info));

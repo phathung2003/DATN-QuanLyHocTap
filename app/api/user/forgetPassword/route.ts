@@ -1,7 +1,8 @@
 import UserMessage from '@/backend/messages/userMessage';
 import { ResetPassword } from '@/backend/database/users';
-import APIMessage from '@/backend/messages/apiMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
+import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 // Quên mật khẩu
 export async function POST(request: Request) {
@@ -34,6 +35,6 @@ export async function POST(request: Request) {
     }
     return MessageReturnOnly(result.message, statusCode);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }

@@ -19,15 +19,16 @@ const UnitMessage: IUnitMessage = {
     REQUIRED: 'Xin hãy nhập mô tả',
   },
 
-  COURSE_NOT_FOUND: 'Không tìm thấy khóa học này trên hệ thống',
   UNIT_NOT_FOUND: 'Không tìm thấy bài học này trên hệ thống',
 
-  UNIT_ADD_COMPLETE: 'Thêm bài học thành công',
+  UNIT_ADD_COMPLETED: 'Thêm bài học thành công',
   UNIT_ADD_FAILED: 'Thêm bài học thất bại',
-  UNIT_EDIT_COMPLETE: 'Chỉnh sửa bài học thành công',
-  UNIT_DELETE_COMPLETE: 'Xóa bài học thành công',
 
-  SYSTEM_ERROR: 'Hệ thống hiện tại đang bị lỗi. Xin vui lòng thử lại sau',
+  UNIT_EDIT_COMPLETED: 'Chỉnh sửa bài học thành công',
+  UNIT_EDIT_FAILED: 'Chỉnh sửa bài học thất bại',
+
+  UNIT_DELETE_COMPLETED: 'Xóa bài học thành công',
+  UNIT_DELETE_FAILED: 'Xóa bài học thất bại',
 };
 
 export default UnitMessage;

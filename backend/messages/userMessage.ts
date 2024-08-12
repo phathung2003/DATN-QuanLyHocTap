@@ -8,7 +8,6 @@ const UserMessage: IUserMessage = {
     'Vui lòng kiểm tra email để nhận chỉ dẫn tiếp theo',
   RESET_PASSWORD_SEND_FAILED:
     'Hệ thống gửi email bị lỗi. Xin vui lòng thử lại sau',
-  SYSTEM_ERROR: 'Hệ thống hiện tại đang bị lỗi. Xin vui lòng thử lại sau',
 };
 
 export default UserMessage;

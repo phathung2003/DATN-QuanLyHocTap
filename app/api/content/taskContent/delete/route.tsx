@@ -1,8 +1,9 @@
 import { CheckToken, LoginSession } from '@/app/api/checkData';
+import { DeleteContent } from '@/backend/database/content';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 import ContentMessage from '@/backend/messages/contentMessage';
-import { DeleteContent } from '@/backend/database/content';
 
 export async function DELETE(request) {
   try {
@@ -27,9 +28,9 @@ export async function DELETE(request) {
       dataInput.contentID,
       dataInput.position,
     );
-    return MessageReturnOnly(ContentMessage.CONTENT_DELETE_COMPLETE, 200);
+    return MessageReturnOnly(ContentMessage.CONTENT_DELETE_COMPLETED, 200);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }
 

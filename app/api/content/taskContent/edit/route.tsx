@@ -5,11 +5,12 @@ import {
   CheckPositionEdit,
 } from '@/backend/database/content';
 import { CheckToken } from '@/app/api/checkData';
-import MessageReturnOnly from '@/app/api/messageReturnOnly';
-import APIMessage from '@/backend/messages/apiMessage';
 import { CheckEditData } from '@/app/api/content/taskContent/taskContentData';
 import { CheckGetEditNo } from '@/backend/database/generalFeature';
 import { TableName } from '@/backend/globalVariable';
+import MessageReturnOnly from '@/app/api/messageReturnOnly';
+import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 import ContentMessage from '@/backend/messages/contentMessage';
 
 export async function PATCH(request: Request) {
@@ -27,7 +28,6 @@ export async function PATCH(request: Request) {
     }
 
     const contentPathName = `${TableName.COURSE}/${dataInput.courseID}/${TableName.UNIT}/${dataInput.unitID}/${TableName.TASK}/${dataInput.taskID}/${TableName.CONTENT}`;
-
     //Kiểm tra số thứ tự nội dung
     if (!isNaN(dataInput.data.contentNo) && dataInput.data.contentNo < 0) {
       return MessageReturnOnly(ContentMessage.CONTENT_NO.NEGATIVE_NUMBER, 500);
@@ -43,7 +43,7 @@ export async function PATCH(request: Request) {
     }
 
     //Có chỉnh sửa contentData
-    if (dataInput.data.contentData) {
+    if (dataInput.position && dataInput.data.contentData) {
       //Kiểm tra thông tin ban đầu trùng khớp
       if (
         !(await CheckEditPositionExist(
@@ -84,7 +84,7 @@ export async function PATCH(request: Request) {
       }
     }
 
-    //Thêm dữ liệu vào bảng
+    //Chỉnh sửa dữ liệu
     if (
       !(await EditContent(
         dataInput.courseID,
@@ -95,11 +95,11 @@ export async function PATCH(request: Request) {
         dataInput.position,
       ))
     ) {
-      return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+      return MessageReturnOnly(ContentMessage.CONTENT_EDIT_FAILED, 500);
     }
 
-    return MessageReturnOnly(ContentMessage.CONTENT_EDIT_COMPLETE, 201);
+    return MessageReturnOnly(ContentMessage.CONTENT_EDIT_COMPLETED, 201);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }

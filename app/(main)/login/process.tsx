@@ -1,6 +1,6 @@
 import { ILogin } from '@/backend/models/data/ILogin';
-import { HomePage } from '@/backend/routers';
-import LoginMessage from '@/backend/messages/loginMessage';
+import { AdminPage } from '@/backend/routers';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 export async function handelSubmit(
   data: ILogin,
@@ -11,9 +11,7 @@ export async function handelSubmit(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/login`,
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           info: data.info,
           password: data.password,
@@ -21,11 +19,11 @@ export async function handelSubmit(
       },
     );
     if (response.ok) {
-      return HomePage();
+      return AdminPage();
     }
     const errorMessage = await response.json();
     setErrorMessage(errorMessage.message);
-  } catch (e) {
-    setErrorMessage(LoginMessage.SYSTEM_ERROR);
+  } catch {
+    setErrorMessage(SystemMessage.SYSTEM_ERROR);
   }
 }

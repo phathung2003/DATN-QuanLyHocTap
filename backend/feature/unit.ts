@@ -2,7 +2,7 @@ import IUnit from '@/backend/models/data/IUnit';
 import { GetToken } from '@/backend/feature/validate';
 import { HomePage, CourseDetail } from '@/backend/routers';
 import { IUnitError } from '@/backend/models/messages/IUnitMessage';
-import { RemoveAccent } from '@/backend/feature/general';
+import { RemoveAccent, CheckChangeData } from '@/backend/feature/general';
 import { DefaultUnitErrorValue } from '@/backend/defaultData/unit';
 
 //Lấy danh sách bài học
@@ -92,19 +92,11 @@ export async function EditUnit(
   }
 
   //Kiểm tra có sự thay đổi dữ liệu hay không
-  const checkDefault = [
-    defaultData.unitName,
-    defaultData.unitNo,
-    defaultData.unitDescription,
-  ];
-  const checkEdit = [
-    editData.unitName,
-    editData.unitNo,
-    editData.unitDescription,
-  ];
+  const checkDefault = [defaultData.unitName, defaultData.unitDescription];
+  const checkEdit = [editData.unitName, editData.unitDescription];
 
-  if (!ChangeData(checkDefault, checkEdit, null)) {
-    return;
+  if (!CheckChangeData(checkDefault, checkEdit, null)) {
+    return window.location.reload();
   }
 
   //Tiến hành cập nhật dữ liệu
@@ -140,7 +132,8 @@ export async function EditUnit(
 export async function DeleteUnit(
   courseID: string,
   unitID: string,
-  setError: React.Dispatch<React.SetStateAction<IUnitError>> | null,
+  reload: boolean,
+  setError?: React.Dispatch<React.SetStateAction<IUnitError>>,
 ) {
   //Kiểm tra phiên đăng nhập
   const token = await GetToken();
@@ -160,6 +153,9 @@ export async function DeleteUnit(
 
   //Xóa thành công
   if (response.ok) {
+    if (reload) {
+      return window.location.reload();
+    }
     return await CourseDetail(courseID);
   }
 
@@ -205,21 +201,4 @@ export function ResetError(
 
     return newErrorState;
   });
-}
-
-//Kiểm tra dữ liệu có chỉnh sửa hay không
-function ChangeData(
-  defaultData: (string | number | null)[],
-  editData: (string | number | null)[],
-  imageLink: string | null,
-): boolean {
-  //Kiểm tra dữ liệu có thay đổi không
-  let change = false;
-  for (let i = 0; i < defaultData.length; i++) {
-    if (defaultData[i] != editData[i]) {
-      change = true;
-      break;
-    }
-  }
-  return imageLink != null || change;
 }

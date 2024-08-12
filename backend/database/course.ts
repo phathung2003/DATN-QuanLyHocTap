@@ -17,7 +17,7 @@ import { GetName } from '@/backend/database/users';
 import { GetSubjectName } from '@/backend/database/subject';
 import { GetGradeName } from '@/backend/database/grade';
 import ICourse from '@/backend/models/data/ICourse';
-import GradeMessage from '@/backend/messages/gradeMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 //Thêm khóa học
 export async function AddCourse(data: ICourse): Promise<boolean> {
@@ -61,7 +61,7 @@ export async function GetCourse(courseID: string | null) {
     }
     return courseList;
   } catch {
-    return GradeMessage.SYSTEM_ERROR;
+    return SystemMessage.SYSTEM_ERROR;
   }
 }
 

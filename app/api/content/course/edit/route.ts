@@ -1,10 +1,11 @@
-import MessageReturnOnly from '@/app/api/messageReturnOnly';
-import APIMessage from '@/backend/messages/apiMessage';
 import { EditCourse } from '@/backend/database/course';
 import { CheckToken } from '@/app/api/checkData';
 import { CheckCourseData } from '@/app/api/content/course/courseData';
 import { CheckIDExist } from '@/backend/database/generalFeature';
 import { TableName } from '@/backend/globalVariable';
+import MessageReturnOnly from '@/app/api/messageReturnOnly';
+import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 import CourseMessage from '@/backend/messages/courseMessage';
 
 export async function PATCH(request) {
@@ -24,16 +25,16 @@ export async function PATCH(request) {
 
     //Kiểm tra mã khóa học có tồn tại
     if (!(await CheckIDExist(TableName.COURSE, dataInput.courseID))) {
-      return MessageReturnOnly(CourseMessage.COURSE_EDIT_NOT_FOUND, 404);
+      return MessageReturnOnly(CourseMessage.COURSE_NOT_FOUND, 404);
     }
 
     //Tiến hành cập nhật
     if (await EditCourse(dataInput.courseID, dataInput.data)) {
-      return MessageReturnOnly(CourseMessage.COURSE_EDIT_COMPLETE, 200);
+      return MessageReturnOnly(CourseMessage.COURSE_EDIT_COMPLETED, 200);
     }
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(CourseMessage.COURSE_EDIT_FAILED, 500);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }
 

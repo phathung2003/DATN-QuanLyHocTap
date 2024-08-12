@@ -6,6 +6,7 @@ export interface ICard {
 
 export interface ICardContent {
   position: number;
-  image: string;
   text: string;
+  image: string | null;
+  file?: File;
 }

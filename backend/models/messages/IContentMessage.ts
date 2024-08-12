@@ -18,17 +18,26 @@ export interface IContentMessage {
     REQUIRED: string;
   };
 
+  CONTENT_NAME: {
+    OVER_MAX_CHARACTER: string;
+    REQUIRED: string;
+  };
+
+  CONTENT_DESCRIPTION: {
+    OVER_MAX_CHARACTER: string;
+    REQUIRED: string;
+  };
+
   CONTENT_NOT_FOUND: string;
 
-  CONTENT_ADD_COMPLETE: string;
+  CONTENT_ADD_COMPLETED: string;
   CONTENT_ADD_FAILED: string;
 
-  CONTENT_EDIT_COMPLETE: string;
+  CONTENT_EDIT_COMPLETED: string;
   CONTENT_EDIT_FAILED: string;
 
-  CONTENT_DELETE_COMPLETE: string;
-
-  SYSTEM_ERROR: string;
+  CONTENT_DELETE_COMPLETED: string;
+  CONTENT_DELETE_FAILED: string;
 }
 
 export interface IContentError {

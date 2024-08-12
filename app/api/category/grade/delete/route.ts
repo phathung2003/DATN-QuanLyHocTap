@@ -1,8 +1,9 @@
+import { DeleteGrade } from '@/backend/database/grade';
+import { CheckToken, LoginSession } from '@/app/api/checkData';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import { DeleteGrade } from '@/backend/database/grade';
 import GradeMessage from '@/backend/messages/gradeMessage';
-import { CheckToken, LoginSession } from '@/app/api/checkData';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 export async function DELETE(request) {
   try {
@@ -21,9 +22,9 @@ export async function DELETE(request) {
 
     //Xóa loại
     await DeleteGrade(dataInput.gradeID);
-    return MessageReturnOnly(GradeMessage.GRADE_DELETE_COMPLETE, 200);
+    return MessageReturnOnly(GradeMessage.GRADE_DELETE_COMPLETED, 200);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }
 

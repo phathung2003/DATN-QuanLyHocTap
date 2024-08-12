@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
+import { GetContent } from '@/backend/database/content';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
-import { GetContent } from '@/backend/database/content';
+import SystemMessage from '@/backend/messages/systemMessage';
+
 export async function GET(request) {
   try {
     const courseID = request.nextUrl.searchParams.get('courseID');
@@ -19,6 +21,6 @@ export async function GET(request) {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (e) {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }

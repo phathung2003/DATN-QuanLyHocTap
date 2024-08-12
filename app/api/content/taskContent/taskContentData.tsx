@@ -153,9 +153,9 @@ export function IsFlashcard(data): IFlashcardContent | null {
     //Xuất dữ liệu
     const flashcardData: IFlashcardContent = {
       position: positionNo,
-      firstSideImage: data.firstSideImage,
+      firstSideImage: data.firstSideImage == '' ? null : data.firstSideImage,
       firstSideText: data.firstSideText,
-      secondSideImage: data.secondSideImage,
+      secondSideImage: data.secondSideImage == '' ? null : data.secondSideImage,
       secondSideText: data.secondSideText,
     };
     return flashcardData;
@@ -213,7 +213,7 @@ export function IsCard(data): ICardContent | null {
     }
 
     //Phải có 1 trong 2 trường
-    if (!data.image && !data.word) {
+    if (!data.image && !data.text) {
       return null;
     }
 

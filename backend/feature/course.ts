@@ -1,12 +1,15 @@
-import { ICourseError } from '@/backend/models/messages/ICourseMessage';
 import { GetToken } from '@/backend/feature/validate';
-import { HomePage, CourseManager, CourseDetail } from '@/backend/routers';
+import {
+  CheckChangeData,
+  GenerateFileName,
+  RemoveAccent,
+} from '@/backend/feature/general';
 import { UploadImage, DeleteImage } from '@/backend/database/generalFeature';
+import { HomePage, CourseManager, CourseDetail } from '@/backend/routers';
 import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
+import { ICourseError } from '@/backend/models/messages/ICourseMessage';
 import ICourse from '@/backend/models/data/ICourse';
-import GlobalMessage from '@/backend/messages/gobalMessage';
-import { GenerateFileName } from '@/backend/feature/general';
-import { RemoveAccent } from '@/backend/feature/general';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 //Lấy danh sách khóa học
 export async function GetCourse() {
@@ -53,7 +56,7 @@ export async function AddCourse(
       GenerateFileName(data.courseFile, data.courseName, token),
     );
 
-    if (uploadResult === GlobalMessage.UPLOAD_IMAGE_ERROR) {
+    if (uploadResult === SystemMessage.UPLOAD_IMAGE_ERROR) {
       error.status = false;
       error.courseFileError = uploadResult;
       setError(error);
@@ -114,7 +117,7 @@ export async function EditCourse(
       GenerateFileName(editData.courseFile, 'course', token),
     );
 
-    if (uploadResult === GlobalMessage.UPLOAD_IMAGE_ERROR) {
+    if (uploadResult === SystemMessage.UPLOAD_IMAGE_ERROR) {
       error.status = false;
       error.courseFileError = uploadResult;
       setError(error);
@@ -128,7 +131,7 @@ export async function EditCourse(
   const checkDefault = [defaultData.courseName, defaultData.courseDescription];
   const checkEdit = [editData.courseName, editData.courseDescription];
 
-  if (!ChangeData(checkDefault, checkEdit, editData.courseImage)) {
+  if (!CheckChangeData(checkDefault, checkEdit, [editData.courseImage])) {
     DeleteImage(editData.courseImage);
     await CourseDetail(defaultData.courseID);
   }
@@ -167,6 +170,7 @@ export async function EditCourse(
 //Xóa khóa học
 export async function DeleteCourse(
   courseID: string,
+  reload: boolean,
   setError?: React.Dispatch<React.SetStateAction<ICourseError>>,
 ) {
   //Kiểm tra phiên đăng nhập
@@ -187,6 +191,9 @@ export async function DeleteCourse(
 
   //Xóa thành công
   if (response.ok) {
+    if (reload) {
+      return window.location.reload();
+    }
     return await CourseManager();
   }
 
@@ -251,21 +258,4 @@ export function ResetError(
 
     return newErrorState;
   });
-}
-
-//Kiểm tra dữ liệu có chỉnh sửa hay không
-function ChangeData(
-  defaultData: (string | null)[],
-  editData: (string | null)[],
-  imageLink: string | null,
-): boolean {
-  //Kiểm tra dữ liệu có thay đổi không
-  let change = false;
-  for (let i = 0; i < defaultData.length; i++) {
-    if (defaultData[i] != editData[i]) {
-      change = true;
-      break;
-    }
-  }
-  return imageLink != null || change;
 }

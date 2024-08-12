@@ -1,15 +1,16 @@
 import { NextResponse } from 'next/server';
-import SubjectMessage from '@/backend/messages/subjectMessage';
-import MessageReturnOnly from '@/app/api/messageReturnOnly';
-import APIMessage from '@/backend/messages/apiMessage';
 import { CheckSubjectExist, AddSubject } from '@/backend/database/subject';
-import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
-import SubjectData from '@/app/api/category/subject/subjectData';
+import { CheckToken } from '@/app/api/checkData';
+import MessageReturnOnly from '@/app/api/messageReturnOnly';
+import CheckSubjectData from '@/app/api/category/subject/subjectData';
+import SubjectMessage from '@/backend/messages/subjectMessage';
+import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 export async function POST(request: Request) {
   try {
     //Kiểm tra dữ liệu hợp lệ
-    const dataInput = await CheckData(request);
+    const dataInput = await CheckSubjectData(request);
     if (dataInput === false) {
       return MessageReturnOnly(APIMessage.WRONG_INPUT, 400);
     }
@@ -19,6 +20,7 @@ export async function POST(request: Request) {
     if (loginSession != true) {
       return loginSession;
     }
+
     //Kiểm tra xem dữ liệu đã có hay chưa
     const result = await CheckSubjectExist(dataInput.data);
     if (result.status == false) {
@@ -29,43 +31,17 @@ export async function POST(request: Request) {
         }),
         {
           status: 409,
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
         },
       );
     }
 
     //Thêm dữ liệu vào bảng
-    await AddSubject(dataInput.data);
-    return MessageReturnOnly(SubjectMessage.SUBJECT_ADD_COMPLETE, 201);
-  } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
-  }
-}
-
-//Kiểm tra dữ liệu
-async function CheckData(request: Request) {
-  try {
-    //Các trường có thể null
-    const nullableCheckField = ['subjectImage', 'subjectDescription'];
-    const checkField = ['subjectID', 'subjectName'];
-    const result = await CheckDataInputNeedLogin(
-      request,
-      checkField,
-      nullableCheckField,
-    );
-    if (!result) {
-      return false;
+    if (!(await AddSubject(dataInput.data))) {
+      return MessageReturnOnly(SubjectMessage.SUBJECT_ADD_FAILED, 500);
     }
-
-    const subjectData = SubjectData(result);
-    if (!subjectData) {
-      return false;
-    }
-
-    return { token: result.token, data: subjectData };
+    return MessageReturnOnly(SubjectMessage.SUBJECT_ADD_COMPLETED, 201);
   } catch {
-    return false;
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }

@@ -12,7 +12,7 @@ import { ICalculateTwoNumbersContent } from '@/backend/models/data/Content/ICalc
 interface ContentFormProps {
   data: IContentList;
 }
-
+const defaultPicture = process.env.NEXT_PUBLIC_SUBJECT_DEFAULT_IMAGE ?? '';
 const Accordion: React.FC<ContentFormProps> = ({ data }) => {
   const [activeIndex, setActiveIndex] = useState(true);
 
@@ -103,7 +103,6 @@ function Flashcard(data: IContentList) {
     );
 
   const flashcard = data.contentData as IFlashcardContent[];
-  const defaultPicture = process.env.NEXT_PUBLIC_SUBJECT_DEFAULT_IMAGE;
   return (
     <div>
       <table id="table" className="w-full">
@@ -201,7 +200,6 @@ function Card(data: IContentList) {
     );
 
   const card = data.contentData as ICardContent[];
-  const defaultPicture = process.env.NEXT_PUBLIC_SUBJECT_DEFAULT_IMAGE;
   return (
     <div>
       <table id="table" className="w-full">

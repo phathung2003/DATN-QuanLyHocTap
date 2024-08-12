@@ -5,7 +5,6 @@ import {
   getDoc,
   updateDoc,
 } from 'firebase/firestore';
-import TaskMessage from '@/backend/messages/taskMessage';
 import { db } from '@/backend/database/firebase';
 import {
   AddDatabaseWithoutID,
@@ -13,9 +12,10 @@ import {
   GenerateID,
 } from '@/backend/database/generalFeature';
 import { Status, TableName } from '@/backend/globalVariable';
-import ITask from '@/backend/models/data/ITask';
 import { FormatISODate } from '@/backend/database/generalFeature';
 import { DeleteDocument } from '@/backend/database/generalFeature';
+import ITask from '@/backend/models/data/ITask';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 //Thêm tác vụ bài
 export async function AddTask(
@@ -75,7 +75,7 @@ export async function GetTask(
     }
     return taskList;
   } catch {
-    return TaskMessage.SYSTEM_ERROR;
+    return SystemMessage.SYSTEM_ERROR;
   }
 }
 

@@ -1,31 +1,42 @@
 'use client';
+import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
-import Image from 'next/image';
 import { IGrade } from '@/backend/models/data/IGrade';
 import { ISubject } from '@/backend/models/data/ISubject';
 import { CourseEditDefaultValue } from '@/backend/defaultData/course';
 import { EditCourse, ResetError, DeleteCourse } from '@/backend/feature/course';
+import { SearchUnit, DeleteUnit } from '@/backend/feature/unit';
+import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
 import SchemaCourse from '@/backend/validationSchema/course/courseSchema';
 import FormikShowError from '@/components/ErrorMessage/formikForm';
 import BottomFormError from '@/components/ErrorMessage/bottomForm';
 import ICourse from '@/backend/models/data/ICourse';
 import IUnit from '@/backend/models/data/IUnit';
-import { SearchUnit, DeleteUnit } from '@/backend/feature/unit';
+
+//Form
 import AddUnitForm from '@/app/admin/course/[courseID]/addUnitForm';
+import EditUnitForm from '@/app/admin/course/[courseID]/editUnitForm';
 import OverlapForm from '@/components/Form/overlapForm';
-import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
-//Icon
-import SubmitButton from '@/components/Button/submitButton';
+import DeleteForm from '@/components/Form/deleteModal';
 
 //Button
+import BackContentButton from '@/components/Button/backContentButton';
 import DeleteButton from '@/components/Button/deleteButton';
 import AddButton from '@/components/Button/addButton';
 import SearchBar from '@/components/Field/searchBar';
 import DetailButton from '@/components/Button/detailButton';
+import SubmitButton from '@/components/Button/submitButton';
+import EditButton from '@/components/Button/editButton';
 
 interface UnitProperties {
   courseID: string;
+}
+
+interface UnitEditProperties {
+  courseID: string;
+  unitID: string;
+  data: IUnit;
 }
 
 const CourseDetail: React.FC<{
@@ -40,8 +51,12 @@ const CourseDetail: React.FC<{
   const [searchUnit, setSearchUnit] = useState<IUnit[]>(unitList);
   const [search, setSearch] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalHeader, setModalHeader] = useState('Thêm cấp bậc học');
+  const [modalHeader, setModalHeader] = useState('Thêm bài học');
   const [currentForm, setCurrentForm] = useState<React.FC>(() => AddUnitForm);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteFunction, setDeleteFunction] = useState<() => Promise<void>>(
+    () => async () => {},
+  );
 
   //Tìm kiếm
   useEffect(() => {
@@ -56,9 +71,29 @@ const CourseDetail: React.FC<{
     setModalHeader('Thêm bài học');
   };
 
+  //Edit Task Form
+  const handleOpenEditModal = (
+    FormComponent: React.FC<UnitEditProperties>,
+    unitID: string,
+    contentData,
+  ) => {
+    setCurrentForm(() => (
+      <FormComponent courseID={courseID} unitID={unitID} data={contentData} />
+    ));
+    setIsModalOpen(true);
+    setModalHeader('Chỉnh sửa bài học');
+  };
+
+  //Delete Form
+  const handleDelete = (func: () => Promise<void>) => {
+    setIsDeleteModalOpen(true);
+    setDeleteFunction(() => func);
+  };
+
   return (
     <section className="antialiase overflow-y-auto px-4 lg:px-8">
-      <div className="mb-3 flex items-center justify-between">
+      <BackContentButton url={`/admin/course`} />
+      <div className="my-3 flex items-center justify-between">
         <h2
           id="header"
           className="font-manrope text-2xl font-bold text-black dark:text-white"
@@ -96,6 +131,7 @@ const CourseDetail: React.FC<{
                                   alt="Preview"
                                   width={200}
                                   height={240}
+                                  loading="lazy"
                                   className="max-h-60"
                                 />
                               ) : (
@@ -108,6 +144,7 @@ const CourseDetail: React.FC<{
                                   alt="Current Image"
                                   width={200}
                                   height={240}
+                                  loading="lazy"
                                   className="max-h-60"
                                 />
                               )}
@@ -283,8 +320,10 @@ const CourseDetail: React.FC<{
                     <div className="flex justify-end space-x-4">
                       <SubmitButton buttonName="Cập nhật" />
                       <DeleteButton
-                        onClick={async () =>
-                          await DeleteCourse(courseID, setError)
+                        onClick={() =>
+                          handleDelete(() =>
+                            DeleteCourse(courseID, false, setError),
+                          )
                         }
                       />
                     </div>
@@ -311,7 +350,7 @@ const CourseDetail: React.FC<{
           <div className="flex flex-col gap-2.5 min-[890px]:flex-row ">
             <AddButton
               onClick={() => handleOpenAddModal(AddUnitForm)}
-              buttonName="Thêm Bài Học"
+              buttonName="Thêm bài học"
             />
           </div>
         </div>
@@ -331,59 +370,87 @@ const CourseDetail: React.FC<{
                 <th id="LastUpdateHead" className="w-[12rem] px-4 py-3">
                   Chỉnh sửa lần cuối
                 </th>
-                <th id="managerOptionHead" className="w-[12rem] px-4 py-3"></th>
+                <th id="managerOptionHead" className="w-[20rem] px-4 py-3"></th>
               </tr>
             </thead>
-            <tbody className="h-[50px] items-center divide-y">
-              {searchUnit.map((unitData) => (
-                <tr
-                  key={unitData.unitNo}
-                  className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
-                >
-                  <td id="unitID" className="w-[5rem] text-center">
-                    {unitData.unitNo}
+            {searchUnit.length == 0 ? (
+              <tbody>
+                <tr>
+                  <td colSpan={5}>
+                    <p className="my-4 flex w-full justify-center text-lg font-bold">
+                      Không có bài học nào
+                    </p>
                   </td>
+                </tr>
+              </tbody>
+            ) : (
+              <tbody className="h-[50px] items-center divide-y">
+                {searchUnit.map((unitData) => (
+                  <tr
+                    key={unitData.unitNo}
+                    className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
+                  >
+                    <td id="unitID" className="w-[5rem] text-center">
+                      {unitData.unitNo}
+                    </td>
 
-                  <td id="name" className="px-4">
-                    {unitData.unitName}
-                  </td>
-                  <td id="createAt" className="px-4">
-                    {`${unitData.unitUploadDate}`}
-                  </td>
-                  <td id="editAt" className="px-4">
-                    {!unitData.unitLastEditDate
-                      ? 'Chưa chỉnh sửa'
-                      : `${unitData.unitLastEditDate}`}
-                  </td>
-                  <td>
-                    <div
-                      id="managerOption"
-                      className="flex items-center justify-end px-4 py-3"
-                    >
-                      <DetailButton
-                        link={`/admin/course/${courseID}/unit/${unitData.unitID}`}
-                        buttonName="Chi tiết"
-                      />
-                      <div className="ml-4">
-                        <DeleteButton
-                          onClick={async () =>
-                            await DeleteUnit(
-                              courseID,
+                    <td id="name" className="px-4">
+                      {unitData.unitName}
+                    </td>
+                    <td id="createAt" className="px-4">
+                      {`${unitData.unitUploadDate}`}
+                    </td>
+                    <td id="editAt" className="px-4">
+                      {!unitData.unitLastEditDate
+                        ? 'Chưa chỉnh sửa'
+                        : `${unitData.unitLastEditDate}`}
+                    </td>
+                    <td>
+                      <div
+                        id="managerOption"
+                        className="flex items-center justify-end px-4 py-3"
+                      >
+                        <EditButton
+                          onClick={() =>
+                            handleOpenEditModal(
+                              EditUnitForm,
                               unitData.unitID ?? '',
-                              null,
+                              unitData,
                             )
                           }
                         />
+                        <DetailButton
+                          link={`/admin/course/${courseID}/unit/${unitData.unitID}`}
+                          buttonName="Chi tiết"
+                        />
+                        <div className="ml-4">
+                          <DeleteButton
+                            onClick={() =>
+                              handleDelete(() =>
+                                DeleteUnit(
+                                  courseID,
+                                  unitData.unitID ?? '',
+                                  true,
+                                ),
+                              )
+                            }
+                          />
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            )}
           </table>
         </div>
       </div>
 
+      {DeleteForm(
+        isDeleteModalOpen,
+        setIsDeleteModalOpen,
+        async () => await deleteFunction(),
+      )}
       {OverlapForm(isModalOpen, setIsModalOpen, currentForm, modalHeader)}
     </section>
   );

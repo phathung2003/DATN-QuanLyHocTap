@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
-import APIMessage from '@/backend/messages/apiMessage';
-import GradeMessage from '@/backend/messages/gradeMessage';
 import { CheckGradeEditExist, EditGrade } from '@/backend/database/grade';
 import { CheckDataInputNeedLogin, CheckToken } from '@/app/api/checkData';
-import GradeData from '@/app/api/category/grade/gradeData';
 import { CheckIDExist } from '@/backend/database/generalFeature';
 import { TableName } from '@/backend/globalVariable';
+import GradeData from '@/app/api/category/grade/gradeData';
+import APIMessage from '@/backend/messages/apiMessage';
+import GradeMessage from '@/backend/messages/gradeMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 export async function PUT(request) {
   try {
@@ -25,7 +26,7 @@ export async function PUT(request) {
 
     //Kiểm tra mã loại cần sửa có trên hệ thống
     if (!(await CheckIDExist(TableName.GRADE, dataInput.gradeID))) {
-      return MessageReturnOnly(GradeMessage.GRADE_EDIT_NOT_FOUND, 404);
+      return MessageReturnOnly(GradeMessage.GRADE_NOT_FOUND, 404);
     }
 
     //Kiểm tra thông tin chỉnh sửa đã tồn tại hay chưa
@@ -47,9 +48,9 @@ export async function PUT(request) {
 
     //Tiến hành cập nhật
     await EditGrade(dataInput.gradeID, dataInput.data);
-    return MessageReturnOnly(GradeMessage.GRADE_EDIT_COMPLETE, 200);
+    return MessageReturnOnly(GradeMessage.GRADE_EDIT_COMPLETED, 200);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }
 

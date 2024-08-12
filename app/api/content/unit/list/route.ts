@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { GetUnit } from '@/backend/database/unit';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 export async function GET(request) {
   try {
@@ -20,6 +21,6 @@ export async function GET(request) {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }

@@ -99,7 +99,7 @@ const QlBaiHoc = () => {
                 alt={item.name}
                 width={288}
                 height={160}
-                className="ease h-40 w-72 rounded-t-xl object-cover  object-center transition-all duration-300 group-hover:scale-105"
+                className="ease h-40 w-72 rounded-t-xl object-contain  object-center transition-all duration-300 group-hover:scale-105"
               />
               <div className="w-72 px-4 py-3">
                 <span className="text-gray-400 mr-3 text-xs uppercase">
@@ -150,7 +150,7 @@ const QlBaiHoc = () => {
           <div className="mx-auto grid w-full max-w-xl gap-4 sm:grid-cols-2">
             <Image
               alt="Product Image"
-              className="border-gray-200 dark:border-gray-800 aspect-square w-full overflow-hidden rounded-lg border object-cover duration-500 hover:scale-105 hover:shadow-lg"
+              className="border-gray-200 dark:border-gray-800 aspect-square w-full overflow-hidden rounded-lg border object-contain duration-500 hover:scale-105 hover:shadow-lg"
               height={300}
               src="/images/qlbaihoc/baihoc1.jpg"
               width={300}

@@ -1,34 +1,36 @@
 'use client';
-/*eslint-disable*/
-import IUnit from '@/backend/models/data/IUnit';
-
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { DeleteTask } from '@/backend/feature/task';
-import FormikShowError from '@/components/ErrorMessage/formikForm';
-import BottomFormError from '@/components/ErrorMessage/bottomForm';
-import OverlapForm from '@/components/Form/overlapForm';
-import ITask from '@/backend/models/data/ITask';
 import {
   TaskEditDefaultValue,
   DefaultTaskErrorValue,
 } from '@/backend/defaultData/task';
+import { ResetError, EditTask, DeleteTask } from '@/backend/feature/task';
 import SchemaTask from '@/backend/validationSchema/task/taskSchema';
-import { ResetError, EditTask } from '@/backend/feature/task';
-//Icon
-import SubmitButton from '@/components/Button/submitButton';
+import FormikShowError from '@/components/ErrorMessage/formikForm';
+import BottomFormError from '@/components/ErrorMessage/bottomForm';
+import DeleteForm from '@/components/Form/deleteModal';
+import ITask from '@/backend/models/data/ITask';
+
+//Form
+import AddContentForm from '@/app/admin/course/[courseID]/unit/[unitID]/task/[taskID]/addContentForm';
+import OverlapForm from '@/components/Form/overlapForm';
+
 //Button
+import BackContentButton from '@/components/Button/backContentButton';
+import SubmitButton from '@/components/Button/submitButton';
 import DeleteButton from '@/components/Button/deleteButton';
 import AddButton from '@/components/Button/addButton';
 import AddTaskForm from '@/app/admin/course/[courseID]/unit/[unitID]/addTaskForm';
 import { IContentList } from '@/backend/models/data/Content/IContent';
 
 // Accordionlist
-import AccordionList from '@/components/AccordionList/AccordionList';
+import Accordion from '@/app/admin/course/[courseID]/unit/[unitID]/task/[taskID]/contentList';
 
-interface TaskProperties {
+interface ContentProperties {
   courseID: string;
   unitID: string;
+  taskID: string;
 }
 
 const TaskDetail: React.FC<{
@@ -40,23 +42,33 @@ const TaskDetail: React.FC<{
 }> = ({ courseID, unitID, taskID, taskInfo, contentList }) => {
   const [error, setError] = useState(DefaultTaskErrorValue());
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalHeader, setModalHeader] = useState('Thêm bài');
+  const [modalHeader, setModalHeader] = useState('Thêm dạng nội dung bài học');
   const [currentForm, setCurrentForm] = useState<React.FC>(() => AddTaskForm);
-  //eslint-disable-next-line
 
-  // Add Unit Form
-  const handleOpenAddModal = (FormComponent: React.FC<TaskProperties>) => {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteFunction, setDeleteFunction] = useState<() => Promise<void>>(
+    () => async () => {},
+  );
+  // Add Content Form
+  const handleOpenAddModal = (FormComponent: React.FC<ContentProperties>) => {
     const WrappedFormComponent = () => (
-      <FormComponent courseID={courseID} unitID={unitID} />
+      <FormComponent courseID={courseID} unitID={unitID} taskID={taskID} />
     );
     setCurrentForm(() => WrappedFormComponent);
     setIsModalOpen(true);
-    setModalHeader('Thêm danh mục');
+    setModalHeader('Thêm dạng nội dung bài học');
   };
 
+  //Delete Form
+  const handleDelete = (func: () => Promise<void>) => {
+    setIsDeleteModalOpen(true);
+    setDeleteFunction(() => func);
+  };
   return (
     <section className="antialiase overflow-y-auto px-4 lg:px-8">
-      <div className="mb-3 flex items-start justify-between">
+      <BackContentButton url={`/admin/course/${courseID}/unit/${unitID}`} />
+
+      <div className="my-3 flex items-start justify-between">
         <div>
           <h2
             id="header"
@@ -150,8 +162,10 @@ const TaskDetail: React.FC<{
               <div className="flex justify-end space-x-4">
                 <SubmitButton buttonName="Cập nhật" />
                 <DeleteButton
-                  onClick={async () =>
-                    await DeleteTask(courseID, unitID, taskID, setError)
+                  onClick={() =>
+                    handleDelete(() =>
+                      DeleteTask(courseID, unitID, taskID, false, setError),
+                    )
                   }
                 />
               </div>
@@ -160,34 +174,46 @@ const TaskDetail: React.FC<{
         </Formik>
       </div>
 
-      <div className="mt-5">
-        <div className="x mt-3 grid grid-cols-1 gap-4 sm:mb-5 min-[890px]:grid-cols-2">
-          <div>
+      <div className="mt-10">
+        <div className="mt-3 grid grid-cols-2 gap-4 sm:mb-5 min-[890px]:grid-cols-2">
+          <div className="flex items-center">
             <h2
               id="header"
-              className="font-manrope my-3 text-2xl font-bold text-black dark:text-white"
+              className="font-manrope text-2xl font-bold text-black dark:text-white"
             >
-              Danh mục bài học
+              Nội dung bài học
             </h2>
           </div>
-
-          <div className="flex flex-col gap-2.5 min-[890px]:flex-row ">
+          <div className="flex items-center justify-end">
             <AddButton
-              onClick={() => handleOpenAddModal(AddTaskForm)}
-              buttonName="Thêm danh mục"
+              onClick={() => handleOpenAddModal(AddContentForm)}
+              buttonName="Thêm dạng nội dung"
             />
           </div>
         </div>
-
-        <div className="flex flex-col overflow-auto">
-          {contentList.map((contentData) => (
-            <div className="my-3">
-              <AccordionList data={contentData} />
-            </div>
-          ))}
-        </div>
+        {contentList.length == 0 ? (
+          <p>Hiện tại chưa có nội dung nào</p>
+        ) : (
+          <div className="flex flex-col overflow-auto">
+            {contentList.map((contentData, index) => (
+              <div key={contentData.contentID ?? index} className="my-3">
+                <Accordion
+                  data={contentData}
+                  courseID={courseID}
+                  unitID={unitID}
+                  taskID={taskID}
+                  contentID={contentData.contentID ?? ''}
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-
+      {DeleteForm(
+        isDeleteModalOpen,
+        setIsDeleteModalOpen,
+        async () => await deleteFunction(),
+      )}
       {OverlapForm(isModalOpen, setIsModalOpen, currentForm, modalHeader)}
     </section>
   );

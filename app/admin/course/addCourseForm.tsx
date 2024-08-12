@@ -9,6 +9,7 @@ import { GetSubject, GetGrade } from '@/app/admin/qlbaihoc/process/getData';
 import { ISubject } from '@/backend/models/data/ISubject';
 import { IGrade } from '@/backend/models/data/IGrade';
 import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
+
 //Icon
 import UploadIcon from '@/public/vector/upload.svg';
 import AddSubmitButton from '@/components/Button/addSubmitButton';
@@ -182,7 +183,7 @@ const AddCourseForm: React.FC = () => {
                         alt="Preview"
                         width={200}
                         height={240}
-                        className="max-h-60"
+                        className="max-h-60 object-contain"
                       />
                     ) : (
                       <div className="flex flex-col items-center justify-center">
@@ -218,7 +219,7 @@ const AddCourseForm: React.FC = () => {
 
           <BottomFormError type={'Add'} errorMessage={error.systemError} />
           <div className="mt-4">
-            <AddSubmitButton buttonName="Thêm danh mục mới" />
+            <AddSubmitButton buttonName="Thêm khóa học mới" />
           </div>
         </Form>
       )}

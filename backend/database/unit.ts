@@ -13,7 +13,7 @@ import {
   DeleteDocument,
 } from '@/backend/database/generalFeature';
 import { TableName } from '@/backend/globalVariable';
-import GradeMessage from '@/backend/messages/gradeMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 import IUnit from '@/backend/models/data/IUnit';
 
 //Thêm bài học
@@ -59,7 +59,7 @@ export async function GetUnit(courseID: string, unitID: null | string) {
     }
     return unitList;
   } catch {
-    return GradeMessage.SYSTEM_ERROR;
+    return SystemMessage.SYSTEM_ERROR;
   }
 }
 

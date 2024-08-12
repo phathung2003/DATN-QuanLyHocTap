@@ -1,18 +1,25 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import AddCourseForm from '@/app/admin/course/addCourseForm';
-
+import { SearchCourse, DeleteCourse } from '@/backend/feature/course';
 import ICourse from '@/backend/models/data/ICourse';
+
+//Form
+import AddCourseForm from '@/app/admin/course/addCourseForm';
+import EditCourseForm from '@/app/admin/course/editCourseForm';
 import OverlapForm from '@/components/Form/overlapForm';
 import DeleteForm from '@/components/Form/deleteModal';
-import { SearchCourse, DeleteCourse } from '@/backend/feature/course';
 
-//Icon
+//Button
 import SearchBar from '@/components/Field/searchBar';
 import AddButton from '@/components/Button/addButton';
 import DeleteButton from '@/components/Button/deleteButton';
 import DetailButton from '@/components/Button/detailButton';
-// import EditButton from '@/components/Button/editButton';
+import EditButton from '@/components/Button/editButton';
+
+interface EditCourseComponent {
+  courseID: string;
+  data: ICourse;
+}
 
 const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
   courseList,
@@ -24,6 +31,7 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
   const [modalHeader, setModalHeader] = useState('Thêm cấp bậc học');
   const [currentForm, setCurrentForm] = useState<React.FC>(() => AddCourseForm);
   const [deleteID, setDeleteID] = useState<string>('');
+
   //Tìm kiếm
   useEffect(() => {
     setSearchCourse(SearchCourse(search, courseList));
@@ -43,14 +51,16 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
   };
 
   // Edit category Form
-  // eslint-disable-next-line
-  const handleCourseEditClick = (
-    FormComponent: React.FC<{ data: ICourse }>,
-    course,
+  const handleOpenEditModal = (
+    FormComponent: React.FC<EditCourseComponent>,
+    courseID: string,
+    contentData,
   ) => {
-    setCurrentForm(() => <FormComponent data={course} />);
+    setCurrentForm(() => (
+      <FormComponent courseID={courseID} data={contentData} />
+    ));
     setIsModalOpen(true);
-    setModalHeader('Chỉnh sửa cấp bậc');
+    setModalHeader('Chỉnh sửa khóa học');
   };
 
   //state for Delete modal
@@ -95,65 +105,83 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
             </tr>
           </thead>
 
-          <tbody className="h-[50px] items-center divide-y">
-            {searchCourse.map((data, index) => (
-              <tr
-                key={index}
-                className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
-              >
-                <td id="gradeID" className="w-[30px] text-center">
-                  {data.courseID}
-                </td>
-
-                <td id="name" className="px-4">
-                  {data.courseName}
-                </td>
-
-                <td id="subject" className="px-4">
-                  {data.courseAuthor}
-                </td>
-
-                <td id="grade" className="px-3">
-                  {data.courseUploadDate != null ? (
-                    <p>{`${data.courseUploadDate}`}</p>
-                  ) : (
-                    <p>Không xác định</p>
-                  )}
-                </td>
-
-                <td>
-                  <div
-                    id="managerOption"
-                    className="flex items-center justify-end py-3"
-                  >
-                    {/* <div>
-                      <EditButton
-                        onClick={() => handleEditClick(FormEditBlog)}
-                      />
-                    </div> */}
-
-                    <DetailButton
-                      link={`/admin/course/${data.courseID}`}
-                      buttonName="Chi tiết"
-                    />
-
-                    <div className="ml-4">
-                      <DeleteButton
-                        onClick={() => handleDelete(data.courseID ?? '')}
-                      />
-                    </div>
-                  </div>
+          {searchCourse.length == 0 ? (
+            <tbody>
+              <tr>
+                <td colSpan={5}>
+                  <p className="mt-4 flex w-full justify-center text-lg font-bold">
+                    Không có khóa học nào
+                  </p>
                 </td>
               </tr>
-            ))}
-          </tbody>
+            </tbody>
+          ) : (
+            <tbody className="h-[50px] items-center divide-y">
+              {searchCourse.map((data, index) => (
+                <tr
+                  key={index}
+                  className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
+                >
+                  <td id="gradeID" className="w-[30px] text-center">
+                    {data.courseID}
+                  </td>
+
+                  <td id="name" className="px-4">
+                    {data.courseName}
+                  </td>
+
+                  <td id="subject" className="px-4">
+                    {data.courseAuthor}
+                  </td>
+
+                  <td id="grade" className="px-3">
+                    {data.courseUploadDate != null ? (
+                      <p>{`${data.courseUploadDate}`}</p>
+                    ) : (
+                      <p>Không xác định</p>
+                    )}
+                  </td>
+
+                  <td>
+                    <div
+                      id="managerOption"
+                      className="flex items-center justify-end py-3"
+                    >
+                      <div>
+                        <EditButton
+                          onClick={() =>
+                            handleOpenEditModal(
+                              EditCourseForm,
+                              data.courseID ?? '',
+                              data,
+                            )
+                          }
+                        />
+                      </div>
+
+                      <DetailButton
+                        link={`/admin/course/${data.courseID}`}
+                        buttonName="Chi tiết"
+                      />
+
+                      <div className="ml-4">
+                        <DeleteButton
+                          onClick={() => handleDelete(data.courseID ?? '')}
+                        />
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          )}
         </table>
       </div>
 
       {DeleteForm(
         isDeleteModalOpen,
         setIsDeleteModalOpen,
-        async () => await DeleteCourse(deleteID),
+        async () => await DeleteCourse(deleteID, true),
       )}
       {OverlapForm(isModalOpen, setIsModalOpen, currentForm, modalHeader)}
     </section>

@@ -1,7 +1,8 @@
-import SessionMessage from '@/backend/messages/sessionMessage';
 import { DeleteToken } from '@/app/api/user/checkToken/deleteToken';
-import APIMessage from '@/backend/messages/apiMessage';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
+import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
+import SessionMessage from '@/backend/messages/sessionMessage';
 
 //Đăng xuất
 export async function DELETE(request) {
@@ -15,6 +16,6 @@ export async function DELETE(request) {
     const { tokenID } = data;
     return DeleteToken(tokenID, SessionMessage.LOG_OUT, 200);
   } catch {
-    return MessageReturnOnly(APIMessage.SYSTEM_ERROR, 500);
+    return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
   }
 }

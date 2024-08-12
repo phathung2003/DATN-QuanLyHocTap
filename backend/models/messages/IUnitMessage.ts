@@ -16,15 +16,16 @@ export interface IUnitMessage {
     REQUIRED: string;
   };
 
-  COURSE_NOT_FOUND: string;
   UNIT_NOT_FOUND: string;
 
-  UNIT_ADD_COMPLETE: string;
+  UNIT_ADD_COMPLETED: string;
   UNIT_ADD_FAILED: string;
-  UNIT_EDIT_COMPLETE: string;
-  UNIT_DELETE_COMPLETE: string;
 
-  SYSTEM_ERROR: string;
+  UNIT_EDIT_COMPLETED: string;
+  UNIT_EDIT_FAILED: string;
+
+  UNIT_DELETE_COMPLETED: string;
+  UNIT_DELETE_FAILED: string;
 }
 
 export interface IUnitError {

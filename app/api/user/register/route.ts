@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server';
-import bcrypt from 'bcrypt';
 import { AddUser, CheckInfoExist } from '@/backend/database/users';
 import { IRegisterDB } from '@/backend/models/data/IRegister';
-import RegisterMessage from '@/backend/messages/registerMessage';
+import bcrypt from 'bcrypt';
 import { DefaultRegisteErrorValue } from '@/backend/defaultData/register';
+import { Role } from '@/backend/globalVariable';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
+import RegisterMessage from '@/backend/messages/registerMessage';
 
 export async function POST(request: Request) {
   try {
@@ -47,19 +49,19 @@ export async function POST(request: Request) {
       phoneNumber: dataInput.phoneNumber,
       email: emailInput,
       password: passwordSave,
+      role: Role.USER,
     };
 
     await AddUser(data);
-    return MessageReturnOnly(RegisterMessage.REGISTER_COMPLETE, 201);
+    return MessageReturnOnly(RegisterMessage.REGISTER_COMPLETED, 201);
   } catch {
-    //Lỗi xảy ra trong quá trình đăng ký
     const error = DefaultRegisteErrorValue();
     error.status = false;
-    error.systemError = RegisterMessage.SYSTEM_ERROR;
+    error.systemError = SystemMessage.SYSTEM_ERROR;
 
     return new NextResponse(
       JSON.stringify({
-        message: RegisterMessage.SYSTEM_ERROR,
+        message: SystemMessage.SYSTEM_ERROR,
         errorMessage: error,
       }),
       {

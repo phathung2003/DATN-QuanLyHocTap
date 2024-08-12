@@ -79,7 +79,7 @@ const QlBaiHoc = () => {
                 alt={item.name}
                 width={288}
                 height={160}
-                className="ease h-40 w-72 rounded-t-xl object-cover  object-center transition-all duration-300 group-hover:scale-105"
+                className="ease h-40 w-72 rounded-t-xl object-contain object-center transition-all duration-300 group-hover:scale-105"
               />
               <div className="w-72 px-4 py-3">
                 <span className="text-gray-400 mr-3 text-xs uppercase">

@@ -1,8 +1,8 @@
-import { HomePage } from '@/backend/routers';
+import { LoginPage } from '@/backend/routers';
 import { IRegister } from '@/backend/models/data/IRegister';
 import { IRegisterError } from '@/backend/models/messages/IRegisterMessage';
-import RegisterMessage from '@/backend/messages/registerMessage';
 import { DefaultRegisteErrorValue } from '../defaultData/register';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 //Đăng ký
 export async function handelSubmit(
@@ -11,11 +11,9 @@ export async function handelSubmit(
 ) {
   try {
     //Kết nối API
-    const response = await fetch('/api/register', {
+    const response = await fetch('/api/user/register', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: data.name,
         username: data.username,
@@ -27,14 +25,13 @@ export async function handelSubmit(
 
     //Kiểm tra dữ liệu API
     if (response.ok) {
-      HomePage();
-    } else {
-      const errorData = await response.json();
-      setError(errorData.errorMessage);
+      return await LoginPage();
     }
+    const errorData = await response.json();
+    setError(errorData.errorMessage);
   } catch {
     const error = DefaultRegisteErrorValue();
-    error.systemError = RegisterMessage.SYSTEM_ERROR;
+    error.systemError = SystemMessage.SYSTEM_ERROR;
     setError(error);
   }
 }

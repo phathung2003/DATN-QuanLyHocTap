@@ -1,3 +1,4 @@
+/* eslint-disable */
 //Icon
 import EditIcon from '@/public/vector/pencil-white.svg';
 
@@ -5,7 +6,13 @@ interface EditButtonProperties {
   onClick: () => void;
 }
 
-const EditButton: React.FC<EditButtonProperties> = ({ onClick }) => {
+interface EditButtonHandleEventProperties {
+  onClick: (e) => void;
+}
+
+const EditButton: React.FC<
+  EditButtonProperties | EditButtonHandleEventProperties
+> = ({ onClick }) => {
   return (
     <button
       id="edit_Button"
