@@ -1,34 +1,19 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import SchemaCourse from '@/backend/validationSchema/course/courseSchema';
 import { DefaultCourseValue } from '@/backend/defaultData/course';
 import { handelSubmit, ResetError } from '@/app/admin/qlbaihoc/process/course';
-import { GetSubject, GetGrade } from '@/app/admin/qlbaihoc/process/getData';
-import { ISubject } from '@/backend/models/data/ISubject';
-import { IGrade } from '@/backend/models/data/IGrade';
 import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
 //Icon
 import UploadIcon from '@/public/vector/upload.svg';
 import PlusIcon from '@/public/vector/plus-black.svg';
 
-const AddCourse: React.FC = () => {
+const AddCollection: React.FC = () => {
   const [error, setError] = useState(DefaultCourseErrorValue());
   const [preview, setPreview] = useState<string | null>(null);
-  const [gradeList, setGradeList] = useState<IGrade[]>();
-  const [subjectList, setSubjectList] = useState<ISubject[]>();
-
-  //Get Data
-  useEffect(() => {
-    const fetchData = async () => {
-      const subjectData = await GetSubject();
-      const gradeData = await GetGrade();
-      setGradeList(gradeData);
-      setSubjectList(subjectData);
-    };
-    fetchData();
-  }, []);
 
   return (
     <Formik
@@ -43,7 +28,7 @@ const AddCourse: React.FC = () => {
               htmlFor="courseName_AddInput"
               className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
             >
-              Tên cấp bậc học
+              Tên bài học
             </label>
 
             <Field
@@ -68,7 +53,7 @@ const AddCourse: React.FC = () => {
                 htmlFor="courseGrade_AddInput"
                 className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
               >
-                Môn học <span className="text-rose-600" />
+                Trình độ <span className="text-rose-600" />
               </label>
 
               <Field
@@ -77,18 +62,9 @@ const AddCourse: React.FC = () => {
                 as="select"
                 className="text-gray-900 dark:placeholder-gray-400 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
               >
-                <option value="Default">Chọn môn học</option>
-                {subjectList?.map((data) => {
-                  return (
-                    <option
-                      id={data.subjectName}
-                      key={data.subjectID}
-                      value={data.subjectID}
-                    >
-                      {data.subjectName}
-                    </option>
-                  );
-                })}
+                <option value="Default">Chọn mục</option>
+                <option value="Subject">Dễ</option>
+                <option value="Grade">Khó</option>
               </Field>
               <div>
                 <ErrorMessage
@@ -103,7 +79,7 @@ const AddCourse: React.FC = () => {
                 htmlFor="courseGrade_AddInput"
                 className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
               >
-                Trình độ
+                Khóa học
               </label>
 
               <Field
@@ -113,17 +89,8 @@ const AddCourse: React.FC = () => {
                 className="text-gray-900 dark:placeholder-gray-400 block w-full rounded-lg border border-slate-300 bg-slate-50 p-2.5 text-sm focus:border-blue-600 focus:ring-lime-600 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-lime-500"
               >
                 <option value="Default">Chọn khóa học</option>
-                {gradeList?.map((data) => {
-                  return (
-                    <option
-                      id={data.gradeName}
-                      key={data.gradeID}
-                      value={data.gradeID}
-                    >
-                      {data.gradeName}
-                    </option>
-                  );
-                })}
+                <option value="Subject">Khóa học chữ số</option>
+                <option value="Grade">Khóa học chữ cái</option>
               </Field>
               <div>
                 <ErrorMessage id="courseGrade_AddError" name="courseGrade" />
@@ -157,12 +124,12 @@ const AddCourse: React.FC = () => {
           <div id="courseImage_Add">
             <label
               htmlFor="courseImage_AddInput"
-              className="text-gray-900 mb-2 mt-1 block text-sm font-medium dark:text-white"
+              className="text-gray-900 mb-2 block text-sm font-medium dark:text-white"
             >
               Hình ảnh
             </label>
 
-            <div className="mb-3 flex w-full items-center justify-center">
+            <div className="mb-5 flex w-full items-center justify-center">
               <label
                 htmlFor="courseImage_AddInput"
                 className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600"
@@ -209,18 +176,20 @@ const AddCourse: React.FC = () => {
           </div>
           <p>{error.systemError}</p>
 
-          <button
-            id="sumbit_Add"
-            type="submit"
-            className="focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 inline-flex items-center rounded-lg bg-lime-500 px-5 py-2.5 text-center text-sm font-medium text-slate-800 hover:bg-lime-800 focus:outline-none focus:ring-4"
-          >
-            <PlusIcon className="-ml-1 mr-1 h-6 w-6" />
-            Thêm khóa học
-          </button>
+          <Link href="/admin/qlbaihoc/add" className="">
+            <button
+              id="sumbit_Add"
+              type="submit"
+              className="focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mt-2 inline-flex items-center rounded-lg bg-lime-500 px-5 py-2.5 text-center text-sm font-medium text-slate-800 hover:bg-lime-800 focus:outline-none focus:ring-4"
+            >
+              <PlusIcon className="-ml-1 mr-1 h-6 w-6" />
+              Tiếp tục thêm nội dung bài học mới
+            </button>
+          </Link>
         </Form>
       )}
     </Formik>
   );
 };
 
-export default AddCourse;
+export default AddCollection;

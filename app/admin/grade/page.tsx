@@ -1,6 +1,6 @@
 import React from 'react';
 import { GetGrade } from '@/backend/feature/grade';
-import GradeManagement from '@/components/pages/categoryManagement/gradeManagement';
+import GradeManagement from '@/app/admin/grade/gradeManagement';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {

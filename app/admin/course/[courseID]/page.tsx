@@ -2,8 +2,8 @@ import { GetCourseInfo } from '@/backend/feature/course';
 import { GetUnitList } from '@/backend/feature/unit';
 import { GetSubject } from '@/backend/feature/subject';
 import { GetGrade } from '@/backend/feature/grade';
-import NotFoundData from '@/components/pages/other/notFound';
-import CourseDetail from '@/components/pages/contentManagement/course/courseDetail';
+import NotFoundData from '@/app/admin/notFound';
+import CourseDetail from '@/app/admin/course/[courseID]/courseDetail';
 
 interface ProductPageProps {
   params: {

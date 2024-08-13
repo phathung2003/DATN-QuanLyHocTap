@@ -1,7 +1,7 @@
 import { GetTaskInfo } from '@/backend/feature/task';
 import { GetContentList } from '@/backend/feature/content';
-import TaskDetail from '@/components/pages/contentManagement/task/taskDetail';
-import NotFoundData from '@/components/pages/other/notFound';
+import TaskDetail from '@/app/admin/course/[courseID]/unit/[unitID]/task/[taskID]/taskDetail';
+import NotFoundData from '@/app/admin/notFound';
 
 interface ProductPageProps {
   params: {

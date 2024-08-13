@@ -1,6 +1,6 @@
 import React from 'react';
 import { GetSubject } from '@/backend/feature/subject';
-import SubjectManagement from '@/components/pages/categoryManagement/subjectManagement';
+import SubjectManagement from '@/app/admin/subject/subjectManagement';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {

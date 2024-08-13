@@ -1,7 +1,7 @@
 import { GetUnitInfo } from '@/backend/feature/unit';
 import { GetTaskList } from '@/backend/feature/task';
-import UnitDetail from '@/components/pages/contentManagement/unit/unitDetail';
-import NotFoundData from '@/components/pages/other/notFound';
+import UnitDetail from '@/app/admin/course/[courseID]/unit/[unitID]/unitDetail';
+import NotFoundData from '@/app/admin/notFound';
 
 interface ProductPageProps {
   params: {
