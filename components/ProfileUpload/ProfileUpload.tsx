@@ -3,9 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 export default function ProfileUpload() {
-  const [previewSrc, setPreviewSrc] = useState(
-    'https://png.pngtree.com/png-vector/20240404/ourlarge/pngtree-vietnam-girl-good-looking-smart-and-beautiful-realistic-image-png-image_12264680.png',
-  );
+  const [previewSrc, setPreviewSrc] = useState('/images/logo/reallogo.png');
 
   const loadFile = (event) => {
     const file = event.target.files[0];
@@ -20,9 +18,9 @@ export default function ProfileUpload() {
         <div className="shrink-0">
           <Image
             src={previewSrc}
-            className="h-28 w-28 rounded-full object-cover"
             width={80}
             height={80}
+            className="h-28 w-28 rounded-full object-cover"
             alt="Picture of the author"
           />
         </div>
