@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import Sidebar from '@/components/Sidebar/SidebarParent';
 import Header from '@/components/Header/headerParent';
 
@@ -8,29 +8,23 @@ export default function ParentLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Di chuyển state lên đây
   return (
     <>
       {/* <!-- ==========================  Wrapper Start =============================== --> */}
-      <div>
+      <div className="h-screen bg-slate-50 dark:bg-black">
         {/* <!-- ===== Header Start ===== --> */}
         <Header />
         {/* <!-- ===== Header End ===== --> */}
 
         {/* <!-- ===== Content Start ===== --> */}
-        <div className="relative flex flex-1 flex-row overflow-y-auto overflow-x-hidden">
+        <div className="flex flex-row overflow-y-auto">
           {/* <!-- ===== Sidebar Start ===== --> */}
-          <Sidebar
-            isSidebarOpen={isSidebarOpen}
-            setIsSidebarOpen={setIsSidebarOpen}
-          />
+          <Sidebar />
           {/* <!-- ===== Sidebar End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}
-          <main
-            className={`flex-1 transition-all duration-500 ${isSidebarOpen ? 'sm:ml-8' : 'sm:-ml-64'}`}
-          >
-            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+          <main className={`transition-all duration-500`}>
+            <div className="mx-auto max-w-screen-3xl dark:bg-black 2xl:p-5">
               {children}
             </div>
           </main>

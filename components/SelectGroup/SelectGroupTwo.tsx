@@ -49,8 +49,8 @@ const SelectGroupTwo: React.FC = () => {
             setSelectedOption(e.target.value);
             changeTextColor();
           }}
-          className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-12 py-3 outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input ${
-            isOptionSelected ? 'text-black dark:text-white' : ''
+          className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-12 py-2.5 outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input ${
+            isOptionSelected ? 'text-sm text-black dark:text-white' : ''
           }`}
         >
           <option value="" disabled className="text-body dark:text-white">

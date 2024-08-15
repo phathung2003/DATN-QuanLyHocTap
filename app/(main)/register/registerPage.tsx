@@ -12,7 +12,7 @@ export default function RegisterPage() {
           <div className="container">
             <div className="-mx-4 flex flex-wrap">
               <div className="w-full px-4">
-                <div className="dark:bg-dark mx-auto max-w-[500px] rounded bg-white px-6 py-10 shadow-md sm:p-[60px]">
+                <div className="mx-auto max-w-[500px] rounded bg-white px-6 py-10 shadow-md dark:bg-slate-800 sm:p-[60px]">
                   <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
                     Tạo tài khoản mới
                   </h3>
@@ -25,7 +25,7 @@ export default function RegisterPage() {
                     Bạn đã có tài khoản ?
                     <Link
                       href="/login"
-                      className="text-primary hover:underline"
+                      className="ml-1.5 text-blue-500 hover:underline"
                     >
                       Đăng nhập
                     </Link>

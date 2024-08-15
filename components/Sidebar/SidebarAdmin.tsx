@@ -116,25 +116,3 @@ export default function Sidebar() {
     </aside>
   );
 }
-
-/*Bottom Sidebar*/
-
-/* <div className="flex border-t p-3">
-          <img
-            src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
-            alt=""
-            className="h-10 w-10 rounded-md"
-          />
-          <div
-            className={`
-              flex items-center justify-between
-              overflow-hidden transition-all ${open ? 'ml-3 w-52' : 'w-0'}
-          `}
-          >
-            <div className="leading-4">
-              <h4 className="font-semibold">John Doe</h4>
-              <span className="text-gray-600 text-xs">johndoe@gmail.com</span>
-            </div>
-            <p>What</p>
-          </div>
-        </div> */

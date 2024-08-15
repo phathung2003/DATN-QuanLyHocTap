@@ -16,7 +16,8 @@ const options = {
     icons: 'dark:bg-slate-800 dark:text-white',
     text: '',
     disabledText: 'text-slate-400 dark:text-slate-900 dark:text-opacity-50',
-    input: 'py-3 border-slate-200 ring-2 ring-rose-500 dark:bg-slate-800',
+    input:
+      'py-3 border-slate-200 ring-2 ring-rose-500 dark:bg-slate-800 <w-5/6></w-5/6>',
     inputIcon: '',
     selected: 'dark:bg-slate-800',
   },
@@ -76,7 +77,7 @@ const DatePicker = () => {
     setShow(state);
   };
   return (
-    <div>
+    <div className="py-2.5 text-sm">
       <Datepicker
         options={options}
         onChange={handleChange}

@@ -77,7 +77,7 @@ const Course = () => {
               <p className="text-sm text-slate-500">{course.description}</p>
             </div>
 
-            <div className="flex flex-row items-center justify-between bg-slate-100 px-6 py-3 dark:bg-black">
+            <div className="flex flex-row items-center justify-between bg-slate-100 px-6 py-3 dark:bg-slate-700">
               <span className="font-regular mr-1 flex flex-row items-center py-1 text-xs text-slate-800 dark:text-white">
                 <svg height="13px" width="13px" viewBox="0 0 512 512">
                   <path d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M277.333,256 c0,11.797-9.536,21.333-21.333,21.333h-85.333c-11.797,0-21.333-9.536-21.333-21.333s9.536-21.333,21.333-21.333h64v-128 c0-11.797,9.536-21.333,21.333-21.333s21.333,9.536,21.333,21.333V256z"></path>

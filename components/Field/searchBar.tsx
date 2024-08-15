@@ -8,14 +8,14 @@ interface SearchProperties {
 
 const SearchBar: React.FC<SearchProperties> = ({ onChange }) => {
   return (
-    <div className="relative w-full">
+    <div className="relative flex w-full items-center dark:bg-black">
       <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
         <FindIcon className="h-5 w-5 fill-black dark:fill-white" />
       </div>
       <input
         type="search"
         id="search"
-        className="text-gray-900 border-gray-300 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 block w-full rounded-lg border p-2 ps-10 text-sm focus:border-blue-500 focus:outline-none dark:text-white dark:focus:border-blue-500"
+        className="block w-full rounded-lg border border-slate-300 bg-slate-50 p-2 ps-10 text-sm text-slate-900 focus:border-blue-500 focus:outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:placeholder-slate-400 dark:focus:border-blue-500"
         placeholder="Tìm kiếm..."
         onChange={onChange}
       />

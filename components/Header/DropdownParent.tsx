@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 /* eslint-disable */
-const DropdownUser = () => {
+const DropdownParent = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
@@ -45,7 +45,7 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Admin
+            Phụ Huynh
           </span>
           <span className="block text-xs">Hòa Phúc Hằng</span>
         </span>
@@ -92,7 +92,7 @@ const DropdownUser = () => {
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
             <Link
-              href="/admin/qltaikhoan/myprofile"
+              href="/phuhuynh/myprofile"
               className="flex items-center gap-3.5 text-xs font-normal duration-300 ease-in-out hover:text-rose-500 lg:text-sm"
             >
               <svg
@@ -167,4 +167,4 @@ const DropdownUser = () => {
   );
 };
 
-export default DropdownUser;
+export default DropdownParent;

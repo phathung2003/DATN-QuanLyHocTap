@@ -2,7 +2,7 @@ import Link from 'next/link';
 import DarkModeSwitcher from './DarkModeSwitcher';
 import DropdownMessage from './DropdownMessage';
 import DropdownNotification from './DropdownNotification';
-import DropdownUser from './DropdownUser';
+import DropdownParent from './DropdownParent';
 
 //Icon
 import LogoIcon from '@/public/vector/logo.svg';
@@ -89,7 +89,7 @@ const Header = () => {
           </ul>
 
           {/* <!-- User Area --> */}
-          <DropdownUser />
+          <DropdownParent />
           {/* <!-- User Area --> */}
         </div>
       </div>
