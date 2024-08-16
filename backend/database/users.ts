@@ -7,6 +7,7 @@ import {
   getDoc,
   getDocs,
   setDoc,
+  onSnapshot,
 } from 'firebase/firestore';
 import {
   createUserWithEmailAndPassword,
@@ -18,6 +19,7 @@ import { IRegisterDB } from '@/backend/models/data/IRegister';
 import { DefaultRegisteErrorValue } from '@/backend/defaultData/register';
 import { DefaultAPIResult } from '@/backend/defaultData/global';
 import { TableName } from '@/backend/globalVariable';
+import { IUserChatInfo } from '@/backend/models/data/IChat';
 import IUserInfo from '@/backend/models/data/IUserInfo';
 import SystemMessage from '@/backend/messages/systemMessage';
 import RegisterMessage from '@/backend/messages/registerMessage';
@@ -204,4 +206,34 @@ async function SendEmail(email: string) {
     result.message = UserMessage.RESET_PASSWORD_SEND_FAILED;
   }
   return result;
+}
+
+//Lấy danh sách tài khoản
+/*eslint-disable*/
+export function UserList(
+  callback: (chatRooms: IUserChatInfo[]) => void,
+): () => void {
+  const userCollection = collection(db, TableName.USER);
+
+  // Lắng nghe các thay đổi theo thời gian thực
+  const unsubscribe = onSnapshot(userCollection, async (snapshot) => {
+    if (snapshot.size > 0) {
+      const chatList = await Promise.all(
+        snapshot.docs.map((doc) => ChatUserData(doc)),
+      );
+      callback(chatList);
+    } else {
+      callback([]); // Nếu không có phòng chat nào, trả về mảng rỗng
+    }
+  });
+
+  // Trả về hàm để ngắt kết nối listener khi không cần thiết
+  return unsubscribe;
+}
+
+function ChatUserData(doc): IUserChatInfo {
+  return {
+    name: doc.data().name,
+    userID: doc.id,
+  };
 }

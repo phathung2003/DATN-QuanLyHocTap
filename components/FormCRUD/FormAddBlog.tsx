@@ -4,8 +4,9 @@ import Image from 'next/image';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import SchemaCourse from '@/backend/validationSchema/course/courseSchema';
 import { DefaultCourseValue } from '@/backend/defaultData/course';
-import { handelSubmit, ResetError } from '@/app/admin/qlbaihoc/process/course';
-import { GetSubject, GetGrade } from '@/app/admin/qlbaihoc/process/getData';
+import { AddCourse, ResetError } from '@/backend/feature/course';
+import { GetSubject } from '@/backend/feature/subject';
+import { GetGrade } from '@/backend/feature/grade';
 import { ISubject } from '@/backend/models/data/ISubject';
 import { IGrade } from '@/backend/models/data/IGrade';
 import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
@@ -13,7 +14,7 @@ import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
 import UploadIcon from '@/public/vector/upload.svg';
 import PlusIcon from '@/public/vector/plus-black.svg';
 
-const AddCourse: React.FC = () => {
+const AddCourseForm: React.FC = () => {
   const [error, setError] = useState(DefaultCourseErrorValue());
   const [preview, setPreview] = useState<string | null>(null);
   const [gradeList, setGradeList] = useState<IGrade[]>();
@@ -34,7 +35,7 @@ const AddCourse: React.FC = () => {
     <Formik
       initialValues={DefaultCourseValue()}
       validationSchema={SchemaCourse}
-      onSubmit={(data) => handelSubmit(data, setError)}
+      onSubmit={(data) => AddCourse(data, setError)}
     >
       {({ setFieldValue }) => (
         <Form>
@@ -223,4 +224,4 @@ const AddCourse: React.FC = () => {
   );
 };
 
-export default AddCourse;
+export default AddCourseForm;

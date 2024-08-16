@@ -1,7 +1,7 @@
 import React from 'react';
+import { Metadata } from 'next';
 import { GetSubject } from '@/backend/feature/subject';
-import SubjectManagement from '@/app/admin/subject/subjectManagement';
-import type { Metadata } from 'next';
+import SubjectManagement from '@/components/page/category/subjectManagement';
 
 export const metadata: Metadata = {
   title: 'Quản lý môn học',

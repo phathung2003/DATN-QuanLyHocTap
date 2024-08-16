@@ -35,3 +35,7 @@ export async function LoginPage() {
 export async function CustomURL(url) {
   redirect(url);
 }
+
+export async function ChatRoom(id) {
+  redirect(`/admin/support/${id}`);
+}

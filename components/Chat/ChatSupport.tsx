@@ -62,7 +62,7 @@ const ChatIcon = () => {
       </div>
 
       {isOpen && (
-        <div className="fixed bottom-24 right-5 z-999 min-h-[450px] w-80 rounded-xl border border-slate-50 bg-slate-100 shadow-lg shadow-xl dark:border-slate-800 dark:bg-slate-800">
+        <div className="fixed bottom-24 right-5 z-999 min-h-[450px] w-80 rounded-xl border border-slate-50 bg-slate-100 shadow-lg  dark:border-slate-800 dark:bg-slate-800">
           {/* Thanh tiêu đề */}
           <div className="mb-4 flex items-center justify-between rounded-t-xl bg-rose-600 p-4 text-white">
             <div className="flex items-center">

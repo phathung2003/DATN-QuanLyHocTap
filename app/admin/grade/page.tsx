@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetGrade } from '@/backend/feature/grade';
-import GradeManagement from '@/app/admin/grade/gradeManagement';
-import type { Metadata } from 'next';
+import { Metadata } from 'next';
+import GradeManagement from '@/components/page/category/gradeManagement';
 
 export const metadata: Metadata = {
   title: 'Quản lý cấp bậc',

@@ -1,8 +1,8 @@
+/*eslint-disable*/
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import AddQuestion from '@/app/admin/qlbaihoc/form/addQuestionForm';
-import OverlapForm from '@/components/Form/overlapForm';
+import OverlapForm from '@/components/form/overlapForm';
 
 const ThemBaiHoc = () => {
   const [items, setItems] = useState([
@@ -34,7 +34,7 @@ const ThemBaiHoc = () => {
   //modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalHeader, setModalHeader] = useState('Thêm câu hỏi mới');
-  const [currentForm, setCurrentForm] = useState<React.FC>(() => AddQuestion);
+  const [currentForm, setCurrentForm] = useState<React.FC>();
 
   // hàm add
   // Add Category Form
@@ -114,13 +114,13 @@ const ThemBaiHoc = () => {
                   <h5 className="text-xl font-bold leading-none text-slate-900 dark:text-white">
                     Nội dung chi tiết bài học
                   </h5>
-                  <button
+                  {/* <button
                     type="button"
                     onClick={() => handleOpenAddModal(AddQuestion)}
                     className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
                   >
                     Thêm câu mới
-                  </button>
+                  </button> */}
                 </div>
                 <div className="">
                   <ul

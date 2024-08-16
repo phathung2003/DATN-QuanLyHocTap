@@ -8,10 +8,10 @@ import Datepicker from '@/components/DatePicker/DatePicker';
 import SelectGroupTwo from '@/components/SelectGroup/SelectGroupTwo';
 import AddModal from '@/components/Modal/AddModal';
 import FormLesson from '@/components/FormCRUD/FormLession';
-import ChartTwo from '../Charts/ChartTwo';
+// import ChartTwo from '../Charts/ChartTwo';
 //button
-import EditButton from '@/components/Button/editButton';
-import DeleteButton from '@/components/Button/deleteButton';
+import EditButton from '@/components/element/button/editButton';
+import DeleteButton from '@/components/element/button/deleteButton';
 import ChatSupport from '@/components/Chat/ChatSupport';
 //icon
 import PlusIcon from '@/public/vector/plus-white.svg';
@@ -86,7 +86,7 @@ const TrangChuPH = () => {
               </div>
               <Link
                 href="#"
-                className="mx-5 inline-flex w-full items-center justify-center rounded-md bg-[#E90074] px-1.5 py-3 text-center font-medium text-white hover:bg-opacity-80 dark:bg-slate-700 dark:hover:bg-graydark/80 lg:w-1/6 lg:px-8 xl:px-10 xl:px-5"
+                className="mx-5 inline-flex w-full items-center justify-center rounded-md bg-[#E90074] px-1.5 py-3 text-center font-medium text-white hover:bg-opacity-80 dark:bg-slate-700 dark:hover:bg-graydark/80 lg:w-1/6 lg:px-8 xl:px-5"
               >
                 Kiểm tra
               </Link>
@@ -208,7 +208,7 @@ const TrangChuPH = () => {
                 </span>
                 Giao bài hôm nay cho bé
               </Link>
-              <ChartTwo />
+              {/* <ChartTwo /> */}
             </div>
           </div>
         </div>

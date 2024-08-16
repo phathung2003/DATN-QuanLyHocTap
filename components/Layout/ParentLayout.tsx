@@ -8,6 +8,7 @@ export default function ParentLayout({
 }: {
   children: React.ReactNode;
 }) {
+  /*eslint-disable*/
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Di chuyển state lên đây
   return (
     <>
@@ -20,10 +21,7 @@ export default function ParentLayout({
         {/* <!-- ===== Content Start ===== --> */}
         <div className="relative flex flex-1 flex-row overflow-y-auto overflow-x-hidden">
           {/* <!-- ===== Sidebar Start ===== --> */}
-          <Sidebar
-            isSidebarOpen={isSidebarOpen}
-            setIsSidebarOpen={setIsSidebarOpen}
-          />
+          <Sidebar />
           {/* <!-- ===== Sidebar End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}

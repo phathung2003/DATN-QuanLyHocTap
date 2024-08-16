@@ -5,6 +5,8 @@ export enum Status {
 }
 
 export enum TableName {
+  CHAT = 'chatroom',
+  MESSAGE = 'message',
   TASK = 'task',
   COURSE = 'course',
   UNIT = 'unit',

@@ -1,5 +1,6 @@
 'use server';
 import { cookies } from 'next/headers';
+import { HomePage } from '@/backend/routers';
 import SessionMessage from '@/backend/messages/sessionMessage';
 
 export async function CookieCheck() {
@@ -68,4 +69,15 @@ async function PostAPICheckSession(cookie: string | undefined) {
 
   const info = await response.json();
   return { message: info.message };
+}
+
+export async function GetUserID() {
+  //Kiểm tra phiên đăng nhập
+  const token = await CookieGetInfo();
+  if (token === null) {
+    return await HomePage();
+  }
+
+  //Tạo phòng chat
+  return token.accountID;
 }

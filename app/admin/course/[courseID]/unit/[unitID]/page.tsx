@@ -1,7 +1,7 @@
 import { GetUnitInfo } from '@/backend/feature/unit';
 import { GetTaskList } from '@/backend/feature/task';
-import UnitDetail from '@/app/admin/course/[courseID]/unit/[unitID]/unitDetail';
-import NotFoundData from '@/app/admin/notFound';
+import UnitDetail from '@/components/page/content/unit/unitDetail';
+import NotFoundPage from '@/components/page/notFound';
 
 interface ProductPageProps {
   params: {
@@ -14,7 +14,7 @@ export default async function CoursePage({ params }: ProductPageProps) {
   const { courseID, unitID } = params;
   const unit = await GetUnitInfo(courseID, unitID);
   if (!unit) {
-    return <NotFoundData />;
+    return <NotFoundPage />;
   }
 
   const task = await GetTaskList(courseID, unitID);
