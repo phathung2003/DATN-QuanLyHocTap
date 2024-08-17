@@ -1,7 +1,7 @@
 import React from 'react';
-import ChatContent from './chat';
+import MessagePage from '@/components/page/chat/messagePage';
 import { GetUserID } from '@/backend/feature/validate';
-import { GetOpponentName } from '@/backend/database/chat';
+import { GetOpponentInfo } from '@/backend/database/chat';
 
 interface IMessagePageProps {
   params: {
@@ -12,9 +12,14 @@ interface IMessagePageProps {
 const MessagingLayout = async ({ params }: IMessagePageProps) => {
   const { roomID } = params;
   const userID = await GetUserID();
-  const opponentName = await GetOpponentName(roomID, userID);
+  const opponentInfo = await GetOpponentInfo(roomID, userID);
   return (
-    <ChatContent roomID={roomID} opponentName={opponentName} userID={userID} />
+    <MessagePage
+      roomID={roomID}
+      opponentID={opponentInfo[1]}
+      opponentName={opponentInfo[0]}
+      userID={userID}
+    />
   );
 };
 

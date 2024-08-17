@@ -84,6 +84,29 @@ export function FormatMessageTime(time: Timestamp): string {
   }
 }
 
+export function FormatUserLastLoginTime(time: number | undefined): string {
+  if (time == undefined) {
+    return '';
+  }
+
+  const serverTime = toZonedTime(Timestamp.now().toDate(), 'Asia/Ho_Chi_Minh');
+  const targetTime = toZonedTime(time, 'Asia/Ho_Chi_Minh');
+
+  //Trong ngày
+  if (serverTime.getDate() == targetTime.getDate()) {
+    const hours = targetTime.getHours().toString().padStart(2, '0'); // Lấy giờ
+    const minutes = targetTime.getMinutes().toString().padStart(2, '0'); // Lấy phút
+    return `Lần cuối đăng nhập: ${hours}:${minutes}`;
+  }
+  //Ngày hôm qua
+  else if (serverTime.getFullYear() === targetTime.getFullYear()) {
+    return 'Lần cuối đăng nhập: Hôm qua';
+  } else {
+    const zonedDate = toZonedTime(targetTime, 'Asia/Ho_Chi_Minh');
+    return 'Lần cuối đăng nhập: ' + format(zonedDate, 'dd/MM/yyyy');
+  }
+}
+
 export function CheckDivider(
   currentTime: Timestamp,
   previousTime: Timestamp,

@@ -16,7 +16,7 @@ interface Chat {
   userID: string;
 }
 
-const Sidebar: React.FC<Chat> = ({ userID }) => {
+const ConversationList: React.FC<Chat> = ({ userID }) => {
   const [friends, setFriends] = useState<IUserRoom[]>([]);
   const [currentRoom, setCurrent] = useState<string | null>(null);
   const [searchFriends, setSearchFriends] = useState<IUserRoom[]>(friends);
@@ -73,13 +73,19 @@ const Sidebar: React.FC<Chat> = ({ userID }) => {
                 key={index}
                 className="bg-gray-700 border-gray-600 hover:bg-gray-600 flex cursor-pointer items-center space-x-4 border-b p-2"
               >
-                <Image
-                  src={DefaultAvatar}
-                  alt={friend.name}
-                  width={50}
-                  height={50}
-                  className="rounded-full"
-                />
+                <div className="relative flex items-center">
+                  <Image
+                    src={DefaultAvatar}
+                    alt={friend.name}
+                    width={50}
+                    height={50}
+                    className="rounded-full"
+                  />
+                  <span
+                    className={`${friend.isOnline ? 'absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-green-500 ring-2 ring-white' : ''}`}
+                  />
+                </div>
+
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <div className="max-w-[13rem] truncate text-base font-semibold">
@@ -105,4 +111,4 @@ const Sidebar: React.FC<Chat> = ({ userID }) => {
   );
 };
 
-export default Sidebar;
+export default ConversationList;

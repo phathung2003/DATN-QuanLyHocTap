@@ -1,5 +1,13 @@
 /*eslint-disable*/
 import {
+  ref,
+  get,
+  onDisconnect,
+  set,
+  serverTimestamp,
+  onValue,
+} from 'firebase/database';
+import {
   doc,
   updateDoc,
   addDoc,
@@ -11,7 +19,7 @@ import {
   onSnapshot,
   Timestamp,
 } from 'firebase/firestore';
-import { db } from '@/backend/database/firebase';
+import { db, realtimeDb } from '@/backend/database/firebase';
 import { TableName } from '@/backend/globalVariable';
 import { IUserRoom, IMessage } from '../models/data/IChat';
 import { GetInfo } from './users';
@@ -63,9 +71,32 @@ export function GetUserChatRoom(
   // Lắng nghe các thay đổi theo thời gian thực
   const unsubscribe = onSnapshot(chatQuery, async (snapshot) => {
     if (snapshot.size > 0) {
-      const chatList = await Promise.all(
-        snapshot.docs.map((doc) => ChatRoomData(doc, userID)),
+      const chatList: IUserRoom[] = [];
+
+      await Promise.all(
+        snapshot.docs.map(async (doc) => {
+          const chatRoom = await ChatRoomData(doc, userID);
+          chatList.push(chatRoom);
+
+          // Lắng nghe thay đổi trạng thái online từ Realtime Database
+          const userStatusRef = ref(
+            realtimeDb,
+            `/status/${chatRoom.userID}/isOnline`,
+          );
+
+          onValue(userStatusRef, (statusSnapshot) => {
+            const state = statusSnapshot.val();
+            chatRoom.isOnline = state;
+
+            // Cập nhật danh sách chat và gọi callback để cập nhật UI
+            callback([...chatList]);
+          });
+
+          return chatRoom;
+        }),
       );
+
+      // Gọi callback với danh sách phòng chat đã hoàn thành
       callback(chatList);
     } else {
       callback([]); // Nếu không có phòng chat nào, trả về mảng rỗng
@@ -77,10 +108,10 @@ export function GetUserChatRoom(
 }
 
 //Lấy tên người nhận
-export async function GetOpponentName(
+export async function GetOpponentInfo(
   roomID: string,
   userID: string,
-): Promise<string> {
+): Promise<[string, string]> {
   const document = doc(db, TableName.CHAT, roomID);
   const documentData = await getDoc(document);
   if (documentData.exists()) {
@@ -91,9 +122,11 @@ export async function GetOpponentName(
     } else {
       userInfo = await GetInfo(filterID[0]);
     }
-    return !userInfo ? 'Người dùng' : userInfo.name;
+    return !userInfo
+      ? ['Người dùng', 'unknowed']
+      : [userInfo.name, userInfo.accountID];
   }
-  return 'Người dùng';
+  return ['Người dùng', 'unknowed'];
 }
 
 //Lưu tin nhắn
@@ -189,6 +222,7 @@ async function ChatRoomData(doc, userID: string): Promise<IUserRoom> {
       (doc.data().lastMessage ?? ''),
     lastUpdate: doc.data().lastUpdate ?? Timestamp.now(),
     isRead: doc.data().readStatus?.[userID],
+    isOnline: false,
   };
 }
 

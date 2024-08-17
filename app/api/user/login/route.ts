@@ -4,7 +4,6 @@ import { LoginResult, GenerateToken } from '@/app/api/user/login/loginProcess';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
 import SystemMessage from '@/backend/messages/systemMessage';
-
 const expiresInSeconds = process.env.NEXT_PUBLIC_TOKEN_EXPIRED;
 
 export async function POST(request: Request) {

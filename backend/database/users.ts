@@ -1,4 +1,11 @@
 import {
+  ref,
+  onDisconnect,
+  set,
+  serverTimestamp,
+  onValue,
+} from 'firebase/database';
+import {
   collection,
   addDoc,
   query,
@@ -14,7 +21,7 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from 'firebase/auth';
-import { db, auth } from '@/backend/database/firebase';
+import { db, realtimeDb, auth } from '@/backend/database/firebase';
 import { IRegisterDB } from '@/backend/models/data/IRegister';
 import { DefaultRegisteErrorValue } from '@/backend/defaultData/register';
 import { DefaultAPIResult } from '@/backend/defaultData/global';
@@ -208,6 +215,34 @@ async function SendEmail(email: string) {
   return result;
 }
 
+//Ghi nhận trạng thái online của người dùng
+export async function TrackUserOnlineStatus(userID: string) {
+  const userStatusDatabaseRef = ref(realtimeDb, '/status/' + userID);
+
+  // Lắng nghe sự thay đổi kết nối
+  const connectedRef = ref(realtimeDb, '.info/connected');
+  onValue(connectedRef, (snapshot) => {
+    if (snapshot.val() === false) {
+      // Người dùng bị mất kết nối, không làm gì cả
+      return;
+    }
+
+    // Đặt trạng thái offline khi mất kết nối
+    onDisconnect(userStatusDatabaseRef)
+      .set({
+        isOnline: false,
+        last_changed: serverTimestamp(),
+      })
+      .then(() => {
+        // Đặt trạng thái online khi kết nối
+        set(userStatusDatabaseRef, {
+          isOnline: true,
+          last_changed: serverTimestamp(),
+        });
+      });
+  });
+}
+
 //Lấy danh sách tài khoản
 /*eslint-disable*/
 export function UserList(
@@ -218,13 +253,58 @@ export function UserList(
   // Lắng nghe các thay đổi theo thời gian thực
   const unsubscribe = onSnapshot(userCollection, async (snapshot) => {
     if (snapshot.size > 0) {
-      const chatList = await Promise.all(
-        snapshot.docs.map((doc) => ChatUserData(doc)),
+      const userList: IUserChatInfo[] = [];
+
+      await Promise.all(
+        snapshot.docs.map(async (doc) => {
+          const user = ChatUserData(doc);
+          userList.push(user);
+
+          // Lắng nghe thay đổi trạng thái online từ Realtime Database
+          const userStatusRef = ref(realtimeDb, `/status/${user.userID}`);
+          onValue(userStatusRef, (statusSnapshot) => {
+            const state = statusSnapshot.val();
+            user.isOnline = state?.isOnline ?? false;
+            user.last_Login = state?.last_changed;
+
+            // Cập nhật danh sách chat và gọi callback để cập nhật UI
+            callback([...userList]);
+          });
+
+          return user;
+        }),
       );
-      callback(chatList);
+
+      // Gọi callback với danh sách chat đã hoàn thành
+      callback(userList);
     } else {
       callback([]); // Nếu không có phòng chat nào, trả về mảng rỗng
     }
+  });
+
+  // Trả về hàm để ngắt kết nối listener khi không cần thiết
+  return unsubscribe;
+}
+
+//Kiểm tra người dùng có online không
+export function CheckUserOnlineStatus(
+  userID: string,
+  callback: (status: IUserChatInfo) => void,
+): () => void {
+  const userStatusRef = ref(realtimeDb, `/status/${userID}`);
+
+  // Lắng nghe thay đổi trạng thái online từ Realtime Database
+  const unsubscribe = onValue(userStatusRef, (snapshot) => {
+    const state = snapshot.val();
+    const userStatus: IUserChatInfo = {
+      name: '',
+      userID: userID,
+      isOnline: state?.isOnline ?? false,
+      last_Login: state?.last_changed,
+    };
+
+    // Gọi callback để trả về trạng thái online của người dùng
+    callback(userStatus);
   });
 
   // Trả về hàm để ngắt kết nối listener khi không cần thiết
@@ -235,5 +315,6 @@ function ChatUserData(doc): IUserChatInfo {
   return {
     name: doc.data().name,
     userID: doc.id,
+    isOnline: false,
   };
 }

@@ -1,10 +1,11 @@
 'use client';
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import SearchBar from '@/components/element/field/searchBar';
+import { useState, useEffect } from 'react';
 import { UserList } from '@/backend/database/users';
 import { IUserChatInfo } from '@/backend/models/data/IChat';
 import { CreateChatRoom, SearchUser } from '@/backend/feature/chat';
+
+import SearchBar from '@/components/element/field/searchBar';
 
 const DefaultAvatar = '/images/users/user01.png';
 
@@ -50,12 +51,19 @@ const AddConversation: React.FC = () => {
               className="bg-gray-700 border-gray-600 hover:bg-gray-600 flex cursor-pointer items-center space-x-4 border-b p-2"
               onClick={() => CreateChatRoom(user.userID)}
             >
-              <Image
-                src={DefaultAvatar}
-                alt="Avatar"
-                width={50}
-                height={50}
-              ></Image>
+              <div className="relative flex items-center">
+                <Image
+                  src={DefaultAvatar}
+                  alt={user.name}
+                  width={50}
+                  height={50}
+                  className="rounded-full"
+                />
+                <span
+                  className={`${user.isOnline ? 'absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-green-500 ring-2 ring-white' : ''}`}
+                />
+              </div>
+
               <div>
                 <div className="font-semibold">{user.name}</div>
               </div>

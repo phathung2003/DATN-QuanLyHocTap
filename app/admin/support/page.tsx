@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MessagingLayout = () => {
+export default function MessagingLayout() {
   return (
     <div className="bg-gray-100 flex h-[79vh] items-center justify-center">
       <div className="bg-gray-100 flex flex-grow items-center justify-center">
@@ -12,6 +12,4 @@ const MessagingLayout = () => {
       </div>
     </div>
   );
-};
-
-export default MessagingLayout;
+}

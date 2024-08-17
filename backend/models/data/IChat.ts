@@ -7,11 +7,14 @@ export interface IUserRoom {
   lastMessage: string | null;
   lastUpdate: Timestamp;
   isRead: boolean;
+  isOnline: boolean;
 }
 
 export interface IUserChatInfo {
   name: string;
   userID: string;
+  isOnline: boolean;
+  last_Login?: number;
 }
 
 export interface IMessage {
