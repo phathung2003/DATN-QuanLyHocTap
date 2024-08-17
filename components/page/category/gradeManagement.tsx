@@ -4,10 +4,10 @@ import { IGrade } from '@/backend/models/data/IGrade';
 import { DeleteGrade, SearchGrade } from '@/backend/feature/grade';
 
 //Form
-import AddGradeForm from '@/components/form/category/grade/addGradeForm';
-import EditGradeForm from '@/components/form/category/grade/editGradeForm';
-import OverlapForm from '@/components/form/overlapForm';
-import DeleteForm from '@/components/form/deleteModal';
+import AddGradeForm from '../../form/category/grade/addGradeForm';
+import EditGradeForm from '../../form/category/grade/editGradeForm';
+import OverlapForm from '../../form/overlapForm';
+import DeleteForm from '../../form/deleteModal';
 
 //Button - Components
 import DeleteButton from '@/components/element/button/deleteButton';
