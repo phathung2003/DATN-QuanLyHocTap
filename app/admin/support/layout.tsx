@@ -10,7 +10,7 @@ export default async function AdminMainLayout({
   return (
     <div className="bg-gray-900 flex h-[80wh]">
       <CheckOnline userID={userID} />
-      {/* Sidebar */}
+      {/* Conversation List*/}
       <div className="bg-gray-800 w-4/12 p-4">
         <div className="text-lg font-bold ">
           <ConversationList userID={userID} />
