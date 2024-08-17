@@ -6,6 +6,7 @@ export interface IUserRoom {
   chatRoomID: string;
   lastMessage: string | null;
   lastUpdate: Timestamp;
+  isRead: boolean;
 }
 
 export interface IUserChatInfo {

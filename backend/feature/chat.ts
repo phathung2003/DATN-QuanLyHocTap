@@ -73,7 +73,9 @@ export function FormatMessageTime(time: Timestamp): string {
     const hours = targetTime.getHours().toString().padStart(2, '0'); // Lấy giờ
     const minutes = targetTime.getMinutes().toString().padStart(2, '0'); // Lấy phút
     return `${hours}:${minutes}`;
-  } else if (serverTime.getFullYear() === targetTime.getFullYear()) {
+  }
+  //Ngày hôm qua
+  else if (serverTime.getFullYear() === targetTime.getFullYear()) {
     const zonedDate = toZonedTime(targetTime, 'Asia/Ho_Chi_Minh');
     return format(zonedDate, 'dd/MM HH:mm');
   } else {

@@ -37,6 +37,11 @@ export async function AddChatRoom(
       userID: [firstUserID, secondUserID],
       lastMessage: null,
       lastUpdate: serverTime,
+      sentBy: null,
+      readStatus: {
+        [firstUserID]: false,
+        [secondUserID]: false,
+      },
     });
     return document.id;
   }
@@ -97,26 +102,44 @@ export async function AddChatMessage(
   userID: string,
   message: string,
 ) {
+  const serverTime = Timestamp.now();
+
+  //Tạo bản sao thông tin lần cuối lên phòng chat
+  const document = doc(db, TableName.CHAT, roomID);
+  // Lấy dữ liệu hiện tại của phòng chat
+  const chatRoomData = await getDoc(document);
+  if (chatRoomData.exists()) {
+    //Cập nhật trạng thái lại cho cả phòng
+    const previousReadStatus = chatRoomData.data().readStatus;
+    let updatedReadStatus = previousReadStatus;
+
+    for (const ID in previousReadStatus) {
+      if (userID === ID) {
+        updatedReadStatus[ID] = true;
+      } else {
+        updatedReadStatus[ID] = false;
+      }
+    }
+
+    await updateDoc(document, {
+      lastMessage: message,
+      sentBy: userID,
+      lastUpdate: serverTime,
+      readStatus: updatedReadStatus,
+    });
+  }
+
   //Lưu tin nhắn
   const baseURL = `${TableName.CHAT}/${roomID}/${TableName.MESSAGE}`;
   const chatCollection = collection(db, baseURL);
-  const serverTime = Timestamp.now();
   await addDoc(chatCollection, {
     userID: userID,
     message: message,
     uploadTime: serverTime,
   });
-
-  //Tạo bản sao thông tin lần cuối lên phòng chat
-  const document = doc(db, TableName.CHAT, roomID);
-  await updateDoc(document, {
-    lastMessage: message,
-    lastUpdate: serverTime,
-  });
 }
 
 //Lấy danh sách tin nhắn
-//Lấy danh sách phòng chat hiện có của người dùng
 export function GetMessage(
   userID: string,
   roomID: string,
@@ -127,13 +150,19 @@ export function GetMessage(
 
   // Lắng nghe các thay đổi theo thời gian thực
   const unsubscribe = onSnapshot(chatCollection, async (snapshot) => {
+    //Cập nhật trạng thái đọc
+    const document = doc(db, TableName.CHAT, roomID);
+    await updateDoc(document, {
+      [`readStatus.${userID}`]: true,
+    });
+
     if (snapshot.size > 0) {
       const messageList = await Promise.all(
         snapshot.docs.map((doc) => MessageData(doc, userID)),
       );
       callback(messageList);
     } else {
-      callback([]); // Nếu không có phòng chat nào, trả về mảng rỗng
+      callback([]); // Nếu không có tin nhắn nào, trả về mảng rỗng
     }
   });
 
@@ -155,8 +184,11 @@ async function ChatRoomData(doc, userID: string): Promise<IUserRoom> {
     chatRoomID: doc.id,
     userID: filterID[0],
     name: !userInfo ? 'Người dùng' : userInfo.name,
-    lastMessage: doc.data().lastMessage,
+    lastMessage:
+      (doc.data().sentBy == userID ? 'Bạn: ' : '') +
+      (doc.data().lastMessage ?? ''),
     lastUpdate: doc.data().lastUpdate ?? Timestamp.now(),
+    isRead: doc.data().readStatus?.[userID],
   };
 }
 

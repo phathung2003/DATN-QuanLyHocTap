@@ -9,7 +9,7 @@ import CalendarIcon from '@/public/vector/calendar.svg';
 import LogoIcon from '@/public/vector/logo.svg';
 import LessonIcon from '@/public/vector/lesson.svg';
 import AccountIcon from '@/public/vector/table.svg';
-import InfoIcon from '@/public/vector/user.svg';
+import SupportIcon from '@/public/vector/support.svg';
 import CollapsIcon from '@/public/vector/double-arrow.svg';
 import SubjectIcon from '@/public/vector/book.svg';
 import BoardIcon from '@/public/vector/board.svg';
@@ -36,16 +36,11 @@ const menuItems = [
     link: '/admin/qlbaiviet',
   },
   {
-    label: 'Quản lý thông tin',
-    icon: InfoIcon,
-    link: '/admin/qlthongtin',
-  },
-  {
     label: 'Quản lý tài khoản',
     icon: AccountIcon,
     link: '/admin/qltaikhoan',
   },
-  // { id: 6, label: 'Quản lý cài đặt', icon: SettingIcon, link: 'qlcaidat' },
+  { label: 'Hỗ trợ người dùng', icon: SupportIcon, link: '/admin/support' },
 ];
 
 export default function Sidebar() {
