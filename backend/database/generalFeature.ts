@@ -7,6 +7,7 @@ import {
   doc,
   getDoc,
   setDoc,
+  Timestamp,
 } from 'firebase/firestore';
 import { storage, db } from '@/backend/database/firebase';
 import {
@@ -18,6 +19,8 @@ import {
 import SystemMessage from '@/backend/messages/systemMessage';
 import { Status } from '@/backend/globalVariable';
 import { nanoid } from 'nanoid';
+import { format } from 'date-fns';
+import { toZonedTime } from 'date-fns-tz';
 
 //Đăng hình lên máy chủ
 export async function UploadImage(image: File, filePath: string) {
@@ -239,18 +242,9 @@ export async function CheckIDExist(
 }
 
 //Format ngày
-export function FormatISODate(ISODateString: string): string {
-  const date = new Date(ISODateString);
-
-  const day = String(date.getUTCDate()).padStart(2, '0');
-  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-  const year = date.getUTCFullYear();
-
-  const hours = String(date.getUTCHours()).padStart(2, '0');
-  const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-  const seconds = String(date.getUTCSeconds()).padStart(2, '0');
-
-  return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+export function FormatDate(date: Timestamp): string {
+  const zonedDate: Date = toZonedTime(date.toDate(), 'Asia/Ho_Chi_Minh');
+  return format(zonedDate, 'dd-MM-yyyy HH:mm:ss');
 }
 
 //Format chữ in hoa chữ đầu, còn lại chữ thường

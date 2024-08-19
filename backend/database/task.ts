@@ -12,7 +12,7 @@ import {
   GenerateID,
 } from '@/backend/database/generalFeature';
 import { Status, TableName } from '@/backend/globalVariable';
-import { FormatISODate } from '@/backend/database/generalFeature';
+import { FormatDate } from '@/backend/database/generalFeature';
 import { DeleteDocument } from '@/backend/database/generalFeature';
 import ITask from '@/backend/models/data/ITask';
 import SystemMessage from '@/backend/messages/systemMessage';
@@ -130,12 +130,10 @@ async function UnitData(doc) {
     taskNo: doc.data().taskNo,
     taskName: doc.data().taskName,
     taskDescription: doc.data().taskDescription,
-    taskUploadDate: FormatISODate(
-      doc.data().taskUploadDate.toDate().toISOString(),
-    ),
+    taskUploadDate: FormatDate(doc.data().taskUploadDate),
     taskLastEditDate:
       doc.data().taskLastEditDate != null
-        ? FormatISODate(doc.data().taskLastEditDate.toDate().toISOString())
+        ? FormatDate(doc.data().taskLastEditDate)
         : null,
   };
 }

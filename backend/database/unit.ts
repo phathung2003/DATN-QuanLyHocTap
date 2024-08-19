@@ -9,7 +9,7 @@ import { db } from '@/backend/database/firebase';
 import {
   AddDatabaseWithoutID,
   GenerateID,
-  FormatISODate,
+  FormatDate,
   DeleteDocument,
 } from '@/backend/database/generalFeature';
 import { TableName } from '@/backend/globalVariable';
@@ -108,12 +108,10 @@ async function UnitListData(doc) {
     unitName: doc.data().unitName,
     unitNo: doc.data().unitNo,
     unitDescription: doc.data().unitDescription,
-    unitUploadDate: FormatISODate(
-      doc.data().unitUploadDate.toDate().toISOString(),
-    ),
+    unitUploadDate: FormatDate(doc.data().unitUploadDate),
     unitLastEditDate:
       doc.data().unitLastEditDate != null
-        ? FormatISODate(doc.data().unitLastEditDate.toDate().toISOString())
+        ? FormatDate(doc.data().unitLastEditDate)
         : null,
   };
 }

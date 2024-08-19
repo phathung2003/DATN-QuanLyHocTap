@@ -1,4 +1,7 @@
 import { createHash } from 'crypto';
+import { format, parse } from 'date-fns';
+import { Timestamp } from 'firebase/firestore';
+import { toZonedTime } from 'date-fns-tz';
 
 //Bỏ dấu tiếng việt
 export function RemoveAccent(data: string) {
@@ -66,4 +69,26 @@ export function CheckChangeData(
     }
   }
   return change;
+}
+
+//Chỉ lấy ngày
+export function KeepDateOnly(date: string | Date | Timestamp | null): string {
+  if (date == null) {
+    return 'Không xác định';
+  }
+  try {
+    let zonedDate: Date;
+    if (typeof date === 'string') {
+      const dateConvert = parse(date, 'dd-MM-yyyy HH:mm:ss', new Date());
+      zonedDate = toZonedTime(dateConvert, 'Asia/Ho_Chi_Minh');
+    } else if (date instanceof Timestamp) {
+      zonedDate = toZonedTime(date.toDate(), 'Asia/Ho_Chi_Minh');
+    } else {
+      zonedDate = toZonedTime(date, 'Asia/Ho_Chi_Minh');
+    }
+
+    return format(zonedDate, 'dd-MM-yyyy');
+  } catch {
+    return 'Không xác định';
+  }
 }

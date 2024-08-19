@@ -11,26 +11,24 @@ export default function ParentLayout({
   return (
     <>
       {/* <!-- ==========================  Wrapper Start =============================== --> */}
-      <div className="h-screen bg-slate-50 dark:bg-black">
-        {/* <!-- ===== Header Start ===== --> */}
+      <div className="flex h-screen flex-col bg-neutral-100 dark:bg-black">
         <Header />
-        {/* <!-- ===== Header End ===== --> */}
 
-        {/* <!-- ===== Content Start ===== --> */}
-        <div className="flex flex-row overflow-y-auto">
+        <div className="flex flex-1 flex-row overflow-hidden">
           {/* <!-- ===== Sidebar Start ===== --> */}
-          <Sidebar />
+          <div className="sticky top-0 ">
+            <Sidebar />
+          </div>
           {/* <!-- ===== Sidebar End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}
-          <main className={`transition-all duration-500`}>
-            <div className="mx-auto max-w-screen-3xl dark:bg-black 2xl:p-5">
+          <main className="flex-1 overflow-auto">
+            <div className=" mx-auto max-w-screen-3xl dark:bg-black 2xl:p-5">
               {children}
             </div>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
         </div>
-        {/* <!-- ===== Content Area End ===== --> */}
       </div>
       {/* <!-- ========================== Wrapper End ================================= --> */}
     </>

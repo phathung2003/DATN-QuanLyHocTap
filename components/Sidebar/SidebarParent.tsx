@@ -39,7 +39,7 @@ export default function Sidebar() {
   const pathname = usePathname();
   return (
     <aside
-      className={`z-900 mt-5 h-screen rounded-br-2xl rounded-tr-2xl bg-rose-800 transition-all duration-300 dark:bg-boxdark ${open ? 'w-70' : 'w-20'}`}
+      className={`z-900 my-5 h-[82vh] rounded-br-2xl rounded-tr-2xl bg-rose-800 transition-all duration-300 dark:bg-boxdark lg:static ${open ? 'w-70' : 'w-20'}`}
     >
       <nav className="flex h-full flex-col shadow-sm">
         <div
