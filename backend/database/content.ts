@@ -16,7 +16,7 @@ import { ICardContent } from '@/backend/models/data/Content/ICard';
 import { IFlashcardContent } from '@/backend/models/data/Content/IFlashcard';
 import { IContent } from '@/backend/models/data/Content/IContent';
 import { DeleteDocument } from '@/backend/database/generalFeature';
-import { FormatISODate } from '@/backend/database/generalFeature';
+import { FormatDate } from '@/backend/database/generalFeature';
 import { ContentType } from '@/backend/globalVariable';
 import SystemMessage from '@/backend/messages/systemMessage';
 
@@ -384,12 +384,10 @@ async function GetTask(doc, baseURL: string) {
     taskNo: doc.data().taskNo,
     taskName: doc.data().taskName,
     taskDescription: doc.data().taskDescription,
-    taskUploadDate: FormatISODate(
-      doc.data().taskUploadDate.toDate().toISOString(),
-    ),
+    taskUploadDate: FormatDate(doc.data().taskUploadDate),
     taskLastEditDate:
       doc.data().taskLastEditDate != null
-        ? FormatISODate(doc.data().taskLastEditDate.toDate().toISOString())
+        ? FormatDate(doc.data().taskLastEditDate)
         : null,
     content: contentList,
   };
@@ -401,12 +399,10 @@ async function ContentData(doc) {
     contentNo: doc.data().contentNo,
     contentName: doc.data().contentName,
     contentDescription: doc.data().contentDescription,
-    contentCreateAt: FormatISODate(
-      doc.data().contentCreateAt.toDate().toISOString(),
-    ),
+    contentCreateAt: FormatDate(doc.data().contentCreateAt),
     contentLastEditDate:
       doc.data().contentLastEditDate != null
-        ? FormatISODate(doc.data().contentLastEditDate.toDate().toISOString())
+        ? FormatDate(doc.data().contentLastEditDate)
         : null,
     contentData: ContentListData(
       doc.data().contentData,
