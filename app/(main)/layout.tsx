@@ -3,7 +3,7 @@ import { Providers } from '@/app/providers';
 import { CookieGetInfo } from '@/backend/feature/validate';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header/headerUser';
-import ProgressBarProvider from '@/components/ProgressBarProvider/ProgressBarProvider';
+import ProgressBarProvider from '@/components/element/other/progressBarProvider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',

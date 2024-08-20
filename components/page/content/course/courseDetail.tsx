@@ -125,29 +125,21 @@ const CourseDetail: React.FC<{
                         >
                           <div className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600">
                             <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                              {preview ? (
-                                <Image
-                                  src={preview}
-                                  alt="Preview"
-                                  width={200}
-                                  height={240}
-                                  loading="lazy"
-                                  className="max-h-60"
-                                />
-                              ) : (
+                              <div className="relative h-[252px] w-[447px]">
                                 <Image
                                   src={
-                                    courseInfo.courseImage
-                                      ? courseInfo.courseImage
-                                      : ''
+                                    preview
+                                      ? preview
+                                      : courseInfo.courseImage
+                                        ? courseInfo.courseImage
+                                        : ''
                                   }
-                                  alt="Current Image"
-                                  width={200}
-                                  height={240}
+                                  alt={preview ? 'Preview' : 'Current Image'}
+                                  fill
+                                  sizes="(max-width: 447px) 100vw, 447px" // Adjust this based on your layout
                                   loading="lazy"
-                                  className="max-h-60"
                                 />
-                              )}
+                              </div>
                             </div>
                             <Field
                               id="courseImage_EditInput"

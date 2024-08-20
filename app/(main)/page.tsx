@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 import { CookieGetInfo } from '@/backend/feature/validate';
 
-import AboutSectionOne from '@/components/About/AboutSectionOne';
-import Blog from '@/components/Blog';
+import AboutSectionOne from '@/components/page/homepage/about/aboutSectionOne';
+import Blog from '@/components/page/homepage/blog';
 import Contact from '@/components/Contact';
 import Features from '@/components/Features';
-import Hero from '@/components/Hero';
+import Hero from '@/components/element/other/hero';
 import Testimonials from '@/components/Testimonials';
 
 export const metadata: Metadata = {

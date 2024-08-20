@@ -1,8 +1,7 @@
 'use client';
-
 import React from 'react';
 import Image from 'next/image';
-import Pagination from '@/components/Pagination/Pagination';
+import Pagination from '@/components/element/other/pagination';
 
 const Cardinfo = () => {
   const cards = [

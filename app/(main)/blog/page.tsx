@@ -1,7 +1,7 @@
-import SingleBlog from '@/components/Blog/SingleBlog';
-import blogData from '@/components/Blog/blogData';
+import SingleBlog from '@/components/page/homepage/blog/singleBlog';
+import blogData from '@/components/page/homepage/blog/blogData';
 import Breadcrumb from '@/components/Main/breadcrumb';
-import Pagination from '@/components/Pagination/Pagination';
+import Pagination from '@/components/element/other/pagination';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

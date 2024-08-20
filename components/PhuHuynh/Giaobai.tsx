@@ -2,95 +2,96 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Datepicker from '@/components/DatePicker/DatePicker';
+import Datepicker from '@/components/element/other/datePicker';
 import SelectGroupTwo from '@/components/SelectGroup/SelectGroupTwo';
 
 //Button - Icon
 import DropdownIcon from '@/public/vector/down-list-content.svg';
 
-const Giaobai = () => {
-  //item đang mở
-  const [openItem, setOpenItem] = useState(null);
-  // bài học được chọn
-  const [selectedLessons, setSelectedLessons] = useState([]);
+// DS khóa học hiện có
+const listCourse = [
+  {
+    id: 1,
+    img: '/images/courses/number-course.jpg',
+    title: 'Khóa Học Đếm Số',
+    amount: 5,
+    content: [
+      {
+        id: 1,
+        name: 'Bài 1: Đếm số từ 1-10',
+        description: 'Học đếm các số từ 1 đến 10',
+      },
+      {
+        id: 2,
+        name: 'Bài 2: Đếm số từ 11-20',
+        description: 'Học đếm các số từ 11 đến 20',
+      },
+      {
+        id: 3,
+        name: 'Bài 3: Đếm số từ 21-30',
+        description: 'Học đếm các số từ 21 đến 30',
+      },
+      {
+        id: 4,
+        name: 'Bài 4: Đếm số từ 31-40',
+        description: 'Học đếm các số từ 31 đến 40',
+      },
+      {
+        id: 5,
+        name: 'Bài 5: Đếm số từ 41-50',
+        description: 'Học đếm các số từ 41 đến 50',
+      },
+    ],
+  },
+  {
+    id: 2,
+    img: '/images/courses/english-course.jpg',
+    title: 'Khóa Học Tiếng Anh',
+    amount: 2,
+    content: [
+      {
+        id: 3,
+        name: 'Bài 1: Học từ vựng cơ bản',
+        description: 'Những từ vựng tiếng Anh cơ bản',
+      },
+      {
+        id: 4,
+        name: 'Bài 2: Học câu đơn giản',
+        description: 'Các câu giao tiếp đơn giản',
+      },
+    ],
+  },
+  {
+    id: 3,
+    img: '/images/courses/abc-course.jpg',
+    title: 'Khóa Học Chữ Cái',
+    amount: 3,
+    content: [
+      {
+        id: 5,
+        name: 'Bài 1: Học bảng chữ cái',
+        description: 'Giới thiệu bảng chữ cái tiếng Việt',
+      },
+      {
+        id: 6,
+        name: 'Bài 2: Tập viết chữ cái',
+        description: 'Hướng dẫn viết các chữ cái',
+      },
+      {
+        id: 7,
+        name: 'Bài 3: Tập viết chữ cái (tt)',
+        description: 'Hướng dẫn viết các chữ cái tiếp theo',
+      },
+    ],
+  },
+];
 
-  // DS khóa học hiện có
-  const listCourse = [
-    {
-      id: 1,
-      img: '/images/courses/number-course.jpg',
-      title: 'Khóa Học Đếm Số',
-      amount: 5,
-      content: [
-        {
-          id: 1,
-          name: 'Bài 1: Đếm số từ 1-10',
-          description: 'Học đếm các số từ 1 đến 10',
-        },
-        {
-          id: 2,
-          name: 'Bài 2: Đếm số từ 11-20',
-          description: 'Học đếm các số từ 11 đến 20',
-        },
-        {
-          id: 3,
-          name: 'Bài 3: Đếm số từ 21-30',
-          description: 'Học đếm các số từ 21 đến 30',
-        },
-        {
-          id: 4,
-          name: 'Bài 4: Đếm số từ 31-40',
-          description: 'Học đếm các số từ 31 đến 40',
-        },
-        {
-          id: 5,
-          name: 'Bài 5: Đếm số từ 41-50',
-          description: 'Học đếm các số từ 41 đến 50',
-        },
-      ],
-    },
-    {
-      id: 2,
-      img: '/images/courses/english-course.jpg',
-      title: 'Khóa Học Tiếng Anh',
-      amount: 2,
-      content: [
-        {
-          id: 3,
-          name: 'Bài 1: Học từ vựng cơ bản',
-          description: 'Những từ vựng tiếng Anh cơ bản',
-        },
-        {
-          id: 4,
-          name: 'Bài 2: Học câu đơn giản',
-          description: 'Các câu giao tiếp đơn giản',
-        },
-      ],
-    },
-    {
-      id: 3,
-      img: '/images/courses/abc-course.jpg',
-      title: 'Khóa Học Chữ Cái',
-      amount: 3,
-      content: [
-        {
-          id: 5,
-          name: 'Bài 1: Học bảng chữ cái',
-          description: 'Giới thiệu bảng chữ cái tiếng Việt',
-        },
-        {
-          id: 6,
-          name: 'Bài 2: Tập viết chữ cái',
-          description: 'Hướng dẫn viết các chữ cái',
-        },
-        {
-          id: 7,
-          name: 'Bài 3: Tập viết chữ cái (tt)',
-          description: 'Hướng dẫn viết các chữ cái tiếp theo',
-        },
-      ],
-    },
-  ];
+const Giaobai = () => {
+  // item đang mở
+  const [openItem, setOpenItem] = useState<string | number | null>(null);
+
+  // bài học được chọn
+  const [selectedLessons, setSelectedLessons] = useState<string[]>([]);
 
   // thu danh sách
   const toggleItem = (id) => {

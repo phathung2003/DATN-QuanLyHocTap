@@ -31,6 +31,6 @@
     ".next/types/app/login/page.tsx",
     "app/homepageuser",
     "components/icons/StatisticIcon.jsx"
-  ],
+, "components/element/other/calendar.tsx (Không dùng)"  ],
   "exclude": ["node_modules"]
 }

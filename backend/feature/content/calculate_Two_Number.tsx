@@ -142,3 +142,40 @@ export function ResetError(
     return newErrorState;
   });
 }
+
+//Phát nhạc đúng/sai
+export function PlayAnswerSoundEffect(isCorrect: boolean) {
+  const audio = new Audio(
+    `/audio/${isCorrect ? 'correctAnswer' : 'wrongAnswer'}.wav`,
+  );
+  audio.play();
+}
+
+//Phát nhạc chúc mừng
+export function PlayEndingSoundEffect(isWinning) {
+  const filePath = isWinning ? `/audio/endingWin.wav` : `/audio/endingLost.wav`;
+  const audio = new Audio(filePath);
+  audio.play();
+}
+
+//Phát nhạc mở đầu
+export function PlayOpeningSoundEffect() {
+  const audio = new Audio(`/audio/opening.wav`);
+  audio.play();
+}
+
+export async function Sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export const FormatTime = (time) => {
+  const getSeconds = `0${time % 60}`.slice(-2);
+  const minutes = Math.floor(time / 60);
+  const getMinutes = `0${minutes % 60}`.slice(-2);
+  const getHours = `0${Math.floor(time / 3600)}`.slice(-2);
+
+  if (Math.floor(time / 3600)) {
+    return `${getHours}:${getMinutes}:${getSeconds}`;
+  }
+  return `${getMinutes}:${getSeconds}`;
+};

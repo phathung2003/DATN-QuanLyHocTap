@@ -27,7 +27,7 @@ export async function AddCardContent(
   const error = DefaultCardErrorMessage();
 
   //Kiểm tra có nhập trường dữ liệu mặt trước
-  if (!data.text && !data.image) {
+  if (!data.text && !data.file) {
     error.status = false;
     error.missingContent = CardMessage.MISING_BOTH_INFO;
     setError(error);

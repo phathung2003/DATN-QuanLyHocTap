@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import ScrollToTop from '@/components/ScrollToTop';
+import ScrollToTop from '@/components/element/other/scrollToTop';
 import Link from 'next/link';
 import LoginForm from '@/app/(main)/login/loginForm';
 import LoginDecoration from '@/public/decoration/login-decoration';

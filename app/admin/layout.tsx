@@ -1,6 +1,6 @@
 import Sidebar from '@/components/Sidebar/SidebarAdmin';
 import Header from '@/components/Header/headerAdmin';
-import ProgressBarProvider from '@/components/ProgressBarProvider/ProgressBarProvider';
+import ProgressBarProvider from '@/components/element/other/progressBarProvider';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {

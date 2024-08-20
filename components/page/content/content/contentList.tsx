@@ -3,14 +3,16 @@ import { useState } from 'react';
 import { IContentList } from '@/backend/models/data/Content/IContent';
 import { ToTitleCase } from '@/backend/database/generalFeature';
 import { ContentType } from '@/backend/globalVariable';
-import { IFlashcardContent } from '@/backend/models/data/Content/IFlashcard';
 import { DeleteContent } from '@/backend/feature/content';
 
 //Form
 import EditContentForm from '@/components/form/content/content/editContentForm';
 import AddFlashcardForm from '@/components/form/content/content/type/flashcard/addFlashcardForm';
+import PreviewFlashcard from '@/components/form/content/content/type/flashcard/previewFlashcard';
 import AddCardForm from '@/components/form/content/content/type/card/addCardForm';
+import PreviewCard from '@/components/form/content/content/type/card/previewCard';
 import AddCalculateTwoNumberForm from '@/components/form/content/content/type/calculateTwoNumber/addCalculateTwoNumberForm';
+import PreviewCalculateTwoNumber from '@/components/form/content/content/type/calculateTwoNumber/previewCalculateTwoNumber';
 import DeleteForm from '@/components/form/deleteModal';
 import OverlapForm from '@/components/form/overlapForm';
 
@@ -22,6 +24,7 @@ import CalculateTwoNumber from '@/components/page/content/content/type/calculate
 //Button - Icon
 import AddButton from '@/components/element/button/addButton';
 import DeleteButton from '@/components/element/button/deleteButton';
+import PreviewButton from '@/components/element/button/previewButton';
 import EditButton from '@/components/element/button/editButton';
 import DropdownIcon from '@/public/vector/down-list-content.svg';
 
@@ -32,13 +35,15 @@ interface ContentFormProps {
   contentID: string;
   data: IContentList;
 }
-
+interface PreviewFormProperties {
+  content: IContentList;
+}
 interface ContentProperties {
   courseID: string;
   unitID: string;
   taskID: string;
   contentID: string;
-  data?: IFlashcardContent | IContentList;
+  data?: IContentList;
 }
 
 const ContentList: React.FC<ContentFormProps> = ({
@@ -99,6 +104,18 @@ const ContentList: React.FC<ContentFormProps> = ({
     setModalHeader('Chỉnh sửa nội dung bài học');
   };
 
+  //Preview Content
+  // Add Content Form
+  const handleOpenPreviewModal = (
+    FormComponent: React.FC<PreviewFormProperties>,
+    contentData,
+  ) => {
+    const WrappedFormComponent = () => <FormComponent content={contentData} />;
+    setCurrentForm(() => WrappedFormComponent);
+    setIsModalOpen(true);
+    setModalHeader('Xem trước nội dung');
+  };
+
   //Delete Form
   const handleDelete = (func: () => Promise<void>) => {
     setIsDeleteModalOpen(true);
@@ -106,10 +123,12 @@ const ContentList: React.FC<ContentFormProps> = ({
   };
 
   let addForm = AddFlashcardForm;
+  let previewForm = PreviewFlashcard;
   const contentRender = () => {
     switch (data.contentType.toUpperCase()) {
       case ContentType.FLASHCARD:
         addForm = AddFlashcardForm;
+        previewForm = PreviewFlashcard;
         return Flashcard(
           data,
           handleDelete,
@@ -121,6 +140,7 @@ const ContentList: React.FC<ContentFormProps> = ({
         );
       case ContentType.CARD:
         addForm = AddCardForm;
+        previewForm = PreviewCard;
         return Card(
           data,
           handleDelete,
@@ -132,6 +152,7 @@ const ContentList: React.FC<ContentFormProps> = ({
         );
       case ContentType.CALCULATE_TWO_NUMBER:
         addForm = AddCalculateTwoNumberForm;
+        previewForm = PreviewCalculateTwoNumber;
         return CalculateTwoNumber(
           data,
           handleDelete,
@@ -163,7 +184,6 @@ const ContentList: React.FC<ContentFormProps> = ({
                 ? 'Không tiêu đề'
                 : data.contentName ?? 'Không tiêu đề'}
             </h2>
-            <h1>{data.contentDescription}</h1>
             <h1>
               Loại:{' '}
               {data.contentType == ContentType.CALCULATE_TWO_NUMBER
@@ -175,6 +195,13 @@ const ContentList: React.FC<ContentFormProps> = ({
 
         <div className="flex-none">
           <div className="me-2 flex items-center justify-center space-x-4">
+            <PreviewButton
+              buttonName="Xem trước"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleOpenPreviewModal(previewForm, data);
+              }}
+            />
             <AddButton
               onClick={(e) => {
                 e.stopPropagation();

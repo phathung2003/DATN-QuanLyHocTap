@@ -1,3 +1,4 @@
+/*eslint-disable */
 'use client';
 import React from 'react';
 import { useState } from 'react';
@@ -6,13 +7,10 @@ import Link from 'next/link';
 
 //components
 import LearningCourse from '@/components/LearningCourse/LearningCourse';
-import Datepicker from '@/components/DatePicker/DatePicker';
+import Datepicker from '@/components/element/other/datePicker';
 import SelectGroupTwo from '@/components/SelectGroup/SelectGroupTwo';
 
-//form
-import AddModal from '@/components/Modal/AddModal';
-import FormLesson from '@/components/FormCRUD/FormLession';
-
+// import ChartTwo from '../Charts/ChartTwo';
 //button
 import EditButton from '@/components/element/button/editButton';
 import DeleteButton from '@/components/element/button/deleteButton';
@@ -57,11 +55,11 @@ const TrangChuPH = () => {
 
   // state for show modal Learning của trẻ
   const [isLearningModalOpen, setIsLearningModalOpen] = useState(false);
-  const [currentFormComponent, setCurrentFormComponent] = useState<React.FC>(
-    () => FormLesson,
-  );
+  // const [currentFormComponent, setCurrentFormComponent] = useState<React.FC>(
+  //   () => FormLesson,
+  // );
   const handleOpenLearningModal = (FormComponent: React.FC) => {
-    setCurrentFormComponent(() => FormComponent);
+    // setCurrentFormComponent(() => FormComponent);
     setIsLearningModalOpen(true);
   };
 
@@ -169,9 +167,9 @@ const TrangChuPH = () => {
                               {/* button xem trước (preview)*/}
                               <button
                                 type="button"
-                                onClick={() =>
-                                  handleOpenLearningModal(FormLesson)
-                                }
+                                // onClick={() =>
+                                //   handleOpenLearningModal(FormLesson)
+                                // }
                                 className="flex items-center gap-2 rounded-xl border border-slate-200 bg-[#E90074] px-3 py-2 text-center text-sm font-medium text-white hover:bg-opacity-80 focus:z-10 focus:outline-none focus:ring-4 focus:ring-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white dark:focus:ring-slate-700"
                               >
                                 <svg
@@ -192,13 +190,13 @@ const TrangChuPH = () => {
                                 Xem trước
                               </button>
                               {/* showing modal */}
-                              {isLearningModalOpen && currentFormComponent && (
+                              {/* {isLearningModalOpen && currentFormComponent && (
                                 <AddModal
                                   isOpen={isLearningModalOpen}
                                   onClose={() => setIsLearningModalOpen(false)}
                                   FormComponent={currentFormComponent}
                                 />
-                              )}
+                              )} */}
                               {/* button sửa */}
                               <EditButton
                                 onClick={() => console.log('Edit:')}
