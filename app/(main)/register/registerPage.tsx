@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import ScrollToTop from '@/components/ScrollToTop';
+import ScrollToTop from '@/components/element/other/scrollToTop';
 import Link from 'next/link';
 import RegisterDecoration from '@/public/decoration/register-decoration';
 import RegisterForm from '@/app/(main)/register/registerForm';

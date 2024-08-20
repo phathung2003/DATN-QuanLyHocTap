@@ -69,7 +69,7 @@ export default function CalculateTwoNumber(
                   </td>
 
                   <td id="managerOption">
-                    <div className="flex items-center justify-end pr-4">
+                    <div className="flex items-center justify-end py-3 pr-4">
                       <EditButton
                         onClick={() =>
                           handleOpenEditModal(

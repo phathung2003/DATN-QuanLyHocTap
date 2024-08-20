@@ -108,13 +108,16 @@ const EditFlashcardForm: React.FC<ContentProperties> = ({
                 <div className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600">
                   <div className="flex flex-col items-center justify-center pb-6 pt-5">
                     {firstPreview ? (
-                      <Image
-                        src={firstPreview}
-                        alt="First Side Preview"
-                        width={200}
-                        height={240}
-                        className="max-h-60 object-contain"
-                      />
+                      <div className="relative h-[200px] w-[500px]">
+                        <Image
+                          src={firstPreview}
+                          alt="First Side Preview"
+                          fill
+                          style={{ objectFit: 'contain' }}
+                          sizes="(max-width: 500px) 100vw, 500px"
+                          loading="lazy"
+                        />
+                      </div>
                     ) : data.firstSideImage ==
                         process.env.NEXT_PUBLIC_GRADE_DEFAULT_IMAGE ||
                       !data.firstSideImage ? (
@@ -128,13 +131,16 @@ const EditFlashcardForm: React.FC<ContentProperties> = ({
                         </p>
                       </div>
                     ) : (
-                      <Image
-                        src={data.firstSideImage}
-                        alt="Current First Side Image"
-                        width={200}
-                        height={240}
-                        className="max-h-60 object-contain"
-                      />
+                      <div className="relative h-[200px] w-[500px]">
+                        <Image
+                          src={data.firstSideImage}
+                          alt="Current First Side Image"
+                          fill
+                          style={{ objectFit: 'contain' }}
+                          sizes="(max-width: 500px) 100vw, 500px"
+                          loading="lazy"
+                        />
+                      </div>
                     )}
                   </div>
                   <Field
@@ -216,13 +222,16 @@ const EditFlashcardForm: React.FC<ContentProperties> = ({
                   <div className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600">
                     <div className="flex flex-col items-center justify-center pb-6 pt-5">
                       {secondPreview ? (
-                        <Image
-                          src={secondPreview}
-                          alt="Second Side Preview"
-                          width={200}
-                          height={240}
-                          className="max-h-60 object-contain"
-                        />
+                        <div className="relative h-[200px] w-[500px]">
+                          <Image
+                            src={secondPreview}
+                            alt="Second Side Preview"
+                            fill
+                            style={{ objectFit: 'contain' }}
+                            sizes="(max-width: 500px) 100vw, 500px"
+                            loading="lazy"
+                          />
+                        </div>
                       ) : data.secondSideImage ==
                           process.env.NEXT_PUBLIC_GRADE_DEFAULT_IMAGE ||
                         !data.secondSideImage ? (
@@ -238,13 +247,16 @@ const EditFlashcardForm: React.FC<ContentProperties> = ({
                           </p>
                         </div>
                       ) : (
-                        <Image
-                          src={data.secondSideImage}
-                          alt="Current First Side Image"
-                          width={200}
-                          height={240}
-                          className="max-h-60 object-contain"
-                        />
+                        <div className="relative h-[200px] w-[500px]">
+                          <Image
+                            src={data.secondSideImage}
+                            alt="Current Second Side Image"
+                            fill
+                            style={{ objectFit: 'contain' }}
+                            sizes="(max-width: 500px) 100vw, 500px"
+                            loading="lazy"
+                          />
+                        </div>
                       )}
                     </div>
                     <Field

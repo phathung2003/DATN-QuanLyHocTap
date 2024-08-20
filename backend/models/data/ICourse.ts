@@ -12,4 +12,5 @@ export default interface ICourse {
   courseFile?: File | string;
   courseUploadDate?: Date | null;
   courseLastEditDate?: Date | null;
+  unit?: number;
 }

@@ -105,6 +105,12 @@ export async function EditCourse(
 //--- Cục bộ ---//
 //Format danh sách
 async function CourseData(doc) {
+  const pathName = `${TableName.COURSE}/${doc.id}/${TableName.UNIT}`;
+
+  //Lấy toàn bộ danh sách
+  const unitCollection = collection(db, pathName);
+  const unitDocuments = await getDocs(unitCollection);
+
   return {
     courseID: doc.id,
     courseAuthor: await GetName(doc.data().courseAuthorID),
@@ -121,5 +127,6 @@ async function CourseData(doc) {
       doc.data().courseLastEditDate != null
         ? FormatDate(doc.data().courseLastEditDate)
         : null,
+    unit: unitDocuments.size,
   };
 }

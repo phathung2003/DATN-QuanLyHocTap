@@ -2,7 +2,7 @@ import { GetCourseInfo } from '@/backend/feature/course';
 import { GetUnitList } from '@/backend/feature/unit';
 import { GetSubject } from '@/backend/feature/subject';
 import { GetGrade } from '@/backend/feature/grade';
-import NotFoundPage from '@/components/page/notFound';
+import NotFoundPage from '@/components/page/other/notFound';
 import CourseDetail from '@/components/page/content/course/courseDetail';
 
 interface ProductPageProps {

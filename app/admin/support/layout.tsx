@@ -1,6 +1,6 @@
 import ConversationList from '@/components/page/chat/conversationList';
 import { GetUserID } from '@/backend/feature/validate';
-import CheckOnline from '@/components/page/checkOnline';
+import CheckOnline from '@/components/page/other/checkOnline';
 
 export default async function AdminMainLayout({
   children,

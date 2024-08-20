@@ -32,7 +32,7 @@ export default function Card(
   return (
     <div>
       <table id="table" className="w-full">
-        <thead className="text-gray-400 sticky top-0 bg-slate-200 text-left text-xs uppercase dark:bg-slate-700 dark:text-white">
+        <thead className="text-gray-400 sticky top-0 z-10 bg-slate-200 text-left text-xs uppercase dark:bg-slate-700 dark:text-white">
           <tr>
             <th id="idHead" className="w-[5rem] text-center">
               STT
@@ -66,17 +66,20 @@ export default function Card(
                   key={cardData.position}
                   className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
                 >
-                  <td id="gradeID" className="w-[30px] text-center">
+                  <td id="image" className="w-[30px] text-center">
                     {cardData.position}
                   </td>
-                  <td id="gradeID" className="h-[9rem] w-[9rem] px-4">
-                    <Image
-                      src={cardData.image ?? defaultPicture}
-                      alt="image"
-                      width={100}
-                      height={100}
-                      layout="responsive"
-                    />
+                  <td id="image" className="h-[9rem] w-[9rem] px-4">
+                    <div className="relative h-[100px] w-[120px]">
+                      <Image
+                        src={cardData.image ?? defaultPicture}
+                        alt="image"
+                        fill
+                        sizes="(max-width: 100px) 100vw, 100px"
+                        loading="lazy"
+                        style={{ objectFit: 'fill' }} // Use the style prop to set object-fit
+                      />
+                    </div>
                   </td>
                   <td id="name" className="px-4">
                     {cardData.text}

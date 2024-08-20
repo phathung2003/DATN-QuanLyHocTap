@@ -8,7 +8,7 @@ import FormAddBlog from '@/components/FormCRUD/FormAddBlog';
 import EditModal from '@/components/Modal/EditModal';
 import FormEditBlog from '@/components/FormCRUD/FormEditBlog';
 import DeleteModal from '@/components/Modal/DeleteModal';
-import Pagination from '@/components/Pagination/Pagination';
+import Pagination from '@/components/element/other/pagination';
 
 const packageData: Package[] = [
   {

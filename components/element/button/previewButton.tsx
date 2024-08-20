@@ -1,8 +1,9 @@
+/*eslint-disable*/
 //Icon
-import AddIcon from '@/public/vector/plus-white.svg';
+import SeeIcon from '@/public/vector/eye.svg';
 
 interface PreviewButtonProperties {
-  onClick: () => void;
+  onClick: (e) => void;
   buttonName: string;
 }
 
@@ -14,10 +15,10 @@ const PreviewButton: React.FC<PreviewButtonProperties> = ({
     <button
       id="preview_Button"
       type="button"
-      className="ml-auto inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-rose-400 p-1.5 px-2 py-2 text-sm text-white hover:bg-rose-400/80 dark:hover:text-white min-[890px]:w-auto"
+      className="inline-flex w-max items-center justify-center gap-2.5 rounded-lg bg-yellow-600 px-2 py-2 text-sm text-white hover:bg-yellow-700"
       onClick={onClick}
     >
-      <AddIcon />
+      <SeeIcon className="stroke-curren fill-current" />
       {buttonName}
     </button>
   );

@@ -9,7 +9,7 @@ import FormEditAccount from '@/components/FormCRUD/FormEditAccount';
 import DeleteModal from '@/components/Modal/DeleteModal';
 import CheckboxOne from '@/components/Checkboxes/CheckboxOne';
 import Image from 'next/image';
-import Pagination from '@/components/Pagination/Pagination';
+import Pagination from '@/components/element/other/pagination';
 /* eslint-disable */
 const QLTaiKhoan = () => {
   // modal Add

@@ -188,13 +188,27 @@ const EditCourseForm: React.FC<EditCourseComponents> = ({ courseID, data }) => {
                 <div className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-600">
                   <div className="flex flex-col items-center justify-center pb-6 pt-5">
                     {preview ? (
-                      <Image
-                        src={preview}
-                        alt="Preview"
-                        width={200}
-                        height={240}
-                        className="max-h-60 object-contain"
-                      />
+                      <div className="relative h-[200px] w-[500px]">
+                        <Image
+                          src={preview}
+                          alt="Preview"
+                          fill
+                          style={{ objectFit: 'contain' }}
+                          sizes="(max-width: 500px) 100vw, 500px"
+                          loading="lazy"
+                        />
+                      </div>
+                    ) : data.courseImage != null ? (
+                      <div className="relative h-[200px] w-[500px]">
+                        <Image
+                          src={data.courseImage}
+                          alt="Current Image"
+                          fill
+                          style={{ objectFit: 'contain' }}
+                          sizes="(max-width: 500px) 100vw, 500px"
+                          loading="lazy"
+                        />
+                      </div>
                     ) : (
                       <div className="flex flex-col items-center justify-center">
                         <UploadIcon />

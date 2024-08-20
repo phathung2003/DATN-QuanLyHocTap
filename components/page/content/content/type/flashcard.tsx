@@ -73,30 +73,36 @@ export default function Flashcard(
                   key={flashcardData.position}
                   className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
                 >
-                  <td id="gradeID" className="w-[30px] text-center">
+                  <td id="card" className="w-[30px] text-center">
                     {index + 1}
                   </td>
 
-                  <td id="gradeID" className="h-[50px] w-[100px] px-4">
-                    <Image
-                      src={flashcardData.firstSideImage ?? defaultPicture}
-                      alt="firstSideImage"
-                      width={100}
-                      height={50}
-                      style={{ objectFit: 'cover', objectPosition: 'center' }}
-                    />
+                  <td id="firstSideImage" className="h-[9rem] w-[9rem] px-4">
+                    <div className="relative h-[100px] w-[100px]">
+                      <Image
+                        src={flashcardData.firstSideImage ?? defaultPicture}
+                        alt="firstSideImage"
+                        fill
+                        sizes="(max-width: 100px) 100vw, 100px"
+                        loading="lazy"
+                        style={{ objectFit: 'fill' }} // Use the style prop to set object-fit
+                      />
+                    </div>
                   </td>
                   <td id="name" className="px-4">
                     {flashcardData.firstSideText}
                   </td>
-                  <td id="subject" className="h-[50px] w-[100px] px-4">
-                    <Image
-                      src={flashcardData.secondSideImage ?? defaultPicture}
-                      alt="secondSideImage"
-                      width={100}
-                      height={50}
-                      style={{ objectFit: 'cover', objectPosition: 'center' }}
-                    />
+                  <td id="secondSideImage" className="h-[9rem] w-[9rem] px-4">
+                    <div className="relative h-[100px] w-[100px]">
+                      <Image
+                        src={flashcardData.secondSideImage ?? defaultPicture}
+                        alt="secondSideImage"
+                        fill
+                        sizes="(max-width: 100px) 100vw, 100px"
+                        loading="lazy"
+                        style={{ objectFit: 'fill' }} // Use the style prop to set object-fit
+                      />
+                    </div>
                   </td>
                   <td id="subject" className="px-4">
                     {flashcardData.firstSideText}

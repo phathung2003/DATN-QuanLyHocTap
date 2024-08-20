@@ -1,6 +1,6 @@
 import { GetCourseInfo } from '@/backend/feature/course';
 import { GetUnitList } from '@/backend/feature/unit';
-import NotFoundPage from '@/components/page/notFound';
+import NotFoundPage from '@/components/page/other/notFound';
 import UserUnitList from '@/app/phuhuynh/course/[courseID]/unitList';
 
 interface ProductPageProps {
