@@ -6,9 +6,9 @@ const testimonialData: Testimonial[] = [
   {
     id: 1,
     name: 'Nguyễn Cẩm',
-    designation: 'Giáo viên mầm non',
+    designation: 'Phụ Huynh',
     content:
-      'Trang web này thực sự tiện ích và linh hoạt. Tôi rất hài lòng với cách nó giúp con tôi tổ chức lịch học và hoàn thành bài tập một cách hiệu quả',
+      'Trang web này thực sự tiện ích và linh hoạt. Tôi rất hài lòng với cách nó giúp tôi quản lý việc học của con một cách hiệu quả',
     image: '/images/users/user01.png',
     star: 5,
   },
@@ -17,16 +17,16 @@ const testimonialData: Testimonial[] = [
     name: 'Trần Trọng Toàn',
     designation: 'Phụ huynh',
     content:
-      'Tôi rất ấn tượng với kho tài liệu học tập phong phú trên trang web. Con tôi có thể truy cập vào nhiều bài giảng, sách điện tử, và video hướng dẫn chất lượng cao.',
+      'Tôi rất ấn tượng với kho tài liệu học tập phong phú trên trang web. Con tôi có thể truy cập các trò chơi được xây dựng sẵn rất trực quan',
     image: '/images/users/user01.png',
-    star: 5,
+    star: 4,
   },
   {
     id: 3,
     name: 'Minh Minh',
     designation: 'Phụ huynh',
     content:
-      'Điều tôi thích nhất ở trang web này là sự hỗ trợ tận tình và phản hồi nhanh chóng từ giáo viên.',
+      'Điều tôi thích nhất ở trang web này là sự hỗ trợ tận tình và phản hồi nhanh chóng từ đội ngũ hỗ trợ',
     image: '/images/users/user01.png',
     star: 5,
   },
@@ -38,7 +38,7 @@ const Testimonials = () => {
       <div className="container">
         <SectionTitle
           title="Các Phụ Huynh đã nói gì ?"
-          paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
+          paragraph="Sự nhiệt huyết & tận tâm từ hệ thống HungThanh"
           center
         />
 

@@ -17,11 +17,11 @@ const MessageInput: React.FC<IMessage> = ({ roomID }) => {
   };
 
   return (
-    <div className="border-gray-700 bg-gray-800 flex items-center border-t pt-3">
+    <div className="flex items-center p-5">
       <textarea
         id="text"
-        className="flex-1 resize-none overflow-y-auto rounded-lg bg-slate-300 p-2 dark:bg-slate-700"
-        placeholder="Nhắn tin"
+        className="flex-1 resize-none overflow-y-auto rounded-lg bg-slate-200 p-2 dark:bg-slate-700"
+        placeholder="Nhập tin nhắn..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         onKeyDown={(e) => {
@@ -34,7 +34,7 @@ const MessageInput: React.FC<IMessage> = ({ roomID }) => {
 
       <button
         id="submit"
-        className="text-bold ml-4 rounded-lg bg-blue-500 p-4 text-white hover:bg-blue-600"
+        className="text-bold ml-4 rounded-lg bg-blue-500 p-5 text-white hover:bg-blue-600"
         onClick={handleSendMessage}
       >
         Gửi

@@ -14,7 +14,7 @@ export default function Contact() {
               data-wow-delay=".15s"
             >
               <h2 className="mb-3 text-2xl font-bold text-black dark:text-white sm:text-3xl lg:text-2xl xl:text-3xl">
-                Có khó khăn ? Chúng tôi ở đây
+                Có khó khăn ? Có chúng tôi ở đây
               </h2>
               <p className="text-body-color mb-12 text-base font-medium">
                 Team chúng tôi sẽ hỗ trợ bạn qua email.
@@ -33,7 +33,7 @@ export default function Contact() {
                         id="name"
                         name="name"
                         type="text"
-                        placeholder="Điền vào tên của bạn"
+                        placeholder="Điền vào tên của bạn..."
                         autoComplete="name"
                         className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       />
@@ -52,7 +52,7 @@ export default function Contact() {
                         name="email"
                         type="email"
                         autoComplete="name"
-                        placeholder="Điền vào email"
+                        placeholder="Điền vào email..."
                         className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       />
                     </div>
@@ -63,20 +63,20 @@ export default function Contact() {
                         htmlFor="message"
                         className="text-dark mb-3 block text-sm font-medium dark:text-white"
                       >
-                        Nội dung
+                        Nội dung cần hỗ trợ
                       </label>
                       <textarea
                         id="message"
                         name="message"
                         autoComplete="off"
                         rows={5}
-                        placeholder="Điền vào nội dung"
+                        placeholder="Bạn cần hỗ trợ gì nhỉ..."
                         className="dark:text-body-color-dark dark:shadow-two text-body-color w-full resize-none rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       ></textarea>
                     </div>
                   </div>
                   <div className="w-full px-4">
-                    <button className="shadow-submit dark:shadow-submit-dark rounded-sm bg-[#FF5580] px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90">
+                    <button className="shadow-submit dark:shadow-submit-dark rounded-sm bg-[#FF5580] px-9 py-4 text-base font-medium text-white duration-300 hover:bg-[#FF5580]/90">
                       Gửi thông tin
                     </button>
                   </div>

@@ -5,7 +5,7 @@ const blogData: Blog[] = [
     id: 1,
     title: 'Các bé nhạy bén hơn khi được rèn luyện mỗi ngày',
     paragraph:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet dictum neque, laoreet dolor.',
+      'Việc duy trì thói quen học tập hàng ngày không chỉ giúp các bé phát triển khả năng tư duy mà còn tăng cường sự tự tin và khả năng giải quyết vấn đề.',
     image: '/images/homepageuser/blog1.jpg',
     author: {
       name: 'Nguyễn Minh',
@@ -19,12 +19,12 @@ const blogData: Blog[] = [
     id: 2,
     title: 'Được hỗ trợ nhiệt tình từ đội ngũ tâm huyết',
     paragraph:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet dictum neque, laoreet dolor.',
+      'Với sự tâm huyết đến từ đội ngũ giảng viên & nhân viên tâm huyết của hệ thống tạo nên 1 môi trường rất bổ ích cho các bé nhỏ đồng thời hỗ trợ một hệ thống rất linh hoạt cho phụ huynh',
     image: '/images/homepageuser/blog2.jpg',
     author: {
       name: 'Trần Minh Hoàng',
       image: '/images/users/user01.png',
-      designation: 'Content Writer',
+      designation: 'Người viết bài',
     },
     tags: ['nhiệt huyết'],
     publishDate: '2024',
@@ -33,12 +33,12 @@ const blogData: Blog[] = [
     id: 3,
     title: 'Các bé nhạy bé hơn khi được rèn luyện mỗi ngày',
     paragraph:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet dictum neque, laoreet dolor.',
+      'Việc duy trì thói quen học tập hàng ngày không chỉ giúp các bé phát triển khả năng tư duy mà còn tăng cường sự tự tin và khả năng giải quyết vấn đề.',
     image: '/images/homepageuser/blog3.jpg',
     author: {
       name: 'Hằng Lê',
       image: '/images/users/user01.png',
-      designation: 'Giảng viên cấp 1',
+      designation: 'Giảng viên mầm non',
     },
     tags: ['đồng hành'],
     publishDate: '2024',

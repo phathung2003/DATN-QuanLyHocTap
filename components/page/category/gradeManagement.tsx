@@ -104,9 +104,9 @@ const GradeManagement = ({ data }) => {
               {searchGrade.map((gradeData, index) => (
                 <tr
                   key={index}
-                  className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
+                  className="dark:border-gray-700 border-b border-slate-200 text-slate-800 hover:bg-slate-300 dark:hover:bg-slate-600"
                 >
-                  <td id="gradeID" className="w-[30px] text-center">
+                  <td id="gradeID" className="w-[30px] text-center text-sm">
                     {index + 1}
                   </td>
 

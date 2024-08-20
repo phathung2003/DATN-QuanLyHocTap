@@ -33,8 +33,8 @@ const AddConversation: React.FC = () => {
   }, [setUserList]);
 
   return (
-    <div className="bg-gray-900 flex flex-1 flex-col">
-      <div className="border-gray-700 border-b pb-4 text-xl font-bold ">
+    <div className="flex flex-1 flex-col">
+      <div className="pb-4 text-xl font-bold ">
         <SearchBar onChange={(e) => setSearch(e.target.value)} />
       </div>
 
@@ -48,7 +48,7 @@ const AddConversation: React.FC = () => {
           {searchUser.map((user) => (
             <div
               key={user.userID}
-              className="bg-gray-700 border-gray-600 hover:bg-gray-600 flex cursor-pointer items-center space-x-4 border-b p-2"
+              className="flex cursor-pointer items-center space-x-4 border-b border-slate-300 p-2 hover:bg-slate-200 dark:hover:bg-slate-700"
               onClick={() => CreateChatRoom(user.userID)}
             >
               <div className="relative flex items-center">

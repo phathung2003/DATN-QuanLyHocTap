@@ -106,16 +106,16 @@ const SubjectManagement = ({ data }) => {
               {searchSubject.map((data, index) => (
                 <tr
                   key={index}
-                  className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
+                  className="dark:border-gray-700 border-b border-slate-200 text-slate-800 hover:bg-slate-300 dark:hover:bg-slate-600"
                 >
-                  <td id="gradeID" className="w-[30px] text-center">
+                  <td id="gradeID" className="w-[30px] text-center text-sm">
                     {index + 1}
                   </td>
 
-                  <td id="name" className="px-4">
+                  <td id="name" className="px-4 text-slate-800">
                     {data.subjectName}
                   </td>
-                  <td id="description" className="px-4">
+                  <td id="description" className="px-4 text-slate-800">
                     {data.subjectDescription}
                   </td>
                   <td>

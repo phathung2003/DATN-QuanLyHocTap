@@ -16,9 +16,11 @@ export default async function AdminMainLayout({
           <ConversationList userID={userID} />
         </div>
       </div>
-      <div className="w-px bg-black dark:bg-white"></div>
+      <div className="w-px bg-slate-100 dark:bg-slate-900"></div>
       {/* Main Content */}
-      <div className="w-8/12 bg-slate-900 p-4">{children}</div>
+      <div className="w-8/12 bg-slate-100 p-4 dark:bg-slate-900">
+        {children}
+      </div>
     </div>
   );
 }

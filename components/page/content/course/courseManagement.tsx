@@ -120,9 +120,9 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
               {searchCourse.map((data, index) => (
                 <tr
                   key={index}
-                  className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
+                  className="dark:border-gray-700 border-b border-slate-200 text-sm text-slate-800 hover:bg-slate-300 dark:hover:bg-slate-600"
                 >
-                  <td id="gradeID" className="w-[30px] text-center">
+                  <td id="gradeID" className="w-[50px] text-center text-sm">
                     {data.courseID}
                   </td>
 

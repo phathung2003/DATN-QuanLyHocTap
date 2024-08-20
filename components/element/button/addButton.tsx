@@ -20,7 +20,7 @@ const AddButton: React.FC<
     <button
       id="add_Button"
       type="button"
-      className="ml-auto inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-lime-600 p-1.5 px-2 py-2 text-sm text-white hover:bg-lime-500 dark:hover:text-white min-[890px]:w-auto"
+      className="ml-auto inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-lime-600 p-1.5 px-2 py-2 text-xs text-white hover:bg-lime-500 dark:hover:text-white min-[890px]:w-auto"
       onClick={onClick}
     >
       <AddIcon />

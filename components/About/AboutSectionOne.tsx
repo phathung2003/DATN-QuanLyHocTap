@@ -29,7 +29,7 @@ const AboutSectionOne = () => {
             <div className="w-full px-4 lg:w-1/2">
               <SectionTitle
                 title="Hỗ trợ và nâng cao quá trình học tập"
-                paragraph="The main ‘thrust’ is to focus on educating attendees on how to best protect highly vulnerable business applications with interactive panel discussions and roundtables."
+                paragraph="Website hỗ trợ phong phú các tính năng để phụ huynh yên tâm khi quản lý việc học của các bé"
               />
 
               <div

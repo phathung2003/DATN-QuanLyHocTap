@@ -49,7 +49,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
               </div>
               <div className="w-full">
                 <h4 className="text-slate slate:text-white mb-1 text-sm font-medium">
-                  Bởi {author.name}
+                  {author.name}
                 </h4>
                 <p className="text-body-color text-xs">{author.designation}</p>
               </div>

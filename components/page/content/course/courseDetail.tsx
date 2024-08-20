@@ -100,7 +100,7 @@ const CourseDetail: React.FC<{
         >
           Chi tiết khóa học
         </h2>
-        <h1 id="courseID" className="text-black dark:text-white">
+        <h1 id="courseID" className="font-semibold text-black dark:text-white">
           Mã khóa học: {courseID}
         </h1>
       </div>
@@ -175,11 +175,13 @@ const CourseDetail: React.FC<{
                         errorMessage={error.courseImageError}
                       />
                     </div>
-                    <p id="authorName">Người tạo: {courseInfo.courseAuthor}</p>
-                    <p id="createDate">
+                    <p className="mb-2 text-sm" id="authorName">
+                      Người tạo: {courseInfo.courseAuthor}
+                    </p>
+                    <p className="mb-2 text-sm" id="createDate">
                       Tạo lúc: {` ${courseInfo.courseUploadDate}`}
                     </p>
-                    <p id="lastUpdateDate">
+                    <p className="text-sm" id="lastUpdateDate">
                       Chỉnh sửa lần cuối:
                       {courseInfo.courseLastEditDate
                         ? `${courseInfo.courseLastEditDate}`
@@ -217,7 +219,7 @@ const CourseDetail: React.FC<{
                       />
                     </div>
 
-                    <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="mt-3 grid gap-4 sm:grid-cols-2">
                       <div id="courseSubject_Add">
                         <label
                           htmlFor="courseGrade_AddInput"
@@ -317,7 +319,7 @@ const CourseDetail: React.FC<{
                       errorMessage={error.systemError}
                     />
 
-                    <div className="flex justify-end space-x-4">
+                    <div className="mt-3 flex justify-end space-x-4">
                       <SubmitButton buttonName="Cập nhật" />
                       <DeleteButton
                         onClick={() =>
@@ -388,7 +390,7 @@ const CourseDetail: React.FC<{
                 {searchUnit.map((unitData) => (
                   <tr
                     key={unitData.unitNo}
-                    className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
+                    className="dark:border-gray-700 border-b border-slate-200 text-sm text-slate-800 hover:bg-slate-300 dark:hover:bg-slate-600"
                   >
                     <td id="unitID" className="w-[5rem] text-center">
                       {unitData.unitNo}

@@ -11,19 +11,19 @@ const cards = [
   {
     date: { day: '25', month: 'May' },
     imageUrl: '/images/homepageuser/card1.jpg',
-    title:
-      'Lorem ipsum praesent ac massa at ligula reet est iaculis. Vivamus est mist aliquet elit ac nisl. ',
+    title: 'Môi trường học tốt ảnh hướng lớn đến sự phát triển của trẻ',
   },
   {
     date: { day: '10', month: 'Mar' },
     imageUrl: '/images/homepageuser/card2.jpg',
     title:
-      'Lorem ipsum praesent ac massa at ligula reet est iaculis. Vivamus est mist aliquet elit ac nisl. ',
+      'Sự phát triển vượt trội của bé nhờ lộ trình học tập kĩ cưỡng đến từ đội ngũ giáo viên xuất sắc',
   },
   {
     date: { day: '20', month: 'Jan' },
     imageUrl: '/images/homepageuser/card3.jpg',
-    title: 'Lorem ipsum praesent ac massa at ligula reet est iaculis',
+    title:
+      'Nuôi dậy tâm hồn bé con bằng những hoạt động thiện nguyện từ rất sớm',
   },
 ];
 

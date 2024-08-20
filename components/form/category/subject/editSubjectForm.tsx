@@ -97,7 +97,7 @@ const EditSubjectForm: React.FC<{ data: ISubject }> = (subjectInfo) => {
                         alt="Preview"
                         width={200}
                         height={240}
-                        className="max-h-60"
+                        className="max-h-60 object-cover"
                       />
                     ) : subjectInfo.data.subjectImage ==
                       process.env.NEXT_PUBLIC_SUBJECT_DEFAULT_IMAGE ? (

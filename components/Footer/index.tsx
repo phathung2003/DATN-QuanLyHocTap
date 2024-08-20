@@ -29,9 +29,8 @@ const Footer = () => {
                     height={30}
                   />
                 </Link>
-                <p className="dark:text-body-color-dark text-body-color mb-9 text-base leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer lobortis.
+                <p className="mb-9 text-base leading-relaxed text-slate-700 dark:text-white">
+                  Hệ thống tâm huyết mang đến trải nghiệm thật mượt mà
                 </p>
                 <div className="flex items-center">
                   <a
@@ -65,20 +64,6 @@ const Footer = () => {
                   <a
                     href="/"
                     aria-label="social-link"
-                    className="dark:text-body-color-dark text-body-color mr-6 duration-300 hover:text-primary dark:hover:text-primary"
-                  >
-                    <svg
-                      width="18"
-                      height="14"
-                      viewBox="0 0 18 14"
-                      className="fill-current"
-                    >
-                      <path d="M17.5058 2.07119C17.3068 1.2488 16.7099 0.609173 15.9423 0.395963C14.5778 7.26191e-08 9.0627 0 9.0627 0C9.0627 0 3.54766 7.26191e-08 2.18311 0.395963C1.41555 0.609173 0.818561 1.2488 0.619565 2.07119C0.25 3.56366 0.25 6.60953 0.25 6.60953C0.25 6.60953 0.25 9.68585 0.619565 11.1479C0.818561 11.9703 1.41555 12.6099 2.18311 12.8231C3.54766 13.2191 9.0627 13.2191 9.0627 13.2191C9.0627 13.2191 14.5778 13.2191 15.9423 12.8231C16.7099 12.6099 17.3068 11.9703 17.5058 11.1479C17.8754 9.68585 17.8754 6.60953 17.8754 6.60953C17.8754 6.60953 17.8754 3.56366 17.5058 2.07119ZM7.30016 9.44218V3.77687L11.8771 6.60953L7.30016 9.44218Z" />
-                    </svg>
-                  </a>
-                  <a
-                    href="/"
-                    aria-label="social-link"
                     className="dark:text-body-color-dark text-body-color duration-300 hover:text-primary dark:hover:text-primary"
                   >
                     <svg
@@ -102,7 +87,7 @@ const Footer = () => {
                 <ul>
                   <li>
                     <a
-                      href="/blogs"
+                      href="/blog"
                       className="dark:text-body-color-dark text-body-color mb-4 inline-block text-base duration-300 hover:text-primary dark:hover:text-primary"
                     >
                       Blog
@@ -110,7 +95,7 @@ const Footer = () => {
                   </li>
                   <li>
                     <a
-                      href="/pricing"
+                      href="/contact"
                       className="dark:text-body-color-dark text-body-color mb-4 inline-block text-base duration-300 hover:text-primary dark:hover:text-primary"
                     >
                       Liên hệ
@@ -170,7 +155,7 @@ const Footer = () => {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/login"
                       className="dark:text-body-color-dark text-body-color mb-4 inline-block text-base duration-300 hover:text-primary dark:hover:text-primary"
                     >
                       Cách sử dụng
@@ -191,9 +176,13 @@ const Footer = () => {
 
           <div className="h-px w-full bg-gradient-to-r from-transparent via-[#D2D8E183] to-transparent dark:via-[#959CB183]"></div>
           <div className="py-8">
-            <p className="text-body-color text-center text-base dark:text-white">
+            <p className="text-center text-base text-slate-700 dark:text-white">
               HUFLIT Copyright © 2024 by hưngnguyen & thanhle{' '}
-              <a href="https://nextjstemplates.com" rel="nofollow noopener">
+              <a
+                className="text-center text-slate-500 dark:text-white"
+                href="/"
+                rel="nofollow noopener"
+              >
                 All rights reserved.
               </a>
             </p>

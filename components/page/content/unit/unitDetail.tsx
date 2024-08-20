@@ -113,21 +113,33 @@ const UnitDetail: React.FC<{
           >
             Chi tiết bài học
           </h2>
-          <h1 id="createAt" className="text-black dark:text-white">
+          <h1
+            id="createAt"
+            className="mt-3 text-sm text-slate-700 dark:text-white"
+          >
             Ngày tạo: {`${unitInfo.unitUploadDate ?? 'Không xác định'}`}
           </h1>
 
-          <h1 id="lastEdit" className="text-black dark:text-white">
+          <h1
+            id="lastEdit"
+            className="mt-2 text-sm text-slate-700 dark:text-white"
+          >
             Chỉnh lần cuối:{' '}
             {`${unitInfo.unitLastEditDate ?? 'Chưa thực hiện chỉnh sửa'}`}
           </h1>
         </div>
 
         <div>
-          <h1 id="courseID" className="text-black dark:text-white">
+          <h1
+            id="courseID"
+            className="font-semibold text-slate-700 dark:text-white"
+          >
             Mã khóa học: {courseID}
           </h1>
-          <h1 id="unitID" className="text-black dark:text-white">
+          <h1
+            id="unitID"
+            className="font-semibold text-slate-700 dark:text-white"
+          >
             Mã bài học: {unitID}
           </h1>
         </div>
@@ -193,7 +205,7 @@ const UnitDetail: React.FC<{
               </div>
 
               <BottomFormError type={'Add'} errorMessage={error.systemError} />
-              <div className="flex justify-end space-x-4">
+              <div className="mt-5 flex justify-end space-x-4">
                 <SubmitButton buttonName="Cập nhật" />
                 <DeleteButton
                   onClick={() =>
@@ -266,7 +278,7 @@ const UnitDetail: React.FC<{
                   .map((data) => (
                     <tr
                       key={data.taskNo}
-                      className="dark:border-gray-700 border-b border-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600"
+                      className="dark:border-gray-700 border-b border-slate-200 text-sm text-slate-800 hover:bg-slate-300 dark:hover:bg-slate-600"
                     >
                       <td id="taskID" className="w-[5rem] text-center">
                         {data.taskNo}

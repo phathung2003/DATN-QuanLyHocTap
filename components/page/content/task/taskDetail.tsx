@@ -76,24 +76,39 @@ const TaskDetail: React.FC<{
           >
             Chi tiết danh mục bài học
           </h2>
-          <h1 id="createAt" className="text-black dark:text-white">
+          <h1
+            id="createAt"
+            className="mt-3 text-sm text-slate-700 dark:text-white"
+          >
             Ngày tạo: {`${taskInfo.taskUploadDate ?? 'Không xác định'}`}
           </h1>
 
-          <h1 id="lastEdit" className="text-black dark:text-white">
+          <h1
+            id="lastEdit"
+            className="mt-2 text-sm text-black text-slate-700 dark:text-white"
+          >
             Chỉnh lần cuối:
             {`${taskInfo.taskLastEditDate ?? 'Chưa thực hiện chỉnh sửa'}`}
           </h1>
         </div>
 
         <div>
-          <h1 id="courseID" className="text-black dark:text-white">
+          <h1
+            id="courseID"
+            className="font-semibold text-slate-800 dark:text-white"
+          >
             Mã khóa học: {courseID}
           </h1>
-          <h1 id="unitID" className="text-black dark:text-white">
+          <h1
+            id="unitID"
+            className="font-semibold text-slate-800 dark:text-white"
+          >
             Mã bài học: {unitID}
           </h1>
-          <h1 id="taskID" className="text-black dark:text-white">
+          <h1
+            id="taskID"
+            className="font-semibold text-slate-800 dark:text-white"
+          >
             Mã danh mục: {taskID}
           </h1>
         </div>
