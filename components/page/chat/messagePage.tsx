@@ -70,8 +70,8 @@ const MessagePage: React.FC<IChatRoom> = ({
   }, [opponentID, setOnline]);
 
   return (
-    <div className="bg-gray-900 flex flex-1 flex-col">
-      <div className="border-gray-700 flex items-center space-x-4 border-b p-2">
+    <div className="flex flex-1 flex-col bg-slate-900 dark:bg-graydark">
+      <div className="flex items-center space-x-4 border-b border-slate-200 p-2 dark:border-slate-700">
         <div className="relative flex items-center">
           <Image
             src={DefaultAvatar}
@@ -97,7 +97,7 @@ const MessagePage: React.FC<IChatRoom> = ({
       </div>
 
       {/* Nội dung tin nhắn */}
-      <div className="bg-gray-900 flex h-[60vh] flex-col space-y-3 overflow-y-auto p-4">
+      <div className="flex h-[60vh] flex-col space-y-3 overflow-y-auto bg-slate-900 p-4">
         {message.map((data, index) => {
           let showDivider = false;
           if (index > 0) {
@@ -116,7 +116,7 @@ const MessagePage: React.FC<IChatRoom> = ({
             <div key={index}>
               {showDivider && (
                 <div className="my-2 flex items-center justify-center">
-                  <span className="text-gray-500 text-sm">
+                  <span className="text-sm text-slate-500">
                     {FormatMessageTime(data.uploadTime)}
                   </span>
                 </div>
@@ -130,7 +130,7 @@ const MessagePage: React.FC<IChatRoom> = ({
                 >
                   <div>{data.message}</div>
                   {data.uploadTime && (
-                    <div className="text-gray-400 mt-1 text-xs">
+                    <div className="mt-1 text-xs text-slate-400">
                       {FormatMessageTime(data.uploadTime)}
                     </div>
                   )}

@@ -3,11 +3,11 @@ import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { SearchCourse } from '@/backend/feature/course';
 import ICourse from '@/backend/models/data/ICourse';
+import Link from 'next/link';
 
 //Button
 import SearchBar from '@/components/element/field/searchBar';
 import PlusIcon from '@/public/vector/plus-bold.svg';
-import DetailButton from '@/components/element/button/detailButton';
 const DefaultAvatar = '/images/users/user01.png';
 
 const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
@@ -23,22 +23,25 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
 
   return (
     <section className="antialiase px-4 lg:px-8">
-      <h2
-        id="header"
-        className="font-manrope mb-2 mt-2 text-center text-2xl font-bold text-black dark:text-white min-[890px]:text-left"
-      >
-        Danh sách khóa học
-      </h2>
+      <div className="grid grid-cols-2">
+        <h2
+          id="header"
+          className="font-manrope mb-5 mt-5 text-center text-2xl font-bold text-black dark:text-white min-[890px]:text-left"
+        >
+          Danh sách khóa học hiện có
+        </h2>
 
-      <div className="x mt-3 grid grid-cols-1 gap-4 sm:mb-5 min-[890px]:grid-cols-2">
-        <SearchBar onChange={(e) => setSearch(e.target.value)} />
+        <div className="mt-5 flex w-5/6 justify-end sm:mb-5">
+          <SearchBar onChange={(e) => setSearch(e.target.value)} />
+        </div>
       </div>
 
-      <div className="grid h-[58vh] grid-cols-1 gap-6 overflow-y-auto sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 ">
+      <div className="mt-5 grid h-auto grid-cols-1 gap-6 overflow-y-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {searchCourse.map((data, index) => (
-          <div
+          <Link
+            href={`/phuhuynh/course/${data.courseID}`}
             key={index}
-            className="relative overflow-hidden rounded-xl shadow-md "
+            className="relative cursor-pointer rounded-sm shadow-lg"
           >
             <div className="relative">
               <div className="h-40 bg-slate-300">
@@ -58,19 +61,24 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
                 <PlusIcon />
               </button>
               <div className="absolute bottom-2 left-2">
-                <span className="rounded bg-blue-700 px-2.5 py-0.5 text-sm font-semibold text-white ">
-                  Toán
+                <span className="rounded-full bg-blue-700 px-2.5 py-1.5 text-sm font-semibold text-white ">
+                  {data.courseSubjectName}
                 </span>
-                <span className="ml-2 rounded bg-orange-600 px-2.5 py-0.5 text-sm font-semibold text-white ">
-                  Lớp mầm
+                <span className="ml-2 rounded-full bg-orange-600 px-2.5 py-1.5 text-sm font-semibold text-white ">
+                  {data.courseGradeName}
                 </span>
               </div>
             </div>
 
             <div className="bg-zinc-200 p-3 shadow-card dark:bg-slate-700">
-              <h1 className="text-xl font-bold">Tiêu đề</h1>
+              <h1 className="text-xl font-bold">{data.courseName}</h1>
 
-              <p className="text-gray-600 dark:text-gray-300 mt-2">Mô tả</p>
+              <p className="mt-4 text-sm text-slate-600 dark:text-slate-300">
+                Khóa học tập đếm số cơ bản cho các bé, kĩ năng cơ bản đầu tiên
+              </p>
+              <p className="mt-4 text-sm text-slate-800 dark:text-slate-300">
+                Tổng số bài: <span className="font-bold text-slate-900">5</span>{' '}
+              </p>
 
               <div className="mt-4 flex items-center">
                 <Image
@@ -81,19 +89,16 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
                   className="rounded-full"
                 />
                 <div className="ml-2">
-                  <p className="text-gray-900 dark:text-gray-100 text-sm">
-                    Nguyễn Phát Hưng
+                  <p className="text-sm text-slate-900 dark:text-slate-100">
+                    {data.courseAuthor}
                   </p>
-                  <p className="text-gray-600 dark:text-gray-300 text-xs">
-                    20/01/2023
+                  <p className="text-xs text-slate-600 dark:text-slate-300">
+                    20/04/2024
                   </p>
                 </div>
               </div>
-              <div className="mt-4">
-                <DetailButton buttonName={'Chi tiết'} link="/" />
-              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

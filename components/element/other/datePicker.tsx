@@ -17,7 +17,7 @@ const options = {
     text: '',
     disabledText: 'text-slate-400 dark:text-slate-900 dark:text-opacity-50',
     input:
-      'py-3 border-slate-200 ring-2 ring-rose-500 dark:bg-slate-800 <w-5/6></w-5/6>',
+      'z-99 py-3 border-slate-200 ring-2 ring-rose-500 dark:bg-slate-800 <w-5/6></w-5/6>',
     inputIcon: '',
     selected: 'dark:bg-slate-800',
   },
@@ -54,7 +54,7 @@ const options = {
       </svg>
     ),
   },
-  datepickerClassNames: 'top-32',
+  datepickerClassNames: 'top-15 z-100',
   defaultDate: new Date(),
   language: 'vi',
   disabledDates: [],
