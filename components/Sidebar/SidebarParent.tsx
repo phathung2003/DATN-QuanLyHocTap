@@ -13,24 +13,24 @@ import BoardIcon from '@/public/vector/board.svg';
 //Menu
 const menuItems = [
   {
-    label: 'Giao bài',
+    label: 'Giao Bài Mới',
     icon: SubjectIcon,
-    link: '/admin/subject',
+    link: '/phuhuynh/giaobai',
   },
   {
-    label: 'Xem DS bài học',
+    label: 'Xem DS Bài Học',
     icon: BoardIcon,
-    link: '/admin/grade',
+    link: '/phuhuynh/course',
   },
   {
     label: 'Quản lý tiến độ học',
     icon: LessonIcon,
-    link: '/admin/course',
+    link: '/phuhuynh/tiendohoc',
   },
   {
-    label: 'Thống Kê',
+    label: 'Hỗ Trợ Trực Tuyến',
     icon: CalendarIcon,
-    link: '/admin/qlbaiviet',
+    link: '/phuhuynh/thongke',
   },
 ];
 
@@ -77,7 +77,7 @@ export default function Sidebar() {
               <div key={index}>
                 <Link
                   href={menu.link}
-                  className={`flex w-full items-center gap-2.5 font-medium text-bodydark1 ${pathname === menu.link && 'w-full bg-graydark dark:bg-meta-4'} ${open ? 'rounded-xl duration-300 ease-in-out hover:bg-white hover:text-slate-700 dark:hover:bg-meta-4 dark:hover:text-white' : ''}`}
+                  className={`flex w-full items-center gap-2.5 font-medium text-bodydark1 ${pathname === menu.link && 'w-full bg-white text-slate-700 dark:bg-meta-4'} ${open ? 'rounded-xl duration-300 ease-in-out hover:bg-white hover:text-slate-700 dark:hover:bg-meta-4 dark:hover:text-white' : ''}`}
                 >
                   <div
                     className={`flex h-full items-center py-4 ${open ? 'px-3' : 'rounded-2xl p-4 duration-300 ease-in-out hover:bg-white hover:text-slate-700 dark:hover:bg-meta-4 dark:hover:text-white'}`}

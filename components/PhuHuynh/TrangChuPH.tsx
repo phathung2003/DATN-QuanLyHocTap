@@ -3,18 +3,19 @@ import React from 'react';
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+
+//components
 import LearningCourse from '@/components/LearningCourse/LearningCourse';
 import Datepicker from '@/components/DatePicker/DatePicker';
 import SelectGroupTwo from '@/components/SelectGroup/SelectGroupTwo';
+
+//form
 import AddModal from '@/components/Modal/AddModal';
 import FormLesson from '@/components/FormCRUD/FormLession';
-// import ChartTwo from '../Charts/ChartTwo';
+
 //button
 import EditButton from '@/components/element/button/editButton';
 import DeleteButton from '@/components/element/button/deleteButton';
-import ChatSupport from '@/components/Chat/ChatSupport';
-//icon
-import PlusIcon from '@/public/vector/plus-white.svg';
 
 interface GiaoBai {
   src: string;
@@ -65,30 +66,51 @@ const TrangChuPH = () => {
   };
 
   return (
-    <div className="dark:bg-black">
+    <section className="dark:bg-black">
       {/* Tổng quan */}
       <div className="dark:bg-black">
-        <div className="xs:grid-cols-1 grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
-          {/* phần 1 */}
-          <div className="col-span-2 w-full rounded-lg bg-slate-50 py-5 antialiased shadow-xl dark:bg-black lg:px-4">
-            <div className="z-20 flex flex-col items-center gap-1.5 md:flex-row md:justify-between">
+        <div className="grid grid-cols-1 gap-4">
+          <div className="w-full rounded-lg bg-slate-50 py-5 antialiased shadow-xl dark:bg-black lg:px-4">
+            {/* nav */}
+            <div className="z-20 flex flex-col items-center gap-1.5 rounded-xl bg-rose-100 p-2 dark:bg-slate-800 md:flex-row md:justify-around">
               <span className="items-center text-sm font-extrabold dark:text-white sm:block">
                 Ngày
               </span>
-              <div>
+              <div className="z-999 -translate-x-8 transform">
                 <Datepicker />
               </div>
-              <h1 className="ml-3 items-center text-sm font-extrabold dark:text-white sm:block">
+              <h1 className="items-center text-sm font-extrabold dark:text-white sm:block">
                 Giao bài cho
               </h1>
-              <div>
+              <div className="-translate-x-8 transform">
                 <SelectGroupTwo />
               </div>
               <Link
                 href="#"
-                className="mx-5 inline-flex w-full items-center justify-center rounded-md bg-[#E90074] px-1.5 py-3 text-center font-medium text-white hover:bg-opacity-80 dark:bg-slate-700 dark:hover:bg-graydark/80 lg:w-1/6 lg:px-8 xl:px-5"
+                className="inline-flex w-1/6 items-center justify-center rounded-md bg-rose-700 py-3 text-center font-medium text-white hover:bg-opacity-80 focus:outline-none focus:ring-4 focus:ring-rose-300 dark:bg-slate-700 dark:hover:bg-graydark/80"
               >
-                Kiểm tra
+                <span className="text-sm">Kiểm tra</span>
+              </Link>
+              {/* btn thêm giao bài mới */}
+              <Link
+                href="/phuhuynh/giaobai"
+                className="me-2 inline-flex items-center gap-2 rounded-lg bg-rose-700 p-2.5 text-center text-sm font-medium text-white hover:bg-rose-800 focus:outline-none focus:ring-4 focus:ring-rose-300 dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#ffffff"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M20 11.08V8l-6-6H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h6" />
+                  <path d="M14 3v5h5M18 21v-6M15 18h6" />
+                </svg>
+                <span className="text-sm">Giao bài mới</span>
               </Link>
             </div>
 
@@ -195,31 +217,12 @@ const TrangChuPH = () => {
               </table>
             </div>
           </div>
-
-          {/* phần 2 biểu đồ */}
-          <div className="rounded-lg bg-slate-50 py-5 antialiased shadow-xl dark:bg-black lg:col-span-2 lg:px-4 xl:col-span-1">
-            <div className="">
-              <Link
-                href="#"
-                className="inline-flex w-full items-center justify-center gap-2.5 rounded-t-md bg-rose-700 px-3 py-3 text-center font-medium text-white duration-500 hover:scale-105 hover:bg-opacity-80 hover:shadow-lg lg:px-8 xl:px-10"
-              >
-                <span>
-                  <PlusIcon />
-                </span>
-                Giao bài hôm nay cho bé
-              </Link>
-              {/* <ChartTwo /> */}
-            </div>
-          </div>
         </div>
       </div>
 
       {/* top các khóa học cho PH */}
       <LearningCourse />
-
-      {/* chat */}
-      <ChatSupport />
-    </div>
+    </section>
   );
 };
 

@@ -15,7 +15,7 @@ const SearchBar: React.FC<SearchProperties> = ({ onChange }) => {
       <input
         type="search"
         id="search"
-        className="block w-full rounded-lg border border-slate-300 bg-slate-50 p-2 ps-10 text-sm text-slate-900 focus:border-blue-500 focus:outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:placeholder-slate-400 dark:focus:border-blue-500"
+        className="block w-full rounded-full border border-slate-300 bg-slate-50 p-2 ps-10 text-sm text-slate-900 focus:border-blue-500 focus:outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:placeholder-slate-400 dark:focus:border-blue-500"
         placeholder="Tìm kiếm..."
         onChange={onChange}
       />

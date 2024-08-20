@@ -2,6 +2,7 @@
 import React from 'react';
 import Sidebar from '@/components/Sidebar/SidebarParent';
 import Header from '@/components/Header/headerParent';
+import ChatSupport from '@/components/Chat/ChatSupport';
 
 export default function ParentLayout({
   children,
@@ -25,6 +26,8 @@ export default function ParentLayout({
           <main className="flex-1 overflow-auto">
             <div className=" mx-auto max-w-screen-3xl dark:bg-black 2xl:p-5">
               {children}
+              {/* chat */}
+              <ChatSupport />
             </div>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
