@@ -24,7 +24,7 @@ export default function ParentLayout({
 
           {/* <!-- ===== Main Content Start ===== --> */}
           <main className="flex-1 overflow-auto">
-            <div className=" mx-auto max-w-screen-3xl dark:bg-black 2xl:p-5">
+            <div className="mx-auto max-w-screen-3xl dark:bg-black 2xl:p-5">
               {children}
               {/* chat */}
               <ChatSupport />

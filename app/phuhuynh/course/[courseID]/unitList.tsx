@@ -42,7 +42,7 @@ const UserUnitList: React.FC<{
         </div>
         <div className="col-span-2">
           <h2 className="mb-2 text-xl font-bold text-slate-900 dark:text-white">
-            {courseInfo.courseName}
+            Khóa học: {courseInfo.courseName}
           </h2>
           <p className="mb-2 text-slate-700 dark:text-slate-300">
             {courseInfo.courseDescription || 'Không có mô tả nào'}
@@ -88,7 +88,7 @@ const UserUnitList: React.FC<{
                   Bài số: {unitData.unitNo}
                 </p>
                 <DetailButton
-                  link={`/admin/course/${courseID}/unit/${unitData.unitID}`}
+                  link={`/phuhuynh/course/${courseID}/unit/${unitData.unitID}`}
                   buttonName="Chi tiết"
                 />
               </div>

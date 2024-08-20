@@ -64,7 +64,8 @@ export default function Sidebar() {
           <button
             id="collapseButton"
             onClick={() => setOpen((curr) => !curr)}
-            className={`rounded-lg bg-slate-50 p-3.5 hover:bg-rose-300 dark:bg-graydark dark:hover:bg-meta-4 ${!open && 'rotate-180 duration-300'}`}
+            className={`rounded-lg bg-slate-50 p-3 hover:bg-rose-300 dark:bg-graydark dark:hover:bg-meta-4 
+              ${!open && 'rotate-180 duration-300'}`}
           >
             <CollapsIcon />
           </button>
