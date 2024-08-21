@@ -165,27 +165,43 @@ export async function GetContent(
   contentID: string,
 ) {
   const baseURL = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}/${taskID}/${TableName.CONTENT}/`;
+  const unitURL = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/`;
+  const taskURL = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}/`;
   try {
-    if (!taskID) {
-      const taskURL = `${TableName.COURSE}/${courseID}/${TableName.UNIT}/${unitID}/${TableName.TASK}/`;
+    if (!unitID) {
+      const taskDatabase = collection(db, unitURL);
+      const taskData = await getDocs(taskDatabase);
+      const taskList = await Promise.all(
+        taskData.docs.map(
+          async (doc) =>
+            await GetUnit(doc, `${unitURL}${doc.id}/${TableName.TASK}/`),
+        ),
+      );
 
-      try {
-        const taskDatabase = collection(db, taskURL);
-        const taskData = await getDocs(taskDatabase);
-        const taskList = await Promise.all(
-          taskData.docs.map(
-            async (doc) =>
-              await GetTask(doc, `${taskURL}${doc.id}/${TableName.CONTENT}/`),
-          ),
-        );
-
-        if (taskList.length === 0) {
-          return null;
-        }
-        return taskList;
-      } catch {
-        return SystemMessage.SYSTEM_ERROR;
+      if (taskList.length === 0) {
+        return null;
       }
+      return taskList.sort((a, b) => {
+        return a.unitNo - b.unitNo;
+      });
+    }
+
+    if (!taskID) {
+      const taskDatabase = collection(db, taskURL);
+      const taskData = await getDocs(taskDatabase);
+      const taskList = await Promise.all(
+        taskData.docs.map(
+          async (doc) =>
+            await GetTask(doc, `${taskURL}${doc.id}/${TableName.CONTENT}/`),
+        ),
+      );
+
+      if (taskList.length === 0) {
+        return null;
+      }
+      return taskList.sort((a, b) => {
+        return a.taskNo - b.taskNo;
+      });
     }
 
     //Lấy chi tiết contentID
@@ -207,7 +223,9 @@ export async function GetContent(
     if (contentList.length === 0) {
       return null;
     }
-    return contentList;
+    return contentList.sort((a, b) => {
+      return a.contentNo - b.contentNo;
+    });
   } catch {
     return SystemMessage.SYSTEM_ERROR;
   }
@@ -372,6 +390,32 @@ export async function CheckEditPositionExist(
 }
 
 //Format danh sách
+async function GetUnit(doc, baseURL) {
+  const taskCollection = collection(db, baseURL);
+  const taskDocuments = await getDocs(taskCollection);
+  const taskList = await Promise.all(
+    taskDocuments.docs.map(
+      async (doc) =>
+        await GetTask(doc, `${baseURL}${doc.id}/${TableName.CONTENT}/`),
+    ),
+  );
+
+  return {
+    unitID: doc.id,
+    unitName: doc.data().unitName,
+    unitNo: doc.data().unitNo,
+    unitDescription: doc.data().unitDescription,
+    unitUploadDate: FormatDate(doc.data().unitUploadDate),
+    unitLastEditDate:
+      doc.data().unitLastEditDate != null
+        ? FormatDate(doc.data().unitLastEditDate)
+        : null,
+    task: taskList.sort((a, b) => {
+      return a.taskNo - b.taskNo;
+    }),
+  };
+}
+
 async function GetTask(doc, baseURL: string) {
   const contentCollection = collection(db, baseURL);
   const contentDocuments = await getDocs(contentCollection);
@@ -389,9 +433,12 @@ async function GetTask(doc, baseURL: string) {
       doc.data().taskLastEditDate != null
         ? FormatDate(doc.data().taskLastEditDate)
         : null,
-    content: contentList,
+    content: contentList.sort((a, b) => {
+      return a.contentNo - b.contentNo;
+    }),
   };
 }
+
 async function ContentData(doc) {
   return {
     contentID: doc.id,

@@ -1,4 +1,4 @@
-import SectionTitle from '@/components/Main/sectionTitle';
+import SectionTitle from '@/components/page/homepage/main/sectionTitle';
 
 //Icon
 import CheckIcon from '@/public/vector/check.svg';

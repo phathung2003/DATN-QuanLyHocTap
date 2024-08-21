@@ -3,14 +3,14 @@ import { CookieGetInfo } from '@/backend/feature/validate';
 
 import AboutSectionOne from '@/components/page/homepage/about/aboutSectionOne';
 import Blog from '@/components/page/homepage/blog';
-import Contact from '@/components/Contact';
-import Features from '@/components/Features';
-import Hero from '@/components/element/other/hero';
-import Testimonials from '@/components/Testimonials';
+import Contact from '@/components/page/homepage/contact';
+import Features from '@/components/page/homepage/features';
+import Hero from '@/components/page/homepage/hero';
+import Testimonials from '@/components/page/homepage/testimonials';
 
 export const metadata: Metadata = {
   title: 'Trang Chủ',
-  description: 'Đây là trang chủ của web HungThanh',
+  description: 'Trang chủ đồ án tốt nghiệp',
 };
 
 export default async function Home() {

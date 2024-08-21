@@ -1,9 +1,15 @@
+import { Metadata } from 'next';
 import { GetCourseInfo } from '@/backend/feature/course';
 import { GetUnitList } from '@/backend/feature/unit';
 import { GetSubject } from '@/backend/feature/subject';
 import { GetGrade } from '@/backend/feature/grade';
 import NotFoundPage from '@/components/page/other/notFound';
-import CourseDetail from '@/components/page/content/course/courseDetail';
+import CourseDetail from '@/components/page/content/course/manager/courseDetail';
+
+export const metadata: Metadata = {
+  title: 'Chi tiết khóa học',
+  description: 'Trang chi tiết khóa học',
+};
 
 interface ProductPageProps {
   params: {
@@ -11,7 +17,7 @@ interface ProductPageProps {
   };
 }
 
-export default async function CoursePage({ params }: ProductPageProps) {
+export default async function CourseDetailPage({ params }: ProductPageProps) {
   const { courseID } = params;
   const course = await GetCourseInfo(courseID);
   if (!course) {

@@ -11,7 +11,7 @@ export async function GET(request) {
     const taskID = request.nextUrl.searchParams.get('taskID');
     const contentID = request.nextUrl.searchParams.get('contentID');
 
-    if (!courseID || !unitID) {
+    if (!courseID) {
       return MessageReturnOnly(APIMessage.WRONG_INPUT, 400);
     }
     const contentList = await GetContent(courseID, unitID, taskID, contentID);

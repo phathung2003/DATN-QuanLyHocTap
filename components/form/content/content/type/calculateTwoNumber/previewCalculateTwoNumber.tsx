@@ -108,7 +108,7 @@ const PreviewCalculateTwoNumber: React.FC<IContentData> = ({ content }) => {
         if (timerRef.current) {
           clearInterval(timerRef.current);
         }
-        PlayEndingSoundEffect(score > 70);
+        PlayEndingSoundEffect(score >= 70);
       } else {
         setQuestion(calculationList[questionNo + 1]);
       }
@@ -177,7 +177,7 @@ const PreviewCalculateTwoNumber: React.FC<IContentData> = ({ content }) => {
                     onChange={(e) => setAnswer(e.target.value)}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
-                        e.preventDefault(); // Ngăn xuống dòng khi nhấn Enter
+                        e.preventDefault();
                         handleSubmit();
                       }
                     }}
@@ -206,7 +206,7 @@ const PreviewCalculateTwoNumber: React.FC<IContentData> = ({ content }) => {
           </div>
         </div>
         {/* Nhạc nền */}
-        <audio ref={audioRef} src="/audio/clockTick.wav" />
+        <audio ref={audioRef} src="/audio/clockTick.ogg" />
       </div>
     );
   }
@@ -270,12 +270,6 @@ function EndScreen(time, score, correctCount, incorrectCount, handleStartGame) {
           className="rounded-full bg-green-500 p-4 text-white transition-all hover:bg-green-600"
         >
           Chơi Lại
-        </button>
-        <button
-          onClick={() => window.location.reload()}
-          className="rounded-full bg-rose-500 p-4 text-white transition-all hover:bg-rose-600"
-        >
-          Kết thúc
         </button>
       </div>
     </div>

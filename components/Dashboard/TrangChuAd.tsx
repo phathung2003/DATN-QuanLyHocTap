@@ -1,5 +1,5 @@
 import React from 'react';
-import CardDataStats from '../CardDataStats';
+import CardDataStats from '@/components/element/other/cardDataStats';
 
 import WatchIcon from '@/public/vector/eye.svg';
 import CartIcon from '@/public/vector/cart.svg';

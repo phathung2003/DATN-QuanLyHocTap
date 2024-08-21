@@ -11,6 +11,7 @@ import {
   GenerateID,
   FormatDate,
   DeleteDocument,
+  StringToDate,
 } from '@/backend/database/generalFeature';
 import { TableName } from '@/backend/globalVariable';
 import { GetName } from '@/backend/database/users';
@@ -59,7 +60,16 @@ export async function GetCourse(courseID: string | null) {
     if (courseList.length === 0) {
       return null;
     }
-    return courseList;
+
+    return courseList.sort((a, b) => {
+      const dateA = StringToDate(
+        a.courseLastEditDate ? a.courseLastEditDate : a.courseUploadDate,
+      );
+      const dateB = StringToDate(
+        b.courseLastEditDate ? b.courseLastEditDate : b.courseUploadDate,
+      );
+      return dateB - dateA;
+    });
   } catch {
     return SystemMessage.SYSTEM_ERROR;
   }

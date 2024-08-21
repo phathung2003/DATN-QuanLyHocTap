@@ -1,13 +1,11 @@
+import { Metadata } from 'next';
+import Breadcrumb from '@/components/page/homepage/main/breadcrumb';
 import AboutSectionOne from '@/components/page/homepage/about/aboutSectionOne';
 import AboutSectionTwo from '@/components/page/homepage/about/aboutSectionTwo';
-import Breadcrumb from '@/components/Main/breadcrumb';
-
-import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Trang giới thiệu',
-  description: 'Đây là trang giới thiệu',
-  // other metadata
+  title: 'Giới thiệu',
+  description: 'Trang giới thiệu',
 };
 
 const AboutPage = () => {

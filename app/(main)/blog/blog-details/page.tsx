@@ -1,10 +1,9 @@
+import Image from 'next/image';
+import { Metadata } from 'next';
 import RelatedPost from '@/components/page/homepage/blog/relatedPost';
 import SharePost from '@/components/page/homepage/blog/sharePost';
 import TagButton from '@/components/page/homepage/blog/tagButton';
-import NewsLetterBox from '@/components/Contact/newsLetterBox';
-import Image from 'next/image';
-
-import { Metadata } from 'next';
+import NewsLetterBox from '@/components/page/homepage/contact/newsLetterBox';
 
 //Icon
 import CalendarIcon from '@/public/vector/calendar.svg';
@@ -14,8 +13,8 @@ import CornerDecoration from '@/public/vector/corner-decoration.svg';
 import FindIcon from '@/public/vector/find-white.svg';
 
 export const metadata: Metadata = {
-  title: 'Blog Details Page | Free Next.js Template for Startup and SaaS',
-  description: 'This is Blog Details Page for Startup Nextjs Template',
+  title: 'Bài đăng chi tiết',
+  description: 'Trang bài đăng chi tiết',
 };
 
 const BlogSidebarPage = () => {

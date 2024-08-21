@@ -1,4 +1,4 @@
-import SectionTitle from '@/components/Main/sectionTitle';
+import SectionTitle from '@/components/page/homepage/main/sectionTitle';
 import SingleBlog from '@/components/page/homepage/blog/singleBlog';
 import BlogData from '@/components/page/homepage/blog/blogData';
 

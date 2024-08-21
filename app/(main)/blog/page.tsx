@@ -1,13 +1,12 @@
+import { Metadata } from 'next';
 import SingleBlog from '@/components/page/homepage/blog/singleBlog';
 import blogData from '@/components/page/homepage/blog/blogData';
-import Breadcrumb from '@/components/Main/breadcrumb';
+import Breadcrumb from '@/components/page/homepage/main/breadcrumb';
 import Pagination from '@/components/element/other/pagination';
-import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Trang bài viết',
-  description: 'Đây là trang bài viết',
-  // other metadata
+  title: 'Bài đăng',
+  description: 'Trang bài đăng',
 };
 
 const Blog = () => {

@@ -19,7 +19,7 @@ import {
 import SystemMessage from '@/backend/messages/systemMessage';
 import { Status } from '@/backend/globalVariable';
 import { nanoid } from 'nanoid';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { toZonedTime } from 'date-fns-tz';
 
 //Đăng hình lên máy chủ
@@ -245,6 +245,21 @@ export async function CheckIDExist(
 export function FormatDate(date: Timestamp): string {
   const zonedDate: Date = toZonedTime(date.toDate(), 'Asia/Ho_Chi_Minh');
   return format(zonedDate, 'dd-MM-yyyy HH:mm:ss');
+}
+
+//Chuyển Ngày -> Số
+export function StringToDate(date: string): number {
+  if (date == null || date == '') {
+    return 0;
+  }
+  try {
+    const dateConvert = parse(date, 'dd-MM-yyyy HH:mm:ss', new Date());
+    const zonedDate = toZonedTime(dateConvert, 'Asia/Ho_Chi_Minh');
+
+    return zonedDate.getTime();
+  } catch {
+    return 0;
+  }
 }
 
 //Format chữ in hoa chữ đầu, còn lại chữ thường
