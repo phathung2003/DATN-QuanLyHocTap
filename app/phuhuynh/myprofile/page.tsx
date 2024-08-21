@@ -1,7 +1,7 @@
 import React from 'react';
 import InfoIcon from '@/public/vector/user.svg';
 import EmailIcon from '@/public/vector/email.svg';
-import ProfileUpload from '@/components/ProfileUpload/ProfileUpload';
+import ProfileUpload from '@/components/element/other/profileUpload';
 
 const Profile = () => {
   return (

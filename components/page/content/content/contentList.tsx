@@ -54,7 +54,6 @@ const ContentList: React.FC<ContentFormProps> = ({
   data,
 }) => {
   const [activeIndex, setActiveIndex] = useState(true);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalHeader, setModalHeader] = useState('Thêm nội dung bài học');
   const [currentForm, setCurrentForm] = useState<React.FC>(

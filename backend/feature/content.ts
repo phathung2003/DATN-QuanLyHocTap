@@ -1,4 +1,7 @@
-import { IContentList } from '@/backend/models/data/Content/IContent';
+import {
+  IContentList,
+  IContentCourseList,
+} from '@/backend/models/data/Content/IContent';
 import { GetToken } from '@/backend/feature/validate';
 import { HomePage } from '@/backend/routers';
 import { IContentError } from '@/backend/models/messages/IContentMessage';
@@ -17,6 +20,19 @@ export async function GetContentList(
     { method: 'GET', cache: 'no-store' },
   );
   const info: IContentList[] = await response.json();
+  if (Array.isArray(info)) {
+    return info;
+  }
+  return [];
+}
+
+//Lấy danh sách nội dung bài học - Theo khóa học
+export async function GetContentListByCourseID(courseID: string) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/content/taskContent/list?courseID=${courseID}`,
+    { method: 'GET', cache: 'no-store' },
+  );
+  const info: IContentCourseList[] = await response.json();
   if (Array.isArray(info)) {
     return info;
   }

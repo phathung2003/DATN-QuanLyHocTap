@@ -57,7 +57,9 @@ export async function GetUnit(courseID: string, unitID: null | string) {
     if (unitList.length === 0) {
       return null;
     }
-    return unitList;
+    return unitList.sort((a, b) => {
+      return a.unitNo - b.unitNo;
+    });
   } catch {
     return SystemMessage.SYSTEM_ERROR;
   }

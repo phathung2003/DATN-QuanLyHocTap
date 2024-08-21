@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import SectionTitle from '@/components/Main/sectionTitle';
+import SectionTitle from '@/components/page/homepage/main/sectionTitle';
 import OfferList from './OfferList';
 import PricingBox from './PricingBox';
 

@@ -1,6 +1,11 @@
-import React from 'react';
+import { Metadata } from 'next';
 import { GetCourse } from '@/backend/feature/course';
-import CourseManagement from '@/app/phuhuynh/course/courseList';
+import CourseManagement from '@/components/page/content/course/user/courseList';
+
+export const metadata: Metadata = {
+  title: 'Danh sách khóa học',
+  description: 'Trang danh sách khóa học trên hệ thống',
+};
 
 export default async function Course() {
   const courseData = await GetCourse();

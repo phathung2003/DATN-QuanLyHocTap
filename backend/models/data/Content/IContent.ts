@@ -30,3 +30,24 @@ export interface IContentList {
   contentCreateAt?: Date;
   contentLastEditDate?: Date | null;
 }
+
+export interface IContentCourseList {
+  courseID?: string;
+  unitID?: string;
+  unitName: string;
+  unitNo: number;
+  unitDescription: string | null;
+  unitUploadDate?: Date | null;
+  unitLastEditDate?: Date | null;
+  task: IContentTaskList[];
+}
+
+export interface IContentTaskList {
+  taskID?: string;
+  taskNo: number;
+  taskName: string;
+  taskDescription: string;
+  taskUploadDate?: Date;
+  taskLastEditDate?: Date | null;
+  content: IContentList;
+}

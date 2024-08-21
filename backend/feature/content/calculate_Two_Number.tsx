@@ -146,21 +146,21 @@ export function ResetError(
 //Phát nhạc đúng/sai
 export function PlayAnswerSoundEffect(isCorrect: boolean) {
   const audio = new Audio(
-    `/audio/${isCorrect ? 'correctAnswer' : 'wrongAnswer'}.wav`,
+    `/audio/${isCorrect ? 'correctAnswer' : 'wrongAnswer'}.ogg`,
   );
   audio.play();
 }
 
 //Phát nhạc chúc mừng
 export function PlayEndingSoundEffect(isWinning) {
-  const filePath = isWinning ? `/audio/endingWin.wav` : `/audio/endingLost.wav`;
+  const filePath = isWinning ? `/audio/endingWin.ogg` : `/audio/endingLost.ogg`;
   const audio = new Audio(filePath);
   audio.play();
 }
 
 //Phát nhạc mở đầu
 export function PlayOpeningSoundEffect() {
-  const audio = new Audio(`/audio/opening.wav`);
+  const audio = new Audio(`/audio/opening.ogg`);
   audio.play();
 }
 

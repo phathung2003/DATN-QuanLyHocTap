@@ -1,7 +1,13 @@
+import { Metadata } from 'next';
 import { GetTaskInfo } from '@/backend/feature/task';
 import { GetContentList } from '@/backend/feature/content';
-import TaskDetail from '@/components/page/content/task/taskDetail';
+import TaskDetail from '@/components/page/content/task/manager/taskDetail';
 import NotFoundPage from '@/components/page/other/notFound';
+
+export const metadata: Metadata = {
+  title: 'Quản lý nội dung',
+  description: 'Trang quản lý nội dung bài học',
+};
 
 interface ProductPageProps {
   params: {
@@ -11,7 +17,9 @@ interface ProductPageProps {
   };
 }
 
-export default async function CoursePage({ params }: ProductPageProps) {
+export default async function ContentManagementPage({
+  params,
+}: ProductPageProps) {
   const { courseID, unitID, taskID } = params;
 
   const task = await GetTaskInfo(courseID, unitID, taskID);
