@@ -19,7 +19,7 @@ const blogData: Blog[] = [
     id: 2,
     title: 'Được hỗ trợ nhiệt tình từ đội ngũ tâm huyết',
     paragraph:
-      'Với sự tâm huyết đến từ đội ngũ giảng viên & nhân viên tâm huyết của hệ thống tạo nên 1 môi trường rất bổ ích cho các bé nhỏ đồng thời hỗ trợ một hệ thống rất linh hoạt cho phụ huynh',
+      'Với sự tâm huyết đến từ đội ngũ nhân viên tâm huyết của hệ thống tạo nên 1 môi trường rất bổ ích cho các bé đồng thời hỗ trợ rất linh hoạt cho phụ huynh',
     image: '/images/homepageuser/blog2.jpg',
     author: {
       name: 'Trần Minh Hoàng',

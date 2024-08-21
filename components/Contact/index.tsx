@@ -16,7 +16,7 @@ export default function Contact() {
               <h2 className="mb-3 text-2xl font-bold text-black dark:text-white sm:text-3xl lg:text-2xl xl:text-3xl">
                 Có khó khăn ? Có chúng tôi ở đây
               </h2>
-              <p className="text-body-color mb-12 text-base font-medium">
+              <p className="text-body-color mb-12 text-base font-medium dark:text-slate-400">
                 Team chúng tôi sẽ hỗ trợ bạn qua email.
               </p>
               <form>

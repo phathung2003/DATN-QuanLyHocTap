@@ -8,7 +8,7 @@ const testimonialData: Testimonial[] = [
     name: 'Nguyễn Cẩm',
     designation: 'Phụ Huynh',
     content:
-      'Trang web này thực sự tiện ích và linh hoạt. Tôi rất hài lòng với cách nó giúp tôi quản lý việc học của con một cách hiệu quả',
+      'Trang web này thực sự tiện ích và linh hoạt. Tôi rất hài lòng với cách nó giúp tôi quản lý việc học của con một cách hiệu quả."',
     image: '/images/users/user01.png',
     star: 5,
   },
@@ -17,7 +17,7 @@ const testimonialData: Testimonial[] = [
     name: 'Trần Trọng Toàn',
     designation: 'Phụ huynh',
     content:
-      'Tôi rất ấn tượng với kho tài liệu học tập phong phú trên trang web. Con tôi có thể truy cập các trò chơi được xây dựng sẵn rất trực quan',
+      'Tôi rất ấn tượng với kho tài liệu học tập phong phú trên trang web. Con tôi có thể truy cập các trò chơi được xây dựng sẵn rất trực quan."',
     image: '/images/users/user01.png',
     star: 4,
   },
@@ -26,7 +26,7 @@ const testimonialData: Testimonial[] = [
     name: 'Minh Minh',
     designation: 'Phụ huynh',
     content:
-      'Điều tôi thích nhất ở trang web này là sự hỗ trợ tận tình và phản hồi nhanh chóng từ đội ngũ hỗ trợ',
+      'Điều tôi thích nhất ở trang web này là sự hỗ trợ tận tình và phản hồi nhanh chóng từ đội ngũ hỗ trợ, giảng viên cũng như các chức năng rất dễ sử dụng"',
     image: '/images/users/user01.png',
     star: 5,
   },

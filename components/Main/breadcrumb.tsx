@@ -17,7 +17,7 @@ const Breadcrumb = ({
                 <h1 className="mb-5 text-2xl font-bold text-black dark:text-white sm:text-3xl">
                   {pageName}
                 </h1>
-                <p className="text-body-color text-base font-medium leading-relaxed">
+                <p className="font-medium leading-relaxed text-slate-700 dark:text-slate-400">
                   {description}
                 </p>
               </div>
@@ -34,7 +34,7 @@ const Breadcrumb = ({
                     </Link>
                     <span className="border-body-color mr-3 block h-2 w-2 rotate-45 border-r-2 border-t-2"></span>
                   </li>
-                  <li className="text-base font-medium text-primary">
+                  <li className="text-base font-medium text-primary dark:text-blue-500">
                     {pageName}
                   </li>
                 </ul>

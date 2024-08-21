@@ -4,6 +4,12 @@ import ScrollToTop from '@/components/element/other/scrollToTop';
 import Link from 'next/link';
 import LoginForm from '@/app/(main)/login/loginForm';
 import LoginDecoration from '@/public/decoration/login-decoration';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Đăng nhập',
+  description: 'Đây là trang đăng nhập của web HungThanh',
+};
 
 export default function LoginnPage() {
   return (

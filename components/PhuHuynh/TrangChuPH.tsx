@@ -92,7 +92,7 @@ const TrangChuPH = () => {
               {/* btn thêm giao bài mới */}
               <Link
                 href="/phuhuynh/giaobai"
-                className="me-2 inline-flex items-center gap-2 rounded-lg bg-rose-700 p-2.5 text-center text-sm font-medium text-white hover:bg-rose-800 focus:outline-none focus:ring-4 focus:ring-rose-300 dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800"
+                className="me-2 inline-flex items-center gap-2 rounded-lg bg-rose-700 p-2.5 text-center text-sm font-medium text-white hover:bg-rose-800 focus:outline-none focus:ring-4 focus:ring-rose-300 dark:bg-rose-600 dark:bg-slate-700 dark:hover:bg-graydark/80 dark:focus:ring-rose-800"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

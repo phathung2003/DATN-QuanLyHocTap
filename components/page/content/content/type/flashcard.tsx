@@ -105,7 +105,7 @@ export default function Flashcard(
                     </div>
                   </td>
                   <td id="subject" className="px-4">
-                    {flashcardData.firstSideText}
+                    {flashcardData.secondSideText}
                   </td>
 
                   <td id="managerOption">

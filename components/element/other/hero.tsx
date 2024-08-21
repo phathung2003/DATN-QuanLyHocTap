@@ -67,10 +67,9 @@ export default function Hero() {
                       damping={1e-1}
                       triggerOnce={true}
                     >
-                      <p className="dark:text-body-color-dark text-body-color mb-12 text-left text-base !leading-relaxed sm:text-lg md:text-xl">
+                      <p className="mb-12 text-left text-base !leading-relaxed text-slate-700 dark:text-slate-400 sm:text-lg md:text-xl">
                         Đăng ký ngay để theo dõi mọi bước phát triển của con bạn
-                        và giúp bạn dễ dàng theo dõi tiến trình học tập và phát
-                        triển của con
+                        và giúp bạn dễ dàng theo dõi tiến trình học tập của con
                       </p>
                     </Fade>
                     <Fade
