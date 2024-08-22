@@ -13,7 +13,7 @@ export default function NewsLetterBox() {
       <h3 className="mb-4 text-2xl font-bold leading-tight text-black dark:text-white">
         Đăng ký tài khoản ngay để được hỗ trợ nhanh nhất
       </h3>
-      <p className="border-body-color text-small mb-11 border-b border-opacity-25 pb-11 leading-relaxed text-slate-700 dark:border-white dark:border-opacity-25">
+      <p className="border-body-color text-small mb-11 border-b border-opacity-25 pb-11 leading-relaxed text-slate-700 dark:border-white dark:border-opacity-25 dark:text-slate-400">
         Với tài khoản riêng, bạn sẽ dễ dàng truy cập để quản lý, giải quyết vấn
         đề một cách nhanh chóng và trải nghiệm các tính năng độc quyền chỉ dành
         cho thành viên.

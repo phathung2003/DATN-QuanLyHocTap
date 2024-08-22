@@ -2,8 +2,8 @@ import SectionTitle from '@/components/page/homepage/main/sectionTitle';
 
 //Icon
 import CheckIcon from '@/public/vector/check.svg';
-import AboutImage from '@/public/vector/about-image.svg';
-import AboutImageDark from '@/public/vector/about-image-dark.svg';
+import AboutImage from '@/public/vector/about.svg';
+import AboutImageDark from '@/public/vector/about-dark.svg';
 
 interface ListProps {
   text: string;

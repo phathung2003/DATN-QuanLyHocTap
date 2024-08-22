@@ -12,8 +12,8 @@ const AboutPage = () => {
   return (
     <>
       <Breadcrumb
-        pageName="Giới thiệu"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+        pageName="Trang giới thiệu"
+        description="Trang web hỗ trợ quản lý việc học của trẻ mầm non được thiết kế nhằm giúp phụ huynh theo dõi và hỗ trợ quá trình học tập của con em mình một cách hiệu qu với giao diện thân thiện và dễ sử dụng."
       />
       <AboutSectionOne />
       <AboutSectionTwo />

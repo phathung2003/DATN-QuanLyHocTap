@@ -62,18 +62,18 @@ export default function Header({ name }) {
                 } `}
               >
                 <Image
-                  src="/images/logo/logo.svg"
+                  src="/images/logo/logo-new.svg"
                   alt="logo"
-                  width={140}
+                  width={160}
                   height={30}
-                  className="h-auto max-h-[30px] w-auto max-w-[140px] dark:hidden"
+                  className="h-auto max-h-[48px] w-auto max-w-[160px] dark:hidden"
                 />
                 <Image
-                  src="/images/logo/logo.svg"
+                  src="/images/logo/logo-dark-new.svg"
                   alt="logo"
-                  width={140}
+                  width={160}
                   height={30}
-                  className="hidden h-auto max-h-[30px] w-auto max-w-[140px] dark:block"
+                  className="hidden h-auto max-h-[48px] w-auto max-w-[160px] dark:block"
                 />
               </Link>
             </div>
@@ -117,8 +117,8 @@ export default function Header({ name }) {
                             href={menuItem.path}
                             className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 ${
                               usePathName === menuItem.path
-                                ? 'text-primary dark:text-white'
-                                : 'text-dark hover:text-primary dark:text-white/70 dark:hover:text-white'
+                                ? 'text-rose-600 dark:text-white'
+                                : 'text-dark hover:text-rose-600 dark:text-white/70 dark:hover:text-white'
                             }`}
                           >
                             {menuItem.title}
@@ -152,7 +152,7 @@ export default function Header({ name }) {
                     </Link>
                     <Link
                       href="/register"
-                      className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-sm bg-[#FF5580] px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
+                      className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-b-full rounded-l-full bg-[#FF5580] px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
                     >
                       Đăng Ký
                     </Link>
