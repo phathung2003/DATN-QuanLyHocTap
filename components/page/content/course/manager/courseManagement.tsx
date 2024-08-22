@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { SearchCourse, DeleteCourse } from '@/backend/feature/course';
+import { SearchCourse, DeleteCourse } from '@/backend/feature/content/course';
 import ICourse from '@/backend/models/data/ICourse';
 
 //Form

@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
-import { SearchCourse } from '@/backend/feature/course';
+import { SearchCourse } from '@/backend/feature/content/course';
 import ICourse from '@/backend/models/data/ICourse';
 import { KeepDateOnly } from '@/backend/feature/general';
 //Button

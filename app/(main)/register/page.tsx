@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { HomePage } from '@/backend/routers';
-import { CookieCheck } from '@/backend/feature/validate';
+import { CookieCheck } from '@/backend/feature/user/validate';
 import RegisterPage from '@/components/page/register/user/registerPage';
 
 export const metadata: Metadata = {

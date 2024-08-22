@@ -6,7 +6,11 @@ import {
   DefaultTaskErrorValue,
 } from '@/backend/defaultData/task';
 import { IContentList } from '@/backend/models/data/Content/IContent';
-import { ResetError, EditTask, DeleteTask } from '@/backend/feature/task';
+import {
+  ResetError,
+  EditTask,
+  DeleteTask,
+} from '@/backend/feature/content/task';
 import ITask from '@/backend/models/data/ITask';
 import DeleteForm from '@/components/form/deleteModal';
 import SchemaTask from '@/backend/validationSchema/task/taskSchema';

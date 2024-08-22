@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
-import { SearchUnit } from '@/backend/feature/unit';
+import { SearchUnit } from '@/backend/feature/content/unit';
 import { KeepDateOnly } from '@/backend/feature/general';
 import IUnit from '@/backend/models/data/IUnit';
 import ICourse from '@/backend/models/data/ICourse';

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import TrangChuAd from '@/components/Dashboard/TrangChuAd';
+import TrangChuAd from '@/components/page/dashboard/adminDashboard';
 
 export const metadata: Metadata = {
   title: 'Trang chủ',

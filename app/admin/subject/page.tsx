@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { GetSubject } from '@/backend/feature/subject';
+import { GetSubject } from '@/backend/feature/category/subject';
 import SubjectManagement from '@/components/page/category/subjectManagement';
 
 export const metadata: Metadata = {

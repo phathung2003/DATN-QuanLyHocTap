@@ -16,6 +16,12 @@ export function RemoveAccent(data: string) {
   }
 }
 
+//Lấy chữ cuối cùng
+export function GetLastName(text: string): string {
+  const words = text.trim().split(' ');
+  return words[words.length - 1];
+}
+
 //Tạo mã ID
 export function GenerateID(input: string | null) {
   // Normalize the string to remove accents

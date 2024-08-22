@@ -10,7 +10,7 @@ import {
   PlayEndingSoundEffect,
   Sleep,
   FormatTime,
-} from '@/backend/feature/content/calculate_Two_Number';
+} from '@/backend/feature/content/contentType/calculate_Two_Number';
 
 //Image
 const correctAnswerImage = '/images/calculateTwoNumber/correctAnwser.png';

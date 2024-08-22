@@ -5,7 +5,7 @@ import { Formik, Form, Field } from 'formik';
 import {
   ResetError,
   AddFlashcardContent,
-} from '@/backend/feature/content/flashcard';
+} from '@/backend/feature/content/contentType/flashcard';
 import {
   DefaultFlashcardValue,
   DefaultFlashcardErrorMessage,

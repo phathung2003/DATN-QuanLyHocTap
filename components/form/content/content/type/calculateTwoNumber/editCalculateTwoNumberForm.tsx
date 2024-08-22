@@ -4,12 +4,12 @@ import { Formik, Form, Field } from 'formik';
 import {
   ResetError,
   EditCalculate_Two_Number,
-} from '@/backend/feature/content/calculate_Two_Number';
+} from '@/backend/feature/content/contentType/calculate_Two_Number';
 import {
   Calculate_Two_NumberEditDefaultValue,
   DefaultCalculate_Two_NumberError,
 } from '@/backend/defaultData/content/calculate_Two_Number';
-import { DeleteContentDetail } from '@/backend/feature/content';
+import { DeleteContentDetail } from '@/backend/feature/content/content';
 import { ICalculateTwoNumbersContent } from '@/backend/models/data/Content/ICalculateTwoNumbers';
 import SchemaCalculate_Two_Number from '@/backend/validationSchema/content/calculate_Two_Number/Calculate_Two_NumberSchema';
 import FormikShowError from '@/components/element/notification/formikForm';

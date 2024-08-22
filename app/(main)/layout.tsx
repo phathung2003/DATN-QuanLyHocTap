@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { Providers } from '@/app/providers';
-import { CookieGetInfo } from '@/backend/feature/validate';
-import Footer from '@/components/Footer';
-import Header from '@/components/Header/headerUser';
+import { CookieGetInfo } from '@/backend/feature/user/validate';
+import Footer from '@/components/footer/footerHomepage';
+import Header from '@/components/header/homepage/headerDefault';
 import ProgressBarProvider from '@/components/element/other/progressBarProvider';
 
 export const metadata: Metadata = {

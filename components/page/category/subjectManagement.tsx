@@ -1,7 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { ISubject } from '@/backend/models/data/ISubject';
-import { DeleteSubject, SearchSubject } from '@/backend/feature/subject';
+import {
+  DeleteSubject,
+  SearchSubject,
+} from '@/backend/feature/category/subject';
 
 //Form
 import AddSubjectForm from '@/components/form/category/subject/addSubjectForm';

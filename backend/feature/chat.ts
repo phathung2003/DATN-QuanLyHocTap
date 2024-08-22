@@ -1,5 +1,5 @@
 import { AddChatRoom, AddChatMessage } from '../database/chat';
-import { GetUserID } from '@/backend/feature/validate';
+import { GetUserID } from '@/backend/feature/user/validate';
 import { HomePage, ChatRoom } from '@/backend/routers';
 import { IUserRoom, IUserChatInfo } from '@/backend/models/data/IChat';
 import { RemoveAccent } from './general';

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { DefaultGradeValue } from '@/backend/defaultData/grade';
-import { AddGrade, ResetError } from '@/backend/feature/grade';
+import { AddGrade, ResetError } from '@/backend/feature/category/grade';
 import { DefaultGradeErrorValue } from '@/backend/defaultData/grade';
 import SchemaGrade from '@/backend/validationSchema/grade/gradeSchema';
 import FormikShowError from '@/components/element/notification/formikForm';

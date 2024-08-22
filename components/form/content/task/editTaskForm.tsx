@@ -1,7 +1,11 @@
 'use client';
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { ResetError, EditTask, DeleteTask } from '@/backend/feature/task';
+import {
+  ResetError,
+  EditTask,
+  DeleteTask,
+} from '@/backend/feature/content/task';
 import {
   TaskEditDefaultValue,
   DefaultTaskErrorValue,

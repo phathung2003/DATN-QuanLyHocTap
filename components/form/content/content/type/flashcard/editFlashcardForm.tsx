@@ -7,7 +7,7 @@ import {
   ResetError,
   EditFlashcardContent,
   DeleteFlashcardContent,
-} from '@/backend/feature/content/flashcard';
+} from '@/backend/feature/content/contentType/flashcard';
 import {
   FlashcardEditDefaultValue,
   DefaultFlashcardErrorMessage,

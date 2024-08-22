@@ -3,14 +3,18 @@ import Image from 'next/image';
 import { Formik, Form, Field } from 'formik';
 import React, { useState, useEffect } from 'react';
 import { IGrade } from '@/backend/models/data/IGrade';
-import { GetGrade } from '@/backend/feature/grade';
+import { GetGrade } from '@/backend/feature/category/grade';
 import { ISubject } from '@/backend/models/data/ISubject';
-import { GetSubject } from '@/backend/feature/subject';
+import { GetSubject } from '@/backend/feature/category/subject';
 import {
   CourseEditDefaultValue,
   DefaultCourseErrorValue,
 } from '@/backend/defaultData/course';
-import { EditCourse, DeleteCourse, ResetError } from '@/backend/feature/course';
+import {
+  EditCourse,
+  DeleteCourse,
+  ResetError,
+} from '@/backend/feature/content/course';
 import ICourse from '@/backend/models/data/ICourse';
 import SchemaCourse from '@/backend/validationSchema/course/courseSchema';
 import FormikShowError from '@/components/element/notification/formikForm';

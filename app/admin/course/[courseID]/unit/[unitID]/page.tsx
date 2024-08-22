@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import { GetUnitInfo } from '@/backend/feature/unit';
-import { GetTaskList } from '@/backend/feature/task';
+import { GetUnitInfo } from '@/backend/feature/content/unit';
+import { GetTaskList } from '@/backend/feature/content/task';
 import UnitDetail from '@/components/page/content/unit/manager/unitDetail';
 import NotFoundPage from '@/components/page/other/notFound';
 
