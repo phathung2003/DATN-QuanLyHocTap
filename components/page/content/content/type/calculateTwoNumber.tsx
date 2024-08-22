@@ -1,5 +1,5 @@
 import { IContentList } from '@/backend/models/data/Content/IContent';
-import { DeleteContentDetail } from '@/backend/feature/content';
+import { DeleteContentDetail } from '@/backend/feature/content/content';
 import { ICalculateTwoNumbersContent } from '@/backend/models/data/Content/ICalculateTwoNumbers';
 
 //Form

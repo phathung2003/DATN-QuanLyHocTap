@@ -1,4 +1,4 @@
-import { GetGrade } from '@/backend/feature/grade';
+import { GetGrade } from '@/backend/feature/category/grade';
 import { Metadata } from 'next';
 import GradeManagement from '@/components/page/category/gradeManagement';
 

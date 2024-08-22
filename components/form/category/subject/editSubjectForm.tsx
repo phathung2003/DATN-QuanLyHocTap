@@ -6,7 +6,7 @@ import {
   EditSubject,
   ResetError,
   DeleteSubject,
-} from '@/backend/feature/subject';
+} from '@/backend/feature/category/subject';
 import { ISubject } from '@/backend/models/data/ISubject';
 import { SubjectEditDefaultValue } from '@/backend/defaultData/subject';
 import { DefaultSubjectErrorValue } from '@/backend/defaultData/subject';

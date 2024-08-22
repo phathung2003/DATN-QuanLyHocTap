@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { ContentType } from '@/backend/globalVariable';
-import { ResetError, AddContent } from '@/backend/feature/content';
+import { ResetError, AddContent } from '@/backend/feature/content/content';
 import {
   DefaultContentValue,
   DefaultContentErrorValue,

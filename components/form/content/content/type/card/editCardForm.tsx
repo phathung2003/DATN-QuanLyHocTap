@@ -6,7 +6,7 @@ import {
   ResetError,
   EditCardContent,
   DeleteCardContent,
-} from '@/backend/feature/content/card';
+} from '@/backend/feature/content/contentType/card';
 import {
   CardEditDefaultValue,
   DefaultCardErrorMessage,

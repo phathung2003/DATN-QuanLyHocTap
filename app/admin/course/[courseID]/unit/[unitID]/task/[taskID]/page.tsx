@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import { GetTaskInfo } from '@/backend/feature/task';
-import { GetContentList } from '@/backend/feature/content';
+import { GetTaskInfo } from '@/backend/feature/content/task';
+import { GetContentList } from '@/backend/feature/content/content';
 import TaskDetail from '@/components/page/content/task/manager/taskDetail';
 import NotFoundPage from '@/components/page/other/notFound';
 

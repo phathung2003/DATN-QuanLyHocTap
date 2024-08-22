@@ -6,8 +6,12 @@ import { IGrade } from '@/backend/models/data/IGrade';
 import { ISubject } from '@/backend/models/data/ISubject';
 import { CourseEditDefaultValue } from '@/backend/defaultData/course';
 import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
-import { SearchUnit, DeleteUnit } from '@/backend/feature/unit';
-import { EditCourse, ResetError, DeleteCourse } from '@/backend/feature/course';
+import { SearchUnit, DeleteUnit } from '@/backend/feature/content/unit';
+import {
+  EditCourse,
+  ResetError,
+  DeleteCourse,
+} from '@/backend/feature/content/course';
 import IUnit from '@/backend/models/data/IUnit';
 import ICourse from '@/backend/models/data/ICourse';
 import SchemaCourse from '@/backend/validationSchema/course/courseSchema';

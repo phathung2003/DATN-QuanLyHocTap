@@ -1,6 +1,6 @@
 import React from 'react';
 import MessagePage from '@/components/page/chat/messagePage';
-import { GetUserID } from '@/backend/feature/validate';
+import { GetUserID } from '@/backend/feature/user/validate';
 import { GetOpponentInfo } from '@/backend/database/chat';
 
 interface IMessagePageProps {

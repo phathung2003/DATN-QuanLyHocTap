@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { IContentList } from '@/backend/models/data/Content/IContent';
 import { ToTitleCase } from '@/backend/database/generalFeature';
 import { ContentType } from '@/backend/globalVariable';
-import { DeleteContent } from '@/backend/feature/content';
+import { DeleteContent } from '@/backend/feature/content/content';
 
 //Form
 import EditContentForm from '@/components/form/content/content/editContentForm';

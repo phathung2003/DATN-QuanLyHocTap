@@ -4,7 +4,11 @@ import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { IGrade } from '@/backend/models/data/IGrade';
 import { GradeEditDefaultValue } from '@/backend/defaultData/grade';
-import { EditGrade, ResetError, DeleteGrade } from '@/backend/feature/grade';
+import {
+  EditGrade,
+  ResetError,
+  DeleteGrade,
+} from '@/backend/feature/category/grade';
 import { DefaultGradeErrorValue } from '@/backend/defaultData/grade';
 import SchemaGrade from '@/backend/validationSchema/grade/gradeSchema';
 import FormikShowError from '@/components/element/notification/formikForm';

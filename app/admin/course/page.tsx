@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { GetCourse } from '@/backend/feature/course';
+import { GetCourse } from '@/backend/feature/content/course';
 import CourseManagement from '@/components/page/content/course/manager/courseManagement';
 
 export const metadata: Metadata = {

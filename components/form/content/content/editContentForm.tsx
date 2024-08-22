@@ -5,7 +5,7 @@ import {
   ResetError,
   EditContent,
   DeleteContent,
-} from '@/backend/feature/content';
+} from '@/backend/feature/content/content';
 import {
   ContentEditDefaultValue,
   DefaultContentErrorValue,

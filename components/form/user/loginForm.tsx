@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { HandelSubmit } from '@/backend/feature/login';
+import { Login } from '@/backend/feature/user/user';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import SchemaLogin from '@/backend/validationSchema/loginSchema';
 import DefaultLoginValue from '@/backend/defaultData/login';
@@ -11,7 +11,7 @@ export default function LoginForm() {
     <Formik
       initialValues={DefaultLoginValue()}
       validationSchema={SchemaLogin}
-      onSubmit={(data) => HandelSubmit(data, setErrorMessage)}
+      onSubmit={(data) => Login(data, setErrorMessage)}
     >
       <Form>
         <div id="info_Login" className="mb-8">

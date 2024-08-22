@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { IGrade } from '@/backend/models/data/IGrade';
-import { DeleteGrade, SearchGrade } from '@/backend/feature/grade';
+import { DeleteGrade, SearchGrade } from '@/backend/feature/category/grade';
 
 //Form
 import AddGradeForm from '@/components/form/category/grade/addGradeForm';

@@ -6,7 +6,7 @@ import {
   DefaultRegisterValue,
   DefaultRegisteErrorValue,
 } from '@/backend/defaultData/register';
-import { handelSubmit, ResetError } from '@/backend/feature/register';
+import { Register, ResetRegisterError } from '@/backend/feature/user/user';
 
 export default function RegisterForm() {
   //Ghi nhận lỗi báo từ server
@@ -15,7 +15,7 @@ export default function RegisterForm() {
     <Formik
       initialValues={DefaultRegisterValue()}
       validationSchema={SchemaRegister}
-      onSubmit={(data) => handelSubmit(data, setError)}
+      onSubmit={(data) => Register(data, setError)}
     >
       {({ setFieldValue }) => (
         <Form>
@@ -31,7 +31,7 @@ export default function RegisterForm() {
               name="name"
               type="text"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                ResetError(e, setFieldValue, setError)
+                ResetRegisterError(e, setFieldValue, setError)
               }
               placeholder="Họ và tên"
               autoComplete="off"
@@ -54,7 +54,7 @@ export default function RegisterForm() {
               name="username"
               type="text"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                ResetError(e, setFieldValue, setError)
+                ResetRegisterError(e, setFieldValue, setError)
               }
               placeholder="Chọn tên đăng nhập của bạn"
               autoComplete="off"
@@ -78,7 +78,7 @@ export default function RegisterForm() {
               name="phoneNumber"
               type="text"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                ResetError(e, setFieldValue, setError)
+                ResetRegisterError(e, setFieldValue, setError)
               }
               placeholder="Số điện thoại của bạn"
               autoComplete="off"
@@ -102,7 +102,7 @@ export default function RegisterForm() {
               name="email"
               type="email"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                ResetError(e, setFieldValue, setError)
+                ResetRegisterError(e, setFieldValue, setError)
               }
               placeholder="Địa chỉ email của bạn"
               autoComplete="off"
@@ -126,7 +126,7 @@ export default function RegisterForm() {
               name="password"
               type="password"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                ResetError(e, setFieldValue, setError)
+                ResetRegisterError(e, setFieldValue, setError)
               }
               placeholder="••••••"
               autoComplete="off"
@@ -149,7 +149,7 @@ export default function RegisterForm() {
               name="rePassword"
               type="password"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                ResetError(e, setFieldValue, setError)
+                ResetRegisterError(e, setFieldValue, setError)
               }
               placeholder="••••••"
               autoComplete="off"

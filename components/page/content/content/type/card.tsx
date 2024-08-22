@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { IContentList } from '@/backend/models/data/Content/IContent';
 import { ICardContent } from '@/backend/models/data/Content/ICard';
-import { DeleteCardContent } from '@/backend/feature/content/card';
+import { DeleteCardContent } from '@/backend/feature/content/contentType/card';
 
 //Form
 import EditCardForm from '@/components/form/content/content/type/card/editCardForm';

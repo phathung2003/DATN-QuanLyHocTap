@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
-import { GetCourseInfo } from '@/backend/feature/course';
-import { GetUnitList } from '@/backend/feature/unit';
-import { GetSubject } from '@/backend/feature/subject';
-import { GetGrade } from '@/backend/feature/grade';
+import { GetCourseInfo } from '@/backend/feature/content/course';
+import { GetUnitList } from '@/backend/feature/content/unit';
+import { GetSubject } from '@/backend/feature/category/subject';
+import { GetGrade } from '@/backend/feature/category/grade';
 import NotFoundPage from '@/components/page/other/notFound';
 import CourseDetail from '@/components/page/content/course/manager/courseDetail';
 

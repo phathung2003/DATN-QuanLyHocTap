@@ -3,8 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { IUnitError } from '@/backend/models/messages/IUnitMessage';
 import { UnitEditDefaultValue } from '@/backend/defaultData/unit';
-import { SearchTask, DeleteTask } from '@/backend/feature/task';
-import { EditUnit, ResetError, DeleteUnit } from '@/backend/feature/unit';
+import { SearchTask, DeleteTask } from '@/backend/feature/content/task';
+import {
+  EditUnit,
+  ResetError,
+  DeleteUnit,
+} from '@/backend/feature/content/unit';
 import ITask from '@/backend/models/data/ITask';
 import IUnit from '@/backend/models/data/IUnit';
 import SchemaUnit from '@/backend/validationSchema/unit/unitSchema';

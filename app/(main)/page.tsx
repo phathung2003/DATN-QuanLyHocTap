@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { CookieGetInfo } from '@/backend/feature/validate';
+import { CookieGetInfo } from '@/backend/feature/user/validate';
 
 import AboutSectionOne from '@/components/page/homepage/about/aboutSectionOne';
 import Blog from '@/components/page/homepage/blog';

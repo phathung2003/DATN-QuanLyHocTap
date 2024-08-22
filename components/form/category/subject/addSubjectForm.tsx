@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { DefaultSubjectValue } from '@/backend/defaultData/subject';
-import { AddSubject, ResetError } from '@/backend/feature/subject';
+import { AddSubject, ResetError } from '@/backend/feature/category/subject';
 import { DefaultSubjectErrorValue } from '@/backend/defaultData/subject';
 import SchemaSubject from '@/backend/validationSchema/subject/subjectSchema';
 import FormikShowError from '@/components/element/notification/formikForm';

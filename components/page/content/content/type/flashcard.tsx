@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { IContentList } from '@/backend/models/data/Content/IContent';
 import { IFlashcardContent } from '@/backend/models/data/Content/IFlashcard';
-import { DeleteFlashcardContent } from '@/backend/feature/content/flashcard';
+import { DeleteFlashcardContent } from '@/backend/feature/content/contentType/flashcard';
 
 //Form
 import EditFlashcardForm from '@/components/form/content/content/type/flashcard/editFlashcardForm';

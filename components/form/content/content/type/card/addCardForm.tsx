@@ -2,7 +2,10 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { ResetError, AddCardContent } from '@/backend/feature/content/card';
+import {
+  ResetError,
+  AddCardContent,
+} from '@/backend/feature/content/contentType/card';
 import {
   DefaultCardValue,
   DefaultCardErrorMessage,

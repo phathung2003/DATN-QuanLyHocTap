@@ -4,7 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import {
   ResetError,
   AddCalculate_Two_Number,
-} from '@/backend/feature/content/calculate_Two_Number';
+} from '@/backend/feature/content/contentType/calculate_Two_Number';
 import {
   DefaultCalculate_Two_NumberValue,
   DefaultCalculate_Two_NumberError,
