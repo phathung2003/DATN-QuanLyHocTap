@@ -70,7 +70,7 @@ const MessagePage: React.FC<IChatRoom> = ({
   }, [opponentID, setOnline]);
 
   return (
-    <div className="flex flex-1 flex-col rounded-md bg-slate-200 dark:bg-graydark">
+    <div className="flex flex-1 flex-col rounded-md bg-slate-700 dark:bg-graydark">
       <div className="flex items-center space-x-4 rounded-md border-b border-slate-200 p-2 dark:border-slate-700">
         <div className="relative flex items-center">
           <Image
@@ -86,7 +86,7 @@ const MessagePage: React.FC<IChatRoom> = ({
         </div>
 
         <div className="flex-1">
-          <div className=" text-xl font-bold">{opponentName}</div>
+          <div className="text-xl font-bold text-white">{opponentName}</div>
 
           <div className=" min-h-[20px] text-sm font-normal">
             {userInfo.isOnline
@@ -97,7 +97,7 @@ const MessagePage: React.FC<IChatRoom> = ({
       </div>
 
       {/* Nội dung tin nhắn */}
-      <div className="flex h-[60vh] flex-col space-y-3 overflow-y-auto bg-slate-100 p-4 dark:bg-slate-900">
+      <div className="flex h-[50vh] flex-col space-y-3 overflow-y-auto bg-slate-300 p-4 dark:bg-slate-600">
         {message.map((data, index) => {
           let showDivider = false;
           if (index > 0) {
@@ -126,7 +126,7 @@ const MessagePage: React.FC<IChatRoom> = ({
                 className={`flex ${data.isOwnMessage ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`min-w-[115px] max-w-md break-words rounded-lg p-3 ${data.isOwnMessage ? ' bg-purple-600 text-right text-white' : 'bg-slate-300 dark:bg-slate-700'}`}
+                  className={`min-w-[115px] max-w-md break-words rounded-xl p-3 ${data.isOwnMessage ? ' bg-blue-600 text-right text-white' : 'bg-slate-100 dark:bg-slate-700'}`}
                 >
                   <div>{data.message}</div>
                   {data.uploadTime && (

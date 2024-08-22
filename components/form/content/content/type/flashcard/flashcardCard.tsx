@@ -47,7 +47,7 @@ export default FlashcardCard;
 function Card(image, text) {
   return (
     <div
-      className={`backface-hidden absolute h-full w-full items-center justify-center bg-slate-300 text-4xl  dark:bg-slate-500 ${image == null || text == null ? 'flex' : ''}`}
+      className={`backface-hidden absolute h-full w-full items-center justify-center rounded-lg bg-slate-200 text-4xl dark:bg-slate-500 ${image == null || text == null ? 'flex' : ''}`}
     >
       {image != null && (
         <div
@@ -59,6 +59,7 @@ function Card(image, text) {
             priority
             alt="image"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ objectFit: 'contain' }}
           />
         </div>
       )}

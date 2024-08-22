@@ -78,7 +78,7 @@ function Card(data: ICardContent) {
   return (
     <div className="relative m-2 h-64 w-96 cursor-pointer">
       <div
-        className={`absolute h-full w-full items-center justify-center bg-slate-300 text-4xl dark:bg-slate-500 ${data.image == null || data.text == null || data.text == '' ? 'flex' : ''}`}
+        className={`bg-slate-2q00 absolute h-full w-full items-center justify-center rounded-lg text-4xl dark:bg-slate-500 ${data.image == null || data.text == null || data.text == '' ? 'flex' : ''}`}
       >
         {data.image != null && (
           <div
@@ -90,6 +90,7 @@ function Card(data: ICardContent) {
               priority
               alt="image"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{ objectFit: 'contain' }} // set vầy để hình nó vừa khung không bị bóp méo thay vì dùng style={{ objectFit: 'fill' }}
             />
           </div>
         )}

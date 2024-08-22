@@ -77,7 +77,7 @@ export default function Card(
                         fill
                         sizes="(max-width: 100px) 100vw, 100px"
                         loading="lazy"
-                        style={{ objectFit: 'fill' }} // Use the style prop to set object-fit
+                        style={{ objectFit: 'contain' }} // Use the style prop to set object-fit
                       />
                     </div>
                   </td>

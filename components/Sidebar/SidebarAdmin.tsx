@@ -5,7 +5,6 @@ import Link from 'next/link';
 import classNames from 'classnames';
 
 //Icon
-import CalendarIcon from '@/public/vector/calendar.svg';
 import LogoIcon from '@/public/vector/logo.svg';
 import LessonIcon from '@/public/vector/lesson.svg';
 import AccountIcon from '@/public/vector/table.svg';
@@ -29,11 +28,6 @@ const menuItems = [
     label: 'Quản lý khóa học',
     icon: LessonIcon,
     link: '/admin/course',
-  },
-  {
-    label: 'Quản lý bài viết',
-    icon: CalendarIcon,
-    link: '/admin/qlbaiviet',
   },
   {
     label: 'Quản lý tài khoản',
@@ -87,7 +81,7 @@ export default function Sidebar() {
               <div key={index}>
                 <Link
                   href={menu.link}
-                  className={`flex w-full items-center gap-2.5 font-medium text-bodydark1 ${pathname === menu.link && 'w-full bg-graydark dark:bg-meta-4'} ${open ? 'rounded-xl duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4' : ''}`}
+                  className={`my-1.5 flex w-full items-center gap-2.5 font-medium text-bodydark1 ${pathname === menu.link && 'w-full bg-graydark dark:bg-meta-4'} ${open ? 'rounded-xl duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4' : ''}`}
                 >
                   <div
                     className={`flex h-full items-center py-4 ${open ? 'px-3' : 'rounded-2xl p-4 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4'}`}

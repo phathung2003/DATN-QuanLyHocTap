@@ -382,7 +382,7 @@ const CourseDetail: React.FC<{
                 {searchUnit.map((unitData) => (
                   <tr
                     key={unitData.unitNo}
-                    className="dark:border-gray-700 border-b border-slate-200 text-sm text-slate-800 hover:bg-slate-300 dark:hover:bg-slate-600"
+                    className="dark:border-gray-700 border-b border-slate-200 text-sm text-slate-800 hover:bg-slate-300 dark:text-slate-200 dark:hover:bg-slate-600"
                   >
                     <td id="unitID" className="w-[5rem] text-center">
                       {unitData.unitNo}

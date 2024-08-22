@@ -78,7 +78,7 @@ export default function Sidebar() {
               <div key={index}>
                 <Link
                   href={menu.link}
-                  className={`flex w-full items-center gap-2.5 font-medium text-bodydark1 ${pathname === menu.link && 'w-full bg-white text-slate-700 dark:bg-meta-4 dark:text-slate-200'} ${open ? 'rounded-xl duration-300 ease-in-out hover:bg-white hover:text-slate-700 dark:hover:bg-meta-4 dark:hover:text-white' : ''}`}
+                  className={`my-1.5 flex w-full items-center gap-2.5 font-medium text-bodydark1 ${pathname === menu.link && 'w-full bg-white text-slate-700 dark:bg-meta-4 dark:text-slate-200'} ${open ? 'rounded-xl duration-300 ease-in-out hover:bg-white hover:text-slate-700 dark:hover:bg-meta-4 dark:hover:text-white' : ''}`}
                 >
                   <div
                     className={`flex h-full items-center py-4 ${open ? 'px-3' : 'rounded-2xl p-4 duration-300 ease-in-out hover:bg-white hover:text-slate-700 dark:hover:bg-meta-4 dark:hover:text-white'}`}

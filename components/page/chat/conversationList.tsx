@@ -71,7 +71,7 @@ const ConversationList: React.FC<Chat> = ({ userID }) => {
                 onClick={() => setCurrent(friend.chatRoomID)}
                 href={`/admin/support/${friend.chatRoomID}`}
                 key={index}
-                className="flex cursor-pointer items-center space-x-4 rounded-md border-b border-slate-300 bg-slate-50 p-2 hover:bg-slate-300 dark:bg-graydark"
+                className="flex cursor-pointer items-center space-x-4 rounded-md border-b border-slate-300 bg-slate-50 p-2 hover:bg-slate-200 dark:bg-graydark"
               >
                 <div className="relative flex items-center">
                   <Image

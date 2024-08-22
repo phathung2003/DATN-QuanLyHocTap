@@ -15,7 +15,7 @@ const TrangChuAd: React.FC = () => {
         </CardDataStats>
 
         <CardDataStats
-          title="Tổng Số Bài Viết"
+          title="Tổng Số Khóa Học"
           total="1,2K"
           rate="1.35%"
           levelUp
@@ -32,7 +32,12 @@ const TrangChuAd: React.FC = () => {
           <AccountIcon className="fill-primary dark:fill-white" />
         </CardDataStats>
 
-        <CardDataStats title="Tổng Số..." total="3.456" rate="0.95%" levelDown>
+        <CardDataStats
+          title="Tổng Số Môn Học"
+          total="456"
+          rate="0.95%"
+          levelDown
+        >
           <UsersIcon className="fill-primary dark:fill-white" />
         </CardDataStats>
       </div>

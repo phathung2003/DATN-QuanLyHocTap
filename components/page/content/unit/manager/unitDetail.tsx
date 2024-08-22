@@ -278,7 +278,7 @@ const UnitDetail: React.FC<{
                   .map((data) => (
                     <tr
                       key={data.taskNo}
-                      className="dark:border-gray-700 border-b border-slate-200 text-sm text-slate-800 hover:bg-slate-300 dark:hover:bg-slate-600"
+                      className="dark:border-gray-700 border-b border-slate-200 text-sm text-slate-800 hover:bg-slate-300 dark:text-slate-200 dark:hover:bg-slate-600"
                     >
                       <td id="taskID" className="w-[5rem] text-center">
                         {data.taskNo}
