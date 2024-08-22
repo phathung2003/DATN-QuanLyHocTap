@@ -10,6 +10,7 @@ import { DefaultCourseErrorValue } from '@/backend/defaultData/course';
 import { ICourseError } from '@/backend/models/messages/ICourseMessage';
 import ICourse from '@/backend/models/data/ICourse';
 import SystemMessage from '@/backend/messages/systemMessage';
+import { GetCourseListWithUnit } from '@/backend/database/course';
 
 //Lấy danh sách khóa học
 export async function GetCourse() {
@@ -19,6 +20,17 @@ export async function GetCourse() {
   );
   const info: ICourse[] = await response.json();
   if (Array.isArray(info)) {
+    return info;
+  }
+  return [];
+}
+
+//Lấy danh sách khóa học
+export async function GetCoursWithUnit() {
+  const data = await GetCourseListWithUnit();
+
+  if (Array.isArray(data)) {
+    const info: ICourse[] = data;
     return info;
   }
   return [];

@@ -5,6 +5,8 @@ export enum Status {
 }
 
 export enum TableName {
+  ASSIGNMENT = 'assignment',
+  CHILDREN = 'children',
   CHAT = 'chatroom',
   MESSAGE = 'message',
   TASK = 'task',
@@ -24,6 +26,7 @@ export enum ContentType {
 }
 
 export enum Role {
+  CHILDREN = 'CHILDREN',
   USER = 'USER',
   ADMIN = 'ADMIN',
 }

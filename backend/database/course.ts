@@ -17,6 +17,7 @@ import { TableName } from '@/backend/globalVariable';
 import { GetName } from '@/backend/database/users';
 import { GetSubjectName } from '@/backend/database/subject';
 import { GetGradeName } from '@/backend/database/grade';
+import { GetUnit } from './unit';
 import ICourse from '@/backend/models/data/ICourse';
 import SystemMessage from '@/backend/messages/systemMessage';
 
@@ -138,5 +139,70 @@ async function CourseData(doc) {
         ? FormatDate(doc.data().courseLastEditDate)
         : null,
     unit: unitDocuments.size,
+  };
+}
+
+//Lấy danh sách khóa học kèm bài học
+export async function GetCourseListWithUnit() {
+  try {
+    //Lấy toàn bộ danh sách
+    const courseCollection = collection(db, TableName.COURSE);
+    const courseDocuments = await getDocs(courseCollection);
+    const courseList = await Promise.all(
+      courseDocuments.docs.map(async (doc) => await CourseDataWithUnit(doc)),
+    );
+
+    if (courseList.length === 0) {
+      return null;
+    }
+
+    return courseList.sort((a, b) => {
+      let dateA = 0;
+      if (typeof a.courseLastEditDate === 'string') {
+        dateA = StringToDate(a.courseLastEditDate);
+      } else if (typeof a.courseUploadDate === 'string') {
+        dateA = StringToDate(a.courseUploadDate);
+      }
+
+      const dateB = 0;
+      if (typeof b.courseLastEditDate === 'string') {
+        dateA = StringToDate(b.courseLastEditDate);
+      } else if (typeof b.courseUploadDate === 'string') {
+        dateA = StringToDate(b.courseUploadDate);
+      }
+
+      return dateB - dateA;
+    });
+  } catch {
+    return SystemMessage.SYSTEM_ERROR;
+  }
+}
+
+async function CourseDataWithUnit(doc): Promise<ICourse> {
+  const pathName = `${TableName.COURSE}/${doc.id}/${TableName.UNIT}`;
+
+  //Lấy toàn bộ danh sách
+  const unitCollection = collection(db, pathName);
+  const unitDocuments = await getDocs(unitCollection);
+  const unitList = await GetUnit(doc.id, null);
+
+  return {
+    courseID: doc.id,
+    courseAuthor: await GetName(doc.data().courseAuthorID),
+    courseAuthorID: doc.data().courseAuthorID,
+    courseGrade: doc.data().courseGrade,
+    courseGradeName: await GetGradeName(doc.data().courseGrade),
+    courseSubject: doc.data().courseSubject,
+    courseSubjectName: await GetSubjectName(doc.data().courseSubject),
+    courseName: doc.data().courseName,
+    courseDescription: doc.data().courseDescription,
+    courseImage: doc.data().courseImage,
+    courseUploadDate: FormatDate(doc.data().courseUploadDate),
+    courseLastEditDate:
+      doc.data().courseLastEditDate != null
+        ? FormatDate(doc.data().courseLastEditDate)
+        : null,
+    unit: unitDocuments.size,
+    unitList,
   };
 }

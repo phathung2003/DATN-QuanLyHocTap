@@ -5,10 +5,11 @@ const options = {
   title: 'Chọn ngày giao bài',
   autoHide: true,
   todayBtn: true,
+  todayBtnText: 'Hôm nay',
   clearBtn: true,
-  clearBtnText: 'Xóa',
-  maxDate: new Date('2030-01-01'),
-  minDate: new Date('1950-01-01'),
+  clearBtnText: 'Đặt lại',
+  rangePicker: false,
+  minDate: new Date(),
   theme: {
     background: 'bg-rose-200 dark:bg-slate-600',
     todayBtn: '',
@@ -17,7 +18,7 @@ const options = {
     text: '',
     disabledText: 'text-slate-400 dark:text-slate-900 dark:text-opacity-50',
     input:
-      'z-99 py-3 border-slate-200 ring-2 ring-rose-500 dark:bg-slate-800 <w-5/6></w-5/6>',
+      'z-99 py-3 border-slate-200 ring-2 ring-rose-500 dark:bg-slate-800 w-5/6',
     inputIcon: '',
     selected: 'dark:bg-slate-800',
   },
@@ -58,20 +59,20 @@ const options = {
   defaultDate: new Date(),
   language: 'vi',
   disabledDates: [],
-  weekDays: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+  weekDays: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
   inputNameProp: 'date',
   inputIdProp: 'date',
   inputPlaceholderProp: 'Chọn ngày',
   inputDateFormatProp: {
     year: 'numeric',
-    month: 'long',
+    month: '2-digit',
     day: '2-digit',
   } as const,
 };
-const DatePicker = () => {
+const DatePicker: React.FC<{ setPickDate }> = ({ setPickDate }) => {
   const [show, setShow] = useState(false);
   const handleChange = (selectedDate) => {
-    console.log(selectedDate);
+    setPickDate(selectedDate);
   };
   const handleClose = (state) => {
     setShow(state);

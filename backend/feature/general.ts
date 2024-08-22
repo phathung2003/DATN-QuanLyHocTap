@@ -1,5 +1,5 @@
 import { createHash } from 'crypto';
-import { format, parse } from 'date-fns';
+import { format, parse, differenceInCalendarDays } from 'date-fns';
 import { Timestamp } from 'firebase/firestore';
 import { toZonedTime } from 'date-fns-tz';
 
@@ -97,4 +97,17 @@ export function KeepDateOnly(date: string | Date | Timestamp | null): string {
   } catch {
     return 'Không xác định';
   }
+}
+
+export function CheckTimeLeft(time: Date): string {
+  const serverTime = toZonedTime(Timestamp.now().toDate(), 'Asia/Ho_Chi_Minh');
+  const targetTime = toZonedTime(time, 'Asia/Ho_Chi_Minh');
+  const dayLeft = differenceInCalendarDays(serverTime, targetTime);
+  if (dayLeft > 0) {
+    return `Hạn cuối còn: ${dayLeft} ngày `;
+  }
+  if (dayLeft < 0) {
+    return `Quá hạn: ${Math.abs(dayLeft)} ngày`;
+  }
+  return 'Hạn cuối: Hôm nay';
 }

@@ -4,6 +4,6 @@ export default interface IUnit {
   unitName: string;
   unitNo: number;
   unitDescription: string | null;
-  unitUploadDate?: Date | null;
-  unitLastEditDate?: Date | null;
+  unitUploadDate?: Date | null | string;
+  unitLastEditDate?: Date | null | string;
 }

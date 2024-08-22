@@ -13,7 +13,6 @@ import {
   DeleteDocument,
 } from '@/backend/database/generalFeature';
 import { TableName } from '@/backend/globalVariable';
-import SystemMessage from '@/backend/messages/systemMessage';
 import IUnit from '@/backend/models/data/IUnit';
 
 //Thêm bài học
@@ -34,7 +33,10 @@ export async function AddUnit(courseID: string, data: IUnit): Promise<boolean> {
 }
 
 //Lấy danh sách bài học
-export async function GetUnit(courseID: string, unitID: null | string) {
+export async function GetUnit(
+  courseID: string,
+  unitID: null | string,
+): Promise<IUnit[] | IUnit | null> {
   const pathName = `${TableName.COURSE}/${courseID}/${TableName.UNIT}`;
   try {
     //Tìm kiếm ID cụ thể
@@ -61,7 +63,7 @@ export async function GetUnit(courseID: string, unitID: null | string) {
       return a.unitNo - b.unitNo;
     });
   } catch {
-    return SystemMessage.SYSTEM_ERROR;
+    return null;
   }
 }
 
@@ -104,7 +106,7 @@ export async function EditUnit(
 
 //--- Cục bộ ---//
 //Format danh sách
-async function UnitListData(doc) {
+async function UnitListData(doc): Promise<IUnit> {
   return {
     unitID: doc.id,
     unitName: doc.data().unitName,

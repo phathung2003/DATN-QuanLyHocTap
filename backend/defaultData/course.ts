@@ -9,7 +9,7 @@ export function DefaultCourseValue(): ICourse {
     courseName: '',
     courseDescription: '',
     courseImage: null,
-    courseUploadDate: null,
+    courseUploadDate: '',
     courseLastEditDate: null,
   };
 }

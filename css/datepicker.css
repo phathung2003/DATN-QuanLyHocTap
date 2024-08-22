@@ -1,0 +1,29 @@
+/* custom.css */
+.react-date-picker__wrapper {
+  @apply rounded-md border p-2 shadow-md;
+}
+
+.react-date-picker__inputGroup {
+  @apply flex items-center space-x-2;
+}
+
+.react-date-picker__inputGroup__input {
+  @apply border-gray-300 rounded-md p-2;
+}
+
+.react-date-picker__calendar {
+  @apply rounded-md border bg-white shadow-lg;
+}
+
+.react-date-picker__calendar__month-view__days__day--weekend {
+  @apply text-red-500;
+}
+
+/* Tùy chỉnh cho các ngày trong tuần */
+.react-date-picker__calendar__month-view__weekdays {
+  @apply text-gray-500 text-center font-semibold;
+}
+
+.react-date-picker__calendar__month-view__weekdays__weekday {
+  @apply px-2 py-1;
+}

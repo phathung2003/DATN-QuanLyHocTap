@@ -61,13 +61,16 @@ export async function AddUser(data: IRegisterDB) {
 export async function CheckInfoExist(data: IRegisterDB) {
   const error = DefaultRegisteErrorValue();
   try {
-    const usersDatabase = collection(db, TableName.USER);
+    const userCollection = collection(db, TableName.USER);
     const field = ['username', 'email', 'phoneNumber'];
     const input = [data.username, data.email, data.phoneNumber];
 
     for (let i = 0; i < field.length; i++) {
       if (input[i] != null) {
-        const userQuery = query(usersDatabase, where(field[i], '==', input[i]));
+        const userQuery = query(
+          userCollection,
+          where(field[i], '==', input[i]),
+        );
         const userData = await getDocs(userQuery);
         if (userData.empty == false) {
           error.status = false;
@@ -83,6 +86,26 @@ export async function CheckInfoExist(data: IRegisterDB) {
                 RegisterMessage.PHONE_NUMBER.PHONE_NUMBER_EXIST;
               break;
           }
+        }
+      }
+    }
+
+    // Kiểm tra trong các Child collection
+    const allUsers = await getDocs(userCollection);
+    for (const userDoc of allUsers.docs) {
+      const childCollection = collection(userDoc.ref, TableName.CHILDREN);
+
+      for (let i = 0; i < field.length; i++) {
+        const childQuery = query(
+          childCollection,
+          where('username', '==', data.username),
+        );
+        const childData = await getDocs(childQuery);
+
+        if (!childData.empty) {
+          error.status = false;
+          error.usernameError = RegisterMessage.USERNAME.USERNAME_EXIST;
+          break;
         }
       }
     }
