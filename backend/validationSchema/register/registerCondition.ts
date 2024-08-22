@@ -22,7 +22,7 @@ const RegisterCondition: IRegisterCondition = {
   },
 
   EMAIL: {
-    REQUIRED: false,
+    REQUIRED: true,
   },
 
   PASSWORD: {
