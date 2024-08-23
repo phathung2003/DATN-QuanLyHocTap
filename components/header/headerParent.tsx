@@ -6,9 +6,6 @@ import Message from '@/components/header/addOn/message';
 import SwitchTheme from '@/components/header/addOn/switchTheme2';
 import Notification from '@/components/header/addOn/notification';
 
-//Icon
-import LogoIcon from '@/public/vector/logo.svg';
-
 const Header: React.FC<{ name: string; role: string }> = ({ name, role }) => {
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
@@ -26,12 +23,14 @@ const Header: React.FC<{ name: string; role: string }> = ({ name, role }) => {
 
         {/* icon khi screen bình thường */}
         <div className="flex flex-shrink-0 items-center justify-center md:block">
-          <div className="flex items-center gap-4 pl-1">
-            <LogoIcon />
-            <span className="text-dark text-2xl font-bold dark:text-white">
-              HungThanh
-            </span>
-          </div>
+          <Link className="" href="/parent">
+            <Image
+              width={160}
+              height={160}
+              src={'/images/logo/logo-dark-new.svg'}
+              alt="Logo"
+            />
+          </Link>
         </div>
 
         <div className="flex items-center gap-3 2xsm:gap-7">

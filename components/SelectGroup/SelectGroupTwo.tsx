@@ -26,7 +26,7 @@ const SelectGroupTwo: React.FC<{
             setOption(e.target.value);
             changeTextColor();
           }}
-          className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-12 py-2.5 outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input ${
+          className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-8 py-2.5 outline-none transition focus:border-rose-500 dark:border-form-strokedark dark:bg-form-input ${
             isOptionSelected ? 'text-sm text-black dark:text-white' : ''
           }`}
         >
@@ -37,7 +37,7 @@ const SelectGroupTwo: React.FC<{
           ))}
         </select>
 
-        <span className="absolute right-4 top-1/2 z-10 -translate-y-1/2">
+        <span className="absolute right-2 top-1/2 z-10 -translate-y-1/2">
           <BlackDropdownIcon />
         </span>
       </div>

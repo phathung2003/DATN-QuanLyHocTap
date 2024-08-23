@@ -22,7 +22,7 @@ const CatalogueList: React.FC<{
           </h2>
         </div>
 
-        <div className="h-[40vh] space-y-4 overflow-y-auto overflow-x-hidden ">
+        <div className="h-[60vh] space-y-4 overflow-y-auto overflow-x-hidden ">
           {data.length === 0 ? (
             <p className="text-center text-lg font-bold">
               Không có bài học nào
@@ -41,7 +41,9 @@ const CatalogueList: React.FC<{
                         <p>
                           {unitData.unitNo}. {unitData.unitName}
                         </p>
-                        <p>sssss</p>
+                        <p className="ml-3 text-rose-600 opacity-75">
+                          {unitData.unitDescription}
+                        </p>
                       </div>
                       <svg
                         className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-rose-500 transition-transform duration-300 ease-in-out`}
@@ -63,9 +65,10 @@ const CatalogueList: React.FC<{
                       {unitData.task.map((taskData) => (
                         <div
                           key={taskData.taskNo}
+                          className="mb-3"
                           onClick={() => setContent(taskData.content)}
                         >
-                          <span>
+                          <span className="mb-5 cursor-pointer text-slate-800 hover:text-blue-500 dark:text-slate-200 dark:hover:text-blue-600">
                             {taskData.taskNo}. {taskData.taskName}
                           </span>
                         </div>

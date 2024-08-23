@@ -1,12 +1,13 @@
 'use client';
 import React, { useState } from 'react';
-import { Formik, Form, ErrorMessage, Field } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import SchemaRegister from '@/backend/validationSchema/register/registerSchema';
 import {
   DefaultRegisterValue,
   DefaultRegisteErrorValue,
 } from '@/backend/defaultData/register';
 import { Register, ResetRegisterError } from '@/backend/feature/user/user';
+import FormikShowError from '@/components/element/notification/formikForm';
 
 export default function RegisterForm() {
   //Ghi nhận lỗi báo từ server
@@ -38,7 +39,11 @@ export default function RegisterForm() {
               className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
             />
             <div>
-              <ErrorMessage id="name_RegisterError" name="name" />
+              <FormikShowError
+                type={'Add'}
+                filedName={'name'}
+                errorMessage={null}
+              />
             </div>
           </div>
 
@@ -62,7 +67,11 @@ export default function RegisterForm() {
             />
             <div>
               <p id="username_RegisterError">{error.usernameError}</p>
-              <ErrorMessage id="username_RegisterError" name="username" />
+              <FormikShowError
+                type={'Add'}
+                filedName={'username'}
+                errorMessage={null}
+              />
             </div>
           </div>
 
@@ -86,7 +95,11 @@ export default function RegisterForm() {
             />
             <div>
               <p id="phoneNumber_RegisterError">{error.phoneNumberError}</p>
-              <ErrorMessage id="phoneNumber_RegisterError" name="phoneNumber" />
+              <FormikShowError
+                type={'Add'}
+                filedName={'phoneNumber'}
+                errorMessage={null}
+              />
             </div>
           </div>
 
@@ -110,7 +123,11 @@ export default function RegisterForm() {
             />
             <div>
               <p id="email_RegisterError">{error.emailError}</p>
-              <ErrorMessage id="email_RegisterError" name="email" />
+              <FormikShowError
+                type={'Add'}
+                filedName={'email'}
+                errorMessage={null}
+              />
             </div>
           </div>
 
@@ -133,7 +150,11 @@ export default function RegisterForm() {
               className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
             />
             <div>
-              <ErrorMessage id="password_RegisterError" name="password" />
+              <FormikShowError
+                type={'Add'}
+                filedName={'password'}
+                errorMessage={null}
+              />
             </div>
           </div>
 
@@ -156,7 +177,11 @@ export default function RegisterForm() {
               className="dark:text-body-color-dark dark:shadow-two text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
             />
             <div>
-              <ErrorMessage id="rePassword_RegisterError" name="rePassword" />
+              <FormikShowError
+                type={'Add'}
+                filedName={'rePassword'}
+                errorMessage={null}
+              />
             </div>
           </div>
 

@@ -124,21 +124,21 @@ const Giaobai: React.FC<{
         </div>
 
         {/* Chọn bài học từ list khóa học */}
-        <div id="listKhoaHoc">
+        <div id="listKhoaHoc" className="mt-3">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="font-manrope text-lg font-bold text-black dark:text-white">
               Chọn bài học
             </h2>
             <div className="flex items-center space-x-2">
-              <span className="font-manrope text-sm text-slate-500 dark:text-slate-400">
+              <span className="font-manrope text-md text-slate-500 dark:text-slate-400">
                 Số bài học đã chọn:
               </span>
-              <button className="rounded-lg bg-blue-500 px-3 py-1 text-sm text-white">
+              <button className="rounded-lg bg-blue-500 px-4 py-1 text-sm text-white">
                 {selectedLessons.length}
               </button>
               <button
                 onClick={handleDeselectAll}
-                className="rounded-lg bg-rose-500 px-3 py-1 text-sm text-white"
+                className="rounded-lg bg-rose-500 px-3 py-1 text-sm text-white hover:bg-rose-800"
               >
                 Bỏ chọn tất cả
               </button>
@@ -188,7 +188,7 @@ const Giaobai: React.FC<{
                           <button
                             type="button"
                             onClick={() => toggleItem(item.courseID)}
-                            className={`rounded-lg bg-gradient-to-r from-rose-500 via-rose-600 to-rose-700 px-2.5 py-1.5 text-center text-sm font-medium text-white hover:bg-gradient-to-br focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-800 `}
+                            className={`rounded-lg bg-gradient-to-r from-rose-500 via-rose-600 to-rose-700 px-1.5 py-1.5 text-center text-sm font-medium text-white hover:bg-gradient-to-br focus:outline-none focus:ring-2 focus:ring-rose-300 dark:stroke-slate-800 dark:focus:ring-rose-800 `}
                           >
                             <div>
                               <ListIcon />

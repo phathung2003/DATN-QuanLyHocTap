@@ -21,7 +21,7 @@ const UnitDetail: React.FC<{
     <div>
       <div className="mb-2 flex h-10 w-full">
         <div className="relative flex w-full items-center justify-between p-3">
-          <BackContentButton url={`/phuhuynh/course/${courseID}`} />
+          <BackContentButton url={`/parent/course/${courseID}`} />
 
           <button
             className="rounded-full bg-rose-500 p-2 text-white shadow-lg"

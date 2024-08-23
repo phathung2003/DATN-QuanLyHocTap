@@ -25,12 +25,12 @@ const menuItems = [
   {
     label: 'Quản lý học tập',
     icon: LessonIcon,
-    link: '/parent/tiendohoc',
+    link: '/parent/learnprogress',
   },
   {
     label: 'Hỗ trợ',
     icon: CalendarIcon,
-    link: '/parent/thongke',
+    link: '/parent/hotro',
   },
 ];
 
@@ -47,7 +47,7 @@ export default function Sidebar() {
           className="flex items-center justify-between p-4 pb-2 pt-7"
         >
           {/*Logo*/}
-          <Link href="/phuhuynh">
+          <Link href="/parent">
             <div
               id="logo"
               className={classNames('flex items-center gap-4 pl-1 pr-4', {
