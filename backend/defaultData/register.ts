@@ -15,9 +15,5 @@ export function DefaultRegisterValue(): IRegister {
 export function DefaultRegisteErrorValue(): IRegisterError {
   return {
     status: true,
-    usernameError: null,
-    phoneNumberError: null,
-    emailError: null,
-    systemError: null,
   };
 }
