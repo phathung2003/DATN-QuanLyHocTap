@@ -45,7 +45,7 @@ const PreviewCard: React.FC<IContentData> = ({ content }) => {
             onClick={handlePrevious}
             className="bg-gray-800 absolute left-5 top-1/2 -translate-y-1/2 transform rounded-full p-2 text-white"
           >
-            <div className='className="m-4 hover:bg-slate-400" rounded-full bg-slate-300 p-2'>
+            <div className='hover:bg-slate-400" m-4 rounded-full bg-slate-300 p-2'>
               <ArrowIcon className="rotate-90 fill-black" />
             </div>
           </button>
@@ -78,7 +78,7 @@ function Card(data: ICardContent) {
   return (
     <div className="relative m-2 h-64 w-96 cursor-pointer">
       <div
-        className={`bg-slate-2q00 absolute h-full w-full items-center justify-center rounded-lg text-4xl dark:bg-slate-500 ${data.image == null || data.text == null || data.text == '' ? 'flex' : ''}`}
+        className={`absolute h-full w-full items-center justify-center rounded-lg bg-slate-200 text-4xl dark:bg-slate-500 ${data.image == null || data.text == null || data.text == '' ? 'flex' : ''}`}
       >
         {data.image != null && (
           <div

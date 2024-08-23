@@ -27,7 +27,7 @@ const UserUnitList: React.FC<{
 
   return (
     <section className="antialiase overflow-y-auto px-4 lg:px-8">
-      <BackContentButton url={`/phuhuynh/course`} />
+      <BackContentButton url={`/parent/course`} />
       <div className="my-3 flex items-center justify-between">
         <div className="mt-4 flex items-center">
           <Image
@@ -50,7 +50,6 @@ const UserUnitList: React.FC<{
             </p>
           </div>
         </div>
-        <div>Nút quản lý</div>
       </div>
 
       <div>
@@ -170,7 +169,7 @@ const UserUnitList: React.FC<{
                         className="flex items-center justify-end px-2 py-3"
                       >
                         <DetailButton
-                          link={`/phuhuynh/course/${courseID}/unit`}
+                          link={`/parent/course/${courseID}/unit`}
                           buttonName="Chi tiết"
                         />
                         <div className="ml-4"></div>

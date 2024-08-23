@@ -11,7 +11,7 @@ import PreviewCalculateTwoNumber from '@/components/form/content/content/type/ca
 const UserTaskList: React.FC<{ data: IContentList[] | null }> = ({ data }) => {
   let realIndex = 0;
   return (
-    <div className="flex h-[75vh] w-full overflow-auto rounded-lg bg-slate-200 shadow-md dark:bg-slate-800">
+    <div className="flex h-[75vh] w-full overflow-auto rounded-lg bg-rose-50 shadow-md dark:bg-slate-800">
       <div className="flex w-full flex-col p-6 text-2xl text-black dark:text-white">
         {data?.map(
           (task, index) =>

@@ -88,7 +88,7 @@ const MessagePage: React.FC<IChatRoom> = ({
         <div className="flex-1">
           <div className="text-xl font-bold text-white">{opponentName}</div>
 
-          <div className=" min-h-[20px] text-sm font-normal">
+          <div className=" min-h-[20px] text-sm font-normal text-slate-200 dark:text-slate-200">
             {userInfo.isOnline
               ? 'Trực tuyến'
               : FormatUserLastLoginTime(userInfo.last_Login)}

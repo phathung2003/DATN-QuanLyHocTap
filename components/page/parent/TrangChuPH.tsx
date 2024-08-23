@@ -43,11 +43,11 @@ const TrangChuPH: React.FC<{
         <div className="grid grid-cols-1 gap-4">
           <div className="w-full rounded-lg bg-slate-50 py-5 antialiased shadow-xl dark:bg-black lg:px-4">
             {/* nav */}
-            <div className="z-20 flex flex-col items-center gap-1.5 rounded-xl bg-rose-100 p-2 dark:bg-slate-800 md:flex-row md:justify-around">
+            <div className="z-20 flex flex-col items-center gap-1.5 rounded-xl bg-rose-100 py-4 pl-5 dark:bg-slate-800 md:flex-row md:justify-around">
               <div className="flex w-full items-center justify-between px-4">
                 <div className="flex items-center justify-around">
                   <div>
-                    <h1 className="mr-10 text-sm font-extrabold dark:text-white sm:block">
+                    <h1 className="text-md mr-8 text-left font-extrabold dark:text-white sm:block">
                       <p>Bé</p>
                     </h1>
                   </div>

@@ -7,7 +7,7 @@ import ICourse from '@/backend/models/data/ICourse';
 import { KeepDateOnly } from '@/backend/feature/general';
 //Button
 import SearchBar from '@/components/element/field/searchBar';
-import PlusIcon from '@/public/vector/plus-bold.svg';
+// import PlusIcon from '@/public/vector/plus-bold.svg';
 
 const DefaultAvatar = '/images/users/user01.png';
 const DefaultImage = process.env.NEXT_PUBLIC_COURSE_DEFAULT_IMAGE;
@@ -41,12 +41,12 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
       <div className="mt-5 grid h-auto grid-cols-1 gap-6 overflow-y-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {searchCourse.map((data, index) => (
           <Link
-            href={`/phuhuynh/course/${data.courseID}`}
+            href={`/parent/course/${data.courseID}`}
             key={index}
-            className="relative cursor-pointer rounded-sm shadow-lg"
+            className="relative mb-5 cursor-pointer rounded-xl shadow-lg hover:shadow-2xl"
           >
             <div className="relative">
-              <div className="h-40 bg-slate-300">
+              <div className="h-40 rounded-t-xl bg-slate-200">
                 <div className="relative h-full w-full">
                   <Image
                     src={data.courseImage ?? DefaultImage ?? ''}
@@ -54,14 +54,15 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
                     fill
                     loading="lazy"
                     className="absolute inset-0 h-full w-full object-cover"
+                    style={{ objectFit: 'contain' }}
                   />
                   <div className="absolute inset-0 bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20"></div>{' '}
                   {/* Lớp phủ màu tối */}
                 </div>
               </div>
-              <button className="absolute right-2 top-0 flex h-10 w-10 items-center justify-center rounded-b-full bg-green-500">
+              {/* <button className="absolute right-2 top-0 flex h-10 w-10 items-center justify-center rounded-b-full bg-green-500">
                 <PlusIcon />
-              </button>
+              </button> */}
               <div className="absolute bottom-2 left-2">
                 <span className="rounded-full bg-blue-700 px-2.5 py-1.5 text-sm font-semibold text-white ">
                   {data.courseSubjectName}
@@ -72,18 +73,18 @@ const CourseManagement: React.FC<{ courseList: ICourse[] }> = ({
               </div>
             </div>
 
-            <div className="bg-zinc-200 p-3 shadow-card dark:bg-slate-700">
-              <div className="h-[153px]">
-                <h1 className="line-clamp-2 text-xl font-bold">
+            <div className="rounded-b-xl bg-slate-200 p-3 shadow-card dark:bg-slate-700">
+              <div className="h-[130px]">
+                <h1 className="line-clamp-2 text-xl font-bold hover:text-blue-500">
                   {data.courseName}
                 </h1>
 
-                <p className="mt-4 line-clamp-4 text-sm text-slate-600 dark:text-slate-300">
+                <p className="mt-4 line-clamp-3 text-sm text-slate-600 dark:text-slate-300">
                   {data.courseDescription}
                 </p>
               </div>
 
-              <p className="mt-4 text-sm text-slate-800 dark:text-slate-300">
+              <p className="mt-2 text-sm text-slate-800 dark:text-slate-300">
                 Tổng số bài: <span className="font-bold">{data.unit ?? 0}</span>
               </p>
               <p className="mt-4 text-sm text-slate-800 dark:text-slate-300">

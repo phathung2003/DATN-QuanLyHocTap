@@ -137,7 +137,7 @@ const RegisterChildrenForm: React.FC<ContentProperties> = ({ parentID }) => {
 
           <BottomFormError type={'Add'} errorMessage={error.systemError} />
           <div className="mt-7">
-            <AddSubmitButton buttonName="Thêm tài khoảnd" />
+            <AddSubmitButton buttonName="Thêm tài khoản" />
           </div>
         </Form>
       )}

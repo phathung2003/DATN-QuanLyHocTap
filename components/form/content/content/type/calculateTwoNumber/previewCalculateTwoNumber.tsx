@@ -134,7 +134,7 @@ const PreviewCalculateTwoNumber: React.FC<IContentData> = ({ content }) => {
   //Màn hình bắt đầu
   if (gameState === 'start') {
     return (
-      <div className="flex h-80 items-center justify-center">
+      <div className="flex h-80 items-center justify-center rounded-lg">
         {StartMenu(calculationList.length, handleStartGame)}
       </div>
     );
@@ -143,7 +143,7 @@ const PreviewCalculateTwoNumber: React.FC<IContentData> = ({ content }) => {
   //Màn hình chơi
   if (gameState === 'playing') {
     return (
-      <div className="flex h-80 items-center justify-center">
+      <div className="flex h-80 items-center justify-center rounded-xl">
         <div className="relative h-full w-full">
           <div className="flex flex-row justify-between">
             <div className="flex flex-col">
