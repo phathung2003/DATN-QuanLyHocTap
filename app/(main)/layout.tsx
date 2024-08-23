@@ -4,7 +4,8 @@ import { CookieGetInfo } from '@/backend/feature/user/validate';
 import Footer from '@/components/footer/footerHomepage';
 import Header from '@/components/header/homepage/headerDefault';
 import ProgressBarProvider from '@/components/element/other/progressBarProvider';
-
+import Image from 'next/image';
+<Image></Image>;
 export const metadata: Metadata = {
   title: 'Quản lý học tập',
   description: 'Đồ án tốt nghiệp',

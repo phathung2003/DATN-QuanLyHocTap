@@ -45,8 +45,10 @@ export interface IRegisterMessage {
 
 export interface IRegisterError {
   status: boolean;
-  usernameError: string | null;
-  phoneNumberError: string | null;
-  emailError: string | null;
-  systemError: string | null;
+  nameError?: string | null;
+  usernameError?: string | null;
+  phoneNumberError?: string | null;
+  emailError?: string | null;
+  passwordError?: string | null;
+  systemError?: string | null;
 }
