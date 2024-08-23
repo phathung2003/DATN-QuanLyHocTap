@@ -3,6 +3,7 @@ import { CheckIsUser } from '@/backend/feature/user/validate';
 import Header from '@/components/header/headerParent';
 import Sidebar from '@/components/sidebar/sidebarParent';
 import ChatSupport from '@/components/Chat/ChatSupport';
+import CheckOnline from '@/components/page/other/checkOnline';
 
 export default async function ParentLayout({
   children,
@@ -14,6 +15,7 @@ export default async function ParentLayout({
     <>
       {/* <!-- ==========================  Wrapper Start =============================== --> */}
       <div className="flex h-screen flex-col bg-neutral-100 dark:bg-black">
+        <CheckOnline userID={user.accountID} />
         <Header name={user.name} role={user.role} />
 
         <div className="flex flex-1 flex-row overflow-hidden">
