@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { DeleteSession } from '@/backend/database/session';
-import SessionMessage from '@/backend/messages/sessionMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 
 //Xóa token
 export async function DeleteToken(
@@ -13,7 +13,7 @@ export async function DeleteToken(
     await DeleteSession(token);
   } catch {
     statusCode = 404;
-    messageInfo = SessionMessage.SYSTEM_ERROR;
+    messageInfo = SystemMessage.SYSTEM_ERROR;
   }
 
   const response = new NextResponse(
@@ -22,9 +22,7 @@ export async function DeleteToken(
     }),
     {
       status: statusCode,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     },
   );
   response.cookies.delete('token');

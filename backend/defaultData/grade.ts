@@ -1,11 +1,16 @@
 import { IGradeError } from '@/backend/models/messages/IGradeMessage';
 import { IGrade } from '@/backend/models/data/IGrade';
-const DefaultgradeErrorValue: IGradeError = {
-  status: true,
-  gradeIDError: null,
-  gradeNameError: null,
-  systemError: null,
-};
+
+export function DefaultGradeErrorValue(): IGradeError {
+  return {
+    status: true,
+    gradeIDError: null,
+    gradeNameError: null,
+    gradeImageError: null,
+    gradeFileError: null,
+    systemError: null,
+  };
+}
 
 export function GradeEditDefaultValue(data: IGrade): IGrade {
   const editData: IGrade = {
@@ -19,4 +24,11 @@ export function GradeEditDefaultValue(data: IGrade): IGrade {
   return editData;
 }
 
-export default DefaultgradeErrorValue;
+export function DefaultGradeValue(): IGrade {
+  return {
+    gradeID: '',
+    gradeName: '',
+    gradeDescription: '',
+    gradeImage: '',
+  };
+}

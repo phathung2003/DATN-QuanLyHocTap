@@ -1,7 +1,4 @@
 export interface IRegisterMessage {
-  SYSTEM_ERROR: string;
-  ACCOUNT_EXIST: string;
-  REGISTER_COMPLETE: string;
   NAME: {
     UNDER_MIN_VALUE: string;
     OVER_MAX_VALUE: string;
@@ -39,12 +36,19 @@ export interface IRegisterMessage {
     NO_MATCH: string;
     REQUIRED: string;
   };
+
+  ACCOUNT_EXIST: string;
+
+  REGISTER_COMPLETED: string;
+  REGISTER_FAILED: string;
 }
 
 export interface IRegisterError {
   status: boolean;
-  usernameError: string | null;
-  phoneNumberError: string | null;
-  emailError: string | null;
-  systemError: string | null;
+  nameError?: string | null;
+  usernameError?: string | null;
+  phoneNumberError?: string | null;
+  emailError?: string | null;
+  passwordError?: string | null;
+  systemError?: string | null;
 }

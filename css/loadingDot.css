@@ -1,0 +1,30 @@
+.loading-dots {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.dots::after {
+  content: '';
+  display: inline-block;
+  width: 1em;
+  margin-left: 4px;
+  text-align: left;
+  animation: dots 2s steps(5, end) infinite;
+}
+
+@keyframes dots {
+  0%,
+  20% {
+    content: '';
+  }
+  40% {
+    content: '•';
+  }
+  60% {
+    content: '••';
+  }
+  80%,
+  100% {
+    content: '•••';
+  }
+}

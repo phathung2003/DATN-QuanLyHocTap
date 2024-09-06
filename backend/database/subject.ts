@@ -3,21 +3,24 @@ import {
   query,
   where,
   getDocs,
-  deleteDoc,
+  getDoc,
   doc,
   addDoc,
   updateDoc,
 } from 'firebase/firestore';
-import { ISubject } from '@/backend/models/data/ISubject';
-import SubjectMessage from '@/backend/messages/subjectMessage';
-import DefaultSubjectErrorValue from '@/backend//defaultData/subject';
 import { db } from '@/backend/database/firebase';
+import { ISubject } from '@/backend/models/data/ISubject';
+import { DefaultSubjectErrorValue } from '@/backend/defaultData/subject';
+import { TableName } from '@/backend/globalVariable';
+import { DeleteDocument, ToTitleCase } from '@/backend/database/generalFeature';
+import { ISubjectError } from '@/backend/models/messages/ISubjectMessage';
+import SubjectMessage from '@/backend/messages/subjectMessage';
+import SystemMessage from '@/backend/messages/systemMessage';
 
-const TABLE_NAME = 'subject';
 //Thêm lớp học
-export async function AddSubject(data: ISubject) {
+export async function AddSubject(data: ISubject): Promise<boolean> {
   try {
-    await addDoc(collection(db, TABLE_NAME), {
+    await addDoc(collection(db, TableName.SUBJECT), {
       subjectID: data.subjectID.toUpperCase(),
       subjectName: ToTitleCase(data.subjectName),
       subjectDescription: data.subjectDescription,
@@ -25,6 +28,8 @@ export async function AddSubject(data: ISubject) {
         data.subjectImage == null
           ? process.env.NEXT_PUBLIC_SUBJECT_DEFAULT_IMAGE
           : data.subjectImage,
+      subjectCreateAt: new Date(),
+      subjectLastEdit: null,
     });
     return true;
   } catch {
@@ -33,78 +38,101 @@ export async function AddSubject(data: ISubject) {
 }
 
 //Xóa lớp học
-export async function DeleteSubject(subjectID: string) {
-  const subjectDatabase = collection(db, TABLE_NAME);
-  const subjectQuery = query(
-    subjectDatabase,
-    where('subjectID', '==', subjectID.toUpperCase()),
-  );
-  const subjectData = await getDocs(subjectQuery);
-
-  subjectData.forEach(async (subject) => {
-    await deleteDoc(subject.ref);
-  });
+export async function DeleteSubject(subjectID: string): Promise<boolean> {
+  try {
+    let documentID = await GetSubjectIDFile(subjectID);
+    if (
+      documentID == SubjectMessage.SUBJECT_NOT_FOUND ||
+      documentID == SystemMessage.SYSTEM_ERROR
+    ) {
+      documentID = subjectID;
+    }
+    await DeleteDocument(TableName.SUBJECT, documentID);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 //Sửa lớp học
-export async function EditSubject(fileID: string, data: ISubject) {
-  const subjectFile = doc(db, TABLE_NAME, fileID);
-  await updateDoc(subjectFile, {
-    subjectID: data.subjectID.toUpperCase(),
-    subjectName: ToTitleCase(data.subjectName),
-    subjectDescription: data.subjectDescription,
-    subjectImage:
-      data.subjectImage == null
-        ? process.env.NEXT_PUBLIC_SUBJECT_DEFAULT_IMAGE
-        : data.subjectImage,
-  });
+export async function EditSubject(
+  fileID: string,
+  data: ISubject,
+): Promise<boolean> {
+  const document = doc(db, TableName.SUBJECT, fileID);
+
+  //Bản chỉnh sửa ban đầu
+  const originalDocumentData = await getDoc(document);
+  if (!originalDocumentData.exists()) {
+    return false;
+  }
+
+  try {
+    await updateDoc(document, {
+      subjectID: data.subjectID.toUpperCase(),
+      subjectName: ToTitleCase(data.subjectName),
+      subjectDescription: data.subjectDescription,
+      subjectImage:
+        data.subjectImage == null
+          ? process.env.NEXT_PUBLIC_SUBJECT_DEFAULT_IMAGE
+          : data.subjectImage,
+      subjectCreateAt: originalDocumentData.data().subjectCreateAt,
+      subjectLastEdited: new Date(),
+    });
+    return true;
+  } catch {
+    return false;
+  }
 }
 
-//Lấy danh sách loại
-export async function GetSubjectList() {
+//Lấy danh sách môn học
+export async function GetSubjectList(): Promise<ISubject[] | string | null> {
   try {
-    const subjectDatabase = collection(db, TABLE_NAME);
-    const subjectData = await getDocs(subjectDatabase);
-    const categoryList = await subjectData.docs.map((doc) => ({
-      subjectID: doc.data().subjectID,
+    const dataCollection = collection(db, TableName.SUBJECT);
+    const documents = await getDocs(dataCollection);
+    const subjectList = await documents.docs.map((doc) => ({
+      subjectID: doc.id,
       subjectName: doc.data().subjectName,
       subjectDescription: doc.data().subjectDescription,
       subjectImage: doc.data().subjectImage,
     }));
-    if (categoryList.length === 0) {
+    if (subjectList.length === 0) {
       return null;
     }
-    return categoryList;
+    return subjectList;
   } catch {
-    return SubjectMessage.SYSTEM_ERROR;
+    return SystemMessage.SYSTEM_ERROR;
   }
 }
 
 //Kiểm tra đã có loại chưa
-export async function CheckSubjectExist(data: ISubject) {
-  const error = DefaultSubjectErrorValue;
+export async function CheckSubjectExist(
+  data: ISubject,
+): Promise<ISubjectError> {
+  const error = DefaultSubjectErrorValue();
+  error.status = true;
 
   try {
-    const subjectDatabase = collection(db, TABLE_NAME);
+    const dataCollection = collection(db, TableName.SUBJECT);
     const field = ['subjectID', 'subjectName'];
     const input = [data.subjectID.toUpperCase(), ToTitleCase(data.subjectName)];
 
     for (let i = 0; i < field.length; i++) {
       if (input[i] != null) {
-        const subjectQuery = query(
-          subjectDatabase,
+        const dataQuery = query(
+          dataCollection,
           where(field[i], '==', input[i]),
         );
-        const result = await getDocs(subjectQuery);
-        console.log(result.size);
-        if (result.empty == false) {
+        const documents = await getDocs(dataQuery);
+        if (documents.size > 0) {
           error.status = false;
           switch (field[i]) {
             case field[0]:
-              error.subjectIDError = SubjectMessage.SUBJECT_ID_EXIST;
+              error.subjectIDError = SubjectMessage.SUBJECT_ID.ALREADY_EXIST;
               break;
             case field[1]:
-              error.subjectNameError = SubjectMessage.SUBJECT_NAME_EXIST;
+              error.subjectNameError =
+                SubjectMessage.SUBJECT_NAME.ALREADY_EXIST;
               break;
           }
         }
@@ -112,7 +140,7 @@ export async function CheckSubjectExist(data: ISubject) {
     }
   } catch (error) {
     error.status = false;
-    error.systemError = SubjectMessage.SYSTEM_ERROR;
+    error.systemError = SystemMessage.SYSTEM_ERROR;
   }
   return error;
 }
@@ -121,33 +149,35 @@ export async function CheckSubjectExist(data: ISubject) {
 export async function CheckSubjectEditExist(
   originalID: string,
   data: ISubject,
-) {
-  const error = DefaultSubjectErrorValue;
+): Promise<ISubjectError> {
+  const error = DefaultSubjectErrorValue();
+  error.status = true;
 
   try {
-    const subjectDatabase = collection(db, TABLE_NAME);
+    const dataCollection = collection(db, TableName.SUBJECT);
     const field = ['subjectID', 'subjectName'];
     const input = [data.subjectID.toUpperCase(), ToTitleCase(data.subjectName)];
 
     for (let i = 0; i < field.length; i++) {
       if (input[i] != null) {
-        const subjectQuery = query(
-          subjectDatabase,
+        const dataQuery = query(
+          dataCollection,
           where(field[i], '==', input[i]),
         );
-        const subjectData = await getDocs(subjectQuery);
+        const documents = await getDocs(dataQuery);
 
-        if (subjectData.empty == false) {
-          subjectData.forEach((doc) => {
-            console.log(doc.id);
+        if (documents.size > 0) {
+          documents.forEach((doc) => {
             if (doc.id !== originalID) {
               error.status = false;
               switch (field[i]) {
                 case field[0]:
-                  error.subjectIDError = SubjectMessage.SUBJECT_ID_EXIST;
+                  error.subjectIDError =
+                    SubjectMessage.SUBJECT_ID.ALREADY_EXIST;
                   break;
                 case field[1]:
-                  error.subjectNameError = SubjectMessage.SUBJECT_NAME_EXIST;
+                  error.subjectNameError =
+                    SubjectMessage.SUBJECT_NAME.ALREADY_EXIST;
                   break;
               }
             }
@@ -157,32 +187,37 @@ export async function CheckSubjectEditExist(
     }
   } catch (error) {
     error.status = false;
-    error.systemError = SubjectMessage.SYSTEM_ERROR;
+    error.systemError = SystemMessage.SYSTEM_ERROR;
   }
   return error;
 }
 
 //Lấy tên ID file
-export async function GetSubjectIDFile(subjectID: string) {
+export async function GetSubjectIDFile(subjectID: string): Promise<string> {
   try {
-    const subjectDatabase = collection(db, TABLE_NAME);
-    const subjectQuery = query(
-      subjectDatabase,
+    const dataCollection = collection(db, TableName.SUBJECT);
+    const dataQuery = query(
+      dataCollection,
       where('subjectID', '==', subjectID.toUpperCase()),
     );
-    const categoryData = await getDocs(subjectQuery);
-    if (categoryData.size > 0) {
-      return categoryData.docs[0].id;
+    const documents = await getDocs(dataQuery);
+    if (documents.size > 0) {
+      return documents.docs[0].id;
     }
-    return SubjectMessage.SUBJECT_EDIT_NOT_FOUND;
+    return SubjectMessage.SUBJECT_NOT_FOUND;
   } catch {
-    return SubjectMessage.SYSTEM_ERROR;
+    return SystemMessage.SYSTEM_ERROR;
   }
 }
 
-function ToTitleCase(text: string): string {
-  return text.replace(
-    /\w\S*/g,
-    (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase(),
-  );
+//Lấy tên môn học
+export async function GetSubjectName(
+  subjectID: string,
+): Promise<string | null> {
+  const docRef = doc(db, TableName.SUBJECT, subjectID);
+  const document = await getDoc(docRef);
+  if (document.exists()) {
+    return document.data().subjectName;
+  }
+  return null;
 }

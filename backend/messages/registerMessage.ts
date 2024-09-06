@@ -1,9 +1,6 @@
 import { IRegisterMessage } from '@/backend/models/messages/IRegisterMessage';
 
 const RegisterMessage: IRegisterMessage = {
-  SYSTEM_ERROR: 'Hệ thống hiện tại đang bị lỗi. Xin vui lòng thử lại sau',
-  ACCOUNT_EXIST: 'Tài khoản đã tồn tại',
-  REGISTER_COMPLETE: 'Đăng ký tài khoản thành công',
   NAME: {
     UNDER_MIN_VALUE: 'Họ và tên không được dưới 10 ký tự',
     OVER_MAX_VALUE: 'Họ và tên không được quá 100 ký tự',
@@ -41,6 +38,11 @@ const RegisterMessage: IRegisterMessage = {
     NO_MATCH: 'Mật khẩu nhập lại không khớp',
     REQUIRED: 'Xin hãy nhập lại mật khẩu',
   },
+
+  ACCOUNT_EXIST: 'Tài khoản đã tồn tại',
+
+  REGISTER_COMPLETED: 'Đăng ký tài khoản thành công',
+  REGISTER_FAILED: 'Đăng ký tài khoản thất bại. Vui lòng thử lại sau',
 };
 
 export default RegisterMessage;

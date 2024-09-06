@@ -1,7 +1,8 @@
-import '@/app/globals.css';
+import '@/css/globals.css';
 import '@/css/satoshi.css';
 import '@/css/style.css';
 import '@/css/index.css';
+import '@/css/loadingDot.css';
 
 import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });

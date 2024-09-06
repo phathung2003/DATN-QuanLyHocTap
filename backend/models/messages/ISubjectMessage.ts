@@ -1,9 +1,8 @@
 export interface ISubjectMessage {
+  SUBJECT_ID: { ALREADY_EXIST: string };
   SUBJECT_NAME: {
     OVER_MAX_CHARACTER: string;
-    REQUIRED: string;
-  };
-  SUBJECT_TYPE: {
+    ALREADY_EXIST: string;
     REQUIRED: string;
   };
   SUBJECT_DESCRIPTION: {
@@ -14,19 +13,24 @@ export interface ISubjectMessage {
     WRONG_FILE: string;
     REQUIRED: string;
   };
+
   SUBJECT_EXIST: string;
-  SUBJECT_ID_EXIST: string;
-  SUBJECT_NAME_EXIST: string;
-  SUBJECT_ADD_COMPLETE: string;
-  SUBJECT_EDIT_NOT_FOUND: string;
-  SUBJECT_EDIT_COMPLETE: string;
-  SUBJECT_DELETE_COMPLETE: string;
-  SYSTEM_ERROR: string;
+  SUBJECT_NOT_FOUND: string;
+
+  SUBJECT_ADD_COMPLETED: string;
+  SUBJECT_ADD_FAILED: string;
+
+  SUBJECT_EDIT_COMPLETED: string;
+  SUBJECT_EDIT_FAILED: string;
+
+  SUBJECT_DELETE_COMPLETED: string;
+  SUBJECT_DELETE_FAILED: string;
 }
 
 export interface ISubjectError {
   status: boolean;
   subjectIDError: string | null;
   subjectNameError: string | null;
+  subjectFileError?: string | null;
   systemError: string | null;
 }

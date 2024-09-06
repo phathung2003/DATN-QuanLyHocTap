@@ -10,6 +10,7 @@ import IUserInfo from '@/backend/models/data/IUserInfo';
 //Kiểm tra thông tin đăng nhập
 export async function LoginResult(email: string, password: string) {
   const userData = await Login(email, password);
+
   //Thông tin đăng nhập không đúng
   if (userData == null) {
     return null;
@@ -25,6 +26,7 @@ export async function LoginResult(email: string, password: string) {
         username: userInfo.username,
         phoneNumber: userInfo.phoneNumber,
         email: userInfo.email,
+        role: userInfo.role,
       };
       return user; // Đăng nhập thành công
     }
@@ -63,7 +65,7 @@ export async function GenerateToken(
       createAt: currentTime,
       expiredDate: expireDate,
     },
-    process.env.NEXTAUTH_SECRET,
+    process.env.SECRET_KEY,
   );
 
   try {

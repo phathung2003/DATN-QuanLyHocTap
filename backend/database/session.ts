@@ -8,27 +8,22 @@ import {
 } from 'firebase/firestore';
 import { ISession } from '@/backend/models/data/ISession';
 import { ISessionError } from '@/backend/models/messages/ISessionMessage';
-import SessionMessage from '@/backend/messages/sessionMessage';
 import { db } from '@/backend/database/firebase';
-import { GetInfo } from './users';
-
-const TABLE_NAME = 'sessions';
+import { TableName } from '@/backend/globalVariable';
+import { GetInfo } from '@/backend/database/users';
+import SystemMessage from '@/backend/messages/systemMessage';
+import SessionMessage from '@/backend/messages/sessionMessage';
 
 //Thêm session
 export async function AddSession(data: ISession) {
   try {
-    const docRef = await addDoc(collection(db, TABLE_NAME), {
-      tokenID: data.tokenID,
+    const docRef = await addDoc(collection(db, TableName.SESSION), {
+      tokenID: data.tokenID.replace('Bearer ', ''),
       accountID: data.accountID,
       expiresAt: data.expiresAt,
       createAt: data.createAt,
     });
-    // console.log(docRef.id);
-    if (docRef.id != null) {
-      return true;
-    } else {
-      return false;
-    }
+    return docRef.id != null ? true : false;
   } catch {
     return false;
   }
@@ -36,8 +31,11 @@ export async function AddSession(data: ISession) {
 
 //Xóa session
 export async function DeleteSession(token: string) {
-  const tokenDatabase = collection(db, TABLE_NAME);
-  const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
+  const tokenDatabase = collection(db, TableName.SESSION);
+  const tokenQuery = query(
+    tokenDatabase,
+    where('tokenID', '==', token.replace('Bearer ', '')),
+  );
   const tokenData = await getDocs(tokenQuery);
 
   tokenData.forEach(async (session) => {
@@ -53,8 +51,11 @@ export async function GetSessionInfo(token: string) {
   };
   try {
     //Lấy thông tin session
-    const tokenDatabase = collection(db, TABLE_NAME);
-    const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
+    const tokenDatabase = collection(db, TableName.SESSION);
+    const tokenQuery = query(
+      tokenDatabase,
+      where('tokenID', '==', token.replace('Bearer ', '')),
+    );
     const tokenData = await getDocs(tokenQuery);
 
     if (tokenData.empty) {
@@ -82,11 +83,12 @@ export async function GetSessionInfo(token: string) {
     return getUserData;
   } catch {
     defaultError.status = false;
-    defaultError.message = SessionMessage.SYSTEM_ERROR;
+    defaultError.message = SystemMessage.SYSTEM_ERROR;
     return defaultError;
   }
 }
 
+//Kiểm tra phiên đăng nhập
 export async function CheckSession(token: string) {
   const defaultError: ISessionError = {
     status: true,
@@ -94,8 +96,11 @@ export async function CheckSession(token: string) {
   };
   try {
     //Lấy thông tin session
-    const tokenDatabase = collection(db, TABLE_NAME);
-    const tokenQuery = query(tokenDatabase, where('tokenID', '==', token));
+    const tokenDatabase = collection(db, TableName.SESSION);
+    const tokenQuery = query(
+      tokenDatabase,
+      where('tokenID', '==', token.replace('Bearer ', '')),
+    );
     const tokenData = await getDocs(tokenQuery);
 
     if (tokenData.empty) {
@@ -115,7 +120,54 @@ export async function CheckSession(token: string) {
     return defaultError;
   } catch {
     defaultError.status = false;
-    defaultError.message = SessionMessage.SYSTEM_ERROR;
+    defaultError.message = SystemMessage.SYSTEM_ERROR;
+    return defaultError;
+  }
+}
+
+//Lấy thông tin session
+export async function GetUserIDFromSession(
+  token: string,
+): Promise<ISessionError | string> {
+  const defaultError: ISessionError = {
+    status: true,
+    message: null,
+  };
+  try {
+    //Lấy thông tin session
+    const tokenDatabase = collection(db, TableName.SESSION);
+    const tokenQuery = query(
+      tokenDatabase,
+      where('tokenID', '==', token.replace('Bearer ', '')),
+    );
+    const tokenData = await getDocs(tokenQuery);
+
+    if (tokenData.empty) {
+      defaultError.status = false;
+      defaultError.message = SessionMessage.INVALID_TOKEN;
+      return defaultError;
+    }
+
+    //Kiểm tra session còn hạn không
+    const sessionInfo = await tokenData.docs[0].data();
+    if (sessionInfo.expiresAt.toDate() < new Date()) {
+      await DeleteSession(sessionInfo.tokenID);
+      defaultError.status = false;
+      defaultError.message = SessionMessage.SESSION_TIME_OUT;
+      return defaultError;
+    }
+
+    //Lấy thông tin người dùng
+    const getUserData = await GetInfo(tokenData.docs[0].data().accountID);
+    if (getUserData == false) {
+      defaultError.status = false;
+      defaultError.message = SessionMessage.INFO_NOT_FOUND;
+      return defaultError;
+    }
+    return tokenData.docs[0].data().accountID;
+  } catch {
+    defaultError.status = false;
+    defaultError.message = SystemMessage.SYSTEM_ERROR;
     return defaultError;
   }
 }

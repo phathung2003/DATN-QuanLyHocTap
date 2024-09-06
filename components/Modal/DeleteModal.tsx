@@ -55,7 +55,7 @@ const DeleteModal: React.FC<ProductModalProps> = ({ isOpen, onClose }) => {
             <line x1="14" y1="11" x2="14" y2="17"></line>
           </svg>
           <p className="mb-4 text-slate-500 dark:text-slate-300">
-            Bạn có chắc chắn muốn xóa không ?
+            Bạn có chắc chắn amuốn xóa không ?
           </p>
           <div className="flex items-center justify-center space-x-4">
             <button

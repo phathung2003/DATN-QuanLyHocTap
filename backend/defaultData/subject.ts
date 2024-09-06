@@ -1,11 +1,15 @@
 import { ISubjectError } from '@/backend/models/messages/ISubjectMessage';
 import { ISubject } from '@/backend/models/data/ISubject';
-const DefaultSubjectErrorValue: ISubjectError = {
-  status: true,
-  subjectIDError: null,
-  subjectNameError: null,
-  systemError: null,
-};
+
+export function DefaultSubjectErrorValue(): ISubjectError {
+  return {
+    status: true,
+    subjectIDError: null,
+    subjectNameError: null,
+    subjectFileError: null,
+    systemError: null,
+  };
+}
 
 export function SubjectEditDefaultValue(data: ISubject): ISubject {
   const editData: ISubject = {
@@ -19,4 +23,11 @@ export function SubjectEditDefaultValue(data: ISubject): ISubject {
   return editData;
 }
 
-export default DefaultSubjectErrorValue;
+export function DefaultSubjectValue(): ISubject {
+  return {
+    subjectID: '',
+    subjectName: '',
+    subjectDescription: '',
+    subjectImage: '',
+  };
+}

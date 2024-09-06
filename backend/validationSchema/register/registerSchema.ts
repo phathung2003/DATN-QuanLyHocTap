@@ -60,7 +60,7 @@ const SchemaRegister = Yup.object().shape({
     let baseSchema = schema.email(RegisterMessage.EMAIL.WRONG_EMAIL_FORMAT);
 
     if (RegisterCondition.EMAIL.REQUIRED) {
-      baseSchema = baseSchema.required('Email is required');
+      baseSchema = baseSchema.required(RegisterMessage.EMAIL.REQUIRED);
     }
 
     return baseSchema;
