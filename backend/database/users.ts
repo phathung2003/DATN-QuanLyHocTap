@@ -13,6 +13,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  updateDoc,
   setDoc,
   onSnapshot,
 } from 'firebase/firestore';
@@ -25,12 +26,13 @@ import { db, realtimeDb, auth } from '@/backend/database/firebase';
 import { IRegisterDB } from '@/backend/models/data/IRegister';
 import { DefaultRegisteErrorValue } from '@/backend/defaultData/register';
 import { DefaultAPIResult } from '@/backend/defaultData/global';
-import { TableName } from '@/backend/globalVariable';
+import { Role, Status, TableName } from '@/backend/globalVariable';
 import { IUserChatInfo } from '@/backend/models/data/IChat';
 import IUserInfo from '@/backend/models/data/IUserInfo';
 import SystemMessage from '@/backend/messages/systemMessage';
 import RegisterMessage from '@/backend/messages/registerMessage';
 import UserMessage from '@/backend/messages/userMessage';
+import bcrypt from 'bcryptjs';
 
 //Đăng ký tài khoản
 export async function AddUser(data: IRegisterDB) {
@@ -55,6 +57,80 @@ export async function AddUser(data: IRegisterDB) {
     password: null,
     role: data.role,
   });
+}
+
+export async function DefaultAccount() {
+  //Thông tin tài khoản mặc định
+  const defaultAccountInfo: IRegisterDB = {
+    name: process.env.DEFAULT_NAME || 'Administrator',
+    username: process.env.DEFAULT_USERNAME || 'admin',
+    phoneNumber: null,
+    email: null,
+    password: await bcrypt.hash(process.env.DEFAULT_PASSWORD || '123456', 10),
+    role: Role.ADMIN,
+  };
+
+  //Kiểm tra thông tin đã có hay chưa
+  const duplicateAccountID = await CheckDefaultAccountExist(
+    defaultAccountInfo.username ?? 'admin',
+  );
+
+  //Chưa có tài khoản mặc định - Tạo mới
+  if (
+    duplicateAccountID == Status.NOT_FOUND ||
+    duplicateAccountID == Status.SYSTEM_ERROR
+  ) {
+    const userInfo = doc(db, TableName.USER, 'DEFAULT');
+    try {
+      await setDoc(userInfo, defaultAccountInfo);
+      return;
+    } catch {
+      await updateDoc(userInfo, {
+        name: defaultAccountInfo.name,
+        username: defaultAccountInfo.username,
+        phoneNumber: defaultAccountInfo.phoneNumber,
+        email: defaultAccountInfo.email,
+        password: defaultAccountInfo.password,
+        role: defaultAccountInfo.role,
+      });
+      return;
+    }
+  }
+  //Đã có tài khoản mặc định - Kiểm tra role
+  else {
+    const document = doc(db, TableName.USER, duplicateAccountID);
+    const userInfo = await getDoc(document);
+
+    if (!userInfo.exists()) {
+      const userInfo = doc(db, TableName.USER, 'DEFAULT');
+      try {
+        await setDoc(userInfo, defaultAccountInfo);
+        return;
+      } catch {
+        await updateDoc(userInfo, {
+          name: defaultAccountInfo.name,
+          username: defaultAccountInfo.username,
+          phoneNumber: defaultAccountInfo.phoneNumber,
+          email: defaultAccountInfo.email,
+          password: defaultAccountInfo.password,
+          role: defaultAccountInfo.role,
+        });
+        return;
+      }
+    }
+
+    //Không phải là Admin thì cài về Admin
+    if (userInfo.data().role != Role.ADMIN) {
+      await updateDoc(document, {
+        name: userInfo.data().name,
+        username: userInfo.data().username,
+        phoneNumber: userInfo.data().phoneNumber,
+        email: userInfo.data().email,
+        password: userInfo.data().password,
+        role: Role.ADMIN,
+      });
+    }
+  }
 }
 
 //Kiểm tra đã có tài khoản chưa
@@ -340,4 +416,27 @@ function ChatUserData(doc): IUserChatInfo {
     userID: doc.id,
     isOnline: false,
   };
+}
+
+//Kiểm tra đã có tài khoản chưa
+export async function CheckDefaultAccountExist(
+  username: string,
+): Promise<string> {
+  try {
+    const userCollection = collection(db, TableName.USER);
+    if (username != null) {
+      const userQuery = query(
+        userCollection,
+        where('username', '==', username),
+      );
+
+      const userData = await getDocs(userQuery);
+      if (userData.empty == false) {
+        return userData.docs[0].id;
+      }
+    }
+  } catch (error) {
+    return Status.SYSTEM_ERROR;
+  }
+  return Status.NOT_FOUND;
 }

@@ -123,7 +123,6 @@ export async function EditContent(
       return original;
     });
   }
-  console.log(originalPosition);
 
   //Tiến hành cập nhật
   try {
