@@ -115,6 +115,9 @@ export async function GenerateID(filePath: string): Promise<string> {
     //Mặc định độ dài ID là 4 ký tự
     length = 4;
   }
+  if (length < 1) {
+    length = 4;
+  }
 
   do {
     //Quá 10 lần mà vẫn trùng => Tăng lên 1 ký tự
