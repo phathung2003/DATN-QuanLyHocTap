@@ -4,7 +4,7 @@ import { LoginResult, GenerateToken } from '@/app/api/user/login/loginProcess';
 import MessageReturnOnly from '@/app/api/messageReturnOnly';
 import APIMessage from '@/backend/messages/apiMessage';
 import SystemMessage from '@/backend/messages/systemMessage';
-const expiresInSeconds = process.env.NEXT_PUBLIC_TOKEN_EXPIRED;
+const expiresInSeconds = process.env.TOKEN_EXPIRED ?? 86400;
 
 export async function POST(request: Request) {
   try {
@@ -13,10 +13,7 @@ export async function POST(request: Request) {
     //Xác đinh thời gian có phải là số hay không
     const tokenExpirationNumber = expiresInSeconds
       ? Number(expiresInSeconds)
-      : null;
-    if (tokenExpirationNumber === null || isNaN(tokenExpirationNumber)) {
-      return MessageReturnOnly(SystemMessage.SYSTEM_ERROR, 500);
-    }
+      : 86400;
 
     //Lỗi thiếu dữ liệu
     if (!data.info || !data.password) {

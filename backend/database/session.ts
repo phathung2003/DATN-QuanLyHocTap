@@ -6,6 +6,7 @@ import {
   getDocs,
   deleteDoc,
 } from 'firebase/firestore';
+import jwt from 'jsonwebtoken';
 import { ISession } from '@/backend/models/data/ISession';
 import { ISessionError } from '@/backend/models/messages/ISessionMessage';
 import { db } from '@/backend/database/firebase';
@@ -50,37 +51,37 @@ export async function GetSessionInfo(token: string) {
     message: null,
   };
   try {
-    //Lấy thông tin session
-    const tokenDatabase = collection(db, TableName.SESSION);
-    const tokenQuery = query(
-      tokenDatabase,
-      where('tokenID', '==', token.replace('Bearer ', '')),
+    return await jwt.verify(
+      token,
+      process.env.SECRET_KEY,
+      async (err, decoded) => {
+        //Token không hợp lệ
+        if (err) {
+          defaultError.status = false;
+          defaultError.message = SessionMessage.INVALID_TOKEN;
+          return defaultError;
+        }
+
+        //Lưu nội dung phiên đăng nhập
+        const sessionInfo = decoded;
+        //Kiểm tra phiên đăng nhập còn hạn không
+        if (sessionInfo.expiresAt < new Date().getTime()) {
+          await DeleteSession(sessionInfo.tokenID);
+          defaultError.status = false;
+          defaultError.message = SessionMessage.SESSION_TIME_OUT;
+          return defaultError;
+        }
+        console.log(sessionInfo);
+        //Lấy thông tin người dùng
+        const getUserData = await GetInfo(sessionInfo.accountID);
+        if (getUserData == false) {
+          defaultError.status = false;
+          defaultError.message = SessionMessage.INFO_NOT_FOUND;
+          return defaultError;
+        }
+        return getUserData;
+      },
     );
-    const tokenData = await getDocs(tokenQuery);
-
-    if (tokenData.empty) {
-      defaultError.status = false;
-      defaultError.message = SessionMessage.INVALID_TOKEN;
-      return defaultError;
-    }
-
-    //Kiểm tra session còn hạn không
-    const sessionInfo = await tokenData.docs[0].data();
-    if (sessionInfo.expiresAt.toDate() < new Date()) {
-      await DeleteSession(sessionInfo.tokenID);
-      defaultError.status = false;
-      defaultError.message = SessionMessage.SESSION_TIME_OUT;
-      return defaultError;
-    }
-
-    //Lấy thông tin người dùng
-    const getUserData = await GetInfo(tokenData.docs[0].data().accountID);
-    if (getUserData == false) {
-      defaultError.status = false;
-      defaultError.message = SessionMessage.INFO_NOT_FOUND;
-      return defaultError;
-    }
-    return getUserData;
   } catch {
     defaultError.status = false;
     defaultError.message = SystemMessage.SYSTEM_ERROR;
@@ -95,29 +96,37 @@ export async function CheckSession(token: string) {
     message: null,
   };
   try {
-    //Lấy thông tin session
-    const tokenDatabase = collection(db, TableName.SESSION);
-    const tokenQuery = query(
-      tokenDatabase,
-      where('tokenID', '==', token.replace('Bearer ', '')),
+    return await jwt.verify(
+      token,
+      process.env.SECRET_KEY,
+      async (err, decoded) => {
+        //Token không hợp lệ
+        if (err) {
+          defaultError.status = false;
+          defaultError.message = SessionMessage.INVALID_TOKEN;
+          return defaultError;
+        }
+
+        //Lưu nội dung phiên đăng nhập
+        const sessionInfo = decoded;
+        //Kiểm tra phiên đăng nhập còn hạn không
+        if (sessionInfo.expiresAt < new Date().getTime()) {
+          await DeleteSession(sessionInfo.tokenID);
+          defaultError.status = false;
+          defaultError.message = SessionMessage.SESSION_TIME_OUT;
+          return defaultError;
+        }
+
+        //Lấy thông tin người dùng
+        const getUserData = await GetInfo(sessionInfo.accountID);
+        if (getUserData == false) {
+          defaultError.status = false;
+          defaultError.message = SessionMessage.INFO_NOT_FOUND;
+          return defaultError;
+        }
+        return defaultError;
+      },
     );
-    const tokenData = await getDocs(tokenQuery);
-
-    if (tokenData.empty) {
-      defaultError.status = false;
-      defaultError.message = SessionMessage.INVALID_TOKEN;
-      return defaultError;
-    }
-
-    //Kiểm tra session còn hạn không
-    const sessionInfo = await tokenData.docs[0].data();
-    if (sessionInfo.expiresAt.toDate() < new Date()) {
-      await DeleteSession(sessionInfo.tokenID);
-      defaultError.status = false;
-      defaultError.message = SessionMessage.SESSION_TIME_OUT;
-      return defaultError;
-    }
-    return defaultError;
   } catch {
     defaultError.status = false;
     defaultError.message = SystemMessage.SYSTEM_ERROR;
